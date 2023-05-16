@@ -1,97 +1,89 @@
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UserAuthentication {
-    public static void main(String[] args) {
-        UserAuthentication u1 = new UserAuthentication();
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Do you want to Register or Login? (R/L): ");
-        char e = sc.next().charAt(0);
-        System.out.print("Please Enter your username: ");
-        String u = sc.next();
-        System.out.print("Please Enter your password: ");
-        String p = sc.next();
-        u1.input(u,p,e);
-    }
-    Map<String, String> d = new HashMap<>();
 
+    private Map<String, User> users;
+    private static final String USERS_DATA = "data.txt";
 
-    public void input(String u, String p, char e) {
+    public UserAuthentication() {
+        users = new HashMap<>();
         read();
-        if (e=='L'||e=='l') {
-            boolean authenticated = login(u, p);
-            if (authenticated) {
-                System.out.println("Login successful!");
-            } else {
-                System.out.println("Invalid username or password");
-            }
-        } else if (e=='R'||e=='r') {
-            if (register(u, p)) {
-                System.out.println("Registration successful!");
-            } else {
-                System.out.println("Username already exists");
-            }
-        }else {
-            System.out.println("Invalid choice.");
-        }
+    }
+
+    public void register(String email, String password, String name) {
+        User user = new User(email, hashPassword(password), name);
+        users.put(email, user);
         write();
+        System.out.println("Registration successful!");
     }
 
-    public void read() {
-        d = new HashMap<>();
-        String s = "";
-        try {
-            s = new String(Files.readAllBytes(Paths.get("data.txt")));
-            if (s.length() == 0)
-                return;
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void login(String email, String password) {
+        User user = users.get(email);
+        if (user != null && BCrypt.checkpw(password,hashPassword(password))) {
+            System.out.println("Login successful!");
+            System.out.println("Welcome, " + user.getName() + "!");
         }
-        String[] pairs = s.split("\n");
-        for (String pair : pairs) {
-            d.put(pair.split(",")[0], pair.split(",")[1]);
-        }
+        System.out.println("Invalid email or password. Please try again.");
     }
 
-    public void write() {
-        try (FileWriter m = new FileWriter("data.txt")) {
-            for (Map.Entry<String, String> entry : d.entrySet()) {
-                m.write(entry.getKey() + "," + entry.getValue() + "\n");
+    private void write(){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(USERS_DATA))) {
+            for (User user : users.values()) {
+                writer.write(user.getEmail() + "," + user.getPassword() + "," + user.getName() + "\n");
             }
-            m.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    boolean login(String u, String p) {
-        if (d.containsKey(u)) {
-            String storedHash = d.get(u);
-            String inputHash = hashPassword(p);
-            return storedHash.equals(inputHash);
+    public void read() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(USERS_DATA))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                String email = data[0];
+                String password = data[1];
+                String name = data[2];
+                User user = new User(email, password, name);
+                users.put(email, user);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return false;
-    }
-
-    boolean register(String u, String p) {
-        if (d.containsKey(u)) return false;
-        d.put(u, hashPassword(p));
-        return true;
     }
     private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
-            return Base64.getEncoder().encodeToString(hashBytes);
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+    public static void main(String[] args) {
+        UserAuthentication authentication = new UserAuthentication();
+        Scanner scanner = new Scanner(System.in);
 
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
+        System.out.println("Welcome to the Application!");
+        System.out.println("1. Register");
+        System.out.println("2. Login");
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character after reading the choice
+
+        switch (choice) {
+            case 1 -> {
+                System.out.print("Registration\nEmail: ");
+                String email = scanner.nextLine();
+                System.out.print("Password: ");
+                String password = scanner.nextLine();
+                System.out.print("Name: ");
+                String name = scanner.nextLine();
+                authentication.register(email, password, name);
+            }
+            case 2 -> {
+                System.out.print("Login\nEmail: ");
+                String email = scanner.nextLine();
+                System.out.print("Password: ");
+                String password = scanner.nextLine();
+                authentication.login(email, password);
+            }
+            default -> System.out.println("Invalid choice. Please try again.");
         }
     }
 }
