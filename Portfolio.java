@@ -1,4 +1,3 @@
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,11 +25,11 @@ public class Portfolio {
     }
 
     public double getValue() {
-        double value = 0.0;
+        double value = 50000; // initial fund = RM50000
         for (Map.Entry<Stock, Integer> entry : holdings.entrySet()) {
             Stock stock = entry.getKey();
             int shares = entry.getValue();
-            value += stock.getLastPrice() * shares;
+            value += stock.getPrice() * shares;
         }
         return value;
     }
