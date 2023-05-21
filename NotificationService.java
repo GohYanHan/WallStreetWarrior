@@ -92,7 +92,7 @@ class NotificationScheduler {
             public void run() {
                 checkThresholds();
             }
-        }, 0, 1000); // Adjust the interval as per your requirements
+        }, 0, 1000); 
     }
 
     private void checkThresholds() {
