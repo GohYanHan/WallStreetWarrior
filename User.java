@@ -17,6 +17,9 @@ public class User {
     private Portfolio portfolio;
     private boolean disqualified;
 
+    public User() {
+    }
+
     public User(String email, String password, String name) {
         this.name = name;
         this.email = email;
