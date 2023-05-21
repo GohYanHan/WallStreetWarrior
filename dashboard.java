@@ -107,10 +107,10 @@ public class StockTradingApp {
     public static void main(String[] args) {
         StockSearch stockSearch = new StockSearch();
 
-        API api = new API();
+        Portfolio portfolio = new Portfolio();
 
         // Add some sample stocks
-        stockSearch.addStock(new Stock(api.StockList()));
+        stockSearch.addStock(new Stock(Portfolio.getHoldings()));
 
 
         // Create user dashboard
