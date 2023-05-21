@@ -24,7 +24,7 @@ public class Portfolio {
         return holdings;
     }
 
-    public double getValue() {
+    public double getValue() { // stock de value only no 本钱
         double value = 50000; // initial fund = RM50000
         for (Map.Entry<Stock, Integer> entry : holdings.entrySet()) {
             Stock stock = entry.getKey();
