@@ -8,15 +8,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Iterator;
 
+/*
+StockList() - Display a list of 'symbol' & 'name'
+getPrices() - For user to search for prices (can search multiple stock at one time)
+getRealTimePrice() - For TradingEngine, it returns a double price ONLY
+ */
+
 class testAPI {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         API api = new API();
-        api.StockList();
-        api.getPrices();
+//        api.StockList();
+//        api.getPrices();
+//        System.out.println(api.getRealTimePrice("0007.MY"));
     }
 
 }
@@ -72,6 +77,62 @@ public class API {
         }
     }
 
+    // Only return single value price for Trading Machine
+    static double getRealTimePrice(String symbol) throws IOException {
+        symbol = symbol.replace(".MY", ".KL");
+
+        String url = API_ENDPOINT + "?apikey=" + API_KEY + "&function=TIME_SERIES_INTRADAY_EXTENDED&symbol=" + symbol;
+        URL apiURL = new URL(url);
+        HttpURLConnection connection = (HttpURLConnection) apiURL.openConnection();
+        connection.setRequestMethod("GET");
+        connection.connect();
+
+        String jsonResponse = "";
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            StringBuilder response = new StringBuilder();
+
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+
+            jsonResponse = response.toString();
+        }
+
+        double latestClosePrice = 0;
+        try {
+            JSONObject json = new JSONObject(jsonResponse);
+
+            if (!json.isNull(symbol)) {
+
+                JSONObject symbolData = json.getJSONObject(symbol);
+                JSONObject closeData = symbolData.getJSONObject("Close");
+
+                long latestTimestamp = 0;
+
+                Iterator<String> timestampIterator = closeData.keys();
+                while (timestampIterator.hasNext()) {
+                    String timestamp = timestampIterator.next();
+                    long currentTimestamp = Long.parseLong(timestamp);
+                    double close = closeData.getDouble(timestamp);
+
+                    if (currentTimestamp > latestTimestamp) {
+                        latestTimestamp = currentTimestamp;
+                        latestClosePrice = close;
+                    }
+
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return latestClosePrice;
+    }
+
+
     // Prompt the user for stock symbols, timestamp, and interval, and display the prices by calling getStockPrice() and displayPrices()
     static void getPrices() {
         try {
@@ -90,31 +151,15 @@ public class API {
                 symbolsArr = symbols.split("\\s*,\\s*");
             }
 
-            System.out.print("Enter the start date (yyyyMMdd): ");
-            String startDateStr = reader.readLine();
-
-            System.out.print("Enter the end date (yyyyMMdd): ");
-            String endDateStr = reader.readLine();
-
-            System.out.print("Enter the desired interval (1min, 5min, 15min, 30min, 60min, daily, weekly, monthly): ");
-            String interval = reader.readLine();
-
-            // Convert the start and end date strings to Date objects
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-            Date startDate = dateFormat.parse(startDateStr);
-            Date endDate = dateFormat.parse(endDateStr);
-
-            // Convert the Date objects to timestamps
-            long startTimestamp = startDate.getTime();
-            long endTimestamp = endDate.getTime();
 
             // Retrieve the stock prices within the specified date range and interval
-            String jsonResponse = getStockPrice(symbolsArr, startTimestamp, endTimestamp, interval);
+            String jsonResponse = getStockPrice(symbolsArr);
             displayPrices(jsonResponse, symbolsArr);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     // Check if all symbols are in the stock list
     static boolean isValidSymbols(String[] symbols) {
@@ -152,7 +197,7 @@ public class API {
 
 
     // Fetch stock prices from the API based on the symbols, timestamp, and interval
-    static String getStockPrice(String[] symbolsArr, long startTimestamp, long endTimestamp, String interval) throws Exception {
+    static String getStockPrice(String[] symbolsArr) throws Exception {
 
         // Convert the symbols to "0001.KL", "0002.KL", etc.
         for (int i = 0; i < symbolsArr.length; i++) {
@@ -165,7 +210,7 @@ public class API {
         }
         symbolsParam.deleteCharAt(symbolsParam.length() - 1);
 
-        String url = API_ENDPOINT + "?apikey=" + API_KEY + "&function=TIME_SERIES_INTRADAY_EXTENDED&symbol=" + symbolsParam + "&interval=" + interval + "&slice=" + startTimestamp + "," + endTimestamp;
+        String url = API_ENDPOINT + "?apikey=" + API_KEY + "&function=TIME_SERIES_INTRADAY_EXTENDED&symbol=" + symbolsParam;
         URL apiURL = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) apiURL.openConnection();
         connection.setRequestMethod("GET");
@@ -203,29 +248,31 @@ public class API {
                 System.out.println();
                 JSONObject symbolData = json.getJSONObject(symbol);
                 System.out.println("Symbol: " + symbol);
-                System.out.println("-------------------------------");
-                System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", "Timestamp", "Open", "High", "Low", "Close");
 
-                JSONObject openData = symbolData.getJSONObject("Open");
-                JSONObject highData = symbolData.getJSONObject("High");
-                JSONObject lowData = symbolData.getJSONObject("Low");
                 JSONObject closeData = symbolData.getJSONObject("Close");
 
-                Iterator<String> timestampIterator = openData.keys();
+                long latestTimestamp = 0;
+                double latestClosePrice = 0.0;
+
+                Iterator<String> timestampIterator = closeData.keys();
                 while (timestampIterator.hasNext()) {
                     String timestamp = timestampIterator.next();
-                    double open = openData.getDouble(timestamp);
-                    double high = highData.getDouble(timestamp);
-                    double low = lowData.getDouble(timestamp);
+                    long currentTimestamp = Long.parseLong(timestamp);
                     double close = closeData.getDouble(timestamp);
 
-                    System.out.printf("%-20s %-20.2f %-20.2f %-20.2f %-20.2f\n", timestamp, open, high, low, close);
+                    if (currentTimestamp > latestTimestamp) {
+                        latestTimestamp = currentTimestamp;
+                        latestClosePrice = close;
+                    }
+
                 }
+                System.out.println("Close: " + latestClosePrice);
                 System.out.println();
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
 
 }
