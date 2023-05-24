@@ -201,8 +201,9 @@ public class UserAuthentication {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         UserAuthentication userAuth = new UserAuthentication();
+        API api = new API();
         List<User> test = userAuth.getUser();
         System.out.println(test);
         Scanner scanner = new Scanner(System.in);
@@ -239,22 +240,18 @@ public class UserAuthentication {
                     } else if (userAuth.login(email, password)) {
                         User user = userAuth.getUsers().get(email);
                         // Create a list of stocks
-                        List<Stock> stocks = new ArrayList<>();
-                        stocks.add(new Stock("AAPL", "Apple Inc.", 1500.0));
-                        stocks.add(new Stock("GOOG", "Alphabet Inc.", 2500.0));
-                        // Create a trading engine with the list of stocks
-                        TradingEngine tradingEngine = new TradingEngine(stocks);
-                        //updatePrice here??
+
+                        TradingEngine tradingEngine = new TradingEngine();
                         // Create a portfolio for the user
                         Portfolio portfolio = new Portfolio();
 
-//                        if (tradingEngine.isWithinTradingHours()) {
-                            userAuth.loopTrade(stocks,portfolio,user,tradingEngine);
+                        if (tradingEngine.isWithinTradingHours()) {
+                            userAuth.loopTrade(api.extractStocks() ,portfolio,user,tradingEngine);
                         } else {
                             System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
                         }
                     }
-//                }
+                }
                 case 3 -> {
                     System.out.println("Exiting...");
                     System.out.println("-----------------------------");
@@ -277,17 +274,20 @@ public class UserAuthentication {
         return null;
     }
 
-    private void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine) {
+    private void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine) throws IOException {
         while (true) {
             // Choose between buying or selling
-            System.out.println("1. Buy or sell stock \n2. Show current stock owned \n3. Cancel pending orders \n4. Close market");
+            System.out.println("1. Buy or sell stock \n2. Show current stock owned \n3. Cancel pending orders");
             int choice = scanner.nextInt();
 
+            Order buyOrder = null;
             if (choice == 1) {
                 System.out.println("1. Buy stock \n2. Sell stock");
                 choice = scanner.nextInt();
                 scanner.nextLine();
                 if (choice == 1) {
+                    // Display stock in sellOrder list
+                    tradingEngine.displaySellOrders();
                     // Place a buy order
                     System.out.println("Enter stock symbol for buy order: ");
                     String buyStockSymbol = scanner.nextLine();
@@ -316,7 +316,7 @@ public class UserAuthentication {
                     buyStock = findStockBySymbol(stocks, buyStockSymbol);
                     //can implement placeOrder??
                     if (buyStock != null) {
-                        Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, 0.0, buyExpectedPrice, 0.0, user);
+                        buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, buyExpectedPrice, 0.0, user);
                         tradingEngine.executeOrder(buyOrder, portfolio);
                         System.out.println("Stock bought successfully!");
                     } else {
@@ -348,7 +348,7 @@ public class UserAuthentication {
 
                     sellStock = findStockBySymbol(stocks, sellStockSymbol);
                     if (sellStock != null) {
-                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, 0.0, sellExpectedPrice, user);
+                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user);
                         tradingEngine.executeOrder(sellOrder, portfolio);
                         System.out.println("Stock successfully bought!");
                     } else {
@@ -358,15 +358,16 @@ public class UserAuthentication {
             } else if (choice == 2) {
                 //show current stock owned (trading dashboard)
             } else if (choice == 3) {
-                TradingApp tradingApp = new TradingApp(getUser(), tradingEngine);
-                tradingApp.cancelOrder(user);
-            } else if (choice == 4) {
-                tradingEngine.closeMarket(portfolio, portfolio.getValue());
+                List<Order> buyOrders = new ArrayList<>();
+                while (tradingEngine.getBuyOrders() != null) {
+                    buyOrders.add((Order) tradingEngine.getBuyOrders().values());
+                }
+                tradingEngine.cancelBuyOrder(buyOrders); // remove string
             } else {
                 System.out.println("Execution invalid");
                 return;
             }
 
-    }
+        }
 }
 }

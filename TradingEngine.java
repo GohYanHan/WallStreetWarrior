@@ -12,7 +12,7 @@ public class TradingEngine {
     API api = new API();
 
 
-    public TradingEngine(List<Stock> stocks) throws IOException {
+    public TradingEngine() throws IOException {
         this.stocks = api.extractStocks();
         this.buyOrders = new HashMap<>();
         this.sellOrders = new HashMap<>();
@@ -122,9 +122,7 @@ public class TradingEngine {
         }
     }
 
-    public void cancelBuyOrder(String stockSymbol) {
-        Stock stock = getStockBySymbol(stockSymbol);
-        List<Order> orders = buyOrders.get(stock);
+    public void cancelBuyOrder(List<Order> orders) {
         if (!orders.isEmpty()) {
             System.out.println("Choose the cancel option: ");
             System.out.println("1. Cancel based on longest time");
@@ -292,5 +290,9 @@ public class TradingEngine {
     }
     private boolean isInSellOrder(Order buyOrder, Order sellOrder){
         return buyOrder.getStock().getSymbol().equals(sellOrder.getStock().getSymbol()) && buyOrder.getExpectedBuyingPrice() == sellOrder.getExpectedSellingPrice();
+    }
+
+    public Map<Stock, List<Order>> getBuyOrders() {
+        return buyOrders;
     }
 }
