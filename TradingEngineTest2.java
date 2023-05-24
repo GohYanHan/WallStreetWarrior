@@ -3,14 +3,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
-public class TradingEngine {
+public class TradingEngineTest2 {
     private List<Stock> stocks;
     private Map<Stock, List<Order>> buyOrders;
     private Map<Stock, List<Order>> sellOrders;
     private Map<Stock, Integer> lotPool;
 
 
-    public TradingEngine(List<Stock> stocks) {
+    public TradingEngineTest2(List<Stock> stocks) {
         this.stocks = stocks;
         this.buyOrders = new HashMap<>();
         this.sellOrders = new HashMap<>();
@@ -20,7 +20,7 @@ public class TradingEngine {
         }
         this.lotPool = new HashMap<>();
         for (Stock stock : stocks) {
-            lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
+            lotPool.put(stock, 500); // Initialize the lot pool with 500 shares for each stock
         }
     }
 
@@ -54,14 +54,14 @@ public class TradingEngine {
     private boolean isWithinInitialTradingPeriod() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.of(currentTime.getYear(), currentTime.getMonth(), currentTime.getDayOfMonth(), 0, 0)
-                .plusDays(3); // Add 3 days to the current date
+                .plusDays(3); // Add three days to the current date
         return currentTime.isBefore(endTime);
     }
 
     public void replenishLotPoolDaily() {
         // Check if it's the start of a new trading day
         if (isStartOfTradingDay()) {
-            // Reset the lotpool shares to 500 for each stock
+            // Reset the lot pool shares to 500 for each stock
             for (Stock stock : stocks) {
                 lotPool.put(stock, 500);
             }
@@ -254,13 +254,13 @@ public class TradingEngine {
         int shares = order.getShares();
         double totalPrice = price * shares;
 
-        double temp = portfolio.getAccBalance();
-        temp += totalPrice;
-        portfolio.setAccBalance(temp);
-        portfolio.removeStock(order.getStock(), shares);
-        orders.remove(order);
-        System.out.println("Sell order executed successfully.");
-    }
+            double temp = portfolio.getAccBalance();
+            temp += totalPrice;
+            portfolio.setAccBalance(temp);
+            portfolio.removeStock(order.getStock(), shares);
+            orders.remove(order);
+            System.out.println("Sell order executed successfully.");
+        }
     public void autoMatching(Portfolio portfolio) {
         for (Stock stock : stocks) {
             List<Order> buyOrderList = buyOrders.get(stock);
@@ -285,7 +285,7 @@ public class TradingEngine {
             }
         }
     }
-    private boolean isInSellOrder(Order buyOrder, Order sellOrder){
-        return buyOrder.getStock().getSymbol().equals(sellOrder.getStock().getSymbol()) && buyOrder.getPrice() == sellOrder.getPrice();
-    }
-}
+        private boolean isInSellOrder(Order buyOrder, Order sellOrder){
+            return buyOrder.getStock().getSymbol().equals(sellOrder.getStock().getSymbol()) && buyOrder.getPrice() == sellOrder.getPrice();
+        }
+            }

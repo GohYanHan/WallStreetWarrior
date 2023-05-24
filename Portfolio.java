@@ -3,6 +3,7 @@ import java.util.Map;
 
 public class Portfolio {
     private Map<Stock, Integer> holdings;
+    private double accBalance;
 
     public Portfolio() {
         holdings = new HashMap<>();
@@ -24,13 +25,21 @@ public class Portfolio {
         return holdings;
     }
 
-    public double getValue() { // stock de value only no 本钱
-        double value = 50000; // initial fund = RM50000
+    public double getValue() {
+        double value = 0;
         for (Map.Entry<Stock, Integer> entry : holdings.entrySet()) {
             Stock stock = entry.getKey();
             int shares = entry.getValue();
             value += stock.getPrice() * shares;
         }
         return value;
+    }//buy +, sell - each stock budongchan
+
+    public void setAccBalance(double accBalance) {
+        this.accBalance = accBalance;
+    }
+
+    public double getAccBalance(){
+        return accBalance;
     }
 }
