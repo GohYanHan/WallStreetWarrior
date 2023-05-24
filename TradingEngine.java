@@ -61,7 +61,7 @@ public class TradingEngine {
     public void replenishLotPoolDaily() {
         // Check if it's the start of a new trading day
         if (isStartOfTradingDay()) {
-            // Reset the lot pool shares to 500 for each stock
+            // Reset the lotpool shares to 500 for each stock
             for (Stock stock : stocks) {
                 lotPool.put(stock, 500);
             }
