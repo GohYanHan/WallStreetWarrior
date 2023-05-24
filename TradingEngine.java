@@ -11,7 +11,6 @@ public class TradingEngine {
     private Map<Stock, Integer> lotPool;
     API api = new API();
 
-
     public TradingEngine() throws IOException {
         this.stocks = api.extractStocks();
         this.buyOrders = new HashMap<>();
