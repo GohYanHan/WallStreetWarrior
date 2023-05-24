@@ -9,18 +9,16 @@ public class Order {
     private Stock stock;
     private Type type;
     private int shares;
-    private double price;
     private LocalDateTime timestamp;
     private User user;
     private double expectedBuyingPrice;
     private static double expectedSellingPrice;
     //add time
 
-    public Order(Stock stock, Type type, int shares, double price, double expectedBuyingPrice, double expectedSellingPrice, User user) {
+    public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user) {
         this.stock = stock;
         this.type = type;
         this.shares = shares;
-        this.price = price;
         this.expectedBuyingPrice = expectedBuyingPrice;
         this.expectedSellingPrice = expectedSellingPrice;
         this.user = user;
@@ -36,10 +34,6 @@ public class Order {
 
     public int getShares() {
         return shares;
-    }
-
-    public double getPrice() {
-        return price;
     }
 
     public double getExpectedBuyingPrice() {
