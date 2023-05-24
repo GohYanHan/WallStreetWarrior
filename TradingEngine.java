@@ -20,7 +20,7 @@ public class TradingEngine {
         }
         this.lotPool = new HashMap<>();
         for (Stock stock : stocks) {
-            lotPool.put(stock, 500); // Initialize the lot pool with 500 shares for each stock
+            lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
         }
     }
 
