@@ -264,6 +264,7 @@ public class UserAuthentication {
         }
     }
 
+
     private static Stock findStockBySymbol(List<Stock> stocks, String symbol) {
         for (Stock stock : stocks) {
             if (stock.getSymbol().equalsIgnoreCase(symbol)) {
