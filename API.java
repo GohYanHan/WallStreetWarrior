@@ -8,28 +8,32 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /*
 StockList() - Display a list of 'symbol' & 'name'
 getPrices() - For user to search for prices (can search multiple stock at one time)
 getRealTimePrice() - For TradingEngine, it returns a double price ONLY
+extractStocks() - return ArrayList of symbols and name
  */
 
-class testAPI {
-    public static void main(String[] args) throws IOException {
-        API api = new API();
+//class testAPI {
+//    public static void main(String[] args) throws IOException {
+//        API api = new API();
 //        api.StockList();
 //        api.getPrices();
-//        System.out.println(api.getRealTimePrice("0007.MY"));
-    }
-
-}
+//        System.out.println(api.getRealTimePrice("8206.MY"));
+//        api.extractStocks();
+//
+//    }
+//}
 
 public class API {
-    private static String fileName = "MyStocks";
-    private static final String API_KEY = "UM-1cd15cbc8ba9f613f94373ca35c267a52acf88978d73439e9f3c941b1c49318d";
-    private static final String API_ENDPOINT = "https://wall-street-warriors-api-um.vercel.app/price";
+    public static String fileName = "MyStocks";
+    public static final String API_KEY = "UM-1cd15cbc8ba9f613f94373ca35c267a52acf88978d73439e9f3c941b1c49318d";
+    public static final String API_ENDPOINT = "https://wall-street-warriors-api-um.vercel.app/price";
 
     //call this method to display a list of Malaysia Stock
     static void StockList() {
@@ -53,6 +57,30 @@ public class API {
         }
 
         return jsonText.toString();
+    }
+
+
+    // Extract the stocks' symbols and names from the JSON response and store them in a List
+    static List<Stock> extractStocks() throws IOException {
+        String jsonResponse = readJsonFromFile(fileName);
+        List<Stock> stockList = new ArrayList<>();
+
+        try {
+            JSONArray jsonArray = new JSONArray(jsonResponse);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject stockJson = jsonArray.getJSONObject(i);
+                String symbol = stockJson.getString("symbol");
+                String name = stockJson.getString("name");
+
+                Stock stock = new Stock(symbol, name);
+                stockList.add(stock);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return stockList;
     }
 
     // Display the stocks' symbols & name from the JSON response
