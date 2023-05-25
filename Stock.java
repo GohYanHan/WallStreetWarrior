@@ -3,10 +3,9 @@ public class Stock {
     private String name;
     private double price;
 
-    public Stock(String symbol, String name, double price) {
+    public Stock(String symbol, String name) {
         this.symbol = symbol;
         this.name = name;
-        this.price = price;
     }
 
     public String getSymbol() {
