@@ -4,6 +4,14 @@ import java.io.*;
 import java.util.*;
 
 public class UserAuthentication {
+    public String getADMIN_EMAIL() {
+        return ADMIN_EMAIL;
+    }
+
+    public String getADMIN_PASSWORD() {
+        return ADMIN_PASSWORD;
+    }
+
     //Admin account and password
     private final String ADMIN_EMAIL = "22004848@siswa.um.edu.my";
     private final String ADMIN_PASSWORD = "Wa11Street";
@@ -53,7 +61,7 @@ public class UserAuthentication {
         User user = users.get(email);
         if (user != null && BCrypt.checkpw(password, hashPassword(password))) {
             System.out.println("Login successful!");
-            System.out.println("Welcome, " + user.getName() + "!");
+            System.out.println("Welcome, " + user.getUsername()+ "!");
             System.out.println("-----------------------------");
             return true;
         }
@@ -65,7 +73,7 @@ public class UserAuthentication {
     void write() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(USERS_DATA))) {
             for (User user : users.values()) {
-                writer.write(user.getEmail() + "," + user.getPassword() + "," + user.getName() + "," + user.isDisqualified() + "\n");
+                writer.write(user.getEmail() + "," + user.getPassword() + "," + user.getUsername() + "," + user.isDisqualified() + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -109,7 +117,7 @@ public class UserAuthentication {
     public void listUsers() {
         System.out.printf("%-30s%-20s%-15s%n", "Email", "Name", "Status");
         for (User user : users.values()) {
-            System.out.printf("%-30s%-20s%-15s%n", user.getEmail(), user.getName(), (user.isDisqualified() ? "Disqualified" : "Qualified"));
+            System.out.printf("%-30s%-20s%-15s%n", user.getEmail(), user.getUsername(), (user.isDisqualified() ? "Disqualified" : "Qualified"));
         }
     }
 
@@ -140,7 +148,7 @@ public class UserAuthentication {
             String newName = scanner.nextLine();
 
             user.setPassword(hashPassword(newPassword));
-            user.setName(newName);
+            user.setUsername(newName);
 
             write();
             System.out.println("User (" + email + ") has been updated.");
@@ -246,7 +254,7 @@ public class UserAuthentication {
                         Portfolio portfolio = new Portfolio();
 
                         if (tradingEngine.isWithinTradingHours()) {
-                            userAuth.loopTrade(api.extractStocks() ,portfolio,user,tradingEngine);
+                            userAuth.loopTrade(API.extractStocks() ,portfolio,user,tradingEngine);
                         } else {
                             System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
                         }
