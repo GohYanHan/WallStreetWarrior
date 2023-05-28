@@ -1,34 +1,69 @@
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-class Stock {
-    private String name;
-    private String ticker;
+public class UserDashboard {
+    private Portfolio portfolio;
+    private double startingAccountBalance;
 
-    public Stock(String name, String ticker) {
-        this.name = name;
-        this.ticker = ticker;
+    public UserDashboard(double startingAccountBalance) {
+        portfolio = new Portfolio();
+        this.startingAccountBalance = 50000;
     }
 
-    public String getName() {
-        return name;
+    public void addStock(Stock stock, int shares) {
+        portfolio.addStock(stock, shares);
     }
 
-    public String getTicker() {
-        return ticker;
+    public void removeStock(Stock stock, int shares) {
+        portfolio.removeStock(stock, shares);
+    }
+
+    public double getAccountBalance() {
+        return startingAccountBalance + portfolio.getValue();
+    }
+
+    public double getCurrentPoints() {
+        double pAndL = portfolio.getValue() - startingAccountBalance;
+        return (pAndL / startingAccountBalance) * 100;
+    }
+
+    public List<Stock> getOpenPositions() {
+        return portfolio.getHoldings().keySet().stream()
+                .sorted(Comparator.comparing(Stock::getSymbol))
+                .collect(Collectors.toList());
+    }
+
+    public List<Trade> getTradeHistorySortedByPrice() {
+        return portfolio.getTradeHistory().stream()
+                .sorted(Comparator.comparing(Trade::getPrice))
+                .collect(Collectors.toList());
+    }
+
+    public List<Trade> getTradeHistorySortedByPlacementTime() {
+        return portfolio.getTradeHistory().stream()
+                .sorted(Comparator.comparing(Trade::getPlacementTime))
+                .collect(Collectors.toList());
+    }
+
+    public int getStocksLeft() {
+        int totalShares = portfolio.getHoldings().values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+        return totalShares;
     }
 }
 
-class Trade {
+public class Trade {
     private Stock stock;
     private double price;
-    private int quantity;
-    private Date placementTime;
+    private long placementTime;
 
-    public Trade(Stock stock, double price, int quantity) {
+    public Trade(Stock stock, double price, long placementTime) {
         this.stock = stock;
         this.price = price;
-        this.quantity = quantity;
-        this.placementTime = new Date();
+        this.placementTime = placementTime;
     }
 
     public Stock getStock() {
@@ -39,79 +74,7 @@ class Trade {
         return price;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public Date getPlacementTime() {
+    public long getPlacementTime() {
         return placementTime;
     }
 }
-
-class UserDashboard {
-    private double accountBalance;
-    private double pnlOrPoints;
-    private List<Trade> openPositions;
-    private List<Trade> tradeHistory;
-
-    public UserDashboard() {
-        accountBalance = 0.0;
-        pnlOrPoints = 0.0;
-        openPositions = new ArrayList<>();
-        tradeHistory = new ArrayList<>();
-    }
-
-    public void setAccountBalance(double accountBalance) {
-        this.accountBalance = accountBalance;
-    }
-
-    public void setPnlOrPoints(double pnlOrPoints) {
-        this.pnlOrPoints = pnlOrPoints;
-    }
-
-    public void addOpenPosition(Trade trade) {
-        openPositions.add(trade);
-    }
-
-    public void addTradeToHistory(Trade trade) {
-        tradeHistory.add(trade);
-    }
-
-    public void sortTradeHistoryByPrice() {
-        Collections.sort(tradeHistory, Comparator.comparingDouble(Trade::getPrice));
-    }
-
-    public void sortTradeHistoryByPlacementTime() {
-        Collections.sort(tradeHistory, Comparator.comparing(Trade::getPlacementTime));
-    }
-
-    public void displayDashboard() {
-        System.out.println("Account Balance: $" + accountBalance);
-        System.out.println("P&L or Points: " + pnlOrPoints);
-        System.out.println("Open Positions: ");
-        for (Trade trade : openPositions) {
-            System.out.println(trade.getStock().getName() + " (" + trade.getStock().getTicker() + ")");
-        }
-        System.out.println("Trade History: ");
-        for (Trade trade : tradeHistory) {
-            System.out.println("Stock: " + trade.getStock().getName() + " (" + trade.getStock().getTicker() + ")");
-            System.out.println("Price: $" + trade.getPrice());
-            System.out.println("Quantity: " + trade.getQuantity());
-            System.out.println("Placement Time: " + trade.getPlacementTime());
-            System.out.println("---------------------------------");
-        }
-    }
-}
-
-public class StockTradingApp {
-    public static void main(String[] args) {
-        StockSearch stockSearch = new StockSearch();
-
-        Portfolio portfolio = new Portfolio();
-
-        // Add some sample stocks
-        stockSearch.addStock(new Stock(Portfolio.getHoldings()));
-
-
-        // Create user dashboard
-        UserDashboard user
