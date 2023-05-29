@@ -12,11 +12,13 @@ public class TradingEngine {
     private Map<Stock, Integer> lotPool;
     API api = new API();
 
+    private Database db;
 
     public TradingEngine() throws IOException {
         this.stocks = api.extractStocks();
         this.buyOrders = new HashMap<>();
         this.sellOrders = new HashMap<>();
+        db = new Database();
         for (Stock stock : stocks) {
             buyOrders.put(stock, new ArrayList<>());
             sellOrders.put(stock, new ArrayList<>());
@@ -136,7 +138,6 @@ public class TradingEngine {
         //    portfolio.addValue(order.getExpectedBuyingPrice());
             portfolio.addStock(order, shares);
             orders.remove(order);
-            System.out.println("Buy order executed successfully.");
         } else {
             System.out.println("Not enough money");
         }
@@ -289,7 +290,6 @@ public class TradingEngine {
         portfolio.setAccBalance(temp);
         portfolio.removeStock(order, shares); // remove share num
         orders.remove(order);
-        System.out.println("Sell order executed successfully.");
     }
     public void autoMatching(Portfolio portfolio) {
         for (Stock stock : stocks) {
