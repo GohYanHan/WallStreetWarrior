@@ -1,12 +1,9 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.mindrot.jbcrypt.BCrypt;
 
-import javax.swing.*;
 import java.sql.*;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/wsw1";
@@ -18,51 +15,60 @@ public class Database {
 
     }
 
-    public boolean addUser(String email, String password, String username) {
-        String sql = "INSERT INTO users (userEmail, userPassword, userName) VALUES (?, ?, ?)";
+    public User getUser() {
+        return user;
+    }
 
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+    public void setUser(User user) {
+        Database.user = user;
+    }
+
+    public boolean addUser(String email, String hashedPassword, String username) {
+        String sql = "INSERT INTO users (userEmail, userPassword, userName) VALUES (?, ?, ?)";
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setString(1, email);
-            statement.setString(2, password);
+            statement.setString(2, hashedPassword);
             statement.setString(3, username);
 
             int rowsInserted = statement.executeUpdate();
+            statement.close();
 
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("This email has already registered.");
             return false;
         }
     }
 
-    public boolean loadUser(String inputUsername, String inputPassword) {
+    public User loadUser(String inputEmail) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-
-
             String selectQuery = "SELECT userKey, userName, userEmail, userPassword, userStatus, userBalance, PL_Points, role FROM users " +
-                    "WHERE userName = ? AND userPassword = ?";
+                    "WHERE userEmail = ?";
 
             PreparedStatement statement = connection.prepareStatement(selectQuery);
-            statement.setString(1, inputUsername);
-            statement.setString(2, inputPassword);
 
+            statement.setString(1, inputEmail);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
                 user = new User();
+                System.out.println("HII");
                 user.setKey(resultSet.getInt("userKey"));
                 user.setUsername(resultSet.getString("userName"));
                 user.setEmail(resultSet.getString("userEmail"));
                 user.setPassword(resultSet.getString("userPassword"));
+                user.setStatus(resultSet.getString("userStatus"));
                 user.setRole(resultSet.getString("role"));
                 if (user.getRole().equals("Admin")) {
-                } else if (user.getRole().equals("user")) {
+                    System.out.println("Hello Admin");
+//                    dk wht to do
+                } else if (user.getRole().equals("User")) {
                     user.setBalance(resultSet.getInt("userBalance"));
                     user.setPL_Points(resultSet.getInt("PL_Points"));
                 }
-                return true;
+                return user;
             }
 
             resultSet.close();
@@ -71,132 +77,110 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
-    public boolean updateUserBalance(String username, int balance, int pl_points) {
-        String sql = "UPDATE users SET userBalance = ? PL_Points = ? WHERE userName = ?";
+    public boolean updateUserBalance(String email, int balance, int pl_points) {
+        String sql = "UPDATE users SET userBalance = ? PL_Points = ? WHERE userEmail = ?";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, balance);
             statement.setInt(2, pl_points);
-            statement.setString(3, username);
-            statement.executeUpdate();
+            statement.setString(3, email);
+            // Execute the update statement
+            int rowsUpdated = statement.executeUpdate();
+            statement.close();
 
-            return true;
+            // Check if any rows were updated
+            return rowsUpdated > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public boolean resetPassword(String username, String newPassword) {
-        String sql = "UPDATE users SET userPassword = ? WHERE userName = ?";
+    public boolean resetPassword(String email, String username, String newPassword) {
+        String sql = "UPDATE users SET userPassword = ? WHERE userEmail = ? AND userName = ?";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, hashPassword(newPassword));
-            statement.setString(2, username);
-            statement.executeUpdate();
+            statement.setString(1, newPassword);
+            statement.setString(2, email);
+            statement.setString(3, username);
 
-            return true;
+            // Execute the update statement
+            int rowsUpdated = statement.executeUpdate();
+            statement.close();
+
+            // Check if any rows were updated
+            return rowsUpdated > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public boolean updateUsername(String oldUsername, String newUsername) {
-        String sql = "UPDATE users SET userName = ? WHERE userName = ?";
+    public boolean updateUsername(String email, String newUsername) {
+        String sql = "UPDATE users SET userName = ? WHERE userEmail = ?";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, newUsername);
-            statement.setString(1, oldUsername);
-            statement.executeUpdate();
+            statement.setString(2, email);
+            // Execute the update statement
+            int rowsUpdated = statement.executeUpdate();
+            statement.close();
 
-            return true;
+            // Check if any rows were updated
+            return rowsUpdated > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public boolean disqualifyUser(String username) {
-        String sql = "UPDATE users SET userStatus = ? WHERE userName = ?";
+    public boolean disqualifyUser(String email) {
+        String sql = "UPDATE users SET userStatus = ? WHERE userEmail = ?";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, "Disqualified");
-            statement.setString(1, username);
-            statement.executeUpdate();
+            statement.setString(2, email);
+            // Execute the update statement
+            int rowsUpdated = statement.executeUpdate();
+            statement.close();
 
-            return true;
+            // Check if any rows were updated
+            return rowsUpdated > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public boolean removeUser(String username) {
+    public boolean removeUser(String email) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String deleteQuery = "DELETE FROM users WHERE userName = ?";
+            String deleteQuery = "DELETE FROM users WHERE userEmail = ?";
             PreparedStatement statement = connection.prepareStatement(deleteQuery);
-            statement.setString(1, username);
-
+            statement.setString(1, email);
             int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                return true; // User removed successfully
-            }
-
             statement.close();
+
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false; // User not found or failed to removed
     }
 
-    private String hashPassword(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
-    }
-//
-//    public String encryptPassword(String password) {
-//        try {
-//            // Create a SHA-256 MessageDigest instance
-//            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-//
-//            // Convert the password string to bytes
-//            byte[] passwordBytes = password.getBytes(StandardCharsets.UTF_8);
-//
-//            // Apply the digest calculation to the password bytes
-//            byte[] hashedBytes = digest.digest(passwordBytes);
-//
-//            // Convert the hashed bytes to a hexadecimal representation
-//            StringBuilder hexString = new StringBuilder();
-//            for (byte b : hashedBytes) {
-//                String hex = Integer.toHexString(0xff & b);
-//                if (hex.length() == 1) {
-//                    hexString.append('0');
-//                }
-//                hexString.append(hex);
-//            }
-//
-//            return hexString.toString();
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
 
-    public ObservableList<User> displayUsers() {
-        ObservableList<User> list = FXCollections.observableArrayList();
-
+    public List<User> getUsersList() {
+        List<User> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-
-            String selectQuery = "SELECT userKey, userName, userEmail, userPassword, userStatus, userBalance, PL_Points, role FROM users ";
-
+            String selectQuery = "SELECT userKey, userName, userEmail, userStatus, userBalance, PL_Points, role FROM users WHERE role = \"User\"";
             PreparedStatement statement = connection.prepareStatement(selectQuery);
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
-                list.add(new User(resultSet.getString("userName"), resultSet.getString("userEmail"), resultSet.getInt("userBalance"), resultSet.getInt("PL_Points")));
+                list.add(new User(resultSet.getString("userEmail"), resultSet.getString("userName"),
+                        resultSet.getString("userStatus"), resultSet.getInt("userBalance"),
+                        resultSet.getInt("PL_Points"), resultSet.getInt("userKey")));
             }
             resultSet.close();
             statement.close();
@@ -207,12 +191,27 @@ public class Database {
         return list;
     }
 
-    public User getUser() {
-        return user;
-    }
+    public ObservableList<User> displayUsers() {
+        ObservableList<User> list = FXCollections.observableArrayList();
 
-    public static void setUser(User user) {
-        Database.user = user;
-    }
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
 
+            String selectQuery = "SELECT userKey, userName, userEmail, userPassword, userStatus, userBalance, PL_Points, role FROM users WHERE role = User";
+
+            PreparedStatement statement = connection.prepareStatement(selectQuery);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                list.add(new User(resultSet.getString("userEmail"), resultSet.getString("userName"),
+                        resultSet.getString("userStatus"), resultSet.getInt("userBalance"),
+                        resultSet.getInt("PL_Points"), resultSet.getInt("userKey")));
+            }
+            resultSet.close();
+            statement.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
