@@ -1,9 +1,6 @@
 public class User {
-
     private String username;
     private String email;
-
-
     private String password;
     private String status;
     private int key;
@@ -11,7 +8,6 @@ public class User {
     private int PL_Points;
     private String role;
     private Portfolio portfolio;
-    private boolean disqualified;
 
     public User() {
     }
@@ -22,22 +18,21 @@ public class User {
         this.password = password;
         this.portfolio = new Portfolio();
     }
-    public User(String email, String password, String username,String status,int key) {
+
+    public User(String email, String username, String status, int balance, int PL_Points, int key) {
         this.username = username;
         this.email = email;
-        this.password = password;
         this.status = status;
+        this.balance = balance;
+        this.PL_Points = PL_Points;
         this.key = key;
         this.portfolio = new Portfolio();
-    }
-
-    public User(String userName, String userEmail, int userBalance, int pl_points) {
-
     }
 
     public String getUsername() {
         return username;
     }
+
     public void setUsername(String name) {
         this.username = name;
     }
@@ -45,6 +40,7 @@ public class User {
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -52,15 +48,15 @@ public class User {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
     public Portfolio getPortfolio() {
         return portfolio;
     }
-    public boolean isDisqualified() {return disqualified;}
 
-    public void setDisqualified(boolean disqualified) {this.disqualified = disqualified;}
     public String getStatus() {
         return status;
     }
