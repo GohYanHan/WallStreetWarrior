@@ -6,23 +6,56 @@ import java.util.Map;
 public class Portfolio {
     private Map<Order, Integer> holdings;
     private double accBalance = 50000;
+    private double value = 0;
 
     public Portfolio() {
         holdings = new HashMap<>();
     }
 
-    public void addStock(Order order, int shares) {
-        int currentShares = holdings.getOrDefault(order, 0);
-        holdings.put(order, currentShares + shares);
+    public void addStock(Order order, int buyShares) {
+        for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
+            Order orders = entry.getKey();
+            int shares = entry.getValue();
+            if (orders.getStock().getSymbol().equalsIgnoreCase(order.getStock().getSymbol())) {
+                int updatedShares = shares + buyShares;
+                holdings.replace(orders, shares, updatedShares);
+                value += order.getExpectedSellingPrice();
+                System.out.println("Buy order executed successfully.");
+            } else {
+                holdings.put(order, buyShares);
+            }
+        }
     }
 
-    public void removeStock(Order order, int shares) {
-        int currentShares = holdings.getOrDefault(order, 0);
-        if (currentShares >= shares) {
-            holdings.put(order, currentShares - shares);
-        }else{
-            System.out.println("Current shares in holding not enough to be sold");
+    public void removeStock(Order order, int soldShares) {
+        for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
+            Order orders = entry.getKey();
+            int shares = entry.getValue();
+            if (orders.getStock().getSymbol().equalsIgnoreCase(order.getStock().getSymbol())) {
+                int updatedShares = shares - soldShares;
+
+                if (updatedShares == 0) {
+                    holdings.remove(orders);
+                } else if (updatedShares > 0) {
+                    holdings.replace(orders,shares, updatedShares);
+                    value -= order.getExpectedBuyingPrice();
+                    System.out.println("Sell order executed successfully.");
+                } else {
+                    System.out.println("Stock in list not enough.");
+                }
+
+            } else {
+                System.out.println("Stock not found in holdings.");
+            }
         }
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public List<Integer> getHoldingsValues() {
+        return new ArrayList<>(holdings.values());
     }
 
     public boolean getHoldings(String symbol){
@@ -46,10 +79,9 @@ public class Portfolio {
             for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
                 Order order = entry.getKey();
                 int shares = entry.getValue();
-
                 System.out.println("Stock: " + order.getStock().getSymbol());
                 System.out.println("Shares: " + shares);
-                System.out.println("Value: " + (order.getExpectedBuyingPrice()));
+                System.out.println("Value: " + getValue());
                 System.out.println("-".repeat(30));
             }
         }

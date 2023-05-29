@@ -136,7 +136,6 @@ public class TradingEngine {
         //    portfolio.addValue(order.getExpectedBuyingPrice());
             portfolio.addStock(order, shares);
             orders.remove(order);
-            System.out.println("Buy order executed successfully.");
         } else {
             System.out.println("Not enough money");
         }
@@ -289,7 +288,6 @@ public class TradingEngine {
         portfolio.setAccBalance(temp);
         portfolio.removeStock(order, shares); // remove share num
         orders.remove(order);
-        System.out.println("Sell order executed successfully.");
     }
     public void autoMatching(Portfolio portfolio) {
         for (Stock stock : stocks) {
