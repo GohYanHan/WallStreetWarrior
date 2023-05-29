@@ -92,7 +92,7 @@ class NotificationScheduler {
             public void run() {
                 checkThresholds();
             }
-        }, 0, 1000); 
+        }, 0, 1000);
     }
 
     private void checkThresholds() {
@@ -119,4 +119,5 @@ class NotificationScheduler {
     public void removeUserNotification(Notification notification) {
         notifications.remove(notification);
     }
+}
 
