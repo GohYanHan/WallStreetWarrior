@@ -1,31 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Trade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/search.java" beforeDir="false" afterPath="$PROJECT_DIR$/search.java" afterDir="false" />
+    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="Upload database and fix some bug">
+      <change afterPath="$PROJECT_DIR$/.idea/WallStreetWarrior.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/WallStreetWarrior.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/libraries/json_20230227.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Trade.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/WallStreetWarrior.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Leaderboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/Leaderboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Portfolio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TradingEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/TradingEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/API.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/API.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/AdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/AdminPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/EmailService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/EmailService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Notification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order$Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order$Type.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Portfolio.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Stock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/TradingEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/TradingEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserAuthentication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore$Leaderboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore$Leaderboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserSettings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserSettings.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2QSXO0inAcqBcl4voK3fOpybQeE" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/user/OneDrive - matrik/Documents/IntelliJ/WallStreetWarrior"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Downloads/javafx_collection/javafx-base-21-ea+17-linux.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager">
+    <configuration name="UserAuthentication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="UserAuthentication" />
+      <module name="WallStreetWarrior" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="WallStreetWarrior" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="WallStreetWarrior" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.UserAuthentication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -35,6 +110,31 @@
       <option name="presentableId" value="Default" />
       <updated>1685347920979</updated>
     </task>
+    <task id="LOCAL-00001" summary="Upload database and fix some bug">
+      <created>1685348939434</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1685348939434</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Upload database and fix some bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Upload database and fix some bug" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
