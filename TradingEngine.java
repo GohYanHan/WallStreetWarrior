@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,10 +9,11 @@ public class TradingEngine {
     private Map<Stock, List<Order>> buyOrders;
     private Map<Stock, List<Order>> sellOrders;
     private Map<Stock, Integer> lotPool;
+    API api = new API();
 
 
-    public TradingEngine(List<Stock> stocks) {
-        this.stocks = stocks;
+    public TradingEngine() throws IOException {
+        this.stocks = api.extractStocks();
         this.buyOrders = new HashMap<>();
         this.sellOrders = new HashMap<>();
         for (Stock stock : stocks) {
@@ -19,22 +21,23 @@ public class TradingEngine {
             sellOrders.put(stock, new ArrayList<>());
         }
         this.lotPool = new HashMap<>();
-        for (Stock stock : stocks) {
-            lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
+            for (Stock stock : stocks) {
+                lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
+            }
         }
-    }
 
-    public void executeOrder(Order order, Portfolio portfolio) {
+    public void executeOrder(Order order, Portfolio portfolio) throws IOException { // order = input of user
+        replenishLotPoolDaily();
         if (order.getType() == Order.Type.BUY) {
             if (isWithinInitialTradingPeriod()) {
-                if (stocks.contains(order.getStock())) {
-                    double currentPrice = order.getStock().getPrice();
+                if (stocks.contains(order.getStock())) { // if stock in api contains input buyOrder
+                    double currentPrice = api.getRealTimePrice(order.getStock().getSymbol());
                     double expectedBuyingPrice = order.getExpectedBuyingPrice();
 
                     if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
-                        buyOrders.get(order.getStock()).add(order);
-                        tryExecuteBuyOrder(order, portfolio);
-
+                        buyOrders.get(order.getStock()).add(order); // if within price, add the input buyOrder into buyOrders list
+                        tryExecuteBuyOrder(order, portfolio); // add order into portfolio
+                        lotPool.remove(order.getStock(), order.getShares()); // will 500 - order.getShares() ?
                     } else {
                         System.out.println("The expected buying price is not within the acceptable range.");
                     }
@@ -62,6 +65,7 @@ public class TradingEngine {
         // Check if it's the start of a new trading day
         if (isStartOfTradingDay()) {
             // Reset the lotpool shares to 500 for each stock
+            lotPool.clear();
             for (Stock stock : stocks) {
                 lotPool.put(stock, 500);
             }
@@ -102,11 +106,11 @@ public class TradingEngine {
 
     private void tryExecuteBuyOrder(Order order, Portfolio portfolio) { //need ziji remove from sellOrders/lotpool after this method is called
         List<Order> orders = buyOrders.get(order.getStock()); //loop buy order,if enough money, add buy order into portfolio
-        double price = order.getStock().getPrice();
+        double price = order.getExpectedBuyingPrice();
         int shares = order.getShares();
         double totalPrice = price * shares;
 
-        if (order.getPrice() >= price && portfolio.getAccBalance() >= totalPrice) {
+        if (portfolio.getAccBalance() >= totalPrice) {
             double temp = portfolio.getAccBalance();
             temp -= totalPrice;
             portfolio.setAccBalance(temp);
@@ -118,9 +122,7 @@ public class TradingEngine {
         }
     }
 
-    public void cancelBuyOrder(String stockSymbol) {
-        Stock stock = getStockBySymbol(stockSymbol);
-        List<Order> orders = buyOrders.get(stock);
+    public void cancelBuyOrder(List<Order> orders) {
         if (!orders.isEmpty()) {
             System.out.println("Choose the cancel option: ");
             System.out.println("1. Cancel based on longest time");
@@ -170,7 +172,7 @@ public class TradingEngine {
         double highestPrice = Double.MIN_VALUE;
 
         for (Order order : orders) {
-            double orderPrice = order.getPrice();
+            double orderPrice = order.getExpectedBuyingPrice();
             if (orderPrice > highestPrice) {
                 highestPrice = orderPrice;
                 orderWithHighestPrice = order;
@@ -180,37 +182,38 @@ public class TradingEngine {
         return orderWithHighestPrice;
     }
 
-    public void closeMarket(Portfolio portfolio, double accountBalance) {
+    public void closeMarket(double accountBalance) { // argument = portfolio.getAccBalance()
         if (isWithinTradingHours()) {
             System.out.println("The market is still open. Cannot close the market now.");
             return;
-        }
+        }else {
 
-        // Check if the account balance is non-negative
-        if (accountBalance >= 0) {
-            System.out.println("Market closed successfully.");
-            // Perform any necessary actions to finalize the market closing
+            // Check if the account balance is non-negative
+            if (accountBalance >= 0) {
+                System.out.println("Market closed successfully.");
+                // Perform any necessary actions to finalize the market closing
 
-            // Reset the buy and sell orders
-            buyOrders.clear();
-            sellOrders.clear();
-            for (Stock stock : stocks) {
-                buyOrders.put(stock, new ArrayList<>());
-                sellOrders.put(stock, new ArrayList<>());
+                // Reset the buy and sell orders
+                buyOrders.clear();
+                sellOrders.clear();
+                for (Stock stock : stocks) {
+                    buyOrders.put(stock, new ArrayList<>());
+                    sellOrders.put(stock, new ArrayList<>());
+                }
+            } else {
+                System.out.println("Cannot close the market. Account balance is negative.");
             }
-        } else {
-            System.out.println("Cannot close the market. Account balance is negative.");
         }
     }
 
-    public void displaySuggestedPrice(String stockSymbol, int quantity) {
+    public void displaySuggestedPrice(String stockSymbol, int quantity) throws IOException {
         Stock stock;
 
         for (Stock s : stocks) {
             if (s.getSymbol().equalsIgnoreCase(stockSymbol)) {
                 stock = s;
                 if (stock != null) {
-                    double currentPrice = stock.getPrice() * quantity;
+                    double currentPrice = api.getRealTimePrice(stockSymbol) * quantity;
                     double lowerLimit = currentPrice * 0.99; // 1% below the current price
                     double upperLimit = currentPrice * 1.01;
 
@@ -229,10 +232,10 @@ public class TradingEngine {
             if (!sellOrderList.isEmpty()) {
                 System.out.println("Stock: " + stock.getSymbol());
                 for (Order order : sellOrderList) {
-                    System.out.println("  Price: " + order.getPrice());
+                    System.out.println("  Price: " + order.getExpectedSellingPrice());
                     System.out.println("  Shares: " + order.getShares());
                     System.out.println("  Timestamp: " + order.getTimestamp());
-                    System.out.println("------------------------");
+                    System.out.println("-".repeat(30));
                 }
             }
         }
@@ -250,7 +253,7 @@ public class TradingEngine {
 
     private void tryExecuteSellOrder(Order order, Portfolio portfolio) {
         List<Order> orders = sellOrders.get(order.getStock());
-        double price = order.getStock().getPrice();
+        double price = order.getExpectedSellingPrice();
         int shares = order.getShares();
         double totalPrice = price * shares;
 
@@ -286,6 +289,10 @@ public class TradingEngine {
         }
     }
     private boolean isInSellOrder(Order buyOrder, Order sellOrder){
-        return buyOrder.getStock().getSymbol().equals(sellOrder.getStock().getSymbol()) && buyOrder.getPrice() == sellOrder.getPrice();
+        return buyOrder.getStock().getSymbol().equals(sellOrder.getStock().getSymbol()) && buyOrder.getExpectedBuyingPrice() == sellOrder.getExpectedSellingPrice();
+    }
+
+    public Map<Stock, List<Order>> getBuyOrders() {
+        return buyOrders;
     }
 }
