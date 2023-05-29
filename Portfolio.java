@@ -1,9 +1,9 @@
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class Portfolio {
     private Map<Stock, Integer> holdings;
+    private double accBalance;
 
     public Portfolio() {
         holdings = new HashMap<>();
@@ -26,12 +26,20 @@ public class Portfolio {
     }
 
     public double getValue() {
-        double value = 0.0;
+        double value = 0;
         for (Map.Entry<Stock, Integer> entry : holdings.entrySet()) {
             Stock stock = entry.getKey();
             int shares = entry.getValue();
-            value += stock.getLastPrice() * shares;
+            value += stock.getPrice() * shares;
         }
         return value;
+    }//buy +, sell - each stock budongchan
+
+    public void setAccBalance(double accBalance) {
+        this.accBalance = accBalance;
+    }
+
+    public double getAccBalance(){
+        return accBalance;
     }
 }
