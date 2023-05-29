@@ -4,6 +4,14 @@ import java.io.*;
 import java.util.*;
 
 public class UserAuthentication {
+    public String getADMIN_EMAIL() {
+        return ADMIN_EMAIL;
+    }
+
+    public String getADMIN_PASSWORD() {
+        return ADMIN_PASSWORD;
+    }
+
     //Admin account and password
     private final String ADMIN_EMAIL = "22004848@siswa.um.edu.my";
     private final String ADMIN_PASSWORD = "Wa11Street";
@@ -53,7 +61,7 @@ public class UserAuthentication {
         User user = users.get(email);
         if (user != null && BCrypt.checkpw(password, hashPassword(password))) {
             System.out.println("Login successful!");
-            System.out.println("Welcome, " + user.getName() + "!");
+            System.out.println("Welcome, " + user.getUsername()+ "!");
             System.out.println("-----------------------------");
             return true;
         }
@@ -65,7 +73,7 @@ public class UserAuthentication {
     void write() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(USERS_DATA))) {
             for (User user : users.values()) {
-                writer.write(user.getEmail() + "," + user.getPassword() + "," + user.getName() + "," + user.isDisqualified() + "\n");
+                writer.write(user.getEmail() + "," + user.getPassword() + "," + user.getUsername() + "," + user.isDisqualified() + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -109,7 +117,7 @@ public class UserAuthentication {
     public void listUsers() {
         System.out.printf("%-30s%-20s%-15s%n", "Email", "Name", "Status");
         for (User user : users.values()) {
-            System.out.printf("%-30s%-20s%-15s%n", user.getEmail(), user.getName(), (user.isDisqualified() ? "Disqualified" : "Qualified"));
+            System.out.printf("%-30s%-20s%-15s%n", user.getEmail(), user.getUsername(), (user.isDisqualified() ? "Disqualified" : "Qualified"));
         }
     }
 
@@ -140,7 +148,7 @@ public class UserAuthentication {
             String newName = scanner.nextLine();
 
             user.setPassword(hashPassword(newPassword));
-            user.setName(newName);
+            user.setUsername(newName);
 
             write();
             System.out.println("User (" + email + ") has been updated.");
@@ -201,8 +209,9 @@ public class UserAuthentication {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         UserAuthentication userAuth = new UserAuthentication();
+        API api = new API();
         List<User> test = userAuth.getUser();
         System.out.println(test);
         Scanner scanner = new Scanner(System.in);
@@ -239,22 +248,18 @@ public class UserAuthentication {
                     } else if (userAuth.login(email, password)) {
                         User user = userAuth.getUsers().get(email);
                         // Create a list of stocks
-                        List<Stock> stocks = new ArrayList<>();
-                        stocks.add(new Stock("AAPL", "Apple Inc.", 1500.0));
-                        stocks.add(new Stock("GOOG", "Alphabet Inc.", 2500.0));
-                        // Create a trading engine with the list of stocks
-                        TradingEngine tradingEngine = new TradingEngine(stocks);
-                        //updatePrice here??
+
+                        TradingEngine tradingEngine = new TradingEngine();
                         // Create a portfolio for the user
                         Portfolio portfolio = new Portfolio();
 
-//                        if (tradingEngine.isWithinTradingHours()) {
-                            userAuth.loopTrade(stocks,portfolio,user,tradingEngine);
+                        if (tradingEngine.isWithinTradingHours()) {
+                            userAuth.loopTrade(API.extractStocks() ,portfolio,user,tradingEngine);
                         } else {
                             System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
                         }
                     }
-//                }
+                }
                 case 3 -> {
                     System.out.println("Exiting...");
                     System.out.println("-----------------------------");
@@ -263,10 +268,10 @@ public class UserAuthentication {
                 default -> {
                     System.out.println("Invalid choice. Please try again.");
                 }
-
             }
         }
     }
+
 
     private static Stock findStockBySymbol(List<Stock> stocks, String symbol) {
         for (Stock stock : stocks) {
@@ -277,17 +282,20 @@ public class UserAuthentication {
         return null;
     }
 
-    private void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine) {
+    private void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine) throws IOException {
         while (true) {
             // Choose between buying or selling
-            System.out.println("1. Buy or sell stock \n2. Show current stock owned \n3. Cancel pending orders \n4. Close market");
+            System.out.println("1. Buy or sell stock \n2. Show current stock owned \n3. Cancel pending orders");
             int choice = scanner.nextInt();
 
+            Order buyOrder = null;
             if (choice == 1) {
                 System.out.println("1. Buy stock \n2. Sell stock");
                 choice = scanner.nextInt();
                 scanner.nextLine();
                 if (choice == 1) {
+                    // Display stock in sellOrder list
+                    tradingEngine.displaySellOrders();
                     // Place a buy order
                     System.out.println("Enter stock symbol for buy order: ");
                     String buyStockSymbol = scanner.nextLine();
@@ -316,7 +324,7 @@ public class UserAuthentication {
                     buyStock = findStockBySymbol(stocks, buyStockSymbol);
                     //can implement placeOrder??
                     if (buyStock != null) {
-                        Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, 0.0, buyExpectedPrice, 0.0, user);
+                        buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, buyExpectedPrice, 0.0, user);
                         tradingEngine.executeOrder(buyOrder, portfolio);
                         System.out.println("Stock bought successfully!");
                     } else {
@@ -348,7 +356,7 @@ public class UserAuthentication {
 
                     sellStock = findStockBySymbol(stocks, sellStockSymbol);
                     if (sellStock != null) {
-                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, 0.0, sellExpectedPrice, user);
+                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user);
                         tradingEngine.executeOrder(sellOrder, portfolio);
                         System.out.println("Stock successfully bought!");
                     } else {
@@ -358,15 +366,16 @@ public class UserAuthentication {
             } else if (choice == 2) {
                 //show current stock owned (trading dashboard)
             } else if (choice == 3) {
-                TradingApp tradingApp = new TradingApp(getUser(), tradingEngine);
-                tradingApp.cancelOrder(user);
-            } else if (choice == 4) {
-                tradingEngine.closeMarket(portfolio, portfolio.getValue());
+                List<Order> buyOrders = new ArrayList<>();
+                while (tradingEngine.getBuyOrders() != null) {
+                    buyOrders.add((Order) tradingEngine.getBuyOrders().values());
+                }
+                tradingEngine.cancelBuyOrder(buyOrders); // remove string
             } else {
                 System.out.println("Execution invalid");
                 return;
             }
 
-    }
+        }
 }
 }
