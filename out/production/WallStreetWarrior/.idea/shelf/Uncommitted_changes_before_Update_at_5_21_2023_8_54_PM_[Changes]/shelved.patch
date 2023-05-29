@@ -1,0 +1,247 @@
+Index: Trading.java
+===================================================================
+diff --git a/Trading.java b/Trading.java
+deleted file mode 100644
+--- a/Trading.java	(revision f6d1164d4b034abacad1c93f6f38cb5ae69d5978)
++++ /dev/null	(revision f6d1164d4b034abacad1c93f6f38cb5ae69d5978)
+@@ -1,118 +0,0 @@
+-//import java.util.ArrayList;
+-//import java.util.List;
+-//import java.util.Map;
+-//import java.util.Scanner;
+-//
+-//public class Trading {
+-//    public static void main(String[] args) {
+-//        // Create a list of stocks
+-//        List<Stock> stocks = new ArrayList<>();
+-//        stocks.add(new Stock("AAPL", "Apple Inc.", 1500.0));
+-//        stocks.add(new Stock("GOOG", "Alphabet Inc.", 2500.0));
+-//
+-//        // Create a trading engine with the list of stocks
+-//        TradingEngine tradingEngine = new TradingEngine(stocks);
+-//
+-//        // Create a portfolio for the user
+-//        Portfolio portfolio = new Portfolio();
+-//        //Create a user
+-//
+-//        // Example usage
+-//
+-//        Scanner scanner = new Scanner(System.in);
+-//
+-//        if(tradingEngine.isWithinTradingHours()) {
+-//            // Choose between buying or selling
+-//            System.out.println("1. Buy or sell stock \n2. Show current stock owned \n3. Cancel pending orders \n4. Close market");
+-//            int choice = scanner.nextInt();
+-//
+-//            if (choice == 1) {
+-//                System.out.println("1. Buy order \n2. Sell order");
+-//                choice = scanner.nextInt();
+-//                if (choice == 1) {
+-//                    // Place a buy order
+-//                    System.out.println("Enter stock symbol for buy order: ");
+-//                    String buyStockSymbol = scanner.next();
+-//                    // Find the stock by symbol
+-//                    Stock buyStock = findStockBySymbol(stocks, buyStockSymbol);
+-//                    while (buyStock == null) {
+-//                        System.out.println("Stock with symbol " + buyStockSymbol + " not found. Please enter a new stock symbol: ");
+-//                        buyStockSymbol = scanner.next();
+-//                        buyStock = findStockBySymbol(stocks, buyStockSymbol);
+-//                    }
+-//
+-//                    System.out.println("Enter quantity for buy order: ");
+-//                    int buyQuantity = scanner.nextInt();
+-//                    if (buyQuantity < 100) {
+-//                        System.out.println("Minimum order quantity is 100 shares (one lot).");
+-//                        return;
+-//                    }
+-//
+-//                    // Display suggested price for a stock
+-//                    tradingEngine.displaySuggestedPrice(buyStockSymbol);
+-//
+-//                    System.out.println("Enter expected buying price: ");
+-//                    double buyExpectedPrice = scanner.nextDouble();
+-//
+-//                    buyStock = findStockBySymbol(stocks, buyStockSymbol);
+-//                    if (buyStock != null) {
+-//                        Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, 0.0, buyExpectedPrice, 0.0, User user);
+-//                        tradingEngine.executeOrder(buyOrder, portfolio);
+-//                    } else {
+-//                        System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
+-//                    }
+-//
+-//                } else if (choice == 2) {
+-//                    // Place a sell order
+-//                    System.out.println("Enter stock symbol for sell order: ");
+-//                    String sellStockSymbol = scanner.next();
+-//                    // Find the stock by symbol
+-//                    Stock sellStock = findStockBySymbol(stocks, sellStockSymbol);
+-//                    while (sellStock == null) {
+-//                        System.out.println("Stock with symbol " + sellStockSymbol + " not found. Please enter a new stock symbol: ");
+-//                        sellStockSymbol = scanner.next();
+-//                        sellStock = findStockBySymbol(stocks, sellStockSymbol);
+-//                    }
+-//
+-//                    System.out.println("Enter quantity for sell order: ");
+-//                    int sellQuantity = scanner.nextInt();
+-//                    System.out.println("Enter expected selling price: ");
+-//                    double sellExpectedPrice = scanner.nextDouble();
+-//
+-//                    // Display suggested price for a stock
+-//                    tradingEngine.displaySuggestedPrice(sellStockSymbol);
+-//
+-//                    sellStock = findStockBySymbol(stocks, sellStockSymbol);
+-//                    if (sellStock != null) {
+-//                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, 0.0, sellExpectedPrice,User user);
+-//                        tradingEngine.executeOrder(sellOrder, portfolio);
+-//                    } else {
+-//                        System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
+-//                    }
+-//                }
+-//            }else if(choice == 2){
+-//                //show current stock owned (trading dashboard)
+-//            }else if(choice == 3){
+-//                //cancelOrder method in TradingApp class
+-//            }else if(choice == 4){
+-//                tradingEngine.closeMarket(portfolio, portfolio.getValue());
+-//            }
+-//            else{
+-//                System.out.println("Execution invalid");
+-//            }
+-//        }else{
+-//            System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
+-//        }
+-//
+-//        scanner.close();
+-//    }
+-//
+-//    private static Stock findStockBySymbol(List<Stock> stocks, String symbol) {
+-//        for (Stock stock : stocks) {
+-//            if (stock.getSymbol().equalsIgnoreCase(symbol)) {
+-//                return stock;
+-//            }
+-//        }
+-//        return null;
+-//    }
+-//}
+Index: Leaderboard.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.ArrayList;\r\nimport java.util.Collections;\r\nimport java.util.Comparator;\r\nimport java.util.List;\r\n\r\nclass UserScore {\r\n        private String name;\r\n        private int marks;\r\n\r\n        public UserScore(String name, int marks) {\r\n            this.name = name;\r\n            this.marks = marks;\r\n        }\r\n\r\n        public String getName() {\r\n            return name;\r\n        }\r\n\r\n        public int getMarks() {\r\n            return marks;\r\n        }\r\npublic class Leaderboard {\r\n    public static void main(String[] args) {\r\n        // Retrieve users' names and marks from the dashboard\r\n        List<UserScore> dashboardData = retrieveDataFromDashboard();\r\n\r\n        // Sort the data based on marks in descending order\r\n        Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());\r\n\r\n        // Extract the top ten users\r\n        List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));\r\n\r\n        // Display the leaderboard\r\n        System.out.println(\"Rank | User         | Marks\");\r\n        System.out.println(\"-----|--------------|-------\");\r\n        // Add condition if user is disqualified then score cannot be counted\r\n        for (int i = 0; i < topTenUsers.size(); i++) {\r\n            UserScore user = topTenUsers.get(i);\r\n            System.out.printf(\"%4d | %-12s | %5d%n\", i + 1, user.getName(), user.getMarks());\r\n        }\r\n    }\r\n    // Simulated method to retrieve data from the dashboard\r\n    private static List<UserScore> retrieveDataFromDashboard() {\r\n\r\n        // Retrieve the data from the dashboard and populate a list of User objects\r\n        List<UserScore> dashboardData = new ArrayList<>();\r\n\r\n        // Split dashboard de username n score\r\n        // Use for loop / while loop to add username n score into dashboard\r\n        dashboardData.add(new UserScore(\"User123\", 500));\r\n\r\n        return dashboardData;\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Leaderboard.java b/Leaderboard.java
+--- a/Leaderboard.java	(revision f6d1164d4b034abacad1c93f6f38cb5ae69d5978)
++++ b/Leaderboard.java	(date 1684671978666)
+@@ -1,55 +1,56 @@
+-import java.util.ArrayList;
+-import java.util.Collections;
+-import java.util.Comparator;
+-import java.util.List;
+-
+-class UserScore {
+-        private String name;
+-        private int marks;
+-
+-        public UserScore(String name, int marks) {
+-            this.name = name;
+-            this.marks = marks;
+-        }
+-
+-        public String getName() {
+-            return name;
+-        }
+-
+-        public int getMarks() {
+-            return marks;
+-        }
+-public class Leaderboard {
+-    public static void main(String[] args) {
+-        // Retrieve users' names and marks from the dashboard
+-        List<UserScore> dashboardData = retrieveDataFromDashboard();
+-
+-        // Sort the data based on marks in descending order
+-        Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());
+-
+-        // Extract the top ten users
+-        List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));
+-
+-        // Display the leaderboard
+-        System.out.println("Rank | User         | Marks");
+-        System.out.println("-----|--------------|-------");
+-        // Add condition if user is disqualified then score cannot be counted
+-        for (int i = 0; i < topTenUsers.size(); i++) {
+-            UserScore user = topTenUsers.get(i);
+-            System.out.printf("%4d | %-12s | %5d%n", i + 1, user.getName(), user.getMarks());
+-        }
+-    }
+-    // Simulated method to retrieve data from the dashboard
+-    private static List<UserScore> retrieveDataFromDashboard() {
+-
+-        // Retrieve the data from the dashboard and populate a list of User objects
+-        List<UserScore> dashboardData = new ArrayList<>();
+-
+-        // Split dashboard de username n score
+-        // Use for loop / while loop to add username n score into dashboard
+-        dashboardData.add(new UserScore("User123", 500));
+-
+-        return dashboardData;
+-        }
+-    }
+-}
++//import java.util.ArrayList;
++//import java.util.Collections;
++//import java.util.Comparator;
++//import java.util.List;
++//
++//class UserScore {
++//        private String name;
++//        private int marks;
++//
++//        public UserScore(String name, int marks) {
++//            this.name = name;
++//            this.marks = marks;
++//        }
++//
++//        public String getName() {
++//            return name;
++//        }
++//
++//        public int getMarks() {
++//            return marks;
++//        }
++//
++//public class Leaderboard {
++//    public static void main(String[] args) {
++//        // Retrieve users' names and marks from the dashboard
++//        List<UserScore> dashboardData = retrieveDataFromDashboard();
++//
++//        // Sort the data based on marks in descending order
++//        Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());
++//
++//        // Extract the top ten users
++//        List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));
++//
++//        // Display the leaderboard
++//        System.out.println("Rank | User         | Marks");
++//        System.out.println("-----|--------------|-------");
++//        // Add condition if user is disqualified then score cannot be counted
++//        for (int i = 0; i < topTenUsers.size(); i++) {
++//            UserScore user = topTenUsers.get(i);
++//            System.out.printf("%4d | %-12s | %5d%n", i + 1, user.getName(), user.getMarks());
++//        }
++//    }
++//    // Simulated method to retrieve data from the dashboard
++//    private static List<UserScore> retrieveDataFromDashboard() {
++//
++//        // Retrieve the data from the dashboard and populate a list of User objects
++//        List<UserScore> dashboardData = new ArrayList<>();
++//
++//        // Split dashboard de username n score
++//        // Use for loop / while loop to add username n score into dashboard
++//        dashboardData.add(new UserScore("User123", 500));
++//
++//        return dashboardData;
++//        }
++//    }
++//}
