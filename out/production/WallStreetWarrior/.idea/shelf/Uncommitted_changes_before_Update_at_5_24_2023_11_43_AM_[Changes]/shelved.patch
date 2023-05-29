@@ -1,0 +1,327 @@
+Index: API.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import org.json.JSONArray;\r\nimport org.json.JSONException;\r\nimport org.json.JSONObject;\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.FileReader;\r\nimport java.io.IOException;\r\nimport java.io.InputStreamReader;\r\nimport java.net.HttpURLConnection;\r\nimport java.net.URL;\r\nimport java.util.Iterator;\r\n\r\n/*\r\nStockList() - Display a list of 'symbol' & 'name'\r\ngetPrices() - For user to search for prices (can search multiple stock at one time)\r\ngetRealTimePrice() - For TradingEngine, it returns a double price ONLY\r\n */\r\n\r\nclass testAPI {\r\n    public static void main(String[] args) throws IOException {\r\n        API api = new API();\r\n//        api.StockList();\r\n//        api.getPrices();\r\n//        System.out.println(api.getRealTimePrice(\"0007.MY\"));\r\n    }\r\n\r\n}\r\n\r\npublic class API {\r\n    private static String fileName = \"MyStocks\";\r\n    private static final String API_KEY = \"UM-1cd15cbc8ba9f613f94373ca35c267a52acf88978d73439e9f3c941b1c49318d\";\r\n    private static final String API_ENDPOINT = \"https://wall-street-warriors-api-um.vercel.app/price\";\r\n\r\n    //call this method to display a list of Malaysia Stock\r\n    static void StockList() {\r\n        try {\r\n            String jsonResponse = readJsonFromFile(fileName);\r\n            displayStocks(jsonResponse);\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    // Call this method to read JSON data from a file copied from API end point provided\r\n    static String readJsonFromFile(String fileName) throws IOException {\r\n        StringBuilder jsonText = new StringBuilder();\r\n\r\n        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {\r\n            String line;\r\n            while ((line = reader.readLine()) != null) {\r\n                jsonText.append(line);\r\n            }\r\n        }\r\n\r\n        return jsonText.toString();\r\n    }\r\n\r\n    // Display the stocks' symbols & name from the JSON response\r\n    static void displayStocks(String jsonResponse) {\r\n        try {\r\n            JSONArray jsonArray = new JSONArray(jsonResponse);\r\n\r\n            System.out.printf(\"%-12s\\t%-40s\\n\", \"Symbol\", \"Name\");\r\n            System.out.println(\"----------------------------------------\");\r\n\r\n            for (int i = 0; i < jsonArray.length(); i++) {\r\n                JSONObject stockJson = jsonArray.getJSONObject(i);\r\n                String symbol = stockJson.getString(\"symbol\");\r\n                String name = stockJson.getString(\"name\");\r\n\r\n                System.out.printf(\"%-12s\\t%-40s\\n\", symbol, name);\r\n            }\r\n            System.out.println();\r\n\r\n        } catch (JSONException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    // Only return single value price for Trading Machine\r\n    static double getRealTimePrice(String symbol) throws IOException {\r\n        symbol = symbol.replace(\".MY\", \".KL\");\r\n\r\n        String url = API_ENDPOINT + \"?apikey=\" + API_KEY + \"&function=TIME_SERIES_INTRADAY_EXTENDED&symbol=\" + symbol;\r\n        URL apiURL = new URL(url);\r\n        HttpURLConnection connection = (HttpURLConnection) apiURL.openConnection();\r\n        connection.setRequestMethod(\"GET\");\r\n        connection.connect();\r\n\r\n        String jsonResponse = \"\";\r\n        int responseCode = connection.getResponseCode();\r\n        if (responseCode == HttpURLConnection.HTTP_OK) {\r\n            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));\r\n            String line;\r\n            StringBuilder response = new StringBuilder();\r\n\r\n            while ((line = reader.readLine()) != null) {\r\n                response.append(line);\r\n            }\r\n            reader.close();\r\n\r\n            jsonResponse = response.toString();\r\n        }\r\n\r\n        double latestClosePrice = 0;\r\n        try {\r\n            JSONObject json = new JSONObject(jsonResponse);\r\n\r\n            if (!json.isNull(symbol)) {\r\n\r\n                JSONObject symbolData = json.getJSONObject(symbol);\r\n                JSONObject closeData = symbolData.getJSONObject(\"Close\");\r\n\r\n                long latestTimestamp = 0;\r\n\r\n                Iterator<String> timestampIterator = closeData.keys();\r\n                while (timestampIterator.hasNext()) {\r\n                    String timestamp = timestampIterator.next();\r\n                    long currentTimestamp = Long.parseLong(timestamp);\r\n                    double close = closeData.getDouble(timestamp);\r\n\r\n                    if (currentTimestamp > latestTimestamp) {\r\n                        latestTimestamp = currentTimestamp;\r\n                        latestClosePrice = close;\r\n                    }\r\n\r\n                }\r\n            }\r\n        } catch (JSONException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return latestClosePrice;\r\n    }\r\n\r\n\r\n    // Prompt the user for stock symbols, timestamp, and interval, and display the prices by calling getStockPrice() and displayPrices()\r\n    static void getPrices() {\r\n        try {\r\n            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));\r\n\r\n            System.out.println(\"***For multiple stocks, kindly request to separate them by commas [e.g. 0001.MY,0002.MY]***\");\r\n            System.out.print(\"Enter the stock symbol(s): \");\r\n            String symbols = reader.readLine().trim();\r\n            String[] symbolsArr = symbols.split(\"\\\\s*,\\\\s*\");\r\n\r\n            while (!isValidSymbols(symbolsArr)) {\r\n                System.out.println(\"Stock symbol not found. Please enter another symbol.\");\r\n                System.out.println(\"***For multiple stocks, kindly request to separate them by commas [e.g. 0001.MY,0002.MY]***\");\r\n                System.out.print(\"Enter the stock symbol(s): \");\r\n                symbols = reader.readLine().trim();\r\n                symbolsArr = symbols.split(\"\\\\s*,\\\\s*\");\r\n            }\r\n\r\n\r\n            // Retrieve the stock prices within the specified date range and interval\r\n            String jsonResponse = getStockPrice(symbolsArr);\r\n            displayPrices(jsonResponse, symbolsArr);\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n\r\n    // Check if all symbols are in the stock list\r\n    static boolean isValidSymbols(String[] symbols) {\r\n        try {\r\n            JSONArray jsonArray = new JSONArray(readJsonFromFile(fileName));\r\n\r\n            for (String symbol : symbols) {\r\n                boolean isValid = false;\r\n\r\n                for (int i = 0; i < jsonArray.length(); i++) {\r\n                    JSONObject stockJson = jsonArray.getJSONObject(i);\r\n                    String stockSymbol = stockJson.getString(\"symbol\");\r\n\r\n                    if (stockSymbol.equals(symbol)) {\r\n                        isValid = true;\r\n                        break;\r\n                    }\r\n                }\r\n\r\n                if (!isValid) {\r\n                    System.out.println(\"Invalid stock symbol: \" + symbol);\r\n                    return false;\r\n                }\r\n            }\r\n\r\n            return true;\r\n        } catch (JSONException e) {\r\n            e.printStackTrace();\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        return false;\r\n    }\r\n\r\n\r\n    // Fetch stock prices from the API based on the symbols, timestamp, and interval\r\n    static String getStockPrice(String[] symbolsArr) throws Exception {\r\n\r\n        // Convert the symbols to \"0001.KL\", \"0002.KL\", etc.\r\n        for (int i = 0; i < symbolsArr.length; i++) {\r\n            symbolsArr[i] = symbolsArr[i].replace(\".MY\", \".KL\");\r\n        }\r\n\r\n        StringBuilder symbolsParam = new StringBuilder();\r\n        for (String symbol : symbolsArr) {\r\n            symbolsParam.append(symbol).append(\",\");\r\n        }\r\n        symbolsParam.deleteCharAt(symbolsParam.length() - 1);\r\n\r\n        String url = API_ENDPOINT + \"?apikey=\" + API_KEY + \"&function=TIME_SERIES_INTRADAY_EXTENDED&symbol=\" + symbolsParam;\r\n        URL apiURL = new URL(url);\r\n        HttpURLConnection connection = (HttpURLConnection) apiURL.openConnection();\r\n        connection.setRequestMethod(\"GET\");\r\n        connection.connect();\r\n\r\n        int responseCode = connection.getResponseCode();\r\n        if (responseCode == HttpURLConnection.HTTP_OK) {\r\n            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));\r\n            String line;\r\n            StringBuilder response = new StringBuilder();\r\n\r\n            while ((line = reader.readLine()) != null) {\r\n                response.append(line);\r\n            }\r\n            reader.close();\r\n\r\n            return response.toString();\r\n        } else {\r\n            throw new Exception(\"Failed to get stock price. Response code: \" + responseCode);\r\n        }\r\n    }\r\n\r\n\r\n    // Display the timestamps and prices for the requested stocks\r\n    static void displayPrices(String jsonResponse, String[] symbols) {\r\n        try {\r\n            JSONObject json = new JSONObject(jsonResponse);\r\n\r\n            for (String symbol : symbols) {\r\n                if (json.isNull(symbol)) {\r\n                    System.out.println(\"No data available for symbol: \" + symbol);\r\n                    continue; // Skip to the next iteration if symbol is not found\r\n                }\r\n\r\n                System.out.println();\r\n                JSONObject symbolData = json.getJSONObject(symbol);\r\n                System.out.println(\"Symbol: \" + symbol);\r\n\r\n                JSONObject closeData = symbolData.getJSONObject(\"Close\");\r\n\r\n                long latestTimestamp = 0;\r\n                double latestClosePrice = 0.0;\r\n\r\n                Iterator<String> timestampIterator = closeData.keys();\r\n                while (timestampIterator.hasNext()) {\r\n                    String timestamp = timestampIterator.next();\r\n                    long currentTimestamp = Long.parseLong(timestamp);\r\n                    double close = closeData.getDouble(timestamp);\r\n\r\n                    if (currentTimestamp > latestTimestamp) {\r\n                        latestTimestamp = currentTimestamp;\r\n                        latestClosePrice = close;\r\n                    }\r\n\r\n                }\r\n                System.out.println(\"Close: \" + latestClosePrice);\r\n                System.out.println();\r\n            }\r\n        } catch (JSONException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/API.java b/API.java
+--- a/API.java	(revision 715cc67eaeacb8617199468d64b648a27e03f92b)
++++ b/API.java	(date 1684897737248)
+@@ -18,10 +18,10 @@
+ 
+ class testAPI {
+     public static void main(String[] args) throws IOException {
+-        API api = new API();
++//        API api = new API();
+ //        api.StockList();
+ //        api.getPrices();
+-//        System.out.println(api.getRealTimePrice("0007.MY"));
++//        System.out.println(api.getRealTimePrice("8206.MY"));
+     }
+ 
+ }
+Index: TradingEngine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import org.json.JSONException;\r\nimport org.json.JSONObject;\r\n\r\nimport java.text.SimpleDateFormat;\r\nimport java.time.DayOfWeek;\r\nimport java.time.LocalDateTime;\r\nimport java.time.LocalTime;\r\nimport java.util.*;\r\n\r\npublic class TradingEngine {\r\n    private List<Stock> stocks;\r\n    private Map<Stock, List<Order>> buyOrders;\r\n    private Map<Stock, List<Order>> sellOrders;\r\n    private Map<Stock, Integer> lotPool;\r\n\r\n\r\n    public TradingEngine(List<Stock> stocks) {\r\n        this.stocks = stocks;\r\n        this.buyOrders = new HashMap<>();\r\n        this.sellOrders = new HashMap<>();\r\n        for (Stock stock : stocks) {\r\n            buyOrders.put(stock, new ArrayList<>());\r\n            sellOrders.put(stock, new ArrayList<>());\r\n        }\r\n        this.lotPool = new HashMap<>();\r\n        for (Stock stock : stocks) {\r\n            lotPool.put(stock, 500); // Initialize the lot pool with 500 shares for each stock\r\n        }\r\n    }\r\n\r\n    public void executeOrder(Order order, Portfolio portfolio) {\r\n        if (order.getType() == Order.Type.BUY) {\r\n            // Check if it's within the initial trading period (first three days)\r\n            if (isWithinInitialTradingPeriod()) {\r\n                double currentPrice = order.getStock().getPrice();\r\n                double expectedBuyingPrice = order.getExpectedBuyingPrice();\r\n\r\n                if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {\r\n                    buyOrders.get(order.getStock()).add(order);\r\n                    tryExecuteBuyOrders(order.getStock(), portfolio);\r\n                    System.out.println(\"Order is available\");\r\n                } else {\r\n                    System.out.println(\"The expected buying price is not within the acceptable range.\");\r\n                }\r\n            } else {\r\n                // After the initial trading period, enforce the 500-lot rule\r\n                int remainingLotShares = lotPool.getOrDefault(order.getStock(), 0);\r\n                int sharesToBuy = Math.min(order.getShares(), remainingLotShares);\r\n\r\n                if (sharesToBuy > 0) {\r\n                    // Deduct the shares from the lot pool\r\n                    lotPool.put(order.getStock(), remainingLotShares - sharesToBuy);\r\n\r\n                    // Update the order with the adjusted number of shares\r\n                    order.setShares(sharesToBuy);\r\n\r\n                    // Place the order\r\n                    buyOrders.get(order.getStock()).add(order);\r\n                    tryExecuteBuyOrders(order.getStock(), portfolio);\r\n                    System.out.println(\"Order is available\");\r\n                } else {\r\n                    System.out.println(\"No shares available in the lot pool for the specified stock.\");\r\n                }\r\n            }\r\n                }else {\r\n                sellOrders.get(order.getStock()).add(order);\r\n                tryExecuteSellOrders(order.getStock(), portfolio);\r\n            }\r\n        }\r\n    private boolean isWithinInitialTradingPeriod() {\r\n        LocalDateTime currentTime = LocalDateTime.now();\r\n        LocalDateTime endTime = LocalDateTime.of(currentTime.getYear(), currentTime.getMonth(), currentTime.getDayOfMonth(), 0, 0)\r\n                .plusDays(3); // Add three days to the current date\r\n        return currentTime.isBefore(endTime);\r\n    }\r\n    public void replenishLotPoolDaily() { // call each day when wanna start new pool\r\n        // Check if it's the start of a new trading day\r\n        if (isStartOfTradingDay()) {\r\n            // Reset the lot pool shares to 500 for each stock\r\n            for (Stock stock : stocks) {\r\n                lotPool.put(stock, 500);\r\n            }\r\n            System.out.println(\"Lot pool replenished for the day.\");\r\n        }\r\n    }\r\n\r\n    private boolean isStartOfTradingDay() {\r\n        LocalTime marketOpenTime = LocalTime.of(9, 0); // Adjust the market open time according to your needs\r\n        LocalTime currentTime = LocalTime.now();\r\n        return currentTime.equals(marketOpenTime);\r\n    }\r\n    private boolean isPriceWithinRange(double price, double currentPrice, double rangePercentage) { // Execute trades if the price falls within 1% range\r\n        double range = currentPrice * (rangePercentage / 100);\r\n        double lowerLimit = currentPrice - range;\r\n        double upperLimit = currentPrice + range;\r\n        return price >= lowerLimit && price <= upperLimit;\r\n    }\r\n    public boolean isWithinTradingHours() { // Check trading hours\r\n        // Get the current day and time\r\n        LocalDateTime currentTime = LocalDateTime.now();\r\n        DayOfWeek currentDay = currentTime.getDayOfWeek();\r\n        LocalTime currentTimeOfDay = currentTime.toLocalTime();\r\n\r\n        // Check if it's a weekday (Monday to Friday) and within regular market hours\r\n        if (currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY) {\r\n            LocalTime marketOpenTime1 = LocalTime.of(9, 0);\r\n            LocalTime marketCloseTime1 = LocalTime.of(12, 30);\r\n            LocalTime marketOpenTime2 = LocalTime.of(14, 30);\r\n            LocalTime marketCloseTime2 = LocalTime.of(17, 0);\r\n            return (currentTimeOfDay.isAfter(marketOpenTime1) && currentTimeOfDay.isBefore(marketCloseTime1))\r\n                    || (currentTimeOfDay.isAfter(marketOpenTime2) && currentTimeOfDay.isBefore(marketCloseTime2));\r\n        }\r\n        return false;\r\n    }\r\n\r\n    private void tryExecuteBuyOrders(Stock stock, Portfolio portfolio) {\r\n        List<Order> orders = buyOrders.get(stock);\r\n        double price = stock.getPrice();\r\n        for (int i = 0; i < orders.size(); i++) {\r\n            Order order = orders.get(i);\r\n            if (order.getPrice() >= price) {\r\n                int currentShares = portfolio.getHoldings().getOrDefault(stock, 0);\r\n                double totalPrice = order.getPrice() * order.getShares();\r\n                if (portfolio.getValue() >= totalPrice) {\r\n                    portfolio.addStock(stock, order.getShares());\r\n                    orders.remove(i);\r\n                    i--;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    public void closeMarket(Portfolio portfolio, double accountBalance) {\r\n        if (isWithinTradingHours()) {\r\n            System.out.println(\"The market is still open. Cannot close the market now.\");\r\n            return;\r\n        }\r\n\r\n        // Check if the account balance is non-negative\r\n        if (accountBalance >= 0) {\r\n            System.out.println(\"Market closed successfully.\");\r\n            // Perform any necessary actions to finalize the market closing\r\n\r\n            // Reset the buy and sell orders\r\n            buyOrders.clear();\r\n            sellOrders.clear();\r\n            for (Stock stock : stocks) {\r\n                buyOrders.put(stock, new ArrayList<>());\r\n                sellOrders.put(stock, new ArrayList<>());\r\n            }\r\n        } else {\r\n            System.out.println(\"Cannot close the market. Account balance is negative.\");\r\n        }\r\n    }\r\n    public void displaySuggestedPrice(String stockSymbol, int quantity) {\r\n        Stock stock;\r\n\r\n        for (Stock s : stocks) {\r\n            if (s.getSymbol().equalsIgnoreCase(stockSymbol)) {\r\n                stock = s;\r\n                if (stock != null) {\r\n                    double currentPrice = stock.getPrice()*quantity ;\r\n                    double lowerLimit = currentPrice * 0.99; // 1% below the current price\r\n                    double upperLimit = currentPrice * 1.01;\r\n\r\n                    System.out.println(\"Suggested price range for \" + stockSymbol + \": \" + lowerLimit + \" - \" + upperLimit);\r\n                } else {\r\n                    System.out.println(\"Stock with symbol \" + stockSymbol + \" not found.\");\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    private void tryExecuteSellOrders(Stock stock, Portfolio portfolio) {\r\n        List<Order> orders = sellOrders.get(stock);\r\n        double price = stock.getPrice();\r\n        for (int i = 0; i < orders.size(); i++) {\r\n            Order order = orders.get(i);\r\n            if (order.getPrice() <= price) {\r\n                int currentShares = portfolio.getHoldings().getOrDefault(stock, 0);\r\n                if (currentShares >= order.getShares()) {\r\n                    portfolio.removeStock(stock, order.getShares());\r\n                    orders.remove(i);\r\n                    i--;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    public void updatePrices(API api) {\r\n        for (Stock stock : stocks) {\r\n            try {\r\n                // Retrieve the stock symbol from the Stock object\r\n                String stockSymbol = stock.getSymbol();\r\n\r\n                // Get the current date and time\r\n                Date currentDate = new Date();\r\n\r\n                // Set the desired start and end dates for retrieving stock prices\r\n                SimpleDateFormat dateFormat = new SimpleDateFormat(\"yyyyMMdd\");\r\n                String startDate = dateFormat.format(currentDate);\r\n                String endDate = startDate;\r\n\r\n                // Set the desired interval for retrieving stock prices (e.g., \"daily\")\r\n                String interval = \"daily\";\r\n\r\n                // Retrieve the stock prices using the API object\r\n                String jsonResponse = api.getStockPrice(new String[] { stockSymbol }, Long.parseLong(startDate), Long.parseLong(endDate), interval);\r\n\r\n                // Process the JSON response and update the stock price\r\n                processStockPrice(jsonResponse, stock);\r\n\r\n                // Try executing buy and sell orders for the updated stock\r\n                tryExecuteBuyOrders(stock, new Portfolio());\r\n                tryExecuteSellOrders(stock, new Portfolio());\r\n            } catch (Exception e) {\r\n                e.printStackTrace();\r\n            }\r\n        }\r\n    }\r\n\r\n    private void processStockPrice(String jsonResponse, Stock stock) {\r\n        try {\r\n            JSONObject json = new JSONObject(jsonResponse);\r\n            JSONObject symbolData = json.getJSONObject(stock.getSymbol());\r\n            JSONObject closeData = symbolData.getJSONObject(\"Close\");\r\n\r\n            // Get the latest closing price from the JSON data\r\n            Iterator<String> timestampIterator = closeData.keys();\r\n            String latestTimestamp = null;\r\n            double latestPrice = 0.0;\r\n            while (timestampIterator.hasNext()) {\r\n                String timestamp = timestampIterator.next();\r\n                double price = closeData.getDouble(timestamp);\r\n                if (latestTimestamp == null || timestamp.compareTo(latestTimestamp) > 0) {\r\n                    latestTimestamp = timestamp;\r\n                    latestPrice = price;\r\n                }\r\n            }\r\n\r\n            // Update the stock price with the latest price\r\n            stock.setPrice(latestPrice);\r\n        } catch (JSONException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/TradingEngine.java b/TradingEngine.java
+--- a/TradingEngine.java	(revision 715cc67eaeacb8617199468d64b648a27e03f92b)
++++ b/TradingEngine.java	(date 1684743783178)
+@@ -204,7 +204,7 @@
+                 String interval = "daily";
+ 
+                 // Retrieve the stock prices using the API object
+-                String jsonResponse = api.getStockPrice(new String[] { stockSymbol }, Long.parseLong(startDate), Long.parseLong(endDate), interval);
++                String jsonResponse = api.getStockPrice(new String[] { stockSymbol });
+ 
+                 // Process the JSON response and update the stock price
+                 processStockPrice(jsonResponse, stock);
+Index: Trading.java
+===================================================================
+diff --git a/Trading.java b/Trading.java
+deleted file mode 100644
+--- a/Trading.java	(revision 715cc67eaeacb8617199468d64b648a27e03f92b)
++++ /dev/null	(revision 715cc67eaeacb8617199468d64b648a27e03f92b)
+@@ -1,118 +0,0 @@
+-//import java.util.ArrayList;
+-//import java.util.List;
+-//import java.util.Map;
+-//import java.util.Scanner;
+-//
+-//public class Trading {
+-//    public static void main(String[] args) {
+-//        // Create a list of stocks
+-//        List<Stock> stocks = new ArrayList<>();
+-//        stocks.add(new Stock("AAPL", "Apple Inc.", 1500.0));
+-//        stocks.add(new Stock("GOOG", "Alphabet Inc.", 2500.0));
+-//
+-//        // Create a trading engine with the list of stocks
+-//        TradingEngine tradingEngine = new TradingEngine(stocks);
+-//
+-//        // Create a portfolio for the user
+-//        Portfolio portfolio = new Portfolio();
+-//        //Create a user
+-//
+-//        // Example usage
+-//
+-//        Scanner scanner = new Scanner(System.in);
+-//
+-//        if(tradingEngine.isWithinTradingHours()) {
+-//            // Choose between buying or selling
+-//            System.out.println("1. Buy or sell stock \n2. Show current stock owned \n3. Cancel pending orders \n4. Close market");
+-//            int choice = scanner.nextInt();
+-//
+-//            if (choice == 1) {
+-//                System.out.println("1. Buy order \n2. Sell order");
+-//                choice = scanner.nextInt();
+-//                if (choice == 1) {
+-//                    // Place a buy order
+-//                    System.out.println("Enter stock symbol for buy order: ");
+-//                    String buyStockSymbol = scanner.next();
+-//                    // Find the stock by symbol
+-//                    Stock buyStock = findStockBySymbol(stocks, buyStockSymbol);
+-//                    while (buyStock == null) {
+-//                        System.out.println("Stock with symbol " + buyStockSymbol + " not found. Please enter a new stock symbol: ");
+-//                        buyStockSymbol = scanner.next();
+-//                        buyStock = findStockBySymbol(stocks, buyStockSymbol);
+-//                    }
+-//
+-//                    System.out.println("Enter quantity for buy order: ");
+-//                    int buyQuantity = scanner.nextInt();
+-//                    if (buyQuantity < 100) {
+-//                        System.out.println("Minimum order quantity is 100 shares (one lot).");
+-//                        return;
+-//                    }
+-//
+-//                    // Display suggested price for a stock
+-//                    tradingEngine.displaySuggestedPrice(buyStockSymbol);
+-//
+-//                    System.out.println("Enter expected buying price: ");
+-//                    double buyExpectedPrice = scanner.nextDouble();
+-//
+-//                    buyStock = findStockBySymbol(stocks, buyStockSymbol);
+-//                    if (buyStock != null) {
+-//                        Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, 0.0, buyExpectedPrice, 0.0, User user);
+-//                        tradingEngine.executeOrder(buyOrder, portfolio);
+-//                    } else {
+-//                        System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
+-//                    }
+-//
+-//                } else if (choice == 2) {
+-//                    // Place a sell order
+-//                    System.out.println("Enter stock symbol for sell order: ");
+-//                    String sellStockSymbol = scanner.next();
+-//                    // Find the stock by symbol
+-//                    Stock sellStock = findStockBySymbol(stocks, sellStockSymbol);
+-//                    while (sellStock == null) {
+-//                        System.out.println("Stock with symbol " + sellStockSymbol + " not found. Please enter a new stock symbol: ");
+-//                        sellStockSymbol = scanner.next();
+-//                        sellStock = findStockBySymbol(stocks, sellStockSymbol);
+-//                    }
+-//
+-//                    System.out.println("Enter quantity for sell order: ");
+-//                    int sellQuantity = scanner.nextInt();
+-//                    System.out.println("Enter expected selling price: ");
+-//                    double sellExpectedPrice = scanner.nextDouble();
+-//
+-//                    // Display suggested price for a stock
+-//                    tradingEngine.displaySuggestedPrice(sellStockSymbol);
+-//
+-//                    sellStock = findStockBySymbol(stocks, sellStockSymbol);
+-//                    if (sellStock != null) {
+-//                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, 0.0, sellExpectedPrice,User user);
+-//                        tradingEngine.executeOrder(sellOrder, portfolio);
+-//                    } else {
+-//                        System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
+-//                    }
+-//                }
+-//            }else if(choice == 2){
+-//                //show current stock owned (trading dashboard)
+-//            }else if(choice == 3){
+-//                //cancelOrder method in TradingApp class
+-//            }else if(choice == 4){
+-//                tradingEngine.closeMarket(portfolio, portfolio.getValue());
+-//            }
+-//            else{
+-//                System.out.println("Execution invalid");
+-//            }
+-//        }else{
+-//            System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
+-//        }
+-//
+-//        scanner.close();
+-//    }
+-//
+-//    private static Stock findStockBySymbol(List<Stock> stocks, String symbol) {
+-//        for (Stock stock : stocks) {
+-//            if (stock.getSymbol().equalsIgnoreCase(symbol)) {
+-//                return stock;
+-//            }
+-//        }
+-//        return null;
+-//    }
+-//}
+Index: NotificationService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.ArrayList;\r\nimport java.util.List;\r\nimport java.util.Timer;\r\nimport java.util.TimerTask;\r\n\r\n// Create a Notification class\r\nclass Notification {\r\n    private String userId;\r\n    private double pnl;\r\n    private boolean enteredPosition;\r\n    private boolean exitedPosition;\r\n\r\n    public Notification(String userId) {\r\n        this.userId = userId;\r\n    }\r\n\r\n    public String getUserId() {\r\n        return userId;\r\n    }\r\n\r\n    public double getPnl() {\r\n        return pnl;\r\n    }\r\n\r\n    public void setPnl(double pnl) {\r\n        this.pnl = pnl;\r\n    }\r\n\r\n    public boolean hasEnteredPosition() {\r\n        return enteredPosition;\r\n    }\r\n\r\n    public void setEnteredPosition(boolean enteredPosition) {\r\n        this.enteredPosition = enteredPosition;\r\n    }\r\n\r\n    public boolean hasExitedPosition() {\r\n        return exitedPosition;\r\n    }\r\n\r\n    public void setExitedPosition(boolean exitedPosition) {\r\n        this.exitedPosition = exitedPosition;\r\n    }\r\n}\r\n\r\n// Utilize a third-party library like JavaMail for sending notifications\r\nclass EmailService {\r\n    public void sendNotification(String userId, String message) {\r\n        // Logic for sending email using JavaMail library\r\n        System.out.println(\"Sending email notification to user \" + userId + \": \" + message);\r\n    }\r\n}\r\n\r\n// Implement methods for handling user settings\r\nclass UserSettings {\r\n    private double pnlThreshold;\r\n    private boolean enableNotifications;\r\n\r\n    public double getPnlThreshold() {\r\n        return pnlThreshold;\r\n    }\r\n\r\n    public void setPnlThreshold(double pnlThreshold) {\r\n        this.pnlThreshold = pnlThreshold;\r\n    }\r\n\r\n    public boolean isEnableNotifications() {\r\n        return enableNotifications;\r\n    }\r\n\r\n    public void setEnableNotifications(boolean enableNotifications) {\r\n        this.enableNotifications = enableNotifications;\r\n    }\r\n}\r\n\r\n// Use a timer or scheduling framework to periodically check for threshold crossing\r\nclass NotificationScheduler {\r\n    private List<Notification> notifications;\r\n    private EmailService emailService;\r\n    private UserSettings userSettings;\r\n\r\n    public NotificationScheduler() {\r\n        this.notifications = new ArrayList<>();\r\n        this.emailService = new EmailService();\r\n        this.userSettings = new UserSettings();\r\n    }\r\n\r\n    public void startScheduler() {\r\n        Timer timer = new Timer();\r\n        timer.schedule(new TimerTask() {\r\n            @Override\r\n            public void run() {\r\n                checkThresholds();\r\n            }\r\n        }, 0, 1000); \r\n    }\r\n\r\n    private void checkThresholds() {\r\n        for (Notification notification : notifications) {\r\n            if (notification.hasEnteredPosition() && notification.getPnl() > userSettings.getPnlThreshold()) {\r\n                sendNotification(notification, \"Your P&L crossed the threshold: \" + notification.getPnl());\r\n            } else if (notification.hasExitedPosition() && notification.getPnl() < userSettings.getPnlThreshold()) {\r\n                sendNotification(notification, \"Your P&L dropped below the threshold: \" + notification.getPnl());\r\n            }\r\n        }\r\n    }\r\n\r\n    private void sendNotification(Notification notification, String message) {\r\n        if (userSettings.isEnableNotifications()) {\r\n            emailService.sendNotification(notification.getUserId(), message);\r\n        }\r\n    }\r\n\r\n    // Additional methods for managing user settings and notifications\r\n    public void addUserNotification(Notification notification) {\r\n        notifications.add(notification);\r\n    }\r\n\r\n    public void removeUserNotification(Notification notification) {\r\n        notifications.remove(notification);\r\n    }\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/NotificationService.java b/NotificationService.java
+--- a/NotificationService.java	(revision 715cc67eaeacb8617199468d64b648a27e03f92b)
++++ b/NotificationService.java	(date 1684676000621)
+@@ -92,7 +92,7 @@
+             public void run() {
+                 checkThresholds();
+             }
+-        }, 0, 1000); 
++        }, 0, 1000);
+     }
+ 
+     private void checkThresholds() {
+@@ -119,4 +119,5 @@
+     public void removeUserNotification(Notification notification) {
+         notifications.remove(notification);
+     }
++}
+ 
+Index: Report.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Report.java b/Report.java
+new file mode 100644
+--- /dev/null	(date 1684898399189)
++++ b/Report.java	(date 1684898399189)
+@@ -0,0 +1,3 @@
++public class Report {
++
++}
+Index: Leaderboard.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.ArrayList;\r\nimport java.util.Collections;\r\nimport java.util.Comparator;\r\nimport java.util.List;\r\n\r\nclass UserScore {\r\n        private String name;\r\n        private int marks;\r\n\r\n        public UserScore(String name, int marks) {\r\n            this.name = name;\r\n            this.marks = marks;\r\n        }\r\n\r\n        public String getName() {\r\n            return name;\r\n        }\r\n\r\n        public int getMarks() {\r\n            return marks;\r\n        }\r\npublic class Leaderboard {\r\n    public static void main(String[] args) {\r\n        // Retrieve users' names and marks from the dashboard\r\n        List<UserScore> dashboardData = retrieveDataFromDashboard();\r\n\r\n        // Sort the data based on marks in descending order\r\n        Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());\r\n\r\n        // Extract the top ten users\r\n        List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));\r\n\r\n        // Display the leaderboard\r\n        System.out.println(\"Rank | User         | Marks\");\r\n        System.out.println(\"-----|--------------|-------\");\r\n        // Add condition if user is disqualified then score cannot be counted\r\n        for (int i = 0; i < topTenUsers.size(); i++) {\r\n            UserScore user = topTenUsers.get(i);\r\n            System.out.printf(\"%4d | %-12s | %5d%n\", i + 1, user.getName(), user.getMarks());\r\n        }\r\n    }\r\n    // Simulated method to retrieve data from the dashboard\r\n    private static List<UserScore> retrieveDataFromDashboard() {\r\n\r\n        // Retrieve the data from the dashboard and populate a list of User objects\r\n        List<UserScore> dashboardData = new ArrayList<>();\r\n\r\n        // Split dashboard de username n score\r\n        // Use for loop / while loop to add username n score into dashboard\r\n        dashboardData.add(new UserScore(\"User123\", 500));\r\n\r\n        return dashboardData;\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Leaderboard.java b/Leaderboard.java
+--- a/Leaderboard.java	(revision 715cc67eaeacb8617199468d64b648a27e03f92b)
++++ b/Leaderboard.java	(date 1684673680005)
+@@ -1,55 +1,56 @@
+-import java.util.ArrayList;
+-import java.util.Collections;
+-import java.util.Comparator;
+-import java.util.List;
+-
+-class UserScore {
+-        private String name;
+-        private int marks;
+-
+-        public UserScore(String name, int marks) {
+-            this.name = name;
+-            this.marks = marks;
+-        }
+-
+-        public String getName() {
+-            return name;
+-        }
+-
+-        public int getMarks() {
+-            return marks;
+-        }
+-public class Leaderboard {
+-    public static void main(String[] args) {
+-        // Retrieve users' names and marks from the dashboard
+-        List<UserScore> dashboardData = retrieveDataFromDashboard();
+-
+-        // Sort the data based on marks in descending order
+-        Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());
+-
+-        // Extract the top ten users
+-        List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));
+-
+-        // Display the leaderboard
+-        System.out.println("Rank | User         | Marks");
+-        System.out.println("-----|--------------|-------");
+-        // Add condition if user is disqualified then score cannot be counted
+-        for (int i = 0; i < topTenUsers.size(); i++) {
+-            UserScore user = topTenUsers.get(i);
+-            System.out.printf("%4d | %-12s | %5d%n", i + 1, user.getName(), user.getMarks());
+-        }
+-    }
+-    // Simulated method to retrieve data from the dashboard
+-    private static List<UserScore> retrieveDataFromDashboard() {
+-
+-        // Retrieve the data from the dashboard and populate a list of User objects
+-        List<UserScore> dashboardData = new ArrayList<>();
+-
+-        // Split dashboard de username n score
+-        // Use for loop / while loop to add username n score into dashboard
+-        dashboardData.add(new UserScore("User123", 500));
+-
+-        return dashboardData;
+-        }
+-    }
+-}
++//import java.util.ArrayList;
++//import java.util.Collections;
++//import java.util.Comparator;
++//import java.util.List;
++//
++//class UserScore {
++//        private String name;
++//        private int marks;
++//
++//        public UserScore(String name, int marks) {
++//            this.name = name;
++//            this.marks = marks;
++//        }
++//
++//        public String getName() {
++//            return name;
++//        }
++//
++//        public int getMarks() {
++//            return marks;
++//        }
++//
++//public class Leaderboard {
++//    public static void main(String[] args) {
++//        // Retrieve users' names and marks from the dashboard
++//        List<UserScore> dashboardData = retrieveDataFromDashboard();
++//
++//        // Sort the data based on marks in descending order
++//        Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());
++//
++//        // Extract the top ten users
++//        List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));
++//
++//        // Display the leaderboard
++//        System.out.println("Rank | User         | Marks");
++//        System.out.println("-----|--------------|-------");
++//        // Add condition if user is disqualified then score cannot be counted
++//        for (int i = 0; i < topTenUsers.size(); i++) {
++//            UserScore user = topTenUsers.get(i);
++//            System.out.printf("%4d | %-12s | %5d%n", i + 1, user.getName(), user.getMarks());
++//        }
++//    }
++//    // Simulated method to retrieve data from the dashboard
++//    private static List<UserScore> retrieveDataFromDashboard() {
++//
++//        // Retrieve the data from the dashboard and populate a list of User objects
++//        List<UserScore> dashboardData = new ArrayList<>();
++//
++//        // Split dashboard de username n score
++//        // Use for loop / while loop to add username n score into dashboard
++//        dashboardData.add(new UserScore("User123", 500));
++//
++//        return dashboardData;
++//        }
++//    }
++//}
