@@ -6,9 +6,13 @@ import java.util.Map;
 public class Portfolio {
     private Map<Order, Integer> holdings;
     private double accBalance = 50000;
+    private List<Order> tradeHistory;
+
 
     public Portfolio() {
         holdings = new HashMap<>();
+        tradeHistory = new ArrayList<>();
+
     }
 
     public void addStock(Order order, int shares) {
@@ -88,4 +92,13 @@ public class Portfolio {
         }
         return null;
     }
+
+    public List<Order> getTradeHistory() {
+        return tradeHistory;
+    }
+
+    public void addToTradeHistory(Order order) {
+        tradeHistory.add(order);
+    }
+
 }
