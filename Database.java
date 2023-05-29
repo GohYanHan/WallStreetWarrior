@@ -1,5 +1,5 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+//import javafx.collections.FXCollections;
+//import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -191,27 +191,27 @@ public class Database {
         return list;
     }
 
-    public ObservableList<User> displayUsers() {
-        ObservableList<User> list = FXCollections.observableArrayList();
-
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-
-            String selectQuery = "SELECT userKey, userName, userEmail, userPassword, userStatus, userBalance, PL_Points, role FROM users WHERE role = User";
-
-            PreparedStatement statement = connection.prepareStatement(selectQuery);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                list.add(new User(resultSet.getString("userEmail"), resultSet.getString("userName"),
-                        resultSet.getString("userStatus"), resultSet.getInt("userBalance"),
-                        resultSet.getInt("PL_Points"), resultSet.getInt("userKey")));
-            }
-            resultSet.close();
-            statement.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
+//    public ObservableList<User> displayUsers() {
+//        ObservableList<User> list = FXCollections.observableArrayList();
+//
+//        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+//
+//            String selectQuery = "SELECT userKey, userName, userEmail, userPassword, userStatus, userBalance, PL_Points, role FROM users WHERE role = User";
+//
+//            PreparedStatement statement = connection.prepareStatement(selectQuery);
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            while (resultSet.next()) {
+//                list.add(new User(resultSet.getString("userEmail"), resultSet.getString("userName"),
+//                        resultSet.getString("userStatus"), resultSet.getInt("userBalance"),
+//                        resultSet.getInt("PL_Points"), resultSet.getInt("userKey")));
+//            }
+//            resultSet.close();
+//            statement.close();
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return list;
+//    }
 }
