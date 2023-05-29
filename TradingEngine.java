@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -26,33 +27,45 @@ public class TradingEngine {
             }
         }
 
-    public void executeOrder(Order order, Portfolio portfolio) throws IOException { // order = input of user
+    public void executeOrder(Order order, Portfolio portfolio) throws IOException {
         replenishLotPoolDaily();
         if (order.getType() == Order.Type.BUY) {
             if (isWithinInitialTradingPeriod()) {
-                if (stocks.contains(order.getStock())) { // if stock in api contains input buyOrder
-                    double currentPrice = api.getRealTimePrice(order.getStock().getSymbol());
-                    double expectedBuyingPrice = order.getExpectedBuyingPrice();
+                double currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
+                double expectedBuyingPrice = order.getExpectedBuyingPrice();
 
-                    if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
-                        buyOrders.get(order.getStock()).add(order); // if within price, add the input buyOrder into buyOrders list
-                        tryExecuteBuyOrder(order, portfolio); // add order into portfolio
-                        lotPool.remove(order.getStock(), order.getShares()); // will 500 - order.getShares() ?
-                    } else {
-                        System.out.println("The expected buying price is not within the acceptable range.");
-                    }
+                if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
+                    List<Order> buyOrdersList = buyOrders.computeIfAbsent(order.getStock(), k -> new ArrayList<>());
+                    buyOrdersList.add(order);
+                    tryExecuteBuyOrder(order, portfolio);
+                    lotPool.remove(order.getStock(), order.getShares());
                 } else {
-                    System.out.println("The stock is not available for trading during the initial trading period.");
+                    System.out.println("The expected buying price is not within the acceptable range.\nOrder not placed.");
+                    return;
                 }
             } else {
                 autoMatching(portfolio);
             }
         } else {
-            sellOrders.get(order.getStock()).add(order);
-            tryExecuteSellOrder(order, portfolio);
-        }
+            // if sell order is in buy order list
+            if (portfolio.containsStockSymbol(order.getStock().getSymbol())) {
+                double currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
+                double expectedBuyingPrice = order.getExpectedSellingPrice();
 
+                if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
+                    List<Order> sellOrdersList = sellOrders.computeIfAbsent(order.getStock(), k -> new ArrayList<>());
+                    sellOrdersList.add(order);
+                    tryExecuteSellOrder(order, portfolio);
+                } else {
+                    System.out.println("The expected buying price is not within the acceptable range.\nOrder not placed.");
+                    return;
+                }
+            }else{
+                System.out.println("Stock is not in list");
+            }
+        }
     }
+
 
     private boolean isWithinInitialTradingPeriod() {
         LocalDateTime currentTime = LocalDateTime.now();
@@ -79,11 +92,18 @@ public class TradingEngine {
         return currentTime.equals(marketOpenTime);
     }
 
-    private boolean isPriceWithinRange(double price, double currentPrice, double rangePercentage) { // Execute trades if the price falls within 1% range
+    private boolean isPriceWithinRange(double price, double currentPrice, double rangePercentage) {
         double range = currentPrice * (rangePercentage / 100);
         double lowerLimit = currentPrice - range;
         double upperLimit = currentPrice + range;
-        return price >= lowerLimit && price <= upperLimit;
+
+        // Format values to 2 decimal points
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+        double formattedLowerLimit = Double.parseDouble(decimalFormat.format(lowerLimit));
+        double formattedUpperLimit = Double.parseDouble(decimalFormat.format(upperLimit));
+        double formattedPrice = Double.parseDouble(decimalFormat.format(price));
+
+        return formattedPrice >= formattedLowerLimit && formattedPrice <= formattedUpperLimit;
     }
 
     public boolean isWithinTradingHours() { // Check trading hours
@@ -108,13 +128,13 @@ public class TradingEngine {
         List<Order> orders = buyOrders.get(order.getStock()); //loop buy order,if enough money, add buy order into portfolio
         double price = order.getExpectedBuyingPrice();
         int shares = order.getShares();
-        double totalPrice = price * shares;
 
-        if (portfolio.getAccBalance() >= totalPrice) {
+        if (portfolio.getAccBalance() >= price) {
             double temp = portfolio.getAccBalance();
-            temp -= totalPrice;
+            temp -= price;
             portfolio.setAccBalance(temp);
-            portfolio.addStock(order.getStock(), shares);
+        //    portfolio.addValue(order.getExpectedBuyingPrice());
+            portfolio.addStock(order, shares);
             orders.remove(order);
             System.out.println("Buy order executed successfully.");
         } else {
@@ -207,29 +227,35 @@ public class TradingEngine {
     }
 
     public void displaySuggestedPrice(String stockSymbol, int quantity) throws IOException {
-        Stock stock;
+        Stock stock = null;
 
         for (Stock s : stocks) {
             if (s.getSymbol().equalsIgnoreCase(stockSymbol)) {
                 stock = s;
-                if (stock != null) {
-                    double currentPrice = api.getRealTimePrice(stockSymbol) * quantity;
-                    double lowerLimit = currentPrice * 0.99; // 1% below the current price
-                    double upperLimit = currentPrice * 1.01;
-
-                    System.out.println("Suggested price range for " + stockSymbol + ": " + lowerLimit + " - " + upperLimit);
-                } else {
-                    System.out.println("Stock with symbol " + stockSymbol + " not found.");
-                }
+                break;
             }
         }
+
+        if (stock != null) {
+            double currentPrice = api.getRealTimePrice(stock.getSymbol()) * quantity;
+            double lowerLimit = currentPrice * 0.99; // 1% below the current price
+            double upperLimit = currentPrice * 1.01;
+
+            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+            String formattedLowerLimit = decimalFormat.format(lowerLimit);
+            String formattedUpperLimit = decimalFormat.format(upperLimit);
+
+            System.out.println("Suggested price range for " + stockSymbol + ": " + formattedLowerLimit + " - " + formattedUpperLimit);
+        } else {
+            System.out.println("Stock with symbol " + stockSymbol + " not found.");
+        }
     }
-    public void displaySellOrders() {
+    public void displaySellOrders() { // prob
         System.out.println("Sell Orders:");
 
         for (Stock stock : stocks) {
             List<Order> sellOrderList = sellOrders.get(stock);
-            if (!sellOrderList.isEmpty()) {
+            if (sellOrderList != null) {
                 System.out.println("Stock: " + stock.getSymbol());
                 for (Order order : sellOrderList) {
                     System.out.println("  Price: " + order.getExpectedSellingPrice());
@@ -240,6 +266,7 @@ public class TradingEngine {
             }
         }
     }
+
 
 
     public Stock getStockBySymbol(String symbol) {
@@ -260,7 +287,7 @@ public class TradingEngine {
         double temp = portfolio.getAccBalance();
         temp += totalPrice;
         portfolio.setAccBalance(temp);
-        portfolio.removeStock(order.getStock(), shares);
+        portfolio.removeStock(order, shares); // remove share num
         orders.remove(order);
         System.out.println("Sell order executed successfully.");
     }
@@ -280,9 +307,9 @@ public class TradingEngine {
                     // Check if the buy order symbol and price match with the lot pool
                     else if ((!isInSellOrder(buyOrder, sellOrder)) && lotPool.containsKey(buyOrder.getStock()) && lotPool.containsValue(buyOrder.getShares())) {
                         tryExecuteBuyOrder(buyOrder, portfolio);
-                        lotPool.remove(buyOrder.getStock(), buyOrder.getShares());
+                        lotPool.remove(buyOrder.getStock(), buyOrder.getShares()); // deduct shares
                     } else {
-                        System.out.println("Stock is not available");
+                        System.out.println("Stock is added into pending order");
                     }
                 }
             }
@@ -295,4 +322,5 @@ public class TradingEngine {
     public Map<Stock, List<Order>> getBuyOrders() {
         return buyOrders;
     }
+
 }
