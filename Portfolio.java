@@ -12,6 +12,7 @@ public class Portfolio {
         holdings = new HashMap<>();
     }
 
+
     public void addStock(Order order, int buyShares) {
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order orders = entry.getKey();
@@ -47,6 +48,7 @@ public class Portfolio {
             } else {
                 System.out.println("Stock not found in holdings.");
             }
+
         }
     }
 

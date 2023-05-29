@@ -1,5 +1,4 @@
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -122,6 +121,7 @@ public class UserAuthentication {
 
 //                            if (tradingEngine.isWithinTradingHours()) {
                                 userAuth.loopTrade(API.extractStocks(), portfolio, db.getUser(), tradingEngine);
+
 //                            } else {
 //                                System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
 //                            }
