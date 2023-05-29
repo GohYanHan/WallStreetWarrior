@@ -5,15 +5,44 @@ import java.util.Map;
 
 public class Portfolio {
     private Map<Order, Integer> holdings;
-    private double accBalance = 50000;
     private double value = 0;
+    private double accBalance;
+    private int userKey;
+    private Database db;
 
-    public Portfolio() {
-        holdings = new HashMap<>();
+    public Portfolio(int userKey, double balance) {
+        this.userKey = userKey;
+        this.holdings = new HashMap<>();
+        this.accBalance = balance;
+        db = new Database();
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public List<Integer> getHoldingsValues() {
+        return new ArrayList<>(holdings.values());
+    }
+
+    public boolean getHoldings(String symbol) {
+        return holdings.containsKey(symbol);
+    }
+
+    void setAccBalance(double accBalance) {
+        if (db.updateUserBalance(userKey, accBalance)) {
+            this.accBalance = accBalance;
+            System.out.println("New account balance: " + this.accBalance);
+        } else
+            System.out.println("Account balance is not updated.\nCurrent account balance: " + this.accBalance);
+    }
+
+    double getAccBalance() {
+        return accBalance;
     }
 
 
-    public void addStock(Order order, int buyShares) {
+    void addStock(Order order, int buyShares) {
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order orders = entry.getKey();
             int shares = entry.getValue();
@@ -28,7 +57,7 @@ public class Portfolio {
         }
     }
 
-    public void removeStock(Order order, int soldShares) {
+    void removeStock(Order order, int soldShares) {
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order orders = entry.getKey();
             int shares = entry.getValue();
@@ -38,7 +67,7 @@ public class Portfolio {
                 if (updatedShares == 0) {
                     holdings.remove(orders);
                 } else if (updatedShares > 0) {
-                    holdings.replace(orders,shares, updatedShares);
+                    holdings.replace(orders, shares, updatedShares);
                     value -= order.getExpectedBuyingPrice();
                     System.out.println("Sell order executed successfully.");
                 } else {
@@ -52,27 +81,7 @@ public class Portfolio {
         }
     }
 
-    public double getValue() {
-        return value;
-    }
-
-    public List<Integer> getHoldingsValues() {
-        return new ArrayList<>(holdings.values());
-    }
-
-    public boolean getHoldings(String symbol){
-        return holdings.containsKey(symbol);
-    }
-
-    public void setAccBalance(double accBalance) {
-        this.accBalance = accBalance;
-    }
-
-    public double getAccBalance(){
-        return accBalance;
-    }
-
-    public void displayHoldings() {
+    void displayHoldings() {
         System.out.println("Holdings:");
 
         if (holdings.isEmpty()) {
@@ -89,7 +98,7 @@ public class Portfolio {
         }
     }
 
-    public void displayBuyOrders(){
+    void displayBuyOrders() {
         System.out.println("Orders to sell: ");
 
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
@@ -101,6 +110,7 @@ public class Portfolio {
             System.out.println("-".repeat(30));
         }
     }
+
     public boolean containsStockSymbol(String symbol) {
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order order = entry.getKey();
@@ -112,6 +122,7 @@ public class Portfolio {
         }
         return false; // Symbol not found in holdings
     }
+
     public Stock findStockBySymbol(String symbol) {
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order order = entry.getKey();
