@@ -12,12 +12,12 @@ public class Portfolio {
     }
 
     public void addStock(Order order, int shares) {
-        int currentShares = holdings.getOrDefault(order, 0);
+        int currentShares = holdings.getOrDefault(order.getShares(), 0);
         holdings.put(order, currentShares + shares);
     }
 
     public void removeStock(Order order, int shares) {
-        int currentShares = holdings.getOrDefault(order, 0);
+        int currentShares = holdings.getOrDefault(order.getShares(), 0);
         if (currentShares >= shares) {
             holdings.put(order, currentShares - shares);
         }else{

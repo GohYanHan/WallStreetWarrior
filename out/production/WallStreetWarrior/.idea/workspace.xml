@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Trade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/search.java" beforeDir="false" afterPath="$PROJECT_DIR$/search.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2QSXO0inAcqBcl4voK3fOpybQeE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/user/OneDrive - matrik/Documents/IntelliJ/WallStreetWarrior"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="" />
+      <created>1685347920979</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1685347920979</updated>
+    </task>
+    <servers />
+  </component>
+</project>
