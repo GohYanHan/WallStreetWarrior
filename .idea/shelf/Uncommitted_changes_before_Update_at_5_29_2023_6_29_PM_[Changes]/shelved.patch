@@ -1,0 +1,490 @@
+Index: search.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.*;\r\n\r\nclass Stock {\r\n    private String name;\r\n    private String ticker;\r\n\r\n    public Stock(String name, String ticker) {\r\n        this.name = name;\r\n        this.ticker = ticker;\r\n    }\r\n\r\n    public String getName() {\r\n        return name;\r\n    }\r\n\r\n    public String getTicker() {\r\n        return ticker;\r\n    }\r\n}\r\n\r\nclass StockSearch {\r\n    private List<Stock> stocks;\r\n\r\n    public StockSearch() {\r\n        stocks = new ArrayList<>();\r\n    }\r\n\r\n    public void addStock(Stock stock) {\r\n        stocks.add(stock);\r\n    }\r\n\r\n    public List<Stock> searchByName(String query) {\r\n        List<Stock> results = new ArrayList<>();\r\n\r\n        for (Stock stock : stocks) {\r\n            if (boyerMooreSearch(stock.getName(), query)) {\r\n                results.add(stock);\r\n            }\r\n        }\r\n\r\n        return results;\r\n    }\r\n\r\n    public List<Stock> searchByTicker(String query) {\r\n        List<Stock> results = new ArrayList<>();\r\n\r\n        for (Stock stock : stocks) {\r\n            if (boyerMooreSearch(stock.getTicker(), query)) {\r\n                results.add(stock);\r\n            }\r\n        }\r\n\r\n        return results;\r\n    }\r\n\r\n    private boolean boyerMooreSearch(String text, String pattern) {\r\n        int n = text.length();\r\n        int m = pattern.length();\r\n\r\n        int[] badChar = new int[256];\r\n        Arrays.fill(badChar, -1);\r\n\r\n        for (int i = 0; i < m; i++) {\r\n            badChar[pattern.charAt(i)] = i;\r\n        }\r\n\r\n        int shift = 0;\r\n        while (shift <= n - m) {\r\n            int j = m - 1;\r\n\r\n            while (j >= 0 && pattern.charAt(j) == text.charAt(shift + j)) {\r\n                j--;\r\n            }\r\n\r\n            if (j < 0) {\r\n                return true;\r\n            } else {\r\n                shift += Math.max(1, j - badChar[text.charAt(shift + j)]);\r\n            }\r\n        }\r\n\r\n        return false;\r\n    }\r\n}\r\n\r\npublic class StockSearchApp {\r\n    public static void main(String[] args) {\r\n        StockSearch stockSearch = new StockSearch();\r\n        API api = new API();\r\n\r\n        // Add some sample stocks\r\n        stockSearch.addStock(new Stock(api.StockList()));\r\n\r\n\r\n        // Search by name\r\n\r\n        Scanner\tk = new Scanner(System.in);\r\n\r\n\r\n        String searchName = k.nextLine();;\r\n        List<Stock> nameResults = stockSearch.searchByName(searchName);\r\n        if (nameResults.isEmpty()) {\r\n            System.out.println(\"No stocks found with name containing '\" + searchName + \"'\");\r\n        } else {\r\n            System.out.println(\"Stocks with name containing '\" + searchName + \"':\");\r\n            for (Stock stock : nameResults) {\r\n                System.out.println(stock.getName() + \" (\" + stock.getTicker() + \")\");\r\n            }\r\n        }\r\n\r\n        System.out.println();\r\n\r\n        // Search by ticker\r\n        String searchTicker = \"\";\r\n        List<Stock> tickerResults = stockSearch.searchByTicker(searchTicker);\r\n        if (tickerResults.isEmpty()) {\r\n            System.out.println(\"No stocks found with ticker containing '\" + searchTicker + \"'\");\r\n        } else {\r\n            System.out.println(\"Stocks with ticker containing '\" + searchTicker + \"':\");\r\n            for (Stock stock : tickerResults) {\r\n                System.out.println(stock.getName() + \" (\" + stock.get\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/search.java b/search.java
+--- a/search.java	
++++ b/search.java	
+@@ -1,121 +1,250 @@
+-import java.util.*;
++import org.json.JSONArray;
++import org.json.JSONException;
++import org.json.JSONObject;
+ 
+-class Stock {
+-    private String name;
+-    private String ticker;
++import java.io.BufferedReader;
++import java.io.FileReader;
++import java.io.IOException;
++import java.io.InputStreamReader;
++import java.net.HttpURLConnection;
++import java.net.URL;
++import java.text.SimpleDateFormat;
++import java.util.Date;
++import java.util.Iterator;
+ 
+-    public Stock(String name, String ticker) {
+-        this.name = name;
+-        this.ticker = ticker;
+-    }
+ 
+-    public String getName() {
+-        return name;
+-    }
+-
+-    public String getTicker() {
+-        return ticker;
+-    }
+-}
+ 
+ class StockSearch {
+-    private List<Stock> stocks;
++    private static String fileName = "MyStocks";
++    private static final String API_KEY = "UM-1cd15cbc8ba9f613f94373ca35c267a52acf88978d73439e9f3c941b1c49318d";
++    private static final String API_ENDPOINT = "https://wall-street-warriors-api-um.vercel.app/price";
+ 
+-    public StockSearch() {
+-        stocks = new ArrayList<>();
++    // Call this method to display a list of Malaysia Stock
++    static void displayStocks() {
++        try {
++            String jsonResponse = readJsonFromFile(fileName);
++            displayStocks(jsonResponse);
++        } catch (IOException e) {
++            e.printStackTrace();
++        }
+     }
+ 
+-    public void addStock(Stock stock) {
+-        stocks.add(stock);
+-    }
++    // Call this method to read JSON data from a file copied from API end point provided
++    private static String readJsonFromFile(String fileName) throws IOException {
++        StringBuilder jsonText = new StringBuilder();
++
++        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
++            String line;
++            while ((line = reader.readLine()) != null) {
++                jsonText.append(line);
++            }
++        }
+ 
+-    public List<Stock> searchByName(String query) {
+-        List<Stock> results = new ArrayList<>();
++        return jsonText.toString();
++    }
+ 
+-        for (Stock stock : stocks) {
+-            if (boyerMooreSearch(stock.getName(), query)) {
+-                results.add(stock);
++    // Display the stocks' symbols & name from the JSON response
++    private static void displayStocks(String jsonResponse) {
++        try {
++            JSONArray jsonArray = new JSONArray(jsonResponse);
++
++            System.out.printf("%-12s\t%-40s\n", "Symbol", "Name");
++            System.out.println("----------------------------------------");
++
++            for (int i = 0; i < jsonArray.length(); i++) {
++                JSONObject stockJson = jsonArray.getJSONObject(i);
++                String symbol = stockJson.getString("symbol");
++                String name = stockJson.getString("name");
++
++                System.out.printf("%-12s\t%-40s\n", symbol, name);
+             }
++            System.out.println();
++
++        } catch (JSONException e) {
++            e.printStackTrace();
+         }
++    }
+ 
+-        return results;
+-    }
++    // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
++    static void searchStocks(String query) {
++        try {
++            String jsonResponse = readJsonFromFile(fileName);
++            JSONArray jsonArray = new JSONArray(jsonResponse);
++
++            System.out.printf("%-12s\t%-40s\n", "Symbol", "Name");
++            System.out.println("----------------------------------------");
+ 
+-    public List<Stock> searchByTicker(String query) {
+-        List<Stock> results = new ArrayList<>();
++            for (int i = 0; i < jsonArray.length(); i++) {
++                JSONObject stockJson = jsonArray.getJSONObject(i);
++                String symbol = stockJson.getString("symbol");
++                String name = stockJson.getString("name");
+ 
+-        for (Stock stock : stocks) {
+-            if (boyerMooreSearch(stock.getTicker(), query)) {
+-                results.add(stock);
++                // Search by ticker symbol
++                if (symbol.toLowerCase().contains(query.toLowerCase())) {
++                    System.out.printf("%-12s\t%-40s\n", symbol, name);
++                }
++                // Search by name
++                else if (BoyerMoore.search(name.toLowerCase(), query.toLowerCase()) != -1) {
++                    System.out.printf("%-12s\t%-40s\n", symbol, name);
++                }
+             }
++            System.out.println();
++        } catch (JSONException | IOException e) {
++            e.printStackTrace();
+         }
++    }
+ 
+-        return results;
+-    }
++    // Prompt the user for stock symbols, timestamp, and interval, and display the prices by calling getStockPrice() and displayPrices()
++    static void getPrices() {
++        try {
++            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
++
++            System.out.println("***For multiple stocks, kindly request to separate them by commas [e.g. 0001.MY,0002.MY]***");
++            System.out.print("Enter the stock symbol(s): ");
++            String symbols = reader.readLine().trim();
++            String[] symbolsArr = symbols.split("\\s*,\\s*");
++
++            while (!isValidSymbols(symbolsArr)) {
++                System.out.println("Stock symbol not found. Please enter another symbol.");
++                System.out.println("***For multiple stocks, kindly request to separate them by commas [e.g. 0001.MY,0002.MY]***");
++                System.out.print("Enter the stock symbol(s): ");
++                symbols = reader.readLine().trim();
++                symbolsArr = symbols.split("\\s*,\\s*");
++            }
+ 
+-    private boolean boyerMooreSearch(String text, String pattern) {
+-        int n = text.length();
+-        int m = pattern.length();
++            System.out.print("Enter the start date (yyyyMMdd): ");
++            String startDateStr = reader.readLine();
+ 
+-        int[] badChar = new int[256];
+-        Arrays.fill(badChar, -1);
++            System.out.print("Enter the end date (yyyyMMdd): ");
++            String endDateStr = reader.readLine();
+ 
+-        for (int i = 0; i < m; i++) {
+-            badChar[pattern.charAt(i)] = i;
++            System.out.print("Enter the desired interval (1min, 5min, 15min, 30min, 60min, daily, weekly, monthly): ");
++            String interval = reader.readLine();
++
++            // Convert the start and end date strings to Date objects
++            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
++            Date startDate = dateFormat.parse(startDateStr);
++            Date endDate = dateFormat.parse(endDateStr);
++
++            // Convert the Date objects to timestamps
++            long startTimestamp = startDate.getTime();
++            long endTimestamp = endDate.getTime();
++
++            // Retrieve the stock prices within the specified date range and interval
++            String jsonResponse = getStockPrice(symbolsArr, startTimestamp, endTimestamp, interval);
++            displayPrices(jsonResponse, symbolsArr);
++        } catch (Exception e) {
++            e.printStackTrace();
+         }
++    }
+ 
+-        int shift = 0;
+-        while (shift <= n - m) {
+-            int j = m - 1;
++    // Check if all symbols are in the stock list
++    private static boolean isValidSymbols(String[] symbols) {
++        try {
++            JSONArray jsonArray = new JSONArray(readJsonFromFile(fileName));
+ 
+-            while (j >= 0 && pattern.charAt(j) == text.charAt(shift + j)) {
+-                j--;
+-            }
++            for (String symbol : symbols) {
++                boolean isValid = false;
++
++                for (int i = 0; i < jsonArray.length(); i++) {
++                    JSONObject stockJson = jsonArray.getJSONObject(i);
++                    String stockSymbol = stockJson.getString("symbol");
++
++                    if (stockSymbol.equals(symbol)) {
++                        isValid = true;
++                        break;
++                    }
++                }
+ 
+-            if (j < 0) {
+-                return true;
+-            } else {
+-                shift += Math.max(1, j - badChar[text.charAt(shift + j)]);
+-            }
++                if (!isValid) {
++                    System.out.println("Invalid stock symbol: " + symbol);
++                    return false;
++                }
++            }
++
++            return true;
++        } catch (JSONException e) {
++            e.printStackTrace();
++        } catch (IOException e) {
++            e.printStackTrace();
+         }
+ 
+         return false;
+     }
+-}
+ 
+-public class StockSearchApp {
+-    public static void main(String[] args) {
+-        StockSearch stockSearch = new StockSearch();
+-        API api = new API();
++    // Fetch stock prices from the API based on the symbols, timestamp, and interval
++    private static String getStockPrice(String[] symbolsArr, long startTimestamp, long endTimestamp, String interval) throws Exception {
+ 
+-        // Add some sample stocks
+-        stockSearch.addStock(new Stock(api.StockList()));
++        // Convert the symbols to "0001.KL", "0002.KL", etc.
++        for (int i = 0; i < symbolsArr.length; i++) {
++            symbolsArr[i] = symbolsArr[i].replace(".MY", ".KL");
++        }
+ 
++        StringBuilder symbolsParam = new StringBuilder();
++        for (String symbol : symbolsArr) {
++            symbolsParam.append(symbol).append(",");
++        }
++        symbolsParam.deleteCharAt(symbolsParam.length() - 1);
+ 
+-        // Search by name
++        String url = API_ENDPOINT + "?apikey=" + API_KEY + "&function=TIME_SERIES_INTRADAY_EXTENDED&symbol=" + symbolsParam + "&interval=" + interval + "&slice=" + startTimestamp + "," + endTimestamp;
++        URL apiURL = new URL(url);
++        HttpURLConnection connection = (HttpURLConnection) apiURL.openConnection();
++        connection.setRequestMethod("GET");
++        connection.connect();
+ 
+-        Scanner	k = new Scanner(System.in);
++        int responseCode = connection.getResponseCode();
++        if (responseCode == HttpURLConnection.HTTP_OK) {
++            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
++            String line;
++            StringBuilder response = new StringBuilder();
+ 
++            while ((line = reader.readLine()) != null) {
++                response.append(line);
++            }
++            reader.close();
+ 
+-        String searchName = k.nextLine();;
+-        List<Stock> nameResults = stockSearch.searchByName(searchName);
+-        if (nameResults.isEmpty()) {
+-            System.out.println("No stocks found with name containing '" + searchName + "'");
++            return response.toString();
+         } else {
+-            System.out.println("Stocks with name containing '" + searchName + "':");
+-            for (Stock stock : nameResults) {
+-                System.out.println(stock.getName() + " (" + stock.getTicker() + ")");
+-            }
+-        }
++            throw new Exception("Failed to get stock price. Response code: " + responseCode);
++        }
++    }
++
++    // Display the timestamps and prices for the requested stocks
++    private static void displayPrices(String jsonResponse, String[] symbols) {
++        try {
++            JSONObject json = new JSONObject(jsonResponse);
++
++            for (String symbol : symbols) {
++                if (json.isNull(symbol)) {
++                    System.out.println("No data available for symbol: " + symbol);
++                    continue; // Skip to the next iteration if symbol is not found
++                }
+ 
+-        System.out.println();
++                System.out.println();
++                JSONObject symbolData = json.getJSONObject(symbol);
++                System.out.println("Symbol: " + symbol);
++                System.out.println("-------------------------------");
++                System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", "Timestamp", "Open", "High", "Low", "Close");
++
++                JSONObject openData = symbolData.getJSONObject("Open");
++                JSONObject highData = symbolData.getJSONObject("High");
++                JSONObject lowData = symbolData.getJSONObject("Low");
++                JSONObject closeData = symbolData.getJSONObject("Close");
+ 
+-        // Search by ticker
+-        String searchTicker = "";
+-        List<Stock> tickerResults = stockSearch.searchByTicker(searchTicker);
+-        if (tickerResults.isEmpty()) {
+-            System.out.println("No stocks found with ticker containing '" + searchTicker + "'");
+-        } else {
+-            System.out.println("Stocks with ticker containing '" + searchTicker + "':");
+-            for (Stock stock : tickerResults) {
+-                System.out.println(stock.getName() + " (" + stock.get
++                Iterator<String> timestampIterator = openData.keys();
++                while (timestampIterator.hasNext()) {
++                    String timestamp = timestampIterator.next();
++                    double open = openData.getDouble(timestamp);
++                    double high = highData.getDouble(timestamp);
++                    double low = lowData.getDouble(timestamp);
++                    double close = closeData.getDouble(timestamp);
++
++                    System.out.printf("%-20s %-20.2f %-20.2f %-20.2f %-20.2f\n", timestamp, open, high, low, close);
++                }
++                System.out.println();
++            }
++        } catch (JSONException e) {
++            e.printStackTrace();
++        }
++    }
++}
+Index: dashboard.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.Comparator;\r\nimport java.util.List;\r\nimport java.util.Map;\r\nimport java.util.stream.Collectors;\r\n\r\npublic class UserDashboard {\r\n    private Portfolio portfolio;\r\n    private double startingAccountBalance;\r\n\r\n    public UserDashboard(double startingAccountBalance) {\r\n        portfolio = new Portfolio();\r\n        this.startingAccountBalance = 50000;\r\n    }\r\n\r\n    public void addStock(Stock stock, int shares) {\r\n        portfolio.addStock(stock, shares);\r\n    }\r\n\r\n    public void removeStock(Stock stock, int shares) {\r\n        portfolio.removeStock(stock, shares);\r\n    }\r\n\r\n    public double getAccountBalance() {\r\n        return startingAccountBalance + portfolio.getValue();\r\n    }\r\n\r\n    public double getCurrentPoints() {\r\n        double pAndL = portfolio.getValue() - startingAccountBalance;\r\n        return (pAndL / startingAccountBalance) * 100;\r\n    }\r\n\r\n    public List<Stock> getOpenPositions() {\r\n        return portfolio.getHoldings().keySet().stream()\r\n                .sorted(Comparator.comparing(Stock::getSymbol))\r\n                .collect(Collectors.toList());\r\n    }\r\n\r\n    public List<Trade> getTradeHistorySortedByPrice() {\r\n        return portfolio.getTradeHistory().stream()\r\n                .sorted(Comparator.comparing(Trade::getPrice))\r\n                .collect(Collectors.toList());\r\n    }\r\n\r\n    public List<Trade> getTradeHistorySortedByPlacementTime() {\r\n        return portfolio.getTradeHistory().stream()\r\n                .sorted(Comparator.comparing(Trade::getPlacementTime))\r\n                .collect(Collectors.toList());\r\n    }\r\n\r\n    public int getStocksLeft() {\r\n        int totalShares = portfolio.getHoldings().values().stream()\r\n                .mapToInt(Integer::intValue)\r\n                .sum();\r\n        return totalShares;\r\n    }\r\n}\r\n\r\npublic class Trade {\r\n    private Stock stock;\r\n    private double price;\r\n    private long placementTime;\r\n\r\n    public Trade(Stock stock, double price, long placementTime) {\r\n        this.stock = stock;\r\n        this.price = price;\r\n        this.placementTime = placementTime;\r\n    }\r\n\r\n    public Stock getStock() {\r\n        return stock;\r\n    }\r\n\r\n    public double getPrice() {\r\n        return price;\r\n    }\r\n\r\n    public long getPlacementTime() {\r\n        return placementTime;\r\n    }\r\n}
+===================================================================
+diff --git a/dashboard.java b/dashboard.java
+--- a/dashboard.java	
++++ b/dashboard.java	
+@@ -1,80 +1,81 @@
+ import java.util.Comparator;
+ import java.util.List;
+-import java.util.Map;
+ import java.util.stream.Collectors;
+ 
+-public class UserDashboard {
+-    private Portfolio portfolio;
+-    private double startingAccountBalance;
+-
+-    public UserDashboard(double startingAccountBalance) {
+-        portfolio = new Portfolio();
+-        this.startingAccountBalance = 50000;
+-    }
++public class dashboard {
++    private User user;
+ 
+-    public void addStock(Stock stock, int shares) {
+-        portfolio.addStock(stock, shares);
++    public dashboard(User user) {
++        this.user = user;
+     }
+ 
+-    public void removeStock(Stock stock, int shares) {
+-        portfolio.removeStock(stock, shares);
++    public void displayAccountBalance() {
++        System.out.println("Account Balance: " + user.getPortfolio().getValue());
+     }
+ 
+-    public double getAccountBalance() {
+-        return startingAccountBalance + portfolio.getValue();
++    public void displayCurrentPoints() {
++        double startingAccountBalance = 50000; // Initial fund
++        double pAndL = user.getPortfolio().getValue() - startingAccountBalance;
++        double points = (pAndL / startingAccountBalance) * 100;
++        System.out.println("Current Points: " + points);
+     }
+ 
+-    public double getCurrentPoints() {
+-        double pAndL = portfolio.getValue() - startingAccountBalance;
+-        return (pAndL / startingAccountBalance) * 100;
++    public void displayOpenPositions() {
++        System.out.println("Open Positions:");
++        user.getPortfolio().getHoldings().forEach((stock, shares) -> {
++            System.out.println(stock.getSymbol() + " - " + stock.getName() + ": " + shares + " shares");
++        });
+     }
+ 
+-    public List<Stock> getOpenPositions() {
+-        return portfolio.getHoldings().keySet().stream()
+-                .sorted(Comparator.comparing(Stock::getSymbol))
++    public void displayTradeHistory() {
++        System.out.println("Trade History:");
++        List<Order> sortedTradeHistory = user.getPortfolio().getTradeHistory().stream()
++                .sorted(Comparator.comparing(Order::getTimestamp))
+                 .collect(Collectors.toList());
++
++        sortedTradeHistory.forEach(order -> {
++            String action = order.getType() == Order.Type.BUY ? "Bought" : "Sold";
++            String symbol = order.getStock().getSymbol();
++            String name = order.getStock().getName();
++            int shares = order.getShares();
++            double price = order.getPrice();
++            System.out.println(order.getTimestamp() + " - " + action + " " + shares + " shares of " +
++                    symbol + " - " + name + " at price " + price);
++        });
+     }
+ 
+-    public List<Trade> getTradeHistorySortedByPrice() {
+-        return portfolio.getTradeHistory().stream()
+-                .sorted(Comparator.comparing(Trade::getPrice))
++    public void displayStocksLeft() {
++        System.out.println("Stocks Left:");
++        user.getPortfolio().getHoldings().forEach((stock, shares) -> {
++            System.out.println(stock.getSymbol() + " - " + stock.getName() + ": " + shares + " shares");
++        });
++    }
++
++    public void sortTradeHistoryByPrice() {
++        List<Order> sortedTradeHistory = user.getPortfolio().getTradeHistory().stream()
++                .sorted(Comparator.comparingDouble(Order::getPrice))
+                 .collect(Collectors.toList());
++        displaySortedTradeHistory(sortedTradeHistory);
+     }
+ 
+-    public List<Trade> getTradeHistorySortedByPlacementTime() {
+-        return portfolio.getTradeHistory().stream()
+-                .sorted(Comparator.comparing(Trade::getPlacementTime))
++    public void sortTradeHistoryByPlacementTime() {
++        List<Order> sortedTradeHistory = user.getPortfolio().getTradeHistory().stream()
++                .sorted(Comparator.comparing(Order::getTimestamp))
+                 .collect(Collectors.toList());
+-    }
+-
+-    public int getStocksLeft() {
+-        int totalShares = portfolio.getHoldings().values().stream()
+-                .mapToInt(Integer::intValue)
+-                .sum();
+-        return totalShares;
+-    }
+-}
+-
+-public class Trade {
+-    private Stock stock;
+-    private double price;
+-    private long placementTime;
+-
+-    public Trade(Stock stock, double price, long placementTime) {
+-        this.stock = stock;
+-        this.price = price;
+-        this.placementTime = placementTime;
+-    }
+-
+-    public Stock getStock() {
+-        return stock;
++        displaySortedTradeHistory(sortedTradeHistory);
+     }
+ 
+-    public double getPrice() {
+-        return price;
++    private void displaySortedTradeHistory(List<Order> sortedTradeHistory) {
++        System.out.println("Sorted Trade History:");
++        sortedTradeHistory.forEach(order -> {
++            String action = order.getType() == Order.Type.BUY ? "Bought" : "Sold";
++            String symbol = order.getStock().getSymbol();
++            String name = order.getStock().getName();
++            int shares = order.getShares();
++            double price = order.getPrice();
++            System.out.println(order.getTimestamp() + " - " + action + " " + shares + " shares of " +
++                    symbol + " - " + name + " at price " + price);
++        });
+     }
+ 
+-    public long getPlacementTime() {
+-        return placementTime;
+-    }
+-}
+\ No newline at end of file
++}
