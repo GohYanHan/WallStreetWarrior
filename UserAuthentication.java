@@ -1,6 +1,7 @@
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -119,11 +120,11 @@ public class UserAuthentication {
                             // Create a portfolio for the user
                             Portfolio portfolio = new Portfolio();
 
-                            if (tradingEngine.isWithinTradingHours()) {
-                                userAuth.loopTrade(API.extractStocks(), portfolio, db.getUser(), tradingEngine);
-                            } else {
-                                System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
-                            }
+//                            if (tradingEngine.isWithinTradingHours()) {
+//                                userAuth.loopTrade(API.extractStocks(), portfolio, db.getUser(), tradingEngine);
+//                            } else {
+//                                System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
+//                            }
                         }
                     }
 
@@ -150,13 +151,12 @@ public class UserAuthentication {
         return null;
     }
 
-    private void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine) throws IOException {
+    public void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine) throws IOException {
         while (true) {
             // Choose between buying or selling
             System.out.println("1. Buy or sell stock \n2. Show current stock owned \n3. Cancel pending orders");
             int choice = scanner.nextInt();
 
-            Order buyOrder = null;
             if (choice == 1) {
                 System.out.println("1. Buy stock \n2. Sell stock");
                 choice = scanner.nextInt();
@@ -181,6 +181,9 @@ public class UserAuthentication {
                     if (buyQuantity < 100) {
                         System.out.println("Minimum order quantity is 100 shares (one lot).");
                         return;
+                    } else if (buyQuantity > 500) {
+                        System.out.println("Maximum order quantity is 500 shares");
+                        return;
                     }
 
                     // Display suggested price for a stock
@@ -189,26 +192,31 @@ public class UserAuthentication {
                     System.out.println("Enter expected buying price: ");
                     double buyExpectedPrice = scanner.nextDouble();
 
+                    // Format the user input to two decimal points
+                    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                    double formattedBuyExpectedPrice = Double.parseDouble(decimalFormat.format(buyExpectedPrice));
+
                     buyStock = findStockBySymbol(stocks, buyStockSymbol);
-                    //can implement placeOrder??
+
                     if (buyStock != null) {
-                        buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, buyExpectedPrice, 0.0, user);
+                        Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user);
                         tradingEngine.executeOrder(buyOrder, portfolio);
-                        System.out.println("Stock bought successfully!");
                     } else {
                         System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
                     }
 
                 } else if (choice == 2) {
+                    // display buyOrders
+                    portfolio.displayBuyOrders();
                     // Place a sell order
                     System.out.println("Enter stock symbol for sell order: ");
                     String sellStockSymbol = scanner.nextLine();
                     // Find the stock by symbol
-                    Stock sellStock = findStockBySymbol(stocks, sellStockSymbol);
+                    Stock sellStock = portfolio.findStockBySymbol(sellStockSymbol); //modify to link with boolean method in portfolio
                     while (sellStock == null) {
                         System.out.println("Stock with symbol " + sellStockSymbol + " not found. Please enter a new stock symbol: ");
                         sellStockSymbol = scanner.nextLine();
-                        sellStock = findStockBySymbol(stocks, sellStockSymbol);
+                        sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                     }
 
 
@@ -222,17 +230,16 @@ public class UserAuthentication {
                     double sellExpectedPrice = scanner.nextDouble();
 
 
-                    sellStock = findStockBySymbol(stocks, sellStockSymbol);
+                    sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                     if (sellStock != null) {
                         Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user);
                         tradingEngine.executeOrder(sellOrder, portfolio);
-                        System.out.println("Stock successfully bought!");
                     } else {
                         System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
                     }
                 }
             } else if (choice == 2) {
-                //show current stock owned (trading dashboard)
+                portfolio.displayHoldings();
             } else if (choice == 3) {
                 List<Order> buyOrders = new ArrayList<>();
                 while (tradingEngine.getBuyOrders() != null) {
