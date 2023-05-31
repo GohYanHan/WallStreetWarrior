@@ -133,4 +133,13 @@ public class Portfolio {
         }
         return null;
     }
+    public List<Order> getTradeHistory() {
+        return tradeHistory;
+    }
+
+    public void addToTradeHistory(Order order) {
+        tradeHistory.add(order);
+    }
+
+
 }
