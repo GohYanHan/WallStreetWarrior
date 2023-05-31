@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9234f56e-1c03-4b9f-b277-aefd76b24a0a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Portfolio.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +87,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685356309980</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="commit 4 (dashboard)">
+      <created>1685360724372</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1685360724372</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -117,6 +123,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit 1" />
     <MESSAGE value="commit 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit 3" />
+    <MESSAGE value="commit 4 (dashboard)" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit 4 (dashboard)" />
   </component>
 </project>
