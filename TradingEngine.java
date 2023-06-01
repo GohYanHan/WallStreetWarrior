@@ -135,7 +135,7 @@ public class TradingEngine {
             double temp = portfolio.getAccBalance();
             temp -= price;
             portfolio.setAccBalance(temp);
-        //    portfolio.addValue(order.getExpectedBuyingPrice());
+            portfolio.addValue(order.getExpectedBuyingPrice());
             portfolio.addStock(order, shares);
             orders.remove(order);
         } else {
@@ -283,11 +283,11 @@ public class TradingEngine {
         List<Order> orders = sellOrders.get(order.getStock());
         double price = order.getExpectedSellingPrice();
         int shares = order.getShares();
-        double totalPrice = price * shares;
 
         double temp = portfolio.getAccBalance();
-        temp += totalPrice;
+        temp += price;
         portfolio.setAccBalance(temp);
+        portfolio.removeValue(price);
         portfolio.removeStock(order, shares); // remove share num
         orders.remove(order);
     }

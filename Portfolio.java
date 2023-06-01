@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Portfolio {
     private Map<Order, Integer> holdings;
-    private double value = 0;
+    private double value;
     private double accBalance;
     private int userKey;
     private Database db;
@@ -17,7 +17,17 @@ public class Portfolio {
         db = new Database();
     }
 
-    public double getValue() {
+    public double addValue(double expectedBuyingPrice) {
+        value += expectedBuyingPrice;
+        return value;
+    }
+
+    public double removeValue(double expectedSellingPrice) {
+        value -= expectedSellingPrice;
+        return value;
+    }
+
+    private double getValue() {
         return value;
     }
 
@@ -25,8 +35,8 @@ public class Portfolio {
         return new ArrayList<>(holdings.values());
     }
 
-    public boolean getHoldings(String symbol) {
-        return holdings.containsKey(symbol);
+    public Map<Order, Integer> getHoldings() {
+        return holdings;
     }
 
     void setAccBalance(double accBalance) {
@@ -52,7 +62,6 @@ public class Portfolio {
             if (existingOrder.getStock().getSymbol().equalsIgnoreCase(order.getStock().getSymbol())) {
                 int updatedShares = shares + buyShares;
                 holdings.replace(existingOrder, shares, updatedShares);
-                value += order.getExpectedSellingPrice();
                 found = true;
                 break;
             }
@@ -79,7 +88,6 @@ public class Portfolio {
                     } else {
                         holdings.replace(existingOrder, shares, updatedShares);
                     }
-                    value -= order.getExpectedBuyingPrice() * soldShares;
                     found = true;
                     System.out.println("Sell order executed successfully.");
                 } else {
