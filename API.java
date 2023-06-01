@@ -19,16 +19,16 @@ getRealTimePrice() - For TradingEngine, it returns a double price ONLY
 extractStocks() - return ArrayList of symbols and name
  */
 
-//class testAPI {
-//    public static void main(String[] args) throws IOException {
-//        API api = new API();
+class testAPI {
+    public static void main(String[] args) throws IOException {
+        API api = new API();
 //        api.StockList();
-//        api.getPrices();
+        api.getPrices();
 //        System.out.println(api.getRealTimePrice("8206.MY"));
 //        api.extractStocks();
-//
-//    }
-//}
+
+    }
+}
 
 public class API {
     public static String fileName = "MyStocks";
