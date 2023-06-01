@@ -118,7 +118,7 @@ public class UserAuthentication {
                     if (buyQuantity < 100) {
                         System.out.println("Minimum order quantity is 100 shares (one lot).");
                         return;
-                    } else if (buyQuantity > 500) {
+                    } else if (!tradingEngine.isStartOfTradingDay() && buyQuantity > 500) {
                         System.out.println("Maximum order quantity is 500 shares");
                         return;
                     }

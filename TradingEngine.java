@@ -69,7 +69,7 @@ public class TradingEngine {
     }
 
 
-    private boolean isWithinInitialTradingPeriod() {
+    public boolean isWithinInitialTradingPeriod() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.of(currentTime.getYear(), currentTime.getMonth(), currentTime.getDayOfMonth(), 0, 0)
                 .plusDays(3); // Add 3 days to the current date
@@ -88,7 +88,7 @@ public class TradingEngine {
         }
     }
 
-    private boolean isStartOfTradingDay() {
+    public boolean isStartOfTradingDay() {
         LocalTime marketOpenTime = LocalTime.of(9, 0); // Adjust the market open time according to your needs
         LocalTime currentTime = LocalTime.now();
         return currentTime.equals(marketOpenTime);
@@ -135,7 +135,7 @@ public class TradingEngine {
             double temp = portfolio.getAccBalance();
             temp -= price;
             portfolio.setAccBalance(temp);
-        //    portfolio.addValue(order.getExpectedBuyingPrice());
+            portfolio.addValue(order.getExpectedBuyingPrice());
             portfolio.addStock(order, shares);
             orders.remove(order);
         } else {
@@ -283,11 +283,11 @@ public class TradingEngine {
         List<Order> orders = sellOrders.get(order.getStock());
         double price = order.getExpectedSellingPrice();
         int shares = order.getShares();
-        double totalPrice = price * shares;
 
         double temp = portfolio.getAccBalance();
-        temp += totalPrice;
+        temp += price;
         portfolio.setAccBalance(temp);
+        portfolio.removeValue(price);
         portfolio.removeStock(order, shares); // remove share num
         orders.remove(order);
     }
