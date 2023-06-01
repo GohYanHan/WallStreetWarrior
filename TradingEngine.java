@@ -86,7 +86,7 @@ public class TradingEngine {
         }
     }
 
-    private boolean isStartOfTradingDay() {
+    public boolean isStartOfTradingDay() {
         LocalTime marketOpenTime = LocalTime.of(9, 0); // Adjust the market open time according to your needs
         LocalTime currentTime = LocalTime.now();
         return currentTime.equals(marketOpenTime);
