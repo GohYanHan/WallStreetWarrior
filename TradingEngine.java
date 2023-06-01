@@ -69,7 +69,7 @@ public class TradingEngine {
     }
 
 
-    private boolean isWithinInitialTradingPeriod() {
+    public boolean isWithinInitialTradingPeriod() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.of(currentTime.getYear(), currentTime.getMonth(), currentTime.getDayOfMonth(), 0, 0)
                 .plusDays(3); // Add 3 days to the current date
