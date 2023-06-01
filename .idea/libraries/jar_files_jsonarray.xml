@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jar_files_jsonarray">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../jar_files_jsonarray" />
+      <root url="jar://$PROJECT_DIR$/../mysql-connector-j-8.0.33.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../jar_files_jsonarray" recursive="false" />
+  </library>
+</component>
