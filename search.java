@@ -1,7 +1,7 @@
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,6 +16,25 @@ class search {
     private static String fileName = "MyStocks";
     private static final String API_KEY = "UM-1cd15cbc8ba9f613f94373ca35c267a52acf88978d73439e9f3c941b1c49318d";
     private static final String API_ENDPOINT = "https://wall-street-warriors-api-um.vercel.app/price";
+
+
+    private static BoyerMoore boyerMoore;
+
+
+
+    public search(){
+        boyerMoore = new BoyerMoore();
+    }
+
+    public static void main(String[] args) throws IOException {
+        API api = new API();
+        Scanner k = new Scanner(System.in);
+
+
+        api.SearchdisplayStocks(readJsonFromFile(fileName),k.nextLine());
+    }
+
+
 
     // Call this method to display a list of Malaysia Stock
     static void displayStocks() {
@@ -64,7 +83,10 @@ class search {
     }
 
     // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
-    static void searchStocks(String query) {
+     static void searchStocks(String query) {
+
+
+
         try {
             String jsonResponse = readJsonFromFile(fileName);
             JSONArray jsonArray = new JSONArray(jsonResponse);
@@ -77,12 +99,12 @@ class search {
                 String symbol = stockJson.getString("symbol");
                 String name = stockJson.getString("name");
 
-                // Search by ticker symbol
+                // Search by symbol
                 if (symbol.toLowerCase().contains(query.toLowerCase())) {
                     System.out.printf("%-12s\t%-40s\n", symbol, name);
                 }
                 // Search by name
-                else if (BoyerMoore.search(name.toLowerCase(), query.toLowerCase()) != -1) {
+                else if (boyerMoore.search(name.toLowerCase().toCharArray(), query.toLowerCase().toCharArray()) != -1) {
                     System.out.printf("%-12s\t%-40s\n", symbol, name);
                 }
             }
@@ -246,3 +268,4 @@ class search {
         }
     }
 }
+

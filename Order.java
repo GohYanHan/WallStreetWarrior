@@ -18,11 +18,10 @@ public class Order {
     private static double expectedSellingPrice;
     //add time
 
-    public Order(Stock stock, Type type, int shares, double price, double expectedBuyingPrice, double expectedSellingPrice, User user) {
+    public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user) {
         this.stock = stock;
         this.type = type;
         this.shares = shares;
-        this.price = price;
         this.expectedBuyingPrice = expectedBuyingPrice;
         this.expectedSellingPrice = expectedSellingPrice;
         this.user = user;
@@ -41,9 +40,7 @@ public class Order {
         return shares;
     }
 
-    public double getPrice() {
-        return price;
-    }
+
 
     public double getExpectedBuyingPrice() {
         return expectedBuyingPrice;

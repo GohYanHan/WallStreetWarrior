@@ -5,13 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jar_files_jsonarray.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jar_files_jsonarray.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jbcrypt_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jbcrypt_0_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/json_20230227.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/json_20230227.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jsoup_1_16_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jsoup_1_16_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/API.java" beforeDir="false" afterPath="$PROJECT_DIR$/API.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Portfolio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyerMoore.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoyerMoore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/jar_files_jsonarray.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/jbcrypt_0_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/jsoup_1_16_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/API.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/API.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserScore$Leaderboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserScore$Leaderboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/WallStreetWarrior.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/WallStreetWarrior.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/search.java" beforeDir="false" afterPath="$PROJECT_DIR$/search.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,20 +59,43 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "settings.editor.selected.configurable": "settings.space"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="UserAuthentication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="UserAuthentication" />
-      <module name="WallStreetWarrior" />
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="$USER_HOME$/.jdks/openjdk-20.0.1" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="wsw2" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Test" />
+      <module name="wsw2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="search" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="search" />
+      <module name="wsw2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Test" />
+      <item itemvalue="Application.search" />
+      <item itemvalue="Application.Main" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.UserAuthentication" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.search" />
       </list>
     </recent_temporary>
   </component>
@@ -111,5 +148,9 @@
     <MESSAGE value="commit 5 (+boyermoore)" />
     <MESSAGE value="commit 6" />
     <option name="LAST_COMMIT_MESSAGE" value="commit 6" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

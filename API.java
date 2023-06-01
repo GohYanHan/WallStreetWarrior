@@ -309,7 +309,7 @@ public class API {
     }
 
 
-    private void SearchdisplayStocks(String jsonResponse, String searchQuery) {
+     void SearchdisplayStocks(String jsonResponse, String searchQuery) {
         try {
             JSONArray jsonArray = new JSONArray(jsonResponse);
 
