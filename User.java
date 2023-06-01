@@ -4,36 +4,50 @@ public class User {
     private String password;
     private String status;
     private int key;
-    private int balance;
+    private double balance;
     private int PL_Points;
     private String role;
     private Portfolio portfolio;
 
     public User() {
+        this.portfolio = new Portfolio(key, balance);
+
     }
 
-    public User(String email, String password, String username) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.portfolio = new Portfolio();
-    }
+//    public User(String email, String password, String username) {
+//        this.username = username;
+//        this.email = email;
+//        this.password = password;
+//        this.portfolio = new Portfolio();
+//    }
 
-    public User(String email, String username, String status, int balance, int PL_Points, int key) {
+    public User(String email, String username, String status, double balance, int PL_Points, int key) {
         this.username = username;
         this.email = email;
         this.status = status;
         this.balance = balance;
         this.PL_Points = PL_Points;
         this.key = key;
-        this.portfolio = new Portfolio();
+        this.portfolio = new Portfolio(key, balance);
+    }
+
+    public User(int key, String email, String username, String password, String status, double balance, int PL_Points, String role) {
+        this.key = key;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.status = status;
+        this.balance = balance;
+        this.PL_Points = PL_Points;
+        this.role = role;
+        this.portfolio = new Portfolio(key, balance);
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String name) {
+    void setUsername(String name) {
         this.username = name;
     }
 
@@ -41,7 +55,7 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
+    void setEmail(String email) {
         this.email = email;
     }
 
@@ -49,7 +63,7 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
+    void setPassword(String password) {
         this.password = password;
     }
 
@@ -61,7 +75,7 @@ public class User {
         return status;
     }
 
-    public void setStatus(String status) {
+    void setStatus(String status) {
         this.status = status;
     }
 
@@ -69,15 +83,15 @@ public class User {
         return key;
     }
 
-    public void setKey(int key) {
+    void setKey(int key) {
         this.key = key;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    void setBalance(double balance) {
         this.balance = balance;
     }
 
@@ -85,7 +99,7 @@ public class User {
         return PL_Points;
     }
 
-    public void setPL_Points(int PL_Points) {
+    void setPL_Points(int PL_Points) {
         this.PL_Points = PL_Points;
     }
 
@@ -93,7 +107,7 @@ public class User {
         return role;
     }
 
-    public void setRole(String role) {
+    void setRole(String role) {
         this.role = role;
     }
 }

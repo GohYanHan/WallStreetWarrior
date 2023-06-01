@@ -44,30 +44,23 @@ public class Database {
 
     public User loadUser(String inputEmail) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String selectQuery = "SELECT userKey, userName, userEmail, userPassword, userStatus, userBalance, PL_Points, role FROM users " +
+            String selectQuery = "SELECT userKey, userEmail, userName, userPassword, userStatus, userBalance, PL_Points, role FROM users " +
                     "WHERE userEmail = ?";
 
             PreparedStatement statement = connection.prepareStatement(selectQuery);
-
             statement.setString(1, inputEmail);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                user = new User();
-                System.out.println("HII");
-                user.setKey(resultSet.getInt("userKey"));
-                user.setUsername(resultSet.getString("userName"));
-                user.setEmail(resultSet.getString("userEmail"));
-                user.setPassword(resultSet.getString("userPassword"));
-                user.setStatus(resultSet.getString("userStatus"));
-                user.setRole(resultSet.getString("role"));
-                if (user.getRole().equals("Admin")) {
-                    System.out.println("Hello Admin");
-//                    dk wht to do
-                } else if (user.getRole().equals("User")) {
-                    user.setBalance(resultSet.getInt("userBalance"));
-                    user.setPL_Points(resultSet.getInt("PL_Points"));
-                }
+                user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
+                        resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
+                        resultSet.getInt("PL_Points"), resultSet.getString("role")));
+//                if (user.getRole().equals("Admin")) {
+////                    dk wht to do
+//                } else if (user.getRole().equals("User")) {
+//                    user.setBalance(resultSet.getDouble("userBalance"));
+//                    user.setPL_Points(resultSet.getInt("PL_Points"));
+//                }
                 return user;
             }
 
@@ -80,13 +73,12 @@ public class Database {
         return null;
     }
 
-    public boolean updateUserBalance(String email, int balance, int pl_points) {
-        String sql = "UPDATE users SET userBalance = ? PL_Points = ? WHERE userEmail = ?";
+    boolean updateUserPLpoint(int userKey, int pl_points) {
+        String sql = "UPDATE users SET PL_Points = ? WHERE userKey = ?";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, balance);
-            statement.setInt(2, pl_points);
-            statement.setString(3, email);
+            statement.setInt(1, pl_points);
+            statement.setInt(2, userKey);
             // Execute the update statement
             int rowsUpdated = statement.executeUpdate();
             statement.close();
@@ -99,7 +91,25 @@ public class Database {
         }
     }
 
-    public boolean resetPassword(String email, String username, String newPassword) {
+    boolean updateUserBalance(int userKey, double balance) {
+        String sql = "UPDATE users SET userBalance = ? WHERE userKey = ?";
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setDouble(1, balance);
+            statement.setInt(2, userKey);
+            // Execute the update statement
+            int rowsUpdated = statement.executeUpdate();
+            statement.close();
+
+            // Check if any rows were updated
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    boolean resetPassword(String email, String username, String newPassword) {
         String sql = "UPDATE users SET userPassword = ? WHERE userEmail = ? AND userName = ?";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -137,7 +147,7 @@ public class Database {
         }
     }
 
-    public boolean disqualifyUser(String email) {
+    boolean disqualifyUser(String email) {
         String sql = "UPDATE users SET userStatus = ? WHERE userEmail = ?";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -155,7 +165,7 @@ public class Database {
         }
     }
 
-    public boolean removeUser(String email) {
+    boolean removeUser(String email) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String deleteQuery = "DELETE FROM users WHERE userEmail = ?";
             PreparedStatement statement = connection.prepareStatement(deleteQuery);
