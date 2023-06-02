@@ -1,0 +1,1324 @@
+Index: out/production/WallStreetWarrior/.idea/libraries/jBCrypt_0_4_3.xml
+===================================================================
+diff --git a/out/production/WallStreetWarrior/.idea/libraries/jBCrypt_0_4_3.xml b/out/production/WallStreetWarrior/.idea/libraries/jBCrypt_0_4_3.xml
+deleted file mode 100644
+--- a/out/production/WallStreetWarrior/.idea/libraries/jBCrypt_0_4_3.xml	(revision 26cdb32a12f585f92d360eaeb50fa59d59adcd3f)
++++ /dev/null	(revision 26cdb32a12f585f92d360eaeb50fa59d59adcd3f)
+@@ -1,13 +0,0 @@
+-<component name="libraryTable">
+-  <library name="jBCrypt-0.4.3">
+-    <CLASSES>
+-      <root url="jar://$USER_HOME$/Downloads/jBCrypt-0.4.3.jar!/" />
+-      <root url="jar://$USER_HOME$/Downloads/json-20230227.jar!/" />
+-      <root url="jar://$USER_HOME$/Downloads/jsoup-1.16.1.jar!/" />
+-      <root url="jar://$USER_HOME$/Downloads/mysql-connector-j-8.0.33/mysql-connector-j-8.0.33/mysql-connector-j-8.0.33.jar!/" />
+-      <root url="jar://$USER_HOME$/Downloads/javafx_collection/javafx-base-21-ea+17-linux.jar!/" />
+-    </CLASSES>
+-    <JAVADOC />
+-    <SOURCES />
+-  </library>
+-</component>
+\ No newline at end of file
+Index: out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM__Changes_.xml
+===================================================================
+diff --git a/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM__Changes_.xml b/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM__Changes_.xml
+deleted file mode 100644
+--- a/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM__Changes_.xml	(revision 26cdb32a12f585f92d360eaeb50fa59d59adcd3f)
++++ /dev/null	(revision 26cdb32a12f585f92d360eaeb50fa59d59adcd3f)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM_[Changes]" date="1684899867360" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 5/24/2023 11:43 AM [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM_[Changes]/shelved.patch
+===================================================================
+diff --git a/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM_[Changes]/shelved.patch b/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM_[Changes]/shelved.patch	(revision 26cdb32a12f585f92d360eaeb50fa59d59adcd3f)
++++ /dev/null	(revision 26cdb32a12f585f92d360eaeb50fa59d59adcd3f)
+@@ -1,624 +0,0 @@
+-Index: TradingEngineTest2.java
+-===================================================================
+-diff --git a/TradingEngineTest2.java b/TradingEngineTest2.java
+-deleted file mode 100644
+---- a/TradingEngineTest2.java	(revision d6429e63f3352d824f4ae9fe783d4713d9e86804)
+-+++ /dev/null	(revision d6429e63f3352d824f4ae9fe783d4713d9e86804)
+-@@ -1,291 +0,0 @@
+--import java.time.DayOfWeek;
+--import java.time.LocalDateTime;
+--import java.time.LocalTime;
+--import java.util.*;
+--
+--public class TradingEngineTest2 {
+--    private List<Stock> stocks;
+--    private Map<Stock, List<Order>> buyOrders;
+--    private Map<Stock, List<Order>> sellOrders;
+--    private Map<Stock, Integer> lotPool;
+--
+--
+--    public TradingEngineTest2(List<Stock> stocks) {
+--        this.stocks = stocks;
+--        this.buyOrders = new HashMap<>();
+--        this.sellOrders = new HashMap<>();
+--        for (Stock stock : stocks) {
+--            buyOrders.put(stock, new ArrayList<>());
+--            sellOrders.put(stock, new ArrayList<>());
+--        }
+--        this.lotPool = new HashMap<>();
+--        for (Stock stock : stocks) {
+--            lotPool.put(stock, 500); // Initialize the lot pool with 500 shares for each stock
+--        }
+--    }
+--
+--    public void executeOrder(Order order, Portfolio portfolio) {
+--        if (order.getType() == Order.Type.BUY) {
+--            if (isWithinInitialTradingPeriod()) {
+--                if (stocks.contains(order.getStock())) {
+--                    double currentPrice = order.getStock().getPrice();
+--                    double expectedBuyingPrice = order.getExpectedBuyingPrice();
+--
+--                    if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
+--                        buyOrders.get(order.getStock()).add(order);
+--                        tryExecuteBuyOrder(order, portfolio);
+--
+--                    } else {
+--                        System.out.println("The expected buying price is not within the acceptable range.");
+--                    }
+--                } else {
+--                    System.out.println("The stock is not available for trading during the initial trading period.");
+--                }
+--            } else {
+--                autoMatching(portfolio);
+--            }
+--        } else {
+--            sellOrders.get(order.getStock()).add(order);
+--            tryExecuteSellOrder(order, portfolio);
+--        }
+--
+--    }
+--
+--    private boolean isWithinInitialTradingPeriod() {
+--        LocalDateTime currentTime = LocalDateTime.now();
+--        LocalDateTime endTime = LocalDateTime.of(currentTime.getYear(), currentTime.getMonth(), currentTime.getDayOfMonth(), 0, 0)
+--                .plusDays(3); // Add three days to the current date
+--        return currentTime.isBefore(endTime);
+--    }
+--
+--    public void replenishLotPoolDaily() {
+--        // Check if it's the start of a new trading day
+--        if (isStartOfTradingDay()) {
+--            // Reset the lot pool shares to 500 for each stock
+--            for (Stock stock : stocks) {
+--                lotPool.put(stock, 500);
+--            }
+--            System.out.println("Lot pool replenished for the day.");
+--        }
+--    }
+--
+--    private boolean isStartOfTradingDay() {
+--        LocalTime marketOpenTime = LocalTime.of(9, 0); // Adjust the market open time according to your needs
+--        LocalTime currentTime = LocalTime.now();
+--        return currentTime.equals(marketOpenTime);
+--    }
+--
+--    private boolean isPriceWithinRange(double price, double currentPrice, double rangePercentage) { // Execute trades if the price falls within 1% range
+--        double range = currentPrice * (rangePercentage / 100);
+--        double lowerLimit = currentPrice - range;
+--        double upperLimit = currentPrice + range;
+--        return price >= lowerLimit && price <= upperLimit;
+--    }
+--
+--    public boolean isWithinTradingHours() { // Check trading hours
+--        // Get the current day and time
+--        LocalDateTime currentTime = LocalDateTime.now();
+--        DayOfWeek currentDay = currentTime.getDayOfWeek();
+--        LocalTime currentTimeOfDay = currentTime.toLocalTime();
+--
+--        // Check if it's a weekday (Monday to Friday) and within regular market hours
+--        if (currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY) {
+--            LocalTime marketOpenTime1 = LocalTime.of(9, 0);
+--            LocalTime marketCloseTime1 = LocalTime.of(12, 30);
+--            LocalTime marketOpenTime2 = LocalTime.of(14, 30);
+--            LocalTime marketCloseTime2 = LocalTime.of(17, 0);
+--            return (currentTimeOfDay.isAfter(marketOpenTime1) && currentTimeOfDay.isBefore(marketCloseTime1))
+--                    || (currentTimeOfDay.isAfter(marketOpenTime2) && currentTimeOfDay.isBefore(marketCloseTime2));
+--        }
+--        return false;
+--    }
+--
+--    private void tryExecuteBuyOrder(Order order, Portfolio portfolio) { //need ziji remove from sellOrders/lotpool after this method is called
+--        List<Order> orders = buyOrders.get(order.getStock()); //loop buy order,if enough money, add buy order into portfolio
+--        double price = order.getStock().getPrice();
+--        int shares = order.getShares();
+--        double totalPrice = price * shares;
+--
+--        if (order.getPrice() >= price && portfolio.getAccBalance() >= totalPrice) {
+--            double temp = portfolio.getAccBalance();
+--            temp -= totalPrice;
+--            portfolio.setAccBalance(temp);
+--            portfolio.addStock(order.getStock(), shares);
+--            orders.remove(order);
+--            System.out.println("Buy order executed successfully.");
+--        } else {
+--            System.out.println("Not enough money");
+--        }
+--    }
+--
+--    public void cancelBuyOrder(String stockSymbol) {
+--        Stock stock = getStockBySymbol(stockSymbol);
+--        List<Order> orders = buyOrders.get(stock);
+--        if (!orders.isEmpty()) {
+--            System.out.println("Choose the cancel option: ");
+--            System.out.println("1. Cancel based on longest time");
+--            System.out.println("2. Cancel based on highest price");
+--
+--            Scanner scanner = new Scanner(System.in);
+--            int choice = scanner.nextInt();
+--            scanner.nextLine(); // Consume the newline character
+--
+--            switch (choice) {
+--                case 1:
+--                    Order orderToCancelByTime = getOrderWithLongestTime(orders);
+--                    orders.remove(orderToCancelByTime);
+--                    System.out.println("Buy order canceled based on longest time successfully.");
+--                    break;
+--                case 2:
+--                    Order orderToCancelByPrice = getOrderWithHighestPrice(orders);
+--                    orders.remove(orderToCancelByPrice);
+--                    System.out.println("Buy order canceled based on highest price successfully.");
+--                    break;
+--                default:
+--                    System.out.println("Invalid choice. Buy order cancellation canceled.");
+--                    break;
+--            }
+--        } else {
+--            System.out.println("No buy orders available for the specified stock.");
+--        }
+--    }
+--
+--    private Order getOrderWithLongestTime(List<Order> orders) {
+--        Order orderWithLongestTime = null;
+--        LocalDateTime longestTime = LocalDateTime.MIN;
+--
+--        for (Order order : orders) {
+--            LocalDateTime orderTime = order.getTimestamp();
+--            if (orderTime.compareTo(longestTime) > 0) {
+--                longestTime = orderTime;
+--                orderWithLongestTime = order;
+--            }
+--        }
+--
+--        return orderWithLongestTime;
+--    }
+--
+--    private Order getOrderWithHighestPrice(List<Order> orders) {
+--        Order orderWithHighestPrice = null;
+--        double highestPrice = Double.MIN_VALUE;
+--
+--        for (Order order : orders) {
+--            double orderPrice = order.getPrice();
+--            if (orderPrice > highestPrice) {
+--                highestPrice = orderPrice;
+--                orderWithHighestPrice = order;
+--            }
+--        }
+--
+--        return orderWithHighestPrice;
+--    }
+--
+--    public void closeMarket(Portfolio portfolio, double accountBalance) {
+--        if (isWithinTradingHours()) {
+--            System.out.println("The market is still open. Cannot close the market now.");
+--            return;
+--        }
+--
+--        // Check if the account balance is non-negative
+--        if (accountBalance >= 0) {
+--            System.out.println("Market closed successfully.");
+--            // Perform any necessary actions to finalize the market closing
+--
+--            // Reset the buy and sell orders
+--            buyOrders.clear();
+--            sellOrders.clear();
+--            for (Stock stock : stocks) {
+--                buyOrders.put(stock, new ArrayList<>());
+--                sellOrders.put(stock, new ArrayList<>());
+--            }
+--        } else {
+--            System.out.println("Cannot close the market. Account balance is negative.");
+--        }
+--    }
+--
+--    public void displaySuggestedPrice(String stockSymbol, int quantity) {
+--        Stock stock;
+--
+--        for (Stock s : stocks) {
+--            if (s.getSymbol().equalsIgnoreCase(stockSymbol)) {
+--                stock = s;
+--                if (stock != null) {
+--                    double currentPrice = stock.getPrice() * quantity;
+--                    double lowerLimit = currentPrice * 0.99; // 1% below the current price
+--                    double upperLimit = currentPrice * 1.01;
+--
+--                    System.out.println("Suggested price range for " + stockSymbol + ": " + lowerLimit + " - " + upperLimit);
+--                } else {
+--                    System.out.println("Stock with symbol " + stockSymbol + " not found.");
+--                }
+--            }
+--        }
+--    }
+--    public void displaySellOrders() {
+--        System.out.println("Sell Orders:");
+--
+--        for (Stock stock : stocks) {
+--            List<Order> sellOrderList = sellOrders.get(stock);
+--            if (!sellOrderList.isEmpty()) {
+--                System.out.println("Stock: " + stock.getSymbol());
+--                for (Order order : sellOrderList) {
+--                    System.out.println("  Price: " + order.getPrice());
+--                    System.out.println("  Shares: " + order.getShares());
+--                    System.out.println("  Timestamp: " + order.getTimestamp());
+--                    System.out.println("------------------------");
+--                }
+--            }
+--        }
+--    }
+--
+--
+--    public Stock getStockBySymbol(String symbol) {
+--        for (Stock stock : stocks) {
+--            if (stock.getSymbol().equalsIgnoreCase(symbol)) {
+--                return stock;
+--            }
+--        }
+--        return null; // Stock with the specified symbol not found
+--    }
+--
+--    private void tryExecuteSellOrder(Order order, Portfolio portfolio) {
+--        List<Order> orders = sellOrders.get(order.getStock());
+--        double price = order.getStock().getPrice();
+--        int shares = order.getShares();
+--        double totalPrice = price * shares;
+--
+--            double temp = portfolio.getAccBalance();
+--            temp += totalPrice;
+--            portfolio.setAccBalance(temp);
+--            portfolio.removeStock(order.getStock(), shares);
+--            orders.remove(order);
+--            System.out.println("Sell order executed successfully.");
+--        }
+--    public void autoMatching(Portfolio portfolio) {
+--        for (Stock stock : stocks) {
+--            List<Order> buyOrderList = buyOrders.get(stock);
+--            List<Order> sellOrderList = sellOrders.get(stock);
+--
+--            // Iterate over the buy orders
+--            for (Order buyOrder : buyOrderList) {
+--                // Check if the buy order symbol and price match with any sell order
+--                for (Order sellOrder : sellOrderList) {
+--                    if (isInSellOrder(buyOrder, sellOrder)) {
+--                        tryExecuteBuyOrder(buyOrder, portfolio);
+--                        sellOrders.remove(stock);
+--                    }
+--                    // Check if the buy order symbol and price match with the lot pool
+--                    else if ((!isInSellOrder(buyOrder, sellOrder)) && lotPool.containsKey(buyOrder.getStock()) && lotPool.containsValue(buyOrder.getShares())) {
+--                        tryExecuteBuyOrder(buyOrder, portfolio);
+--                        lotPool.remove(buyOrder.getStock(), buyOrder.getShares());
+--                    } else {
+--                        System.out.println("Stock is not available");
+--                    }
+--                }
+--            }
+--        }
+--    }
+--        private boolean isInSellOrder(Order buyOrder, Order sellOrder){
+--            return buyOrder.getStock().getSymbol().equals(sellOrder.getStock().getSymbol()) && buyOrder.getPrice() == sellOrder.getPrice();
+--        }
+--            }
+-Index: Main.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/Main.java b/Main.java
+-new file mode 100644
+---- /dev/null	(date 1684900650674)
+-+++ b/Main.java	(date 1684900650674)
+-@@ -0,0 +1,5 @@
+-+public class Main {
+-+    public static void main(String[] args) {
+-+
+-+    }
+-+}
+-Index: NotificationService.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>import java.util.ArrayList;\r\nimport java.util.List;\r\nimport java.util.Timer;\r\nimport java.util.TimerTask;\r\n\r\n// Create a Notification class\r\nclass Notification {\r\n    private String userId;\r\n    private double pnl;\r\n    private boolean enteredPosition;\r\n    private boolean exitedPosition;\r\n\r\n    public Notification(String userId) {\r\n        this.userId = userId;\r\n    }\r\n\r\n    public String getUserId() {\r\n        return userId;\r\n    }\r\n\r\n    public double getPnl() {\r\n        return pnl;\r\n    }\r\n\r\n    public void setPnl(double pnl) {\r\n        this.pnl = pnl;\r\n    }\r\n\r\n    public boolean hasEnteredPosition() {\r\n        return enteredPosition;\r\n    }\r\n\r\n    public void setEnteredPosition(boolean enteredPosition) {\r\n        this.enteredPosition = enteredPosition;\r\n    }\r\n\r\n    public boolean hasExitedPosition() {\r\n        return exitedPosition;\r\n    }\r\n\r\n    public void setExitedPosition(boolean exitedPosition) {\r\n        this.exitedPosition = exitedPosition;\r\n    }\r\n}\r\n\r\n// Utilize a third-party library like JavaMail for sending notifications\r\nclass EmailService {\r\n    public void sendNotification(String userId, String message) {\r\n        // Logic for sending email using JavaMail library\r\n        System.out.println(\"Sending email notification to user \" + userId + \": \" + message);\r\n    }\r\n}\r\n\r\n// Implement methods for handling user settings\r\nclass UserSettings {\r\n    private double pnlThreshold;\r\n    private boolean enableNotifications;\r\n\r\n    public double getPnlThreshold() {\r\n        return pnlThreshold;\r\n    }\r\n\r\n    public void setPnlThreshold(double pnlThreshold) {\r\n        this.pnlThreshold = pnlThreshold;\r\n    }\r\n\r\n    public boolean isEnableNotifications() {\r\n        return enableNotifications;\r\n    }\r\n\r\n    public void setEnableNotifications(boolean enableNotifications) {\r\n        this.enableNotifications = enableNotifications;\r\n    }\r\n}\r\n\r\n// Use a timer or scheduling framework to periodically check for threshold crossing\r\nclass NotificationScheduler {\r\n    private List<Notification> notifications;\r\n    private EmailService emailService;\r\n    private UserSettings userSettings;\r\n\r\n    public NotificationScheduler() {\r\n        this.notifications = new ArrayList<>();\r\n        this.emailService = new EmailService();\r\n        this.userSettings = new UserSettings();\r\n    }\r\n\r\n    public void startScheduler() {\r\n        Timer timer = new Timer();\r\n        timer.schedule(new TimerTask() {\r\n            @Override\r\n            public void run() {\r\n                checkThresholds();\r\n            }\r\n        }, 0, 1000); \r\n    }\r\n\r\n    private void checkThresholds() {\r\n        for (Notification notification : notifications) {\r\n            if (notification.hasEnteredPosition() && notification.getPnl() > userSettings.getPnlThreshold()) {\r\n                sendNotification(notification, \"Your P&L crossed the threshold: \" + notification.getPnl());\r\n            } else if (notification.hasExitedPosition() && notification.getPnl() < userSettings.getPnlThreshold()) {\r\n                sendNotification(notification, \"Your P&L dropped below the threshold: \" + notification.getPnl());\r\n            }\r\n        }\r\n    }\r\n\r\n    private void sendNotification(Notification notification, String message) {\r\n        if (userSettings.isEnableNotifications()) {\r\n            emailService.sendNotification(notification.getUserId(), message);\r\n        }\r\n    }\r\n\r\n    // Additional methods for managing user settings and notifications\r\n    public void addUserNotification(Notification notification) {\r\n        notifications.add(notification);\r\n    }\r\n\r\n    public void removeUserNotification(Notification notification) {\r\n        notifications.remove(notification);\r\n    }\r\n\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/NotificationService.java b/NotificationService.java
+---- a/NotificationService.java	(revision d6429e63f3352d824f4ae9fe783d4713d9e86804)
+-+++ b/NotificationService.java	(date 1684899867020)
+-@@ -92,7 +92,7 @@
+-             public void run() {
+-                 checkThresholds();
+-             }
+--        }, 0, 1000); 
+-+        }, 0, 1000);
+-     }
+- 
+-     private void checkThresholds() {
+-@@ -119,4 +119,5 @@
+-     public void removeUserNotification(Notification notification) {
+-         notifications.remove(notification);
+-     }
+-+}
+- 
+-Index: Report.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/Report.java b/Report.java
+-new file mode 100644
+---- /dev/null	(date 1684899867028)
+-+++ b/Report.java	(date 1684899867028)
+-@@ -0,0 +1,3 @@
+-+public class Report {
+-+
+-+}
+-Index: TradingEngine.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>import java.time.DayOfWeek;\r\nimport java.time.LocalDateTime;\r\nimport java.time.LocalTime;\r\nimport java.util.*;\r\n\r\npublic class TradingEngine {\r\n    private List<Stock> stocks;\r\n    private Map<Stock, List<Order>> buyOrders;\r\n    private Map<Stock, List<Order>> sellOrders;\r\n    private Map<Stock, Integer> lotPool;\r\n\r\n\r\n    public TradingEngine(List<Stock> stocks) {\r\n        this.stocks = stocks;\r\n        this.buyOrders = new HashMap<>();\r\n        this.sellOrders = new HashMap<>();\r\n        for (Stock stock : stocks) {\r\n            buyOrders.put(stock, new ArrayList<>());\r\n            sellOrders.put(stock, new ArrayList<>());\r\n        }\r\n        this.lotPool = new HashMap<>();\r\n        for (Stock stock : stocks) {\r\n            lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock\r\n        }\r\n    }\r\n\r\n    public void executeOrder(Order order, Portfolio portfolio) {\r\n        if (order.getType() == Order.Type.BUY) {\r\n            if (isWithinInitialTradingPeriod()) {\r\n                if (stocks.contains(order.getStock())) {\r\n                    double currentPrice = order.getStock().getPrice();\r\n                    double expectedBuyingPrice = order.getExpectedBuyingPrice();\r\n\r\n                    if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {\r\n                        buyOrders.get(order.getStock()).add(order);\r\n                        tryExecuteBuyOrder(order, portfolio);\r\n\r\n                    } else {\r\n                        System.out.println(\"The expected buying price is not within the acceptable range.\");\r\n                    }\r\n                } else {\r\n                    System.out.println(\"The stock is not available for trading during the initial trading period.\");\r\n                }\r\n            } else {\r\n                autoMatching(portfolio);\r\n            }\r\n        } else {\r\n            sellOrders.get(order.getStock()).add(order);\r\n            tryExecuteSellOrder(order, portfolio);\r\n        }\r\n\r\n    }\r\n\r\n    private boolean isWithinInitialTradingPeriod() {\r\n        LocalDateTime currentTime = LocalDateTime.now();\r\n        LocalDateTime endTime = LocalDateTime.of(currentTime.getYear(), currentTime.getMonth(), currentTime.getDayOfMonth(), 0, 0)\r\n                .plusDays(3); // Add 3 days to the current date\r\n        return currentTime.isBefore(endTime);\r\n    }\r\n\r\n    public void replenishLotPoolDaily() {\r\n        // Check if it's the start of a new trading day\r\n        if (isStartOfTradingDay()) {\r\n            // Reset the lotpool shares to 500 for each stock\r\n            for (Stock stock : stocks) {\r\n                lotPool.put(stock, 500);\r\n            }\r\n            System.out.println(\"Lot pool replenished for the day.\");\r\n        }\r\n    }\r\n\r\n    private boolean isStartOfTradingDay() {\r\n        LocalTime marketOpenTime = LocalTime.of(9, 0); // Adjust the market open time according to your needs\r\n        LocalTime currentTime = LocalTime.now();\r\n        return currentTime.equals(marketOpenTime);\r\n    }\r\n\r\n    private boolean isPriceWithinRange(double price, double currentPrice, double rangePercentage) { // Execute trades if the price falls within 1% range\r\n        double range = currentPrice * (rangePercentage / 100);\r\n        double lowerLimit = currentPrice - range;\r\n        double upperLimit = currentPrice + range;\r\n        return price >= lowerLimit && price <= upperLimit;\r\n    }\r\n\r\n    public boolean isWithinTradingHours() { // Check trading hours\r\n        // Get the current day and time\r\n        LocalDateTime currentTime = LocalDateTime.now();\r\n        DayOfWeek currentDay = currentTime.getDayOfWeek();\r\n        LocalTime currentTimeOfDay = currentTime.toLocalTime();\r\n\r\n        // Check if it's a weekday (Monday to Friday) and within regular market hours\r\n        if (currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY) {\r\n            LocalTime marketOpenTime1 = LocalTime.of(9, 0);\r\n            LocalTime marketCloseTime1 = LocalTime.of(12, 30);\r\n            LocalTime marketOpenTime2 = LocalTime.of(14, 30);\r\n            LocalTime marketCloseTime2 = LocalTime.of(17, 0);\r\n            return (currentTimeOfDay.isAfter(marketOpenTime1) && currentTimeOfDay.isBefore(marketCloseTime1))\r\n                    || (currentTimeOfDay.isAfter(marketOpenTime2) && currentTimeOfDay.isBefore(marketCloseTime2));\r\n        }\r\n        return false;\r\n    }\r\n\r\n    private void tryExecuteBuyOrder(Order order, Portfolio portfolio) { //need ziji remove from sellOrders/lotpool after this method is called\r\n        List<Order> orders = buyOrders.get(order.getStock()); //loop buy order,if enough money, add buy order into portfolio\r\n        double price = order.getStock().getPrice();\r\n        int shares = order.getShares();\r\n        double totalPrice = price * shares;\r\n\r\n        if (order.getPrice() >= price && portfolio.getAccBalance() >= totalPrice) {\r\n            double temp = portfolio.getAccBalance();\r\n            temp -= totalPrice;\r\n            portfolio.setAccBalance(temp);\r\n            portfolio.addStock(order.getStock(), shares);\r\n            orders.remove(order);\r\n            System.out.println(\"Buy order executed successfully.\");\r\n        } else {\r\n            System.out.println(\"Not enough money\");\r\n        }\r\n    }\r\n\r\n    public void cancelBuyOrder(String stockSymbol) {\r\n        Stock stock = getStockBySymbol(stockSymbol);\r\n        List<Order> orders = buyOrders.get(stock);\r\n        if (!orders.isEmpty()) {\r\n            System.out.println(\"Choose the cancel option: \");\r\n            System.out.println(\"1. Cancel based on longest time\");\r\n            System.out.println(\"2. Cancel based on highest price\");\r\n\r\n            Scanner scanner = new Scanner(System.in);\r\n            int choice = scanner.nextInt();\r\n            scanner.nextLine(); // Consume the newline character\r\n\r\n            switch (choice) {\r\n                case 1:\r\n                    Order orderToCancelByTime = getOrderWithLongestTime(orders);\r\n                    orders.remove(orderToCancelByTime);\r\n                    System.out.println(\"Buy order canceled based on longest time successfully.\");\r\n                    break;\r\n                case 2:\r\n                    Order orderToCancelByPrice = getOrderWithHighestPrice(orders);\r\n                    orders.remove(orderToCancelByPrice);\r\n                    System.out.println(\"Buy order canceled based on highest price successfully.\");\r\n                    break;\r\n                default:\r\n                    System.out.println(\"Invalid choice. Buy order cancellation canceled.\");\r\n                    break;\r\n            }\r\n        } else {\r\n            System.out.println(\"No buy orders available for the specified stock.\");\r\n        }\r\n    }\r\n\r\n    private Order getOrderWithLongestTime(List<Order> orders) {\r\n        Order orderWithLongestTime = null;\r\n        LocalDateTime longestTime = LocalDateTime.MIN;\r\n\r\n        for (Order order : orders) {\r\n            LocalDateTime orderTime = order.getTimestamp();\r\n            if (orderTime.compareTo(longestTime) > 0) {\r\n                longestTime = orderTime;\r\n                orderWithLongestTime = order;\r\n            }\r\n        }\r\n\r\n        return orderWithLongestTime;\r\n    }\r\n\r\n    private Order getOrderWithHighestPrice(List<Order> orders) {\r\n        Order orderWithHighestPrice = null;\r\n        double highestPrice = Double.MIN_VALUE;\r\n\r\n        for (Order order : orders) {\r\n            double orderPrice = order.getPrice();\r\n            if (orderPrice > highestPrice) {\r\n                highestPrice = orderPrice;\r\n                orderWithHighestPrice = order;\r\n            }\r\n        }\r\n\r\n        return orderWithHighestPrice;\r\n    }\r\n\r\n    public void closeMarket(Portfolio portfolio, double accountBalance) {\r\n        if (isWithinTradingHours()) {\r\n            System.out.println(\"The market is still open. Cannot close the market now.\");\r\n            return;\r\n        }\r\n\r\n        // Check if the account balance is non-negative\r\n        if (accountBalance >= 0) {\r\n            System.out.println(\"Market closed successfully.\");\r\n            // Perform any necessary actions to finalize the market closing\r\n\r\n            // Reset the buy and sell orders\r\n            buyOrders.clear();\r\n            sellOrders.clear();\r\n            for (Stock stock : stocks) {\r\n                buyOrders.put(stock, new ArrayList<>());\r\n                sellOrders.put(stock, new ArrayList<>());\r\n            }\r\n        } else {\r\n            System.out.println(\"Cannot close the market. Account balance is negative.\");\r\n        }\r\n    }\r\n\r\n    public void displaySuggestedPrice(String stockSymbol, int quantity) {\r\n        Stock stock;\r\n\r\n        for (Stock s : stocks) {\r\n            if (s.getSymbol().equalsIgnoreCase(stockSymbol)) {\r\n                stock = s;\r\n                if (stock != null) {\r\n                    double currentPrice = stock.getPrice() * quantity;\r\n                    double lowerLimit = currentPrice * 0.99; // 1% below the current price\r\n                    double upperLimit = currentPrice * 1.01;\r\n\r\n                    System.out.println(\"Suggested price range for \" + stockSymbol + \": \" + lowerLimit + \" - \" + upperLimit);\r\n                } else {\r\n                    System.out.println(\"Stock with symbol \" + stockSymbol + \" not found.\");\r\n                }\r\n            }\r\n        }\r\n    }\r\n    public void displaySellOrders() {\r\n        System.out.println(\"Sell Orders:\");\r\n\r\n        for (Stock stock : stocks) {\r\n            List<Order> sellOrderList = sellOrders.get(stock);\r\n            if (!sellOrderList.isEmpty()) {\r\n                System.out.println(\"Stock: \" + stock.getSymbol());\r\n                for (Order order : sellOrderList) {\r\n                    System.out.println(\"  Price: \" + order.getPrice());\r\n                    System.out.println(\"  Shares: \" + order.getShares());\r\n                    System.out.println(\"  Timestamp: \" + order.getTimestamp());\r\n                    System.out.println(\"------------------------\");\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n    public Stock getStockBySymbol(String symbol) {\r\n        for (Stock stock : stocks) {\r\n            if (stock.getSymbol().equalsIgnoreCase(symbol)) {\r\n                return stock;\r\n            }\r\n        }\r\n        return null; // Stock with the specified symbol not found\r\n    }\r\n\r\n    private void tryExecuteSellOrder(Order order, Portfolio portfolio) {\r\n        List<Order> orders = sellOrders.get(order.getStock());\r\n        double price = order.getStock().getPrice();\r\n        int shares = order.getShares();\r\n        double totalPrice = price * shares;\r\n\r\n        double temp = portfolio.getAccBalance();\r\n        temp += totalPrice;\r\n        portfolio.setAccBalance(temp);\r\n        portfolio.removeStock(order.getStock(), shares);\r\n        orders.remove(order);\r\n        System.out.println(\"Sell order executed successfully.\");\r\n    }\r\n    public void autoMatching(Portfolio portfolio) {\r\n        for (Stock stock : stocks) {\r\n            List<Order> buyOrderList = buyOrders.get(stock);\r\n            List<Order> sellOrderList = sellOrders.get(stock);\r\n\r\n            // Iterate over the buy orders\r\n            for (Order buyOrder : buyOrderList) {\r\n                // Check if the buy order symbol and price match with any sell order\r\n                for (Order sellOrder : sellOrderList) {\r\n                    if (isInSellOrder(buyOrder, sellOrder)) {\r\n                        tryExecuteBuyOrder(buyOrder, portfolio);\r\n                        sellOrders.remove(stock);\r\n                    }\r\n                    // Check if the buy order symbol and price match with the lot pool\r\n                    else if ((!isInSellOrder(buyOrder, sellOrder)) && lotPool.containsKey(buyOrder.getStock()) && lotPool.containsValue(buyOrder.getShares())) {\r\n                        tryExecuteBuyOrder(buyOrder, portfolio);\r\n                        lotPool.remove(buyOrder.getStock(), buyOrder.getShares());\r\n                    } else {\r\n                        System.out.println(\"Stock is not available\");\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n    private boolean isInSellOrder(Order buyOrder, Order sellOrder){\r\n        return buyOrder.getStock().getSymbol().equals(sellOrder.getStock().getSymbol()) && buyOrder.getPrice() == sellOrder.getPrice();\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/TradingEngine.java b/TradingEngine.java
+---- a/TradingEngine.java	(revision d6429e63f3352d824f4ae9fe783d4713d9e86804)
+-+++ b/TradingEngine.java	(date 1684901437091)
+-@@ -1,3 +1,4 @@
+-+import java.io.IOException;
+- import java.time.DayOfWeek;
+- import java.time.LocalDateTime;
+- import java.time.LocalTime;
+-@@ -8,10 +9,11 @@
+-     private Map<Stock, List<Order>> buyOrders;
+-     private Map<Stock, List<Order>> sellOrders;
+-     private Map<Stock, Integer> lotPool;
+-+    API api = new API();
+- 
+- 
+-     public TradingEngine(List<Stock> stocks) {
+--        this.stocks = stocks;
+-+        //this.stocks = api.getStock();
+-         this.buyOrders = new HashMap<>();
+-         this.sellOrders = new HashMap<>();
+-         for (Stock stock : stocks) {
+-@@ -24,17 +26,16 @@
+-         }
+-     }
+- 
+--    public void executeOrder(Order order, Portfolio portfolio) {
+-+    public void executeOrder(Order order, Portfolio portfolio) throws IOException {
+-         if (order.getType() == Order.Type.BUY) {
+-             if (isWithinInitialTradingPeriod()) {
+-                 if (stocks.contains(order.getStock())) {
+--                    double currentPrice = order.getStock().getPrice();
+-+                    double currentPrice = api.getRealTimePrice(order.getStock().getSymbol());
+-                     double expectedBuyingPrice = order.getExpectedBuyingPrice();
+- 
+-                     if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
+-                         buyOrders.get(order.getStock()).add(order);
+-                         tryExecuteBuyOrder(order, portfolio);
+--
+-                     } else {
+-                         System.out.println("The expected buying price is not within the acceptable range.");
+-                     }
+-@@ -48,7 +49,6 @@
+-             sellOrders.get(order.getStock()).add(order);
+-             tryExecuteSellOrder(order, portfolio);
+-         }
+--
+-     }
+- 
+-     private boolean isWithinInitialTradingPeriod() {
+-@@ -102,7 +102,7 @@
+- 
+-     private void tryExecuteBuyOrder(Order order, Portfolio portfolio) { //need ziji remove from sellOrders/lotpool after this method is called
+-         List<Order> orders = buyOrders.get(order.getStock()); //loop buy order,if enough money, add buy order into portfolio
+--        double price = order.getStock().getPrice();
+-+        double price = order.getExpectedBuyingPrice();
+-         int shares = order.getShares();
+-         double totalPrice = price * shares;
+- 
+-@@ -203,14 +203,14 @@
+-         }
+-     }
+- 
+--    public void displaySuggestedPrice(String stockSymbol, int quantity) {
+-+    public void displaySuggestedPrice(String stockSymbol, int quantity) throws IOException {
+-         Stock stock;
+- 
+-         for (Stock s : stocks) {
+-             if (s.getSymbol().equalsIgnoreCase(stockSymbol)) {
+-                 stock = s;
+-                 if (stock != null) {
+--                    double currentPrice = stock.getPrice() * quantity;
+-+                    double currentPrice = api.getRealTimePrice(stockSymbol) * quantity;
+-                     double lowerLimit = currentPrice * 0.99; // 1% below the current price
+-                     double upperLimit = currentPrice * 1.01;
+- 
+-@@ -221,6 +221,7 @@
+-             }
+-         }
+-     }
+-+
+-     public void displaySellOrders() {
+-         System.out.println("Sell Orders:");
+- 
+-@@ -250,7 +251,7 @@
+- 
+-     private void tryExecuteSellOrder(Order order, Portfolio portfolio) {
+-         List<Order> orders = sellOrders.get(order.getStock());
+--        double price = order.getStock().getPrice();
+-+        double price = order.getExpectedSellingPrice();
+-         int shares = order.getShares();
+-         double totalPrice = price * shares;
+- 
+-@@ -261,6 +262,7 @@
+-         orders.remove(order);
+-         System.out.println("Sell order executed successfully.");
+-     }
+-+
+-     public void autoMatching(Portfolio portfolio) {
+-         for (Stock stock : stocks) {
+-             List<Order> buyOrderList = buyOrders.get(stock);
+-@@ -285,7 +287,8 @@
+-             }
+-         }
+-     }
+--    private boolean isInSellOrder(Order buyOrder, Order sellOrder){
+-+
+-+    private boolean isInSellOrder(Order buyOrder, Order sellOrder) {
+-         return buyOrder.getStock().getSymbol().equals(sellOrder.getStock().getSymbol()) && buyOrder.getPrice() == sellOrder.getPrice();
+-     }
+- }
+-Index: Stock.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>public class Stock {\r\n    private String symbol;\r\n    private String name;\r\n    private double price;\r\n\r\n    public Stock(String symbol, String name, double price) {\r\n        this.symbol = symbol;\r\n        this.name = name;\r\n        this.price = price;\r\n    }\r\n\r\n    public String getSymbol() {\r\n        return symbol;\r\n    }\r\n\r\n    public String getName() {\r\n        return name;\r\n    }\r\n\r\n    public double getPrice() {\r\n        return price;\r\n    }\r\n\r\n    public void setPrice(double price) {\r\n        this.price = price;\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/Stock.java b/Stock.java
+---- a/Stock.java	(revision d6429e63f3352d824f4ae9fe783d4713d9e86804)
+-+++ b/Stock.java	(date 1684900650690)
+-@@ -3,10 +3,10 @@
+-     private String name;
+-     private double price;
+- 
+--    public Stock(String symbol, String name, double price) {
+-+    public Stock(String symbol, String name) {
+-         this.symbol = symbol;
+-         this.name = name;
+--        this.price = price;
+-+
+-     }
+- 
+-     public String getSymbol() {
+-@@ -17,10 +17,6 @@
+-         return name;
+-     }
+- 
+--    public double getPrice() {
+--        return price;
+--    }
+--
+-     public void setPrice(double price) {
+-         this.price = price;
+-     }
+-Index: Leaderboard.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>import java.util.ArrayList;\r\nimport java.util.Collections;\r\nimport java.util.Comparator;\r\nimport java.util.List;\r\n\r\nclass UserScore {\r\n        private String name;\r\n        private int marks;\r\n\r\n        public UserScore(String name, int marks) {\r\n            this.name = name;\r\n            this.marks = marks;\r\n        }\r\n\r\n        public String getName() {\r\n            return name;\r\n        }\r\n\r\n        public int getMarks() {\r\n            return marks;\r\n        }\r\npublic class Leaderboard {\r\n    public static void main(String[] args) {\r\n        // Retrieve users' names and marks from the dashboard\r\n        List<UserScore> dashboardData = retrieveDataFromDashboard();\r\n\r\n        // Sort the data based on marks in descending order\r\n        Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());\r\n\r\n        // Extract the top ten users\r\n        List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));\r\n\r\n        // Display the leaderboard\r\n        System.out.println(\"Rank | User         | Marks\");\r\n        System.out.println(\"-----|--------------|-------\");\r\n        // Add condition if user is disqualified then score cannot be counted\r\n        for (int i = 0; i < topTenUsers.size(); i++) {\r\n            UserScore user = topTenUsers.get(i);\r\n            System.out.printf(\"%4d | %-12s | %5d%n\", i + 1, user.getName(), user.getMarks());\r\n        }\r\n    }\r\n    // Simulated method to retrieve data from the dashboard\r\n    private static List<UserScore> retrieveDataFromDashboard() {\r\n\r\n        // Retrieve the data from the dashboard and populate a list of User objects\r\n        List<UserScore> dashboardData = new ArrayList<>();\r\n\r\n        // Split dashboard de username n score\r\n        // Use for loop / while loop to add username n score into dashboard\r\n        dashboardData.add(new UserScore(\"User123\", 500));\r\n\r\n        return dashboardData;\r\n        }\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/Leaderboard.java b/Leaderboard.java
+---- a/Leaderboard.java	(revision d6429e63f3352d824f4ae9fe783d4713d9e86804)
+-+++ b/Leaderboard.java	(date 1684899867044)
+-@@ -1,55 +1,56 @@
+--import java.util.ArrayList;
+--import java.util.Collections;
+--import java.util.Comparator;
+--import java.util.List;
+--
+--class UserScore {
+--        private String name;
+--        private int marks;
+--
+--        public UserScore(String name, int marks) {
+--            this.name = name;
+--            this.marks = marks;
+--        }
+--
+--        public String getName() {
+--            return name;
+--        }
+--
+--        public int getMarks() {
+--            return marks;
+--        }
+--public class Leaderboard {
+--    public static void main(String[] args) {
+--        // Retrieve users' names and marks from the dashboard
+--        List<UserScore> dashboardData = retrieveDataFromDashboard();
+--
+--        // Sort the data based on marks in descending order
+--        Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());
+--
+--        // Extract the top ten users
+--        List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));
+--
+--        // Display the leaderboard
+--        System.out.println("Rank | User         | Marks");
+--        System.out.println("-----|--------------|-------");
+--        // Add condition if user is disqualified then score cannot be counted
+--        for (int i = 0; i < topTenUsers.size(); i++) {
+--            UserScore user = topTenUsers.get(i);
+--            System.out.printf("%4d | %-12s | %5d%n", i + 1, user.getName(), user.getMarks());
+--        }
+--    }
+--    // Simulated method to retrieve data from the dashboard
+--    private static List<UserScore> retrieveDataFromDashboard() {
+--
+--        // Retrieve the data from the dashboard and populate a list of User objects
+--        List<UserScore> dashboardData = new ArrayList<>();
+--
+--        // Split dashboard de username n score
+--        // Use for loop / while loop to add username n score into dashboard
+--        dashboardData.add(new UserScore("User123", 500));
+--
+--        return dashboardData;
+--        }
+--    }
+--}
+-+//import java.util.ArrayList;
+-+//import java.util.Collections;
+-+//import java.util.Comparator;
+-+//import java.util.List;
+-+//
+-+//class UserScore {
+-+//        private String name;
+-+//        private int marks;
+-+//
+-+//        public UserScore(String name, int marks) {
+-+//            this.name = name;
+-+//            this.marks = marks;
+-+//        }
+-+//
+-+//        public String getName() {
+-+//            return name;
+-+//        }
+-+//
+-+//        public int getMarks() {
+-+//            return marks;
+-+//        }
+-+//
+-+//public class Leaderboard {
+-+//    public static void main(String[] args) {
+-+//        // Retrieve users' names and marks from the dashboard
+-+//        List<UserScore> dashboardData = retrieveDataFromDashboard();
+-+//
+-+//        // Sort the data based on marks in descending order
+-+//        Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());
+-+//
+-+//        // Extract the top ten users
+-+//        List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));
+-+//
+-+//        // Display the leaderboard
+-+//        System.out.println("Rank | User         | Marks");
+-+//        System.out.println("-----|--------------|-------");
+-+//        // Add condition if user is disqualified then score cannot be counted
+-+//        for (int i = 0; i < topTenUsers.size(); i++) {
+-+//            UserScore user = topTenUsers.get(i);
+-+//            System.out.printf("%4d | %-12s | %5d%n", i + 1, user.getName(), user.getMarks());
+-+//        }
+-+//    }
+-+//    // Simulated method to retrieve data from the dashboard
+-+//    private static List<UserScore> retrieveDataFromDashboard() {
+-+//
+-+//        // Retrieve the data from the dashboard and populate a list of User objects
+-+//        List<UserScore> dashboardData = new ArrayList<>();
+-+//
+-+//        // Split dashboard de username n score
+-+//        // Use for loop / while loop to add username n score into dashboard
+-+//        dashboardData.add(new UserScore("User123", 500));
+-+//
+-+//        return dashboardData;
+-+//        }
+-+//    }
+-+//}
+Index: out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM_[Changes]/shelved.patch
+===================================================================
+diff --git a/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM_[Changes]/shelved.patch b/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM_[Changes]/shelved.patch	(revision 26cdb32a12f585f92d360eaeb50fa59d59adcd3f)
++++ /dev/null	(revision 26cdb32a12f585f92d360eaeb50fa59d59adcd3f)
+@@ -1,327 +0,0 @@
+-Index: API.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>import org.json.JSONArray;\r\nimport org.json.JSONException;\r\nimport org.json.JSONObject;\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.FileReader;\r\nimport java.io.IOException;\r\nimport java.io.InputStreamReader;\r\nimport java.net.HttpURLConnection;\r\nimport java.net.URL;\r\nimport java.util.Iterator;\r\n\r\n/*\r\nStockList() - Display a list of 'symbol' & 'name'\r\ngetPrices() - For user to search for prices (can search multiple stock at one time)\r\ngetRealTimePrice() - For TradingEngine, it returns a double price ONLY\r\n */\r\n\r\nclass testAPI {\r\n    public static void main(String[] args) throws IOException {\r\n        API api = new API();\r\n//        api.StockList();\r\n//        api.getPrices();\r\n//        System.out.println(api.getRealTimePrice(\"0007.MY\"));\r\n    }\r\n\r\n}\r\n\r\npublic class API {\r\n    private static String fileName = \"MyStocks\";\r\n    private static final String API_KEY = \"UM-1cd15cbc8ba9f613f94373ca35c267a52acf88978d73439e9f3c941b1c49318d\";\r\n    private static final String API_ENDPOINT = \"https://wall-street-warriors-api-um.vercel.app/price\";\r\n\r\n    //call this method to display a list of Malaysia Stock\r\n    static void StockList() {\r\n        try {\r\n            String jsonResponse = readJsonFromFile(fileName);\r\n            displayStocks(jsonResponse);\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    // Call this method to read JSON data from a file copied from API end point provided\r\n    static String readJsonFromFile(String fileName) throws IOException {\r\n        StringBuilder jsonText = new StringBuilder();\r\n\r\n        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {\r\n            String line;\r\n            while ((line = reader.readLine()) != null) {\r\n                jsonText.append(line);\r\n            }\r\n        }\r\n\r\n        return jsonText.toString();\r\n    }\r\n\r\n    // Display the stocks' symbols & name from the JSON response\r\n    static void displayStocks(String jsonResponse) {\r\n        try {\r\n            JSONArray jsonArray = new JSONArray(jsonResponse);\r\n\r\n            System.out.printf(\"%-12s\\t%-40s\\n\", \"Symbol\", \"Name\");\r\n            System.out.println(\"----------------------------------------\");\r\n\r\n            for (int i = 0; i < jsonArray.length(); i++) {\r\n                JSONObject stockJson = jsonArray.getJSONObject(i);\r\n                String symbol = stockJson.getString(\"symbol\");\r\n                String name = stockJson.getString(\"name\");\r\n\r\n                System.out.printf(\"%-12s\\t%-40s\\n\", symbol, name);\r\n            }\r\n            System.out.println();\r\n\r\n        } catch (JSONException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    // Only return single value price for Trading Machine\r\n    static double getRealTimePrice(String symbol) throws IOException {\r\n        symbol = symbol.replace(\".MY\", \".KL\");\r\n\r\n        String url = API_ENDPOINT + \"?apikey=\" + API_KEY + \"&function=TIME_SERIES_INTRADAY_EXTENDED&symbol=\" + symbol;\r\n        URL apiURL = new URL(url);\r\n        HttpURLConnection connection = (HttpURLConnection) apiURL.openConnection();\r\n        connection.setRequestMethod(\"GET\");\r\n        connection.connect();\r\n\r\n        String jsonResponse = \"\";\r\n        int responseCode = connection.getResponseCode();\r\n        if (responseCode == HttpURLConnection.HTTP_OK) {\r\n            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));\r\n            String line;\r\n            StringBuilder response = new StringBuilder();\r\n\r\n            while ((line = reader.readLine()) != null) {\r\n                response.append(line);\r\n            }\r\n            reader.close();\r\n\r\n            jsonResponse = response.toString();\r\n        }\r\n\r\n        double latestClosePrice = 0;\r\n        try {\r\n            JSONObject json = new JSONObject(jsonResponse);\r\n\r\n            if (!json.isNull(symbol)) {\r\n\r\n                JSONObject symbolData = json.getJSONObject(symbol);\r\n                JSONObject closeData = symbolData.getJSONObject(\"Close\");\r\n\r\n                long latestTimestamp = 0;\r\n\r\n                Iterator<String> timestampIterator = closeData.keys();\r\n                while (timestampIterator.hasNext()) {\r\n                    String timestamp = timestampIterator.next();\r\n                    long currentTimestamp = Long.parseLong(timestamp);\r\n                    double close = closeData.getDouble(timestamp);\r\n\r\n                    if (currentTimestamp > latestTimestamp) {\r\n                        latestTimestamp = currentTimestamp;\r\n                        latestClosePrice = close;\r\n                    }\r\n\r\n                }\r\n            }\r\n        } catch (JSONException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return latestClosePrice;\r\n    }\r\n\r\n\r\n    // Prompt the user for stock symbols, timestamp, and interval, and display the prices by calling getStockPrice() and displayPrices()\r\n    static void getPrices() {\r\n        try {\r\n            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));\r\n\r\n            System.out.println(\"***For multiple stocks, kindly request to separate them by commas [e.g. 0001.MY,0002.MY]***\");\r\n            System.out.print(\"Enter the stock symbol(s): \");\r\n            String symbols = reader.readLine().trim();\r\n            String[] symbolsArr = symbols.split(\"\\\\s*,\\\\s*\");\r\n\r\n            while (!isValidSymbols(symbolsArr)) {\r\n                System.out.println(\"Stock symbol not found. Please enter another symbol.\");\r\n                System.out.println(\"***For multiple stocks, kindly request to separate them by commas [e.g. 0001.MY,0002.MY]***\");\r\n                System.out.print(\"Enter the stock symbol(s): \");\r\n                symbols = reader.readLine().trim();\r\n                symbolsArr = symbols.split(\"\\\\s*,\\\\s*\");\r\n            }\r\n\r\n\r\n            // Retrieve the stock prices within the specified date range and interval\r\n            String jsonResponse = getStockPrice(symbolsArr);\r\n            displayPrices(jsonResponse, symbolsArr);\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n\r\n    // Check if all symbols are in the stock list\r\n    static boolean isValidSymbols(String[] symbols) {\r\n        try {\r\n            JSONArray jsonArray = new JSONArray(readJsonFromFile(fileName));\r\n\r\n            for (String symbol : symbols) {\r\n                boolean isValid = false;\r\n\r\n                for (int i = 0; i < jsonArray.length(); i++) {\r\n                    JSONObject stockJson = jsonArray.getJSONObject(i);\r\n                    String stockSymbol = stockJson.getString(\"symbol\");\r\n\r\n                    if (stockSymbol.equals(symbol)) {\r\n                        isValid = true;\r\n                        break;\r\n                    }\r\n                }\r\n\r\n                if (!isValid) {\r\n                    System.out.println(\"Invalid stock symbol: \" + symbol);\r\n                    return false;\r\n                }\r\n            }\r\n\r\n            return true;\r\n        } catch (JSONException e) {\r\n            e.printStackTrace();\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        return false;\r\n    }\r\n\r\n\r\n    // Fetch stock prices from the API based on the symbols, timestamp, and interval\r\n    static String getStockPrice(String[] symbolsArr) throws Exception {\r\n\r\n        // Convert the symbols to \"0001.KL\", \"0002.KL\", etc.\r\n        for (int i = 0; i < symbolsArr.length; i++) {\r\n            symbolsArr[i] = symbolsArr[i].replace(\".MY\", \".KL\");\r\n        }\r\n\r\n        StringBuilder symbolsParam = new StringBuilder();\r\n        for (String symbol : symbolsArr) {\r\n            symbolsParam.append(symbol).append(\",\");\r\n        }\r\n        symbolsParam.deleteCharAt(symbolsParam.length() - 1);\r\n\r\n        String url = API_ENDPOINT + \"?apikey=\" + API_KEY + \"&function=TIME_SERIES_INTRADAY_EXTENDED&symbol=\" + symbolsParam;\r\n        URL apiURL = new URL(url);\r\n        HttpURLConnection connection = (HttpURLConnection) apiURL.openConnection();\r\n        connection.setRequestMethod(\"GET\");\r\n        connection.connect();\r\n\r\n        int responseCode = connection.getResponseCode();\r\n        if (responseCode == HttpURLConnection.HTTP_OK) {\r\n            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));\r\n            String line;\r\n            StringBuilder response = new StringBuilder();\r\n\r\n            while ((line = reader.readLine()) != null) {\r\n                response.append(line);\r\n            }\r\n            reader.close();\r\n\r\n            return response.toString();\r\n        } else {\r\n            throw new Exception(\"Failed to get stock price. Response code: \" + responseCode);\r\n        }\r\n    }\r\n\r\n\r\n    // Display the timestamps and prices for the requested stocks\r\n    static void displayPrices(String jsonResponse, String[] symbols) {\r\n        try {\r\n            JSONObject json = new JSONObject(jsonResponse);\r\n\r\n            for (String symbol : symbols) {\r\n                if (json.isNull(symbol)) {\r\n                    System.out.println(\"No data available for symbol: \" + symbol);\r\n                    continue; // Skip to the next iteration if symbol is not found\r\n                }\r\n\r\n                System.out.println();\r\n                JSONObject symbolData = json.getJSONObject(symbol);\r\n                System.out.println(\"Symbol: \" + symbol);\r\n\r\n                JSONObject closeData = symbolData.getJSONObject(\"Close\");\r\n\r\n                long latestTimestamp = 0;\r\n                double latestClosePrice = 0.0;\r\n\r\n                Iterator<String> timestampIterator = closeData.keys();\r\n                while (timestampIterator.hasNext()) {\r\n                    String timestamp = timestampIterator.next();\r\n                    long currentTimestamp = Long.parseLong(timestamp);\r\n                    double close = closeData.getDouble(timestamp);\r\n\r\n                    if (currentTimestamp > latestTimestamp) {\r\n                        latestTimestamp = currentTimestamp;\r\n                        latestClosePrice = close;\r\n                    }\r\n\r\n                }\r\n                System.out.println(\"Close: \" + latestClosePrice);\r\n                System.out.println();\r\n            }\r\n        } catch (JSONException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/API.java b/API.java
+---- a/API.java	(revision 715cc67eaeacb8617199468d64b648a27e03f92b)
+-+++ b/API.java	(date 1684897737248)
+-@@ -18,10 +18,10 @@
+- 
+- class testAPI {
+-     public static void main(String[] args) throws IOException {
+--        API api = new API();
+-+//        API api = new API();
+- //        api.StockList();
+- //        api.getPrices();
+--//        System.out.println(api.getRealTimePrice("0007.MY"));
+-+//        System.out.println(api.getRealTimePrice("8206.MY"));
+-     }
+- 
+- }
+-Index: TradingEngine.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>import org.json.JSONException;\r\nimport org.json.JSONObject;\r\n\r\nimport java.text.SimpleDateFormat;\r\nimport java.time.DayOfWeek;\r\nimport java.time.LocalDateTime;\r\nimport java.time.LocalTime;\r\nimport java.util.*;\r\n\r\npublic class TradingEngine {\r\n    private List<Stock> stocks;\r\n    private Map<Stock, List<Order>> buyOrders;\r\n    private Map<Stock, List<Order>> sellOrders;\r\n    private Map<Stock, Integer> lotPool;\r\n\r\n\r\n    public TradingEngine(List<Stock> stocks) {\r\n        this.stocks = stocks;\r\n        this.buyOrders = new HashMap<>();\r\n        this.sellOrders = new HashMap<>();\r\n        for (Stock stock : stocks) {\r\n            buyOrders.put(stock, new ArrayList<>());\r\n            sellOrders.put(stock, new ArrayList<>());\r\n        }\r\n        this.lotPool = new HashMap<>();\r\n        for (Stock stock : stocks) {\r\n            lotPool.put(stock, 500); // Initialize the lot pool with 500 shares for each stock\r\n        }\r\n    }\r\n\r\n    public void executeOrder(Order order, Portfolio portfolio) {\r\n        if (order.getType() == Order.Type.BUY) {\r\n            // Check if it's within the initial trading period (first three days)\r\n            if (isWithinInitialTradingPeriod()) {\r\n                double currentPrice = order.getStock().getPrice();\r\n                double expectedBuyingPrice = order.getExpectedBuyingPrice();\r\n\r\n                if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {\r\n                    buyOrders.get(order.getStock()).add(order);\r\n                    tryExecuteBuyOrders(order.getStock(), portfolio);\r\n                    System.out.println(\"Order is available\");\r\n                } else {\r\n                    System.out.println(\"The expected buying price is not within the acceptable range.\");\r\n                }\r\n            } else {\r\n                // After the initial trading period, enforce the 500-lot rule\r\n                int remainingLotShares = lotPool.getOrDefault(order.getStock(), 0);\r\n                int sharesToBuy = Math.min(order.getShares(), remainingLotShares);\r\n\r\n                if (sharesToBuy > 0) {\r\n                    // Deduct the shares from the lot pool\r\n                    lotPool.put(order.getStock(), remainingLotShares - sharesToBuy);\r\n\r\n                    // Update the order with the adjusted number of shares\r\n                    order.setShares(sharesToBuy);\r\n\r\n                    // Place the order\r\n                    buyOrders.get(order.getStock()).add(order);\r\n                    tryExecuteBuyOrders(order.getStock(), portfolio);\r\n                    System.out.println(\"Order is available\");\r\n                } else {\r\n                    System.out.println(\"No shares available in the lot pool for the specified stock.\");\r\n                }\r\n            }\r\n                }else {\r\n                sellOrders.get(order.getStock()).add(order);\r\n                tryExecuteSellOrders(order.getStock(), portfolio);\r\n            }\r\n        }\r\n    private boolean isWithinInitialTradingPeriod() {\r\n        LocalDateTime currentTime = LocalDateTime.now();\r\n        LocalDateTime endTime = LocalDateTime.of(currentTime.getYear(), currentTime.getMonth(), currentTime.getDayOfMonth(), 0, 0)\r\n                .plusDays(3); // Add three days to the current date\r\n        return currentTime.isBefore(endTime);\r\n    }\r\n    public void replenishLotPoolDaily() { // call each day when wanna start new pool\r\n        // Check if it's the start of a new trading day\r\n        if (isStartOfTradingDay()) {\r\n            // Reset the lot pool shares to 500 for each stock\r\n            for (Stock stock : stocks) {\r\n                lotPool.put(stock, 500);\r\n            }\r\n            System.out.println(\"Lot pool replenished for the day.\");\r\n        }\r\n    }\r\n\r\n    private boolean isStartOfTradingDay() {\r\n        LocalTime marketOpenTime = LocalTime.of(9, 0); // Adjust the market open time according to your needs\r\n        LocalTime currentTime = LocalTime.now();\r\n        return currentTime.equals(marketOpenTime);\r\n    }\r\n    private boolean isPriceWithinRange(double price, double currentPrice, double rangePercentage) { // Execute trades if the price falls within 1% range\r\n        double range = currentPrice * (rangePercentage / 100);\r\n        double lowerLimit = currentPrice - range;\r\n        double upperLimit = currentPrice + range;\r\n        return price >= lowerLimit && price <= upperLimit;\r\n    }\r\n    public boolean isWithinTradingHours() { // Check trading hours\r\n        // Get the current day and time\r\n        LocalDateTime currentTime = LocalDateTime.now();\r\n        DayOfWeek currentDay = currentTime.getDayOfWeek();\r\n        LocalTime currentTimeOfDay = currentTime.toLocalTime();\r\n\r\n        // Check if it's a weekday (Monday to Friday) and within regular market hours\r\n        if (currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY) {\r\n            LocalTime marketOpenTime1 = LocalTime.of(9, 0);\r\n            LocalTime marketCloseTime1 = LocalTime.of(12, 30);\r\n            LocalTime marketOpenTime2 = LocalTime.of(14, 30);\r\n            LocalTime marketCloseTime2 = LocalTime.of(17, 0);\r\n            return (currentTimeOfDay.isAfter(marketOpenTime1) && currentTimeOfDay.isBefore(marketCloseTime1))\r\n                    || (currentTimeOfDay.isAfter(marketOpenTime2) && currentTimeOfDay.isBefore(marketCloseTime2));\r\n        }\r\n        return false;\r\n    }\r\n\r\n    private void tryExecuteBuyOrders(Stock stock, Portfolio portfolio) {\r\n        List<Order> orders = buyOrders.get(stock);\r\n        double price = stock.getPrice();\r\n        for (int i = 0; i < orders.size(); i++) {\r\n            Order order = orders.get(i);\r\n            if (order.getPrice() >= price) {\r\n                int currentShares = portfolio.getHoldings().getOrDefault(stock, 0);\r\n                double totalPrice = order.getPrice() * order.getShares();\r\n                if (portfolio.getValue() >= totalPrice) {\r\n                    portfolio.addStock(stock, order.getShares());\r\n                    orders.remove(i);\r\n                    i--;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    public void closeMarket(Portfolio portfolio, double accountBalance) {\r\n        if (isWithinTradingHours()) {\r\n            System.out.println(\"The market is still open. Cannot close the market now.\");\r\n            return;\r\n        }\r\n\r\n        // Check if the account balance is non-negative\r\n        if (accountBalance >= 0) {\r\n            System.out.println(\"Market closed successfully.\");\r\n            // Perform any necessary actions to finalize the market closing\r\n\r\n            // Reset the buy and sell orders\r\n            buyOrders.clear();\r\n            sellOrders.clear();\r\n            for (Stock stock : stocks) {\r\n                buyOrders.put(stock, new ArrayList<>());\r\n                sellOrders.put(stock, new ArrayList<>());\r\n            }\r\n        } else {\r\n            System.out.println(\"Cannot close the market. Account balance is negative.\");\r\n        }\r\n    }\r\n    public void displaySuggestedPrice(String stockSymbol, int quantity) {\r\n        Stock stock;\r\n\r\n        for (Stock s : stocks) {\r\n            if (s.getSymbol().equalsIgnoreCase(stockSymbol)) {\r\n                stock = s;\r\n                if (stock != null) {\r\n                    double currentPrice = stock.getPrice()*quantity ;\r\n                    double lowerLimit = currentPrice * 0.99; // 1% below the current price\r\n                    double upperLimit = currentPrice * 1.01;\r\n\r\n                    System.out.println(\"Suggested price range for \" + stockSymbol + \": \" + lowerLimit + \" - \" + upperLimit);\r\n                } else {\r\n                    System.out.println(\"Stock with symbol \" + stockSymbol + \" not found.\");\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    private void tryExecuteSellOrders(Stock stock, Portfolio portfolio) {\r\n        List<Order> orders = sellOrders.get(stock);\r\n        double price = stock.getPrice();\r\n        for (int i = 0; i < orders.size(); i++) {\r\n            Order order = orders.get(i);\r\n            if (order.getPrice() <= price) {\r\n                int currentShares = portfolio.getHoldings().getOrDefault(stock, 0);\r\n                if (currentShares >= order.getShares()) {\r\n                    portfolio.removeStock(stock, order.getShares());\r\n                    orders.remove(i);\r\n                    i--;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    public void updatePrices(API api) {\r\n        for (Stock stock : stocks) {\r\n            try {\r\n                // Retrieve the stock symbol from the Stock object\r\n                String stockSymbol = stock.getSymbol();\r\n\r\n                // Get the current date and time\r\n                Date currentDate = new Date();\r\n\r\n                // Set the desired start and end dates for retrieving stock prices\r\n                SimpleDateFormat dateFormat = new SimpleDateFormat(\"yyyyMMdd\");\r\n                String startDate = dateFormat.format(currentDate);\r\n                String endDate = startDate;\r\n\r\n                // Set the desired interval for retrieving stock prices (e.g., \"daily\")\r\n                String interval = \"daily\";\r\n\r\n                // Retrieve the stock prices using the API object\r\n                String jsonResponse = api.getStockPrice(new String[] { stockSymbol }, Long.parseLong(startDate), Long.parseLong(endDate), interval);\r\n\r\n                // Process the JSON response and update the stock price\r\n                processStockPrice(jsonResponse, stock);\r\n\r\n                // Try executing buy and sell orders for the updated stock\r\n                tryExecuteBuyOrders(stock, new Portfolio());\r\n                tryExecuteSellOrders(stock, new Portfolio());\r\n            } catch (Exception e) {\r\n                e.printStackTrace();\r\n            }\r\n        }\r\n    }\r\n\r\n    private void processStockPrice(String jsonResponse, Stock stock) {\r\n        try {\r\n            JSONObject json = new JSONObject(jsonResponse);\r\n            JSONObject symbolData = json.getJSONObject(stock.getSymbol());\r\n            JSONObject closeData = symbolData.getJSONObject(\"Close\");\r\n\r\n            // Get the latest closing price from the JSON data\r\n            Iterator<String> timestampIterator = closeData.keys();\r\n            String latestTimestamp = null;\r\n            double latestPrice = 0.0;\r\n            while (timestampIterator.hasNext()) {\r\n                String timestamp = timestampIterator.next();\r\n                double price = closeData.getDouble(timestamp);\r\n                if (latestTimestamp == null || timestamp.compareTo(latestTimestamp) > 0) {\r\n                    latestTimestamp = timestamp;\r\n                    latestPrice = price;\r\n                }\r\n            }\r\n\r\n            // Update the stock price with the latest price\r\n            stock.setPrice(latestPrice);\r\n        } catch (JSONException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/TradingEngine.java b/TradingEngine.java
+---- a/TradingEngine.java	(revision 715cc67eaeacb8617199468d64b648a27e03f92b)
+-+++ b/TradingEngine.java	(date 1684743783178)
+-@@ -204,7 +204,7 @@
+-                 String interval = "daily";
+- 
+-                 // Retrieve the stock prices using the API object
+--                String jsonResponse = api.getStockPrice(new String[] { stockSymbol }, Long.parseLong(startDate), Long.parseLong(endDate), interval);
+-+                String jsonResponse = api.getStockPrice(new String[] { stockSymbol });
+- 
+-                 // Process the JSON response and update the stock price
+-                 processStockPrice(jsonResponse, stock);
+-Index: Trading.java
+-===================================================================
+-diff --git a/Trading.java b/Trading.java
+-deleted file mode 100644
+---- a/Trading.java	(revision 715cc67eaeacb8617199468d64b648a27e03f92b)
+-+++ /dev/null	(revision 715cc67eaeacb8617199468d64b648a27e03f92b)
+-@@ -1,118 +0,0 @@
+--//import java.util.ArrayList;
+--//import java.util.List;
+--//import java.util.Map;
+--//import java.util.Scanner;
+--//
+--//public class Trading {
+--//    public static void main(String[] args) {
+--//        // Create a list of stocks
+--//        List<Stock> stocks = new ArrayList<>();
+--//        stocks.add(new Stock("AAPL", "Apple Inc.", 1500.0));
+--//        stocks.add(new Stock("GOOG", "Alphabet Inc.", 2500.0));
+--//
+--//        // Create a trading engine with the list of stocks
+--//        TradingEngine tradingEngine = new TradingEngine(stocks);
+--//
+--//        // Create a portfolio for the user
+--//        Portfolio portfolio = new Portfolio();
+--//        //Create a user
+--//
+--//        // Example usage
+--//
+--//        Scanner scanner = new Scanner(System.in);
+--//
+--//        if(tradingEngine.isWithinTradingHours()) {
+--//            // Choose between buying or selling
+--//            System.out.println("1. Buy or sell stock \n2. Show current stock owned \n3. Cancel pending orders \n4. Close market");
+--//            int choice = scanner.nextInt();
+--//
+--//            if (choice == 1) {
+--//                System.out.println("1. Buy order \n2. Sell order");
+--//                choice = scanner.nextInt();
+--//                if (choice == 1) {
+--//                    // Place a buy order
+--//                    System.out.println("Enter stock symbol for buy order: ");
+--//                    String buyStockSymbol = scanner.next();
+--//                    // Find the stock by symbol
+--//                    Stock buyStock = findStockBySymbol(stocks, buyStockSymbol);
+--//                    while (buyStock == null) {
+--//                        System.out.println("Stock with symbol " + buyStockSymbol + " not found. Please enter a new stock symbol: ");
+--//                        buyStockSymbol = scanner.next();
+--//                        buyStock = findStockBySymbol(stocks, buyStockSymbol);
+--//                    }
+--//
+--//                    System.out.println("Enter quantity for buy order: ");
+--//                    int buyQuantity = scanner.nextInt();
+--//                    if (buyQuantity < 100) {
+--//                        System.out.println("Minimum order quantity is 100 shares (one lot).");
+--//                        return;
+--//                    }
+--//
+--//                    // Display suggested price for a stock
+--//                    tradingEngine.displaySuggestedPrice(buyStockSymbol);
+--//
+--//                    System.out.println("Enter expected buying price: ");
+--//                    double buyExpectedPrice = scanner.nextDouble();
+--//
+--//                    buyStock = findStockBySymbol(stocks, buyStockSymbol);
+--//                    if (buyStock != null) {
+--//                        Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, 0.0, buyExpectedPrice, 0.0, User user);
+--//                        tradingEngine.executeOrder(buyOrder, portfolio);
+--//                    } else {
+--//                        System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
+--//                    }
+--//
+--//                } else if (choice == 2) {
+--//                    // Place a sell order
+--//                    System.out.println("Enter stock symbol for sell order: ");
+--//                    String sellStockSymbol = scanner.next();
+--//                    // Find the stock by symbol
+--//                    Stock sellStock = findStockBySymbol(stocks, sellStockSymbol);
+--//                    while (sellStock == null) {
+--//                        System.out.println("Stock with symbol " + sellStockSymbol + " not found. Please enter a new stock symbol: ");
+--//                        sellStockSymbol = scanner.next();
+--//                        sellStock = findStockBySymbol(stocks, sellStockSymbol);
+--//                    }
+--//
+--//                    System.out.println("Enter quantity for sell order: ");
+--//                    int sellQuantity = scanner.nextInt();
+--//                    System.out.println("Enter expected selling price: ");
+--//                    double sellExpectedPrice = scanner.nextDouble();
+--//
+--//                    // Display suggested price for a stock
+--//                    tradingEngine.displaySuggestedPrice(sellStockSymbol);
+--//
+--//                    sellStock = findStockBySymbol(stocks, sellStockSymbol);
+--//                    if (sellStock != null) {
+--//                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, 0.0, sellExpectedPrice,User user);
+--//                        tradingEngine.executeOrder(sellOrder, portfolio);
+--//                    } else {
+--//                        System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
+--//                    }
+--//                }
+--//            }else if(choice == 2){
+--//                //show current stock owned (trading dashboard)
+--//            }else if(choice == 3){
+--//                //cancelOrder method in TradingApp class
+--//            }else if(choice == 4){
+--//                tradingEngine.closeMarket(portfolio, portfolio.getValue());
+--//            }
+--//            else{
+--//                System.out.println("Execution invalid");
+--//            }
+--//        }else{
+--//            System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
+--//        }
+--//
+--//        scanner.close();
+--//    }
+--//
+--//    private static Stock findStockBySymbol(List<Stock> stocks, String symbol) {
+--//        for (Stock stock : stocks) {
+--//            if (stock.getSymbol().equalsIgnoreCase(symbol)) {
+--//                return stock;
+--//            }
+--//        }
+--//        return null;
+--//    }
+--//}
+-Index: NotificationService.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>import java.util.ArrayList;\r\nimport java.util.List;\r\nimport java.util.Timer;\r\nimport java.util.TimerTask;\r\n\r\n// Create a Notification class\r\nclass Notification {\r\n    private String userId;\r\n    private double pnl;\r\n    private boolean enteredPosition;\r\n    private boolean exitedPosition;\r\n\r\n    public Notification(String userId) {\r\n        this.userId = userId;\r\n    }\r\n\r\n    public String getUserId() {\r\n        return userId;\r\n    }\r\n\r\n    public double getPnl() {\r\n        return pnl;\r\n    }\r\n\r\n    public void setPnl(double pnl) {\r\n        this.pnl = pnl;\r\n    }\r\n\r\n    public boolean hasEnteredPosition() {\r\n        return enteredPosition;\r\n    }\r\n\r\n    public void setEnteredPosition(boolean enteredPosition) {\r\n        this.enteredPosition = enteredPosition;\r\n    }\r\n\r\n    public boolean hasExitedPosition() {\r\n        return exitedPosition;\r\n    }\r\n\r\n    public void setExitedPosition(boolean exitedPosition) {\r\n        this.exitedPosition = exitedPosition;\r\n    }\r\n}\r\n\r\n// Utilize a third-party library like JavaMail for sending notifications\r\nclass EmailService {\r\n    public void sendNotification(String userId, String message) {\r\n        // Logic for sending email using JavaMail library\r\n        System.out.println(\"Sending email notification to user \" + userId + \": \" + message);\r\n    }\r\n}\r\n\r\n// Implement methods for handling user settings\r\nclass UserSettings {\r\n    private double pnlThreshold;\r\n    private boolean enableNotifications;\r\n\r\n    public double getPnlThreshold() {\r\n        return pnlThreshold;\r\n    }\r\n\r\n    public void setPnlThreshold(double pnlThreshold) {\r\n        this.pnlThreshold = pnlThreshold;\r\n    }\r\n\r\n    public boolean isEnableNotifications() {\r\n        return enableNotifications;\r\n    }\r\n\r\n    public void setEnableNotifications(boolean enableNotifications) {\r\n        this.enableNotifications = enableNotifications;\r\n    }\r\n}\r\n\r\n// Use a timer or scheduling framework to periodically check for threshold crossing\r\nclass NotificationScheduler {\r\n    private List<Notification> notifications;\r\n    private EmailService emailService;\r\n    private UserSettings userSettings;\r\n\r\n    public NotificationScheduler() {\r\n        this.notifications = new ArrayList<>();\r\n        this.emailService = new EmailService();\r\n        this.userSettings = new UserSettings();\r\n    }\r\n\r\n    public void startScheduler() {\r\n        Timer timer = new Timer();\r\n        timer.schedule(new TimerTask() {\r\n            @Override\r\n            public void run() {\r\n                checkThresholds();\r\n            }\r\n        }, 0, 1000); \r\n    }\r\n\r\n    private void checkThresholds() {\r\n        for (Notification notification : notifications) {\r\n            if (notification.hasEnteredPosition() && notification.getPnl() > userSettings.getPnlThreshold()) {\r\n                sendNotification(notification, \"Your P&L crossed the threshold: \" + notification.getPnl());\r\n            } else if (notification.hasExitedPosition() && notification.getPnl() < userSettings.getPnlThreshold()) {\r\n                sendNotification(notification, \"Your P&L dropped below the threshold: \" + notification.getPnl());\r\n            }\r\n        }\r\n    }\r\n\r\n    private void sendNotification(Notification notification, String message) {\r\n        if (userSettings.isEnableNotifications()) {\r\n            emailService.sendNotification(notification.getUserId(), message);\r\n        }\r\n    }\r\n\r\n    // Additional methods for managing user settings and notifications\r\n    public void addUserNotification(Notification notification) {\r\n        notifications.add(notification);\r\n    }\r\n\r\n    public void removeUserNotification(Notification notification) {\r\n        notifications.remove(notification);\r\n    }\r\n\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/NotificationService.java b/NotificationService.java
+---- a/NotificationService.java	(revision 715cc67eaeacb8617199468d64b648a27e03f92b)
+-+++ b/NotificationService.java	(date 1684676000621)
+-@@ -92,7 +92,7 @@
+-             public void run() {
+-                 checkThresholds();
+-             }
+--        }, 0, 1000); 
+-+        }, 0, 1000);
+-     }
+- 
+-     private void checkThresholds() {
+-@@ -119,4 +119,5 @@
+-     public void removeUserNotification(Notification notification) {
+-         notifications.remove(notification);
+-     }
+-+}
+- 
+-Index: Report.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/Report.java b/Report.java
+-new file mode 100644
+---- /dev/null	(date 1684898399189)
+-+++ b/Report.java	(date 1684898399189)
+-@@ -0,0 +1,3 @@
+-+public class Report {
+-+
+-+}
+-Index: Leaderboard.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>import java.util.ArrayList;\r\nimport java.util.Collections;\r\nimport java.util.Comparator;\r\nimport java.util.List;\r\n\r\nclass UserScore {\r\n        private String name;\r\n        private int marks;\r\n\r\n        public UserScore(String name, int marks) {\r\n            this.name = name;\r\n            this.marks = marks;\r\n        }\r\n\r\n        public String getName() {\r\n            return name;\r\n        }\r\n\r\n        public int getMarks() {\r\n            return marks;\r\n        }\r\npublic class Leaderboard {\r\n    public static void main(String[] args) {\r\n        // Retrieve users' names and marks from the dashboard\r\n        List<UserScore> dashboardData = retrieveDataFromDashboard();\r\n\r\n        // Sort the data based on marks in descending order\r\n        Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());\r\n\r\n        // Extract the top ten users\r\n        List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));\r\n\r\n        // Display the leaderboard\r\n        System.out.println(\"Rank | User         | Marks\");\r\n        System.out.println(\"-----|--------------|-------\");\r\n        // Add condition if user is disqualified then score cannot be counted\r\n        for (int i = 0; i < topTenUsers.size(); i++) {\r\n            UserScore user = topTenUsers.get(i);\r\n            System.out.printf(\"%4d | %-12s | %5d%n\", i + 1, user.getName(), user.getMarks());\r\n        }\r\n    }\r\n    // Simulated method to retrieve data from the dashboard\r\n    private static List<UserScore> retrieveDataFromDashboard() {\r\n\r\n        // Retrieve the data from the dashboard and populate a list of User objects\r\n        List<UserScore> dashboardData = new ArrayList<>();\r\n\r\n        // Split dashboard de username n score\r\n        // Use for loop / while loop to add username n score into dashboard\r\n        dashboardData.add(new UserScore(\"User123\", 500));\r\n\r\n        return dashboardData;\r\n        }\r\n    }\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/Leaderboard.java b/Leaderboard.java
+---- a/Leaderboard.java	(revision 715cc67eaeacb8617199468d64b648a27e03f92b)
+-+++ b/Leaderboard.java	(date 1684673680005)
+-@@ -1,55 +1,56 @@
+--import java.util.ArrayList;
+--import java.util.Collections;
+--import java.util.Comparator;
+--import java.util.List;
+--
+--class UserScore {
+--        private String name;
+--        private int marks;
+--
+--        public UserScore(String name, int marks) {
+--            this.name = name;
+--            this.marks = marks;
+--        }
+--
+--        public String getName() {
+--            return name;
+--        }
+--
+--        public int getMarks() {
+--            return marks;
+--        }
+--public class Leaderboard {
+--    public static void main(String[] args) {
+--        // Retrieve users' names and marks from the dashboard
+--        List<UserScore> dashboardData = retrieveDataFromDashboard();
+--
+--        // Sort the data based on marks in descending order
+--        Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());
+--
+--        // Extract the top ten users
+--        List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));
+--
+--        // Display the leaderboard
+--        System.out.println("Rank | User         | Marks");
+--        System.out.println("-----|--------------|-------");
+--        // Add condition if user is disqualified then score cannot be counted
+--        for (int i = 0; i < topTenUsers.size(); i++) {
+--            UserScore user = topTenUsers.get(i);
+--            System.out.printf("%4d | %-12s | %5d%n", i + 1, user.getName(), user.getMarks());
+--        }
+--    }
+--    // Simulated method to retrieve data from the dashboard
+--    private static List<UserScore> retrieveDataFromDashboard() {
+--
+--        // Retrieve the data from the dashboard and populate a list of User objects
+--        List<UserScore> dashboardData = new ArrayList<>();
+--
+--        // Split dashboard de username n score
+--        // Use for loop / while loop to add username n score into dashboard
+--        dashboardData.add(new UserScore("User123", 500));
+--
+--        return dashboardData;
+--        }
+--    }
+--}
+-+//import java.util.ArrayList;
+-+//import java.util.Collections;
+-+//import java.util.Comparator;
+-+//import java.util.List;
+-+//
+-+//class UserScore {
+-+//        private String name;
+-+//        private int marks;
+-+//
+-+//        public UserScore(String name, int marks) {
+-+//            this.name = name;
+-+//            this.marks = marks;
+-+//        }
+-+//
+-+//        public String getName() {
+-+//            return name;
+-+//        }
+-+//
+-+//        public int getMarks() {
+-+//            return marks;
+-+//        }
+-+//
+-+//public class Leaderboard {
+-+//    public static void main(String[] args) {
+-+//        // Retrieve users' names and marks from the dashboard
+-+//        List<UserScore> dashboardData = retrieveDataFromDashboard();
+-+//
+-+//        // Sort the data based on marks in descending order
+-+//        Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());
+-+//
+-+//        // Extract the top ten users
+-+//        List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));
+-+//
+-+//        // Display the leaderboard
+-+//        System.out.println("Rank | User         | Marks");
+-+//        System.out.println("-----|--------------|-------");
+-+//        // Add condition if user is disqualified then score cannot be counted
+-+//        for (int i = 0; i < topTenUsers.size(); i++) {
+-+//            UserScore user = topTenUsers.get(i);
+-+//            System.out.printf("%4d | %-12s | %5d%n", i + 1, user.getName(), user.getMarks());
+-+//        }
+-+//    }
+-+//    // Simulated method to retrieve data from the dashboard
+-+//    private static List<UserScore> retrieveDataFromDashboard() {
+-+//
+-+//        // Retrieve the data from the dashboard and populate a list of User objects
+-+//        List<UserScore> dashboardData = new ArrayList<>();
+-+//
+-+//        // Split dashboard de username n score
+-+//        // Use for loop / while loop to add username n score into dashboard
+-+//        dashboardData.add(new UserScore("User123", 500));
+-+//
+-+//        return dashboardData;
+-+//        }
+-+//    }
+-+//}
+Index: out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM__Changes_.xml
+===================================================================
+diff --git a/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM__Changes_.xml b/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM__Changes_.xml
+deleted file mode 100644
+--- a/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM__Changes_.xml	(revision 26cdb32a12f585f92d360eaeb50fa59d59adcd3f)
++++ /dev/null	(revision 26cdb32a12f585f92d360eaeb50fa59d59adcd3f)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM_[Changes]" date="1685351805937" recycled="false" toDelete="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 5/29/2023 5:16 PM [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: out/production/WallStreetWarrior/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"ab552e26-5345-4fb5-8e90-85b990a310ce\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/Trade.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/dashboard.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/UserDashboard.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/search.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/search.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2QSXO0inAcqBcl4voK3fOpybQeE\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/user/OneDrive - matrik/Documents/IntelliJ/WallStreetWarrior\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"ab552e26-5345-4fb5-8e90-85b990a310ce\" name=\"Changes\" comment=\"\" />\r\n      <created>1685347920979</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1685347920979</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/out/production/WallStreetWarrior/.idea/workspace.xml b/out/production/WallStreetWarrior/.idea/workspace.xml
+--- a/out/production/WallStreetWarrior/.idea/workspace.xml	(revision 26cdb32a12f585f92d360eaeb50fa59d59adcd3f)
++++ b/out/production/WallStreetWarrior/.idea/workspace.xml	(date 1685359046136)
+@@ -1,20 +1,55 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/Trade.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserDashboard.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/search.java" beforeDir="false" afterPath="$PROJECT_DIR$/search.java" afterDir="false" />
++    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="Upload database and fix some bug">
++      <change afterPath="$PROJECT_DIR$/.idea/WallStreetWarrior.iml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_51_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_51_PM__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/libraries/jBCrypt_0_4_3.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM__Changes_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM__Changes_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/API.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/AdminPanel.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Database.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/EmailService.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Notification.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler$1.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order$Type.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Portfolio.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Stock.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Trade.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/TradingEngine.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/User.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserAuthentication.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserSettings.class" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="FileTemplateManagerImpl">
++    <option name="RECENT_TEMPLATES">
++      <list>
++        <option value="Class" />
++      </list>
++    </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="UPDATE_TYPE" value="REBASE" />
++  </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
+   </component>
+   <component name="ProjectId" id="2QSXO0inAcqBcl4voK3fOpybQeE" />
++  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+@@ -23,9 +58,28 @@
+   "keyToString": {
+     "RunOnceActivity.OpenProjectViewOnStart": "true",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "last_opened_file_path": "C:/Users/user/OneDrive - matrik/Documents/IntelliJ/WallStreetWarrior"
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "last_opened_file_path": "C:/Program Files/JetBrains/IntelliJ IDEA Community Edition 2022.2.3/lib/jBCrypt-0.4.3.jar",
++    "project.structure.last.edited": "Modules",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.2",
++    "settings.editor.selected.configurable": "preferences.lookFeel"
+   }
+ }]]></component>
++  <component name="RunManager">
++    <configuration name="UserAuthentication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="UserAuthentication" />
++      <module name="WallStreetWarrior" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="Application.UserAuthentication" />
++      </list>
++    </recent_temporary>
++  </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+@@ -35,6 +89,31 @@
+       <option name="presentableId" value="Default" />
+       <updated>1685347920979</updated>
+     </task>
++    <task id="LOCAL-00001" summary="Upload database and fix some bug">
++      <created>1685348939434</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1685348939434</updated>
++    </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="Upload database and fix some bug" />
++    <option name="LAST_COMMIT_MESSAGE" value="Upload database and fix some bug" />
++    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
++    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
++  </component>
+ </project>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1685358939108)
++++ b/.idea/modules.xml	(date 1685358939108)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/WallStreetWarrior.iml" filepath="$PROJECT_DIR$/.idea/WallStreetWarrior.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/WallStreetWarrior.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/WallStreetWarrior.iml b/.idea/WallStreetWarrior.iml
+new file mode 100644
+--- /dev/null	(date 1685359046128)
++++ b/.idea/WallStreetWarrior.iml	(date 1685359046128)
+@@ -0,0 +1,47 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++    <orderEntry type="module-library">
++      <library>
++        <CLASSES>
++          <root url="jar://$APPLICATION_HOME_DIR$/lib/json-20230227.jar!/" />
++        </CLASSES>
++        <JAVADOC />
++        <SOURCES />
++      </library>
++    </orderEntry>
++    <orderEntry type="module-library">
++      <library>
++        <CLASSES>
++          <root url="jar://$APPLICATION_HOME_DIR$/lib/jsoup-1.16.1.jar!/" />
++        </CLASSES>
++        <JAVADOC />
++        <SOURCES />
++      </library>
++    </orderEntry>
++    <orderEntry type="module-library">
++      <library>
++        <CLASSES>
++          <root url="jar://$APPLICATION_HOME_DIR$/lib/mysql-connector-j-8.0.33.jar!/" />
++        </CLASSES>
++        <JAVADOC />
++        <SOURCES />
++      </library>
++    </orderEntry>
++    <orderEntry type="module-library">
++      <library>
++        <CLASSES>
++          <root url="jar://$APPLICATION_HOME_DIR$/lib/jBCrypt-0.4.3.jar!/" />
++        </CLASSES>
++        <JAVADOC />
++        <SOURCES />
++      </library>
++    </orderEntry>
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"ab552e26-5345-4fb5-8e90-85b990a310ce\" name=\"Changes\" comment=\"Upload database and fix some bug\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/dbnavigator.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/json_20230227.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/libraries/jBCrypt_0_4_3.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/API.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/AdminPanel.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/Database.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/EmailService.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/MyStocks\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/Notification.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler$1.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/Order$Type.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/Order.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/Portfolio.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/Stock.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/TradingEngine.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/User.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/UserAuthentication.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore$Leaderboard.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/UserSettings.class\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/WallStreetWarriors.iml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/out/production/WallStreetWarrior/data.txt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Portfolio.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Portfolio.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/UserAuthentication.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/UserAuthentication.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/WallStreetWarrior.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/WallStreetWarrior.iml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2QSXO0inAcqBcl4voK3fOpybQeE\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/user/Downloads/javafx_collection/javafx-base-21-ea+17-linux.jar\",\r\n    \"project.structure.last.edited\": \"Project\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"preferences.lookFeel\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"UserAuthentication\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"UserAuthentication\" />\r\n      <module name=\"WallStreetWarrior\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.UserAuthentication\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"ab552e26-5345-4fb5-8e90-85b990a310ce\" name=\"Changes\" comment=\"\" />\r\n      <created>1685347920979</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1685347920979</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Upload database and fix some bug\">\r\n      <created>1685348939434</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685348939434</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Upload database and fix some bug\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Upload database and fix some bug\" />\r\n    <option name=\"OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT\" value=\"true\" />\r\n    <option name=\"REFORMAT_BEFORE_PROJECT_COMMIT\" value=\"true\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 26cdb32a12f585f92d360eaeb50fa59d59adcd3f)
++++ b/.idea/workspace.xml	(date 1685379971426)
+@@ -2,36 +2,34 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="Upload database and fix some bug">
+-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/json_20230227.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/libraries/jBCrypt_0_4_3.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/workspace.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/API.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/AdminPanel.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Database.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/EmailService.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/MyStocks" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Notification.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler$1.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order$Type.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Portfolio.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Stock.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/TradingEngine.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/User.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserAuthentication.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore$Leaderboard.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserSettings.class" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/WallStreetWarriors.iml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/data.txt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Portfolio.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/UserAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/WallStreetWarrior.iml" beforeDir="false" afterPath="$PROJECT_DIR$/WallStreetWarrior.iml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/WallStreetWarrior.iml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_51_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_51_PM__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/libraries/jBCrypt_0_4_3.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_24_2023_11_43_AM__Changes_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_5_16_PM__Changes_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/API.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/API.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/AdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/AdminPanel.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Database.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/EmailService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/EmailService.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Notification.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler$1.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order$Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order$Type.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Portfolio.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Stock.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Trade.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Trade.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/TradingEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/TradingEngine.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/User.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserAuthentication.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore$Leaderboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore$Leaderboard.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserSettings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserSettings.class" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -57,17 +55,18 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "last_opened_file_path": "C:/Users/user/Downloads/javafx_collection/javafx-base-21-ea+17-linux.jar",
+-    "project.structure.last.edited": "Project",
+-    "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "preferences.lookFeel"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Program Files/JetBrains/IntelliJ IDEA Community Edition 2022.2.3/lib/jBCrypt-0.4.3.jar&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RunManager">
+     <configuration name="UserAuthentication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="UserAuthentication" />
