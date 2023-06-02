@@ -94,7 +94,6 @@ public class Portfolio {
                         holdings.replace(existingOrder, shares, updatedShares);
                     }
                     found = true;
-                    System.out.println("Sell order executed successfully.");
                 } else {
                     System.out.println("Not enough shares to sell.");
                 }
@@ -117,7 +116,6 @@ public class Portfolio {
                 int shares = entry.getValue();
                 System.out.println("Stock: " + order.getStock().getSymbol());
                 System.out.println("Shares: " + shares);
-                System.out.println("Value: " + getValue());
                 System.out.println("-".repeat(30));
             }
         }
