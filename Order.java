@@ -20,11 +20,11 @@ public class Order {
     String symbol;
     //add time
 
-    public Order(Stock stock, Type type, int shares, double price, double expectedBuyingPrice, double expectedSellingPrice, User user) {
+    public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user) {
         this.stock = stock;
         this.type = type;
         this.shares = shares;
-        this.price = price;
+//        this.price = price;
         this.expectedBuyingPrice = expectedBuyingPrice;
         this.expectedSellingPrice = expectedSellingPrice;
         this.user = user;
