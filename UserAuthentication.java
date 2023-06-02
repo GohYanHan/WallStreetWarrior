@@ -2,6 +2,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,6 +14,9 @@ public class UserAuthentication {
     public UserAuthentication() {
         db = new Database();
     }
+
+    private List<Order> buyOrderList = new ArrayList<>();
+    private List<Order> sellOrderList = new ArrayList<>();
 
     public boolean register() {
         System.out.print("Email: ");
@@ -136,8 +140,14 @@ public class UserAuthentication {
                     buyStock = findStockBySymbol(stocks, buyStockSymbol);
 
                     if (buyStock != null) {
+                        LocalDateTime timestamp = LocalDateTime.now();
                         Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user);
                         tradingEngine.executeOrder(buyOrder, portfolio);
+
+                        // if executeOrder success, add buyOrderList into a list, link list to cancelOrder() or move cancelOrder here
+                        Order buyOrderListElement = new Order(user.getKey(), buyStock, buyQuantity, formattedBuyExpectedPrice, timestamp);
+                        buyOrderList.add(buyOrderListElement);
+
                     } else {
                         System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
                     }
@@ -149,7 +159,7 @@ public class UserAuthentication {
                     System.out.println("Enter stock symbol for sell order: ");
                     String sellStockSymbol = scanner.nextLine();
                     // Find the stock by symbol
-                    Stock sellStock = portfolio.findStockBySymbol(sellStockSymbol); //modify to link with boolean method in portfolio
+                    Stock sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                     while (sellStock == null) {
                         System.out.println("Stock with symbol " + sellStockSymbol + " not found. Please enter a new stock symbol: ");
                         sellStockSymbol = scanner.nextLine();
@@ -166,11 +176,19 @@ public class UserAuthentication {
                     System.out.println("Enter expected selling price: ");
                     double sellExpectedPrice = scanner.nextDouble();
 
+                    // Format the user input to two decimal points
+                    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                    double formattedSellingPrice = Double.parseDouble(decimalFormat.format(sellExpectedPrice));
 
                     sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                     if (sellStock != null) {
                         Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user);
                         tradingEngine.executeOrder(sellOrder, portfolio);
+
+                        LocalDateTime timestamp = LocalDateTime.now();
+                        Order sellOrderListElement = new Order(user.getKey(), sellStock, sellQuantity, formattedSellingPrice, timestamp);
+                        sellOrderList.add(sellOrderListElement);
+
                     } else {
                         System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
                     }
@@ -178,16 +196,21 @@ public class UserAuthentication {
             } else if (choice == 2) {
                 portfolio.displayHoldings();
             } else if (choice == 3) {
-                List<Order> buyOrders = new ArrayList<>();
-                while (tradingEngine.getBuyOrders() != null) {
-                    buyOrders.add((Order) tradingEngine.getBuyOrders().values());
-                }
-                tradingEngine.cancelBuyOrder(buyOrders); // remove string
+                tradingEngine.cancelBuyOrder(buyOrderList, portfolio);
             } else {
                 System.out.println("Execution invalid");
                 return;
             }
 
+        }
+    }
+
+    public void displayOrderList(List<Order> orders) {
+        for (Order order : orders) {
+            System.out.println("Stock: " + order.getStock().getSymbol());
+            System.out.println("Price: " + order.getExpectedBuyingPrice());
+            System.out.println("TimeStamp: " + order.getTimestamp());
+            System.out.println("-".repeat(30));
         }
     }
 }
