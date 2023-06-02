@@ -1,3 +1,4 @@
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Order {
@@ -9,7 +10,7 @@ public class Order {
     private Stock stock;
     private Type type;
     private int shares;
-    private LocalDateTime timestamp;
+    private Timestamp timestamp;
     private User user;
 
     private double price;
@@ -18,11 +19,19 @@ public class Order {
     private static double expectedSellingPrice;
     //add time
 
-    public Order(Stock stock, Type type, int shares, double price, double expectedBuyingPrice, double expectedSellingPrice, User user) {
+    public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user) {
         this.stock = stock;
         this.type = type;
         this.shares = shares;
-        this.price = price;
+        this.expectedBuyingPrice = expectedBuyingPrice;
+        this.expectedSellingPrice = expectedSellingPrice;
+        this.user = user;
+
+    }
+    public Order(int userKey, Stock stock, int shares, double expectedBuyingPrice, Timestamp timestamp) {
+        this.stock = stock;
+        this.type = type;
+        this.shares = shares;
         this.expectedBuyingPrice = expectedBuyingPrice;
         this.expectedSellingPrice = expectedSellingPrice;
         this.user = user;
@@ -53,10 +62,10 @@ public class Order {
         return expectedSellingPrice;
     }
 
-    public LocalDateTime getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
     public void setUser(User user) {

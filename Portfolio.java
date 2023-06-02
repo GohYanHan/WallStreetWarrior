@@ -10,6 +10,10 @@ public class Portfolio {
     private int userKey;
     private Database db;
 
+    public int getUserKey() {
+        return userKey;
+    }
+
     private List<Order> tradeHistory;
 
 
