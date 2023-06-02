@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.sql.SQLOutput;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -18,11 +19,9 @@ public class UserDashboard {
     public void displayCurrentPoints() {
         double startingBalance = 50000.0; // Assuming a fixed starting balance
 
-       //Overall(cumulative) account profit / loss  (account balance)
+       //Overall account profit / loss  (account balance)
 
-        //positive means profit, negative means loss
-
-        double pAndL = user.getBalance() - startingBalance;
+        double pAndL = user.getPortfolio().getValue() - startingBalance;
         double points = (pAndL / startingBalance) * 100;
         System.out.println("Current Points: " + points);
     }
@@ -42,60 +41,49 @@ public class UserDashboard {
 
         //   tradeHistory.sort(Comparator.comparing(Order::getExpectedBuyingPrice).thenComparing(Order::getTimestamp));
 
-          //tradeHistory list will be sorted in ascending order first by expectedBuyingPrice,
-            // and if there are elements with the same expectedBuyingPrice, those will be further sorted by timestamp.
+          //tradeHistory list will be sorted in ascending order first by expectedBuyingPrice, and if there are elements with the same expectedBuyingPrice, those will be further sorted by timestamp.
 
 
 
         for (Order order : tradeHistory) {
-            System.out.println("Stock: " + order.getStock().getSymbol());
-            System.out.println("Type: " + order.getType());
-            System.out.println("Shares: " + order.getShares());
-            System.out.println("Price: $" + order.getExpectedBuyingPrice());
-            System.out.println("Timestamp: " + order.getTimestamp());
-            System.out.println("-".repeat(30));
-             }
-        }
-        else
-            System.out.println("No trade history");
 
+            if (order.getType() == Order.Type.BUY) {
 
-    }
-
-    public void displayStocksLeft() {
-        Portfolio portfolio = user.getPortfolio();
-        List<Order> tradeHistory = portfolio.getTradeHistory();
-
-        if(!tradeHistory.isEmpty()) {
-            System.out.println("Stocks Left:");
-
-            for (Order order : tradeHistory) {
-                if (!portfolio.containsStockSymbol(order.getStock().getSymbol())) {
-                    System.out.println("Stock: " + order.getStock().getSymbol());
-                    System.out.println("Name: " + order.getStock().getName());
-                    System.out.println("Price: $" + order.getStock().getPrice());
-                    System.out.println("-".repeat(30));
-                }
+                System.out.println("Stock: " + order.getStock().getSymbol());
+                System.out.println("Type: " + order.getType());
+                System.out.println("Shares: " + order.getShares());
+                System.out.println("Price: $" + order.getExpectedBuyingPrice());
+                System.out.println("Timestamp: " + order.getTimestamp());
+                System.out.println("-".repeat(30));
+            } else {
+                System.out.println("Stock: " + order.getStock().getSymbol());
+                System.out.println("Type: " + order.getType());
+                System.out.println("Shares: " + order.getShares());
+                System.out.println("Price: $" + order.getExpectedSellingPrice());
+                System.out.println("Timestamp: " + order.getTimestamp());
+                System.out.println("-".repeat(30));
             }
         }
 
-        System.out.println("No stocks left.");
-
-
+        }
     }
+
+
 
     //lowest price to highest price
     public void sortTradeHistoryByPrice() {
-        List<Order> tradeHistory = user.getPortfolio().getTradeHistory();
-        tradeHistory.sort(Comparator.comparing(Order::getExpectedBuyingPrice));
+        List<Order> tradeHistorybyprice = user.getPortfolio().getTradeHistory();
+        tradeHistorybyprice.sort(Comparator.comparing(Order::getExpectedBuyingPrice));
+        displayTradeHistory();
     }
 
 
     //oldest to newest
     public void sortTradeHistoryByPlacementTime() {
-        List<Order> tradeHistory = user.getPortfolio().getTradeHistory();
+        List<Order> tradeHistorybyplacementtime = user.getPortfolio().getTradeHistory();
 
-        tradeHistory.sort(Comparator.comparing(Order::getTimestamp));
+        tradeHistorybyplacementtime.sort(Comparator.comparing(Order::getTimestamp));
+        displayTradeHistory();
     }
 
     public void chooseSort(){

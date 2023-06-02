@@ -141,12 +141,13 @@ public class UserAuthentication {
 
                     if (buyStock != null) {
                         LocalDateTime timestamp = LocalDateTime.now();
-                        Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user);
+                        Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user,timestamp);
                         tradingEngine.executeOrder(buyOrder, portfolio);
 
                         // if executeOrder success, add buyOrderList into a list, link list to cancelOrder() or move cancelOrder here
                         Order buyOrderListElement = new Order(user.getKey(), buyStock, buyQuantity, formattedBuyExpectedPrice, timestamp);
                         buyOrderList.add(buyOrderListElement);
+
 
                     } else {
                         System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
@@ -182,12 +183,15 @@ public class UserAuthentication {
 
                     sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                     if (sellStock != null) {
-                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user);
+                        LocalDateTime timestamp = LocalDateTime.now();
+
+                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user, timestamp);
                         tradingEngine.executeOrder(sellOrder, portfolio);
 
-                        LocalDateTime timestamp = LocalDateTime.now();
                         Order sellOrderListElement = new Order(user.getKey(), sellStock, sellQuantity, formattedSellingPrice, timestamp);
                         sellOrderList.add(sellOrderListElement);
+
+
 
                     } else {
                         System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
@@ -195,6 +199,8 @@ public class UserAuthentication {
                 }
             } else if (choice == 2) {
                 portfolio.displayHoldings();
+
+
             } else if (choice == 3) {
                 tradingEngine.cancelBuyOrder(buyOrderList, portfolio);
             } else {

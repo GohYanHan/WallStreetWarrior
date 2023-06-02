@@ -20,23 +20,25 @@ public class Order {
     String symbol;
     //add time
 
-    public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user) {
+    public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user, LocalDateTime timestamp) {
         this.stock = stock;
         this.type = type;
         this.shares = shares;
         this.expectedBuyingPrice = expectedBuyingPrice;
         this.expectedSellingPrice = expectedSellingPrice;
+        this.timestamp=timestamp;
         this.user = user;
 
     }
 
-    public Order(int userKey, Stock stock, int shares, double expectedBuyingPrice, LocalDateTime timestamp) {
+    public Order(int userKey,Stock stock, int shares, double expectedBuyingPrice, LocalDateTime timestamp) {
         this.stock = stock;
         this.userKey = userKey;
         this.shares = shares;
         this.expectedBuyingPrice = expectedBuyingPrice;
         this.timestamp = timestamp;
     }
+
 
     public Stock getStock() {
         return stock;

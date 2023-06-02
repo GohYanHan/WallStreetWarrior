@@ -10,7 +10,7 @@ public class Portfolio {
     private int userKey;
     private Database db;
 
-    private List<Order> tradeHistory;
+    private List<Order> tradeHistory ;
 
 
     public Portfolio(int userKey, double balance) {
@@ -32,7 +32,7 @@ public class Portfolio {
         return value;
     }
 
-    private double getValue() {
+    double getValue() {
         return value;
     }
 

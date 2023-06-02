@@ -4,28 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="">
+    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="more fixe">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API.java" beforeDir="false" afterPath="$PROJECT_DIR$/API.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BoyerMoore.java" beforeDir="false" afterPath="$PROJECT_DIR$/BoyerMoore.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Portfolio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TradingEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/TradingEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/jar_files_jsonarray.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/jbcrypt_0_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/jsoup_1_16_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/API.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/API.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Database.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Order.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserScore$Leaderboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserScore$Leaderboard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/WallStreetWarrior.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/WallStreetWarrior.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/search.java" beforeDir="false" afterPath="$PROJECT_DIR$/search.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,17 +41,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Administrator/Documents/mysql-connector-j-8.0.33.jar",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "settings.space"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Administrator/Documents/mysql-connector-j-8.0.33.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.space&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="ALTERNATIVE_JRE_PATH" value="$USER_HOME$/.jdks/openjdk-20.0.1" />
@@ -129,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685590037531</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="commit 8">
+      <created>1685659891109</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1685659891110</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -147,7 +144,8 @@
     <MESSAGE value="Upload database and fix some bug" />
     <MESSAGE value="commit 5 (+boyermoore)" />
     <MESSAGE value="commit 6" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit 6" />
+    <MESSAGE value="commit 8" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit 8" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
