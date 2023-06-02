@@ -63,12 +63,43 @@ public class TradingEngine {
                 } else {
                     System.out.println("The expected buying price is not within the acceptable range.\nOrder not placed.");
                 }
-            }else{
+            } else {
                 System.out.println("Stock is not in list");
             }
         }
     }
 
+    private void tryExecuteBuyOrder(Order order, Portfolio portfolio) { //need ziji remove from sellOrders/lotpool after this method is called
+        List<Order> orders = buyOrders.get(order.getStock()); //loop buy order,if enough money, add buy order into portfolio
+        double price = order.getExpectedBuyingPrice();
+        int shares = order.getShares();
+
+        if (portfolio.getAccBalance() >= price) {
+            double temp = portfolio.getAccBalance();
+            temp -= price;
+            portfolio.setAccBalance(temp);
+            portfolio.addValue(order.getExpectedBuyingPrice());
+            portfolio.addStock(order, shares);
+            orders.remove(order);
+            //
+        } else {
+            System.out.println("Not enough money");
+        }
+    }
+
+    private void tryExecuteSellOrder(Order order, Portfolio portfolio) {
+        List<Order> orders = sellOrders.get(order.getStock());
+        double price = order.getExpectedSellingPrice();
+        int shares = order.getShares();
+
+        double temp = portfolio.getAccBalance();
+        temp += price;
+        portfolio.setAccBalance(temp);
+        portfolio.removeValue(price);
+        portfolio.removeStock(order, shares); // remove share num
+        orders.remove(order);
+        System.out.println("Sell order executed successfully.");
+    }
 
     public boolean isWithinInitialTradingPeriod() {
         LocalDateTime currentTime = LocalDateTime.now();
@@ -127,25 +158,10 @@ public class TradingEngine {
         return false;
     }
 
-    private void tryExecuteBuyOrder(Order order, Portfolio portfolio) { //need ziji remove from sellOrders/lotpool after this method is called
-        List<Order> orders = buyOrders.get(order.getStock()); //loop buy order,if enough money, add buy order into portfolio
-        double price = order.getExpectedBuyingPrice();
-        int shares = order.getShares();
-
-        if (portfolio.getAccBalance() >= price) {
-            double temp = portfolio.getAccBalance();
-            temp -= price;
-            portfolio.setAccBalance(temp);
-            portfolio.addValue(order.getExpectedBuyingPrice());
-            portfolio.addStock(order, shares);
-            orders.remove(order);
-        } else {
-            System.out.println("Not enough money");
-        }
-    }
-
-    public void cancelBuyOrder(List<Order> orders) {
+    public void cancelBuyOrder(List<Order> orders, Portfolio portfolio) {
+        UserAuthentication userAuth = new UserAuthentication();
         if (!orders.isEmpty()) {
+            userAuth.displayOrderList(orders);
             System.out.println("Choose the cancel option: ");
             System.out.println("1. Cancel based on longest time");
             System.out.println("2. Cancel based on highest price");
@@ -158,11 +174,13 @@ public class TradingEngine {
                 case 1:
                     Order orderToCancelByTime = getOrderWithLongestTime(orders);
                     orders.remove(orderToCancelByTime);
+                    portfolio.removeStock(orderToCancelByTime, orderToCancelByTime.getShares());
                     System.out.println("Buy order canceled based on longest time successfully.");
                     break;
                 case 2:
                     Order orderToCancelByPrice = getOrderWithHighestPrice(orders);
                     orders.remove(orderToCancelByPrice);
+                    portfolio.removeStock(orderToCancelByPrice, orderToCancelByPrice.getShares());
                     System.out.println("Buy order canceled based on highest price successfully.");
                     break;
                 default:
@@ -170,7 +188,7 @@ public class TradingEngine {
                     break;
             }
         } else {
-            System.out.println("No buy orders available for the specified stock.");
+            System.out.println("No buy orders available.");
         }
     }
 
@@ -203,6 +221,7 @@ public class TradingEngine {
 
         return orderWithHighestPrice;
     }
+
 
     public void closeMarket(double accountBalance) { // argument = portfolio.getAccBalance()
         if (isWithinTradingHours()) {
@@ -252,10 +271,11 @@ public class TradingEngine {
             System.out.println("Stock with symbol " + stockSymbol + " not found.");
         }
     }
-    public void displaySellOrders() { // prob
+
+    public void displaySellOrders() { // prob print orders to sell
         System.out.println("Sell Orders:");
 
-        for (Stock stock : stocks) {
+        for (Stock stock : stocks) { // loop map, get list of order from key
             List<Order> sellOrderList = sellOrders.get(stock);
             if (sellOrderList != null) {
                 System.out.println("Stock: " + stock.getSymbol());
@@ -269,29 +289,6 @@ public class TradingEngine {
         }
     }
 
-
-
-    public Stock getStockBySymbol(String symbol) {
-        for (Stock stock : stocks) {
-            if (stock.getSymbol().equalsIgnoreCase(symbol)) {
-                return stock;
-            }
-        }
-        return null; // Stock with the specified symbol not found
-    }
-
-    private void tryExecuteSellOrder(Order order, Portfolio portfolio) {
-        List<Order> orders = sellOrders.get(order.getStock());
-        double price = order.getExpectedSellingPrice();
-        int shares = order.getShares();
-
-        double temp = portfolio.getAccBalance();
-        temp += price;
-        portfolio.setAccBalance(temp);
-        portfolio.removeValue(price);
-        portfolio.removeStock(order, shares); // remove share num
-        orders.remove(order);
-    }
     public void autoMatching(Portfolio portfolio) {
         for (Stock stock : stocks) {
             List<Order> buyOrderList = buyOrders.get(stock);
@@ -316,7 +313,8 @@ public class TradingEngine {
             }
         }
     }
-    private boolean isInSellOrder(Order buyOrder, Order sellOrder){
+
+    private boolean isInSellOrder(Order buyOrder, Order sellOrder) {
         return buyOrder.getStock().getSymbol().equals(sellOrder.getStock().getSymbol()) && buyOrder.getExpectedBuyingPrice() == sellOrder.getExpectedSellingPrice();
     }
 
@@ -324,4 +322,7 @@ public class TradingEngine {
         return buyOrders;
     }
 
+    public Map<Stock, List<Order>> getSellOrders() {
+        return sellOrders;
+    }
 }
