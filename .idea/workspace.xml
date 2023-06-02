@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jar_files_jsonarray.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jar_files_jsonarray.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jbcrypt_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jbcrypt_0_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/json_20230227.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/json_20230227.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jsoup_1_16_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jsoup_1_16_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/AdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/AdminPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/Database.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WallStreetWarrior/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API.java" beforeDir="false" afterPath="$PROJECT_DIR$/API.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Portfolio.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,20 +37,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Downloads/javafx_collection/javafx-base-21-ea+17-linux.jar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/Administrator/Documents/mysql-connector-j-8.0.33.jar",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+    <configuration name="UserAuthentication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="UserAuthentication" />
       <module name="WallStreetWarrior" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -56,7 +58,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.UserAuthentication" />
       </list>
     </recent_temporary>
   </component>
@@ -76,14 +78,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685348939434</updated>
     </task>
-    <task id="LOCAL-00002" summary="Fix all data related to database, upload Main class">
-      <created>1685377378704</created>
+    <task id="LOCAL-00002" summary="commit 5 (+boyermoore)">
+      <created>1685499815589</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1685377378704</updated>
+      <updated>1685499815589</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="commit 6">
+      <created>1685590037531</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1685590037531</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -99,9 +108,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Upload database and fix some bug" />
-    <MESSAGE value="Fix all data related to database, upload Main class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix all data related to database, upload Main class" />
-    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
-    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <MESSAGE value="commit 5 (+boyermoore)" />
+    <MESSAGE value="commit 6" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit 6" />
   </component>
 </project>
