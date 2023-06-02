@@ -10,11 +10,16 @@ public class Portfolio {
     private int userKey;
     private Database db;
 
+    private List<Order> tradeHistory;
+
+
     public Portfolio(int userKey, double balance) {
         this.userKey = userKey;
         this.holdings = new HashMap<>();
         this.accBalance = balance;
         db = new Database();
+        tradeHistory = new ArrayList<>();
+
     }
 
     public double addValue(double expectedBuyingPrice) {
@@ -151,4 +156,13 @@ public class Portfolio {
         }
         return null;
     }
+    public List<Order> getTradeHistory() {
+        return tradeHistory;
+    }
+
+    public void addToTradeHistory(Order order) {
+        tradeHistory.add(order);
+    }
+
+
 }
