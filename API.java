@@ -35,6 +35,12 @@ public class API {
     public static final String API_KEY = "UM-1cd15cbc8ba9f613f94373ca35c267a52acf88978d73439e9f3c941b1c49318d";
     public static final String API_ENDPOINT = "https://wall-street-warriors-api-um.vercel.app/price";
 
+    private BoyerMoore boyerMoore;
+
+    public API(){
+        boyerMoore = new BoyerMoore();
+    }
+
     //call this method to display a list of Malaysia Stock
     static void StockList() {
         try {
@@ -302,5 +308,33 @@ public class API {
         }
     }
 
+
+    private void SearchdisplayStocks(String jsonResponse, String searchQuery) {
+        try {
+            JSONArray jsonArray = new JSONArray(jsonResponse);
+
+            System.out.printf("%-12s\t%-40s\n", "Symbol", "Name");
+            System.out.println("----------------------------------------");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject stockJson = jsonArray.getJSONObject(i);
+                String symbol = stockJson.getString("symbol");
+                String name = stockJson.getString("name");
+
+                // Use Boyer-Moore for string matching
+                char[] text = symbol.toCharArray();
+                char[] pattern = searchQuery.toCharArray();
+                int index = boyerMoore.search(text, pattern);
+
+                if (index != -1) {
+                    System.out.printf("%-12s\t%-40s\n", symbol, name);
+                }
+            }
+            System.out.println();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
