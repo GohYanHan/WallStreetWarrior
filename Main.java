@@ -7,6 +7,7 @@ public class Main {
         AdminPanel admin = new AdminPanel();
         Database db = new Database();
         API api = new API();
+        Report report = new Report();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to the Application!");
@@ -42,7 +43,7 @@ public class Main {
                             TradingEngine tradingEngine = new TradingEngine();
 
 //                            if (tradingEngine.isWithinTradingHours()) {
-                            userAuth.loopTrade(api.extractStocks(), user.getPortfolio(), user, tradingEngine);
+                            userAuth.loopTrade(api.extractStocks(), user.getPortfolio(), user, tradingEngine, report);
 
 //                            } else {
 //                                System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
