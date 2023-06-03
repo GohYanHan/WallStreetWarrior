@@ -1,5 +1,3 @@
-
-
 class BoyerMoore {
     private final int R;     // the radix
     private int[] right;     // the bad-character skip array
@@ -47,4 +45,3 @@ class BoyerMoore {
         return -1; // not found
     }
 }
-
