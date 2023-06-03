@@ -2,6 +2,7 @@
 //import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +68,74 @@ public class Database {
             resultSet.close();
             statement.close();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean addOrder(int userKey, String symbol, int share, double price, LocalDateTime time, Order.Type type) {
+        String sql = "";
+        if (type.equals(Order.Type.BUY))
+            sql = "INSERT INTO buyorder (userKey, symbol, share, price, time) VALUES (?, ?, ?, ?, ?)";
+        else sql = "INSERT INTO sellorder (userKey, symbol, share, price, time) VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, userKey);
+            statement.setString(2, symbol);
+            statement.setInt(3, share);
+            statement.setDouble(4, price);
+            statement.setTimestamp(5, java.sql.Timestamp.valueOf(time));
+
+            int rowsInserted = statement.executeUpdate();
+            statement.close();
+
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Order> loadBuyOrder(int userKey) {
+        List<Order> list = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String selectQuery = "SELECT userKey, symbol, share, price, time FROM buyorder WHERE userKey = ?";
+
+            PreparedStatement statement = connection.prepareStatement(selectQuery);
+            statement.setInt(1, userKey);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                list.add(new Order(resultSet.getInt("userKey"), resultSet.getString("symbol"),
+                        resultSet.getInt("share"), resultSet.getDouble("price"),
+                        resultSet.getTimestamp("time").toLocalDateTime()));
+            }
+            resultSet.close();
+            statement.close();
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Order> loadSellOrder() {
+        List<Order> list = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String selectQuery = "SELECT userKey, symbol, share, price, time FROM sellorder";
+
+            PreparedStatement statement = connection.prepareStatement(selectQuery);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                list.add(new Order(resultSet.getInt("userKey"), resultSet.getString("symbol"),
+                        resultSet.getInt("share"), resultSet.getDouble("price"),
+                        resultSet.getTimestamp("time").toLocalDateTime()));
+            }
+            resultSet.close();
+            statement.close();
+            return list;
         } catch (SQLException e) {
             e.printStackTrace();
         }

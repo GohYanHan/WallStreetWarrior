@@ -33,6 +33,7 @@ public class Main {
                     String password = scanner.nextLine();
                     if (userAuth.login(email, password)) {
                         User user = db.getUser();
+
                         if (user.getRole().equals("Admin")) {
                             System.out.println("Welcome to Admin Panel");
                             admin.adminPanel();

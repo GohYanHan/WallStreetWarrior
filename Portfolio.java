@@ -10,7 +10,7 @@ public class Portfolio {
     private int userKey;
     private Database db;
 
-    private List<Order> tradeHistory;
+    private List<Order> tradeHistory ;
 
 
     public Portfolio(int userKey, double balance) {
@@ -32,7 +32,7 @@ public class Portfolio {
         return value;
     }
 
-    private double getValue() {
+    double getValue() {
         return value;
     }
 
@@ -85,7 +85,7 @@ public class Portfolio {
             Order existingOrder = entry.getKey();
             int shares = entry.getValue();
 
-            if (existingOrder.getStock().getSymbol().equalsIgnoreCase(order.getStock().getSymbol())) {
+            if (existingOrder.getSymbol().equalsIgnoreCase(order.getSymbol())) {
                 if (shares >= soldShares) {
                     int updatedShares = shares - soldShares;
                     if (updatedShares == 0) {
