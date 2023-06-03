@@ -140,13 +140,14 @@ public class UserAuthentication {
                     buyStock = findStockBySymbol(stocks, buyStockSymbol);
 
                     if (buyStock != null) {
-                        LocalDateTime timestamp = LocalDateTime.now();
                         Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user);
                         tradingEngine.executeOrder(buyOrder, portfolio);
+                        LocalDateTime timestamp = LocalDateTime.now();
 
                         // if executeOrder success, add buyOrderList into a list, link list to cancelOrder() or move cancelOrder here
-                        Order buyOrderListElement = new Order(user.getKey(), buyStock, buyQuantity, formattedBuyExpectedPrice, timestamp);
-                        buyOrderList.add(buyOrderListElement);
+//                        Order buyOrderListElement = new Order(user.getKey(), buyStockSymbol, buyQuantity, formattedBuyExpectedPrice, timestamp);
+                        db.addOrder(user.getKey(), buyStockSymbol, buyQuantity, formattedBuyExpectedPrice, timestamp, Order.Type.BUY);
+                        buyOrderList = db.loadBuyOrder(user.getKey());
 
                     } else {
                         System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
@@ -184,10 +185,12 @@ public class UserAuthentication {
                     if (sellStock != null) {
                         Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user);
                         tradingEngine.executeOrder(sellOrder, portfolio);
-
                         LocalDateTime timestamp = LocalDateTime.now();
-                        Order sellOrderListElement = new Order(user.getKey(), sellStock, sellQuantity, formattedSellingPrice, timestamp);
-                        sellOrderList.add(sellOrderListElement);
+
+//                        Order sellOrderListElement = new Order(user.getKey(), sellStockSymbol, sellQuantity, formattedSellingPrice, timestamp);
+//                        sellOrderList.add(sellOrderListElement);
+                        db.addOrder(user.getKey(), sellStockSymbol, sellQuantity, formattedSellingPrice, timestamp, Order.Type.SELL);
+                        sellOrderList = db.loadSellOrder();
 
                     } else {
                         System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
@@ -207,7 +210,7 @@ public class UserAuthentication {
 
     public void displayOrderList(List<Order> orders) {
         for (Order order : orders) {
-            System.out.println("Stock: " + order.getStock().getSymbol());
+            System.out.println("Stock: " + order.getSymbol());
             System.out.println("Price: " + order.getExpectedBuyingPrice());
             System.out.println("TimeStamp: " + order.getTimestamp());
             System.out.println("-".repeat(30));

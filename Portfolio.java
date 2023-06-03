@@ -80,7 +80,7 @@ public class Portfolio {
             Order existingOrder = entry.getKey();
             int shares = entry.getValue();
 
-            if (existingOrder.getStock().getSymbol().equalsIgnoreCase(order.getStock().getSymbol())) {
+            if (existingOrder.getSymbol().equalsIgnoreCase(order.getSymbol())) {
                 if (shares >= soldShares) {
                     int updatedShares = shares - soldShares;
                     if (updatedShares == 0) {
