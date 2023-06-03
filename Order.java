@@ -16,8 +16,8 @@ public class Order {
 
     private double expectedBuyingPrice;
     private static double expectedSellingPrice;
-    int userKey;
-    String symbol;
+    private int userKey;
+    private String symbol;
     //add time
 
     public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user, LocalDateTime timestamp) {
@@ -31,12 +31,17 @@ public class Order {
 
     }
 
-    public Order(int userKey,Stock stock, int shares, double expectedBuyingPrice, LocalDateTime timestamp) {
-        this.stock = stock;
+
+    public Order(int userKey, String symbol, int shares, double expectedBuyingPrice, LocalDateTime timestamp) {
+        this.symbol = symbol;
         this.userKey = userKey;
         this.shares = shares;
         this.expectedBuyingPrice = expectedBuyingPrice;
         this.timestamp = timestamp;
+    }
+
+    public String getSymbol() {
+        return symbol;
     }
 
 

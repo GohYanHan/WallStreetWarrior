@@ -200,7 +200,6 @@ public class TradingEngine {
             System.out.println("No buy orders available.");
         }
     }
-
     private Order getOrderWithLongestTime(List<Order> orders) {
         Order orderWithLongestTime = null;
         LocalDateTime longestTime = LocalDateTime.MIN;
