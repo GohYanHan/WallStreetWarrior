@@ -26,10 +26,10 @@ public class TradingEngine {
             sellOrders.put(stock, new ArrayList<>());
         }
         this.lotPool = new HashMap<>();
-            for (Stock stock : stocks) {
-                lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
-            }
+        for (Stock stock : stocks) {
+            lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
         }
+    }
 
     public void executeOrder(Order order, Portfolio portfolio) throws IOException {
         replenishLotPoolDaily();

@@ -3,7 +3,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,9 +13,6 @@ public class UserAuthentication {
     public UserAuthentication() {
         db = new Database();
     }
-
-    private List<Order> buyOrderList = new ArrayList<>();
-    private List<Order> sellOrderList = new ArrayList<>();
 
     public boolean register() {
         System.out.print("Email: ");
@@ -94,6 +90,9 @@ public class UserAuthentication {
 
     public void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine, Report report) throws IOException {
         while (true) {
+            List<Order> buyOrderList = db.loadOrders(user.getKey(), Order.Type.BUY);
+            List<Order> sellOrderList = db.loadOrders(user.getKey(), Order.Type.SELL);
+
             // Choose between buying or selling
             System.out.println("1. Buy or sell stock");
             System.out.println("2. Show current stock owned");
@@ -145,14 +144,14 @@ public class UserAuthentication {
                         buyStock = findStockBySymbol(stocks, buyStockSymbol);
 
                         if (buyStock != null) {
-                            LocalDateTime timestamp = LocalDateTime.now();
-                            Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user, timestamp);
+                            Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user);
                             tradingEngine.executeOrder(buyOrder, portfolio);
+                            LocalDateTime timestamp = LocalDateTime.now();
 
                             // if executeOrder success, add buyOrderList into a list, link list to cancelOrder() or move cancelOrder here
 //                        Order buyOrderListElement = new Order(user.getKey(), buyStockSymbol, buyQuantity, formattedBuyExpectedPrice, timestamp);
                             db.addOrder(user.getKey(), buyStockSymbol, buyQuantity, formattedBuyExpectedPrice, timestamp, Order.Type.BUY);
-                            buyOrderList = db.loadBuyOrder(user.getKey());
+
 
                         } else {
                             System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
@@ -188,15 +187,14 @@ public class UserAuthentication {
 
                         sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                         if (sellStock != null) {
-                            LocalDateTime timestamp = LocalDateTime.now();
-
-                            Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user, timestamp);
+                            Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user);
                             tradingEngine.executeOrder(sellOrder, portfolio);
+                            LocalDateTime timestamp = LocalDateTime.now();
 
 //                        Order sellOrderListElement = new Order(user.getKey(), sellStockSymbol, sellQuantity, formattedSellingPrice, timestamp);
 //                        sellOrderList.add(sellOrderListElement);
                             db.addOrder(user.getKey(), sellStockSymbol, sellQuantity, formattedSellingPrice, timestamp, Order.Type.SELL);
-                            sellOrderList = db.loadSellOrder();
+
 
                         } else {
                             System.out.println("Stock with symbol " + sellStockSymbol + " not found.");

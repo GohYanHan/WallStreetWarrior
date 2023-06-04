@@ -48,7 +48,6 @@ public class UserDashboard {
         for (Order order : tradeHistory) {
 
             if (order.getType() == Order.Type.BUY) {
-
                 System.out.println("Stock: " + order.getStock().getSymbol());
                 System.out.println("Type: " + order.getType());
                 System.out.println("Shares: " + order.getShares());
