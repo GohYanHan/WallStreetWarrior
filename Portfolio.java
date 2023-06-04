@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,15 +9,22 @@ public class Portfolio {
     private int userKey;
     private Database db;
 
+    public int getUserKey() {
+        return userKey;
+    }
+
     private List<Order> tradeHistory;
 
-
     public Portfolio(int userKey, double balance) {
-        this.userKey = userKey;
-        this.holdings = new HashMap<>();
-        this.accBalance = balance;
         db = new Database();
+        this.userKey = userKey;
+        this.holdings =db.loadHolding(userKey);
+        this.accBalance = balance;
         tradeHistory = new ArrayList<>();
+//        holdingList = db.loadHolding(userKey);
+//        for (Order holding : holdingList) {
+//            this.holdings.put(holding, holding.getShares());
+//        }
 
     }
 
@@ -32,7 +38,7 @@ public class Portfolio {
         return value;
     }
 
-    private double getValue() {
+    double getValue() {
         return value;
     }
 
@@ -63,16 +69,17 @@ public class Portfolio {
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order existingOrder = entry.getKey();
             int shares = entry.getValue();
-
             if (existingOrder.getStock().getSymbol().equalsIgnoreCase(order.getStock().getSymbol())) {
                 int updatedShares = shares + buyShares;
                 holdings.replace(existingOrder, shares, updatedShares);
+                db.updateHolding(userKey, existingOrder.getStock().getSymbol(), updatedShares);
                 found = true;
                 break;
             }
         }
         if (!found) {
             holdings.put(order, buyShares);
+            db.addHoldings(userKey, order.getStock(), buyShares);
         }
         System.out.println("Buy order executed successfully.");
     }
@@ -85,13 +92,15 @@ public class Portfolio {
             Order existingOrder = entry.getKey();
             int shares = entry.getValue();
 
-            if (existingOrder.getSymbol().equalsIgnoreCase(order.getSymbol())) {
+            if (existingOrder.getStock().getSymbol().equalsIgnoreCase(order.getStock().getSymbol())) {
                 if (shares >= soldShares) {
                     int updatedShares = shares - soldShares;
                     if (updatedShares == 0) {
                         holdings.remove(existingOrder);
+                        db.removeHolding(userKey, existingOrder.getStock().getSymbol());
                     } else {
                         holdings.replace(existingOrder, shares, updatedShares);
+                        db.updateHolding(userKey, existingOrder.getStock().getSymbol(), updatedShares);
                     }
                     found = true;
                 } else {
@@ -107,11 +116,19 @@ public class Portfolio {
 
     void displayHoldings() {
         System.out.println("Holdings:");
-
+//        if (!this.holdingList.isEmpty()) {
+//            for (Order holding : holdingList) {
+//                System.out.println("Stock: " + holding.getSymbol());
+//                System.out.println("Shares: " + holding.getShares());
+//                System.out.println("-".repeat(30));
+//            }
+//        } else {
+//            System.out.println("No holdings");
+//        }
         if (holdings.isEmpty()) {
             System.out.println("No holdings");
         } else {
-            for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
+            for (Map.Entry<Order, Integer> entry : this.holdings.entrySet()) {
                 Order order = entry.getKey();
                 int shares = entry.getValue();
                 System.out.println("Stock: " + order.getStock().getSymbol());
@@ -121,14 +138,20 @@ public class Portfolio {
         }
     }
 
+
     void displayBuyOrders() {
         System.out.println("Orders to sell: ");
-
+//        List<Order> orders = db.loadOrder(userKey, Order.Type.BUY);
+//        for(Order order: orders){
+//            System.out.println("Stock: " + order.getSymbol());
+//            System.out.println("Shares: " + order.getShares());
+//            System.out.println("-".repeat(30));
+//        }
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order order = entry.getKey();
             int shares = entry.getValue();
 
-            System.out.println("Stock: " + order.getStock().getSymbol());
+            System.out.println("Stock: " + order.getSymbol());
             System.out.println("Shares: " + shares);
             System.out.println("-".repeat(30));
         }
@@ -137,7 +160,7 @@ public class Portfolio {
     public boolean containsStockSymbol(String symbol) {
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order order = entry.getKey();
-            String stockSymbol = order.getStock().getSymbol();
+            String stockSymbol = order.getSymbol();
 
             if (stockSymbol.equals(symbol)) {
                 return true; // Symbol found in holdings
@@ -150,12 +173,13 @@ public class Portfolio {
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order order = entry.getKey();
 
-            if (order.getStock().getSymbol().equalsIgnoreCase(symbol)) {
+            if (order.getSymbol().equalsIgnoreCase(symbol)) {
                 return order.getStock();
             }
         }
         return null;
     }
+
     public List<Order> getTradeHistory() {
         return tradeHistory;
     }

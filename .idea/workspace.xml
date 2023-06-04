@@ -5,13 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jar_files_jsonarray.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jar_files_jsonarray.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jbcrypt_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jbcrypt_0_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/json_20230227.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/json_20230227.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jsoup_1_16_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jsoup_1_16_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jBCrypt_0_4_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jBCrypt_0_4_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_29_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_29_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_31_2023_10_19_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_31_2023_10_19_AM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API.java" beforeDir="false" afterPath="$PROJECT_DIR$/API.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Portfolio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TradingEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/TradingEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/API.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/AdminPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Database.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/EmailService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Notification.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order$Type.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Portfolio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Stock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Trade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/TradingEngine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserAuthentication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore$Leaderboard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserSettings.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/API.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/API.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserScore$Leaderboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserScore$Leaderboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/WallStreetWarrior.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/WallStreetWarrior.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/search.java" beforeDir="false" afterPath="$PROJECT_DIR$/search.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,21 +68,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Administrator/Documents/mysql-connector-j-8.0.33.jar",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Administrator/Documents/mysql-connector-j-8.0.33.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="UserAuthentication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="UserAuthentication" />
-      <module name="WallStreetWarrior" />
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-20" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="wsw2" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -85,12 +118,12 @@
       <option name="project" value="LOCAL" />
       <updated>1685499815589</updated>
     </task>
-    <task id="LOCAL-00003" summary="commit 6">
-      <created>1685590037531</created>
+    <task id="LOCAL-00003" summary="Fix Portfolio class, upload Main class">
+      <created>1685502929994</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1685590037531</updated>
+      <updated>1685502929994</updated>
     </task>
     <option name="localTasksCounter" value="4" />
     <servers />
@@ -108,8 +141,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Upload database and fix some bug" />
-    <MESSAGE value="commit 5 (+boyermoore)" />
-    <MESSAGE value="commit 6" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit 6" />
+    <MESSAGE value="Fix all data related to database, upload Main class" />
+    <MESSAGE value="Fix Portfolio class, upload Main class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Portfolio class, upload Main class" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>

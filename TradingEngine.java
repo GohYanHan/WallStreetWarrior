@@ -12,6 +12,8 @@ public class TradingEngine {
     private Map<Stock, Integer> lotPool;
     API api = new API();
 
+
+
     private Database db;
 
     public TradingEngine() throws IOException {
@@ -24,10 +26,10 @@ public class TradingEngine {
             sellOrders.put(stock, new ArrayList<>());
         }
         this.lotPool = new HashMap<>();
-            for (Stock stock : stocks) {
-                lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
-            }
+        for (Stock stock : stocks) {
+            lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
         }
+    }
 
     public void executeOrder(Order order, Portfolio portfolio) throws IOException {
         replenishLotPoolDaily();
@@ -40,9 +42,12 @@ public class TradingEngine {
                     List<Order> buyOrdersList = buyOrders.computeIfAbsent(order.getStock(), k -> new ArrayList<>());
                     buyOrdersList.add(order);
                     tryExecuteBuyOrder(order, portfolio);
+                    portfolio.addToTradeHistory(order);
+
                     lotPool.remove(order.getStock(), order.getShares());
                 } else {
                     System.out.println("The expected buying price is not within the acceptable range.\nOrder not placed.");
+
                     return;
                 }
             } else {
@@ -58,8 +63,11 @@ public class TradingEngine {
                     List<Order> sellOrdersList = sellOrders.computeIfAbsent(order.getStock(), k -> new ArrayList<>());
                     sellOrdersList.add(order);
                     tryExecuteSellOrder(order, portfolio);
+                    portfolio.addToTradeHistory(order);
+
                 } else {
-                    System.out.println("The expected buying price is not within the acceptable range.\nOrder not placed.");
+                    System.out.println("The expected selling price is not within the acceptable range.\nOrder not placed.");
+
                     return;
                 }
             } else {
@@ -98,6 +106,8 @@ public class TradingEngine {
         portfolio.removeStock(order, shares); // remove share num
         orders.remove(order);
         System.out.println("Sell order executed successfully.");
+
+
     }
 
     public boolean isWithinInitialTradingPeriod() {
