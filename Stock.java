@@ -8,19 +8,16 @@ public class Stock {
         this.name = name;
     }
 
+    public Stock(String symbol) {
+        this.symbol = symbol;
+
+    }
+
     public String getSymbol() {
         return symbol;
     }
 
     public String getName() {
         return name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 }

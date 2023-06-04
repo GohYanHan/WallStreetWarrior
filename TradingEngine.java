@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -25,10 +24,10 @@ public class TradingEngine {
             sellOrders.put(stock, new ArrayList<>());
         }
         this.lotPool = new HashMap<>();
-            for (Stock stock : stocks) {
-                lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
-            }
+        for (Stock stock : stocks) {
+            lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
         }
+    }
 
     public void executeOrder(Order order, Portfolio portfolio) throws IOException {
         replenishLotPoolDaily();
@@ -40,11 +39,11 @@ public class TradingEngine {
                 if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
                     List<Order> buyOrdersList = buyOrders.computeIfAbsent(order.getStock(), k -> new ArrayList<>());
                     buyOrdersList.add(order);
-                    db.addOrder(portfolio.getUserKey(),order.getStock(),order.getShares(), order.getExpectedBuyingPrice(), order.getTimestamp(),order.getType());
                     tryExecuteBuyOrder(order, portfolio);
                     lotPool.remove(order.getStock(), order.getShares());
                 } else {
                     System.out.println("The expected buying price is not within the acceptable range.\nOrder not placed.");
+                    return;
                 }
             } else {
                 autoMatching(portfolio);
@@ -58,10 +57,10 @@ public class TradingEngine {
                 if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
                     List<Order> sellOrdersList = sellOrders.computeIfAbsent(order.getStock(), k -> new ArrayList<>());
                     sellOrdersList.add(order);
-                    db.addOrder(portfolio.getUserKey(),order.getStock(),order.getShares(), order.getExpectedBuyingPrice(), order.getTimestamp(),order.getType());
                     tryExecuteSellOrder(order, portfolio);
                 } else {
                     System.out.println("The expected buying price is not within the acceptable range.\nOrder not placed.");
+                    return;
                 }
             } else {
                 System.out.println("Stock is not in list");
@@ -191,15 +190,14 @@ public class TradingEngine {
             System.out.println("No buy orders available.");
         }
     }
-
     private Order getOrderWithLongestTime(List<Order> orders) {
         Order orderWithLongestTime = null;
         LocalDateTime longestTime = LocalDateTime.MIN;
 
         for (Order order : orders) {
-            Timestamp orderTime = order.getTimestamp();
-            if (orderTime.compareTo(Timestamp.valueOf(longestTime)) > 0) {
-                longestTime = orderTime.toLocalDateTime();
+            LocalDateTime orderTime = order.getTimestamp();
+            if (orderTime.compareTo(longestTime) > 0) {
+                longestTime = orderTime;
                 orderWithLongestTime = order;
             }
         }

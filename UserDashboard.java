@@ -47,10 +47,10 @@ public class UserDashboard {
         List<Order> tradeHistory = portfolio.getTradeHistory();
 
         for (Order order : tradeHistory) {
-            if (!portfolio.containsStockSymbol(order.getStock().getSymbol())) {
-                System.out.println("Stock: " + order.getStock().getSymbol());
+            if (!portfolio.containsStockSymbol(order.getSymbol())) {
+                System.out.println("Stock: " + order.getSymbol());
                 System.out.println("Name: " + order.getStock().getName());
-                System.out.println("Price: $" + order.getStock().getPrice());
+                System.out.println("Price: $" + order.getPrice());
                 System.out.println("-".repeat(30));
             }
         }
