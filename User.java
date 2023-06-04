@@ -7,6 +7,7 @@ public class User {
     private double balance;
     private int PL_Points;
     private String role;
+    private double thresholds;
     private Portfolio portfolio;
 
     public User() {
@@ -21,17 +22,18 @@ public class User {
 //        this.portfolio = new Portfolio();
 //    }
 
-    public User(String email, String username, String status, double balance, int PL_Points, int key) {
+    public User(String email, String username, String status, double balance, int PL_Points, int key,double thresholds) {
         this.username = username;
         this.email = email;
         this.status = status;
         this.balance = balance;
         this.PL_Points = PL_Points;
         this.key = key;
+        this.thresholds = thresholds;
         this.portfolio = new Portfolio(key, balance);
     }
 
-    public User(int key, String email, String username, String password, String status, double balance, int PL_Points, String role) {
+    public User(int key, String email, String username, String password, String status, double balance, int PL_Points, String role, double thresholds) {
         this.key = key;
         this.email = email;
         this.username = username;
@@ -40,8 +42,14 @@ public class User {
         this.balance = balance;
         this.PL_Points = PL_Points;
         this.role = role;
+        this.thresholds = thresholds;
         this.portfolio = new Portfolio(key, balance);
     }
+
+    public double getThresholds() {
+        return thresholds;
+    }
+
 
     public String getUsername() {
         return username;

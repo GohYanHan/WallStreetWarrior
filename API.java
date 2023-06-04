@@ -42,7 +42,7 @@ public class API {
     }
 
     //call this method to display a list of Malaysia Stock
-    static void StockList() {
+    void StockList() {
         try {
             String jsonResponse = readJsonFromFile(fileName);
             displayStocks(jsonResponse);
@@ -52,7 +52,7 @@ public class API {
     }
 
     // Call this method to read JSON data from a file copied from API end point provided
-    static String readJsonFromFile(String fileName) throws IOException {
+    String readJsonFromFile(String fileName) throws IOException {
         StringBuilder jsonText = new StringBuilder();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -67,7 +67,7 @@ public class API {
 
 
     // Extract the stocks' symbols and names from the JSON response and store them in a List
-    static List<Stock> extractStocks() throws IOException {
+    List<Stock> extractStocks() throws IOException {
         String jsonResponse = readJsonFromFile(fileName);
         List<Stock> stockList = new ArrayList<>();
 
@@ -90,7 +90,7 @@ public class API {
     }
 
     // Display the stocks' symbols & name from the JSON response
-    static void displayStocks(String jsonResponse) {
+    void displayStocks(String jsonResponse) {
         try {
             JSONArray jsonArray = new JSONArray(jsonResponse);
 
@@ -112,7 +112,7 @@ public class API {
     }
 
     // Only return single value price for Trading Machine
-    static double getRealTimePrice(String symbol) throws IOException {
+    double getRealTimePrice(String symbol) throws IOException {
         symbol = symbol.replace(".MY", ".KL");
 
         String url = API_ENDPOINT + "?apikey=" + API_KEY + "&function=TIME_SERIES_INTRADAY_EXTENDED&symbol=" + symbol;
@@ -168,7 +168,7 @@ public class API {
 
 
     // Prompt the user for stock symbols, timestamp, and interval, and display the prices by calling getStockPrice() and displayPrices()
-    static void getPrices() {
+    void getPrices() {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -196,7 +196,7 @@ public class API {
 
 
     // Check if all symbols are in the stock list
-    static boolean isValidSymbols(String[] symbols) {
+    boolean isValidSymbols(String[] symbols) {
         try {
             JSONArray jsonArray = new JSONArray(readJsonFromFile(fileName));
 
@@ -220,9 +220,7 @@ public class API {
             }
 
             return true;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
 
@@ -231,7 +229,7 @@ public class API {
 
 
     // Fetch stock prices from the API based on the symbols, timestamp, and interval
-    static String getStockPrice(String[] symbolsArr) throws Exception {
+    String getStockPrice(String[] symbolsArr) throws Exception {
 
         // Convert the symbols to "0001.KL", "0002.KL", etc.
         for (int i = 0; i < symbolsArr.length; i++) {
@@ -269,7 +267,7 @@ public class API {
 
 
     // Display the timestamps and prices for the requested stocks
-    static void displayPrices(String jsonResponse, String[] symbols) {
+    void displayPrices(String jsonResponse, String[] symbols) {
         try {
             JSONObject json = new JSONObject(jsonResponse);
 
@@ -309,7 +307,7 @@ public class API {
     }
 
 
-     void SearchdisplayStocks(String jsonResponse, String searchQuery) {
+     void searchDisplayStocks(String jsonResponse, String searchQuery) {
         try {
             JSONArray jsonArray = new JSONArray(jsonResponse);
 

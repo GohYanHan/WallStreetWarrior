@@ -11,16 +11,12 @@ public class TradingEngine {
     private Map<Stock, List<Order>> sellOrders;
     private Map<Stock, Integer> lotPool;
     API api = new API();
-
-
-
-    private Database db;
+    private final Database db = new Database();
 
     public TradingEngine() throws IOException {
         this.stocks = api.extractStocks();
         this.buyOrders = new HashMap<>();
         this.sellOrders = new HashMap<>();
-        db = new Database();
         for (Stock stock : stocks) {
             buyOrders.put(stock, new ArrayList<>());
             sellOrders.put(stock, new ArrayList<>());

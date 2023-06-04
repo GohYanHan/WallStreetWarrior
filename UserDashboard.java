@@ -1,5 +1,3 @@
-import javax.swing.*;
-import java.sql.SQLOutput;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -19,7 +17,7 @@ public class UserDashboard {
     public void displayCurrentPoints() {
         double startingBalance = 50000.0; // Assuming a fixed starting balance
 
-       //Overall account profit / loss  (account balance)
+        //Overall account profit / loss  (account balance)
 
         double pAndL = user.getPortfolio().getValue() - startingBalance;
         double points = (pAndL / startingBalance) * 100;
@@ -36,37 +34,30 @@ public class UserDashboard {
         System.out.println("Trade History:");
         List<Order> tradeHistory = user.getPortfolio().getTradeHistory();
 
-        if(!tradeHistory.isEmpty()){
+        if (!tradeHistory.isEmpty()) {
 
 
-        //   tradeHistory.sort(Comparator.comparing(Order::getExpectedBuyingPrice).thenComparing(Order::getTimestamp));
+            //   tradeHistory.sort(Comparator.comparing(Order::getExpectedBuyingPrice).thenComparing(Order::getTimestamp));
 
-          //tradeHistory list will be sorted in ascending order first by expectedBuyingPrice, and if there are elements with the same expectedBuyingPrice, those will be further sorted by timestamp.
+            //tradeHistory list will be sorted in ascending order first by expectedBuyingPrice, and if there are elements with the same expectedBuyingPrice, those will be further sorted by timestamp.
 
 
-
-        for (Order order : tradeHistory) {
-
-            if (order.getType() == Order.Type.BUY) {
+            for (Order order : tradeHistory) {
                 System.out.println("Stock: " + order.getStock().getSymbol());
                 System.out.println("Type: " + order.getType());
                 System.out.println("Shares: " + order.getShares());
-                System.out.println("Price: $" + order.getExpectedBuyingPrice());
-                System.out.println("Timestamp: " + order.getTimestamp());
-                System.out.println("-".repeat(30));
-            } else {
-                System.out.println("Stock: " + order.getStock().getSymbol());
-                System.out.println("Type: " + order.getType());
-                System.out.println("Shares: " + order.getShares());
-                System.out.println("Price: $" + order.getExpectedSellingPrice());
+
+                if (order.getType() == Order.Type.BUY)
+                    System.out.println("Price: $" + order.getExpectedBuyingPrice());
+                else
+                    System.out.println("Price: $" + order.getExpectedSellingPrice());
+
                 System.out.println("Timestamp: " + order.getTimestamp());
                 System.out.println("-".repeat(30));
             }
-        }
 
         }
     }
-
 
 
     //lowest price to highest price
@@ -85,7 +76,7 @@ public class UserDashboard {
         displayTradeHistory();
     }
 
-    public void chooseSort(){
+    public void chooseSort() {
 
         int i;
 
@@ -95,18 +86,15 @@ public class UserDashboard {
 
         i = k.nextInt();
 
-        if(i == 1){
+        if (i == 1) {
             sortTradeHistoryByPrice();
-        }
-        else if(i == 2){
+        } else if (i == 2) {
             sortTradeHistoryByPlacementTime();
-        }
-        else{
+        } else {
             System.out.println("invalid choice, try again");
             chooseSort();
         }
     }
 
 }
-
 
