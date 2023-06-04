@@ -1,7 +1,4 @@
-import org.jsoup.select.CombiningEvaluator;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +39,7 @@ public class Portfolio {
         return value;
     }
 
-    private double getValue() {
+    double getValue() {
         return value;
     }
 

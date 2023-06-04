@@ -1,7 +1,8 @@
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Order {
+
+
     public enum Type {
         BUY,
         SELL
@@ -10,16 +11,21 @@ public class Order {
     private Stock stock;
     private Type type;
     private int shares;
-    private Timestamp timestamp;
+    private LocalDateTime timestamp;
     private User user;
 
     private double price;
 
     private double expectedBuyingPrice;
     private static double expectedSellingPrice;
-    int userKey;
-    String symbol;
+    private int userKey;
+    private String symbol;
+
     //add time
+    public Order(int userKey, Stock stock) {
+        this.userKey = userKey;
+        this.stock = stock;
+    }
 
     public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user) {
         this.stock = stock;
@@ -28,24 +34,19 @@ public class Order {
         this.expectedBuyingPrice = expectedBuyingPrice;
         this.expectedSellingPrice = expectedSellingPrice;
         this.user = user;
-
-    }
-    public Order(int userKey, Stock stock, int shares, double expectedBuyingPrice, Timestamp timestamp) {
-        this.stock = stock;
-        this.type = type;
-        this.shares = shares;
-        this.expectedBuyingPrice = expectedBuyingPrice;
-        this.expectedSellingPrice = expectedSellingPrice;
-        this.user = user;
-
     }
 
-    public Order(int userKey, Stock stock, int shares, double expectedBuyingPrice, LocalDateTime timestamp) {
+    public Order(int userKey, Stock stock, int shares, double expectedBuyingPrice, LocalDateTime timestamp, Type type) {
         this.stock = stock;
         this.userKey = userKey;
         this.shares = shares;
         this.expectedBuyingPrice = expectedBuyingPrice;
         this.timestamp = timestamp;
+        this.type = type;
+    }
+
+    public String getSymbol() {
+        return symbol;
     }
 
     public Stock getStock() {
@@ -72,12 +73,14 @@ public class Order {
         return expectedSellingPrice;
     }
 
-    public Timestamp getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
-    public void setTimestamp(Timestamp timestamp) {
+
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
+
     public void setUser(User user) {
         this.user = user;
     }

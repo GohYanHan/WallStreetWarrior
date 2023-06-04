@@ -88,7 +88,7 @@ public class UserAuthentication {
         return null;
     }
 
-    public void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine) throws IOException {
+    public void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine,Report report) throws IOException {
         while (true) {
             List<Order> buyOrderList = db.loadOrders(user.getKey(), Order.Type.BUY);
             List<Order> sellOrderList = db.loadOrders(user.getKey(), Order.Type.SELL);
