@@ -14,7 +14,6 @@ public class Portfolio {
     }
 
     private List<Order> tradeHistory;
-    private List<Order> holdingList;
 
     public Portfolio(int userKey, double balance) {
         db = new Database();
@@ -70,7 +69,6 @@ public class Portfolio {
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order existingOrder = entry.getKey();
             int shares = entry.getValue();
-
             if (existingOrder.getStock().getSymbol().equalsIgnoreCase(order.getStock().getSymbol())) {
                 int updatedShares = shares + buyShares;
                 holdings.replace(existingOrder, shares, updatedShares);

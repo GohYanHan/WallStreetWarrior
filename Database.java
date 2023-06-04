@@ -1,8 +1,6 @@
 //import javafx.collections.FXCollections;
 //import javafx.collections.ObservableList;
 
-import org.jsoup.select.CombiningEvaluator;
-
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -70,7 +68,7 @@ public class Database {
 
     boolean removeHolding(int userKey, String symbol) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "DELETE FROM `holdings` WHERE userKey = ? AND symbol = ?";
+            String sql = "DELETE FROM holdings WHERE userKey = ? AND symbol = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userKey);
             statement.setString(2, symbol);
