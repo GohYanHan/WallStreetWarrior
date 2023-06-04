@@ -4,18 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="more fixe">
+    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jBCrypt_0_4_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jBCrypt_0_4_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_29_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_29_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_31_2023_10_19_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_31_2023_10_19_AM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Portfolio.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TradingEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/TradingEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/API.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/AdminPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Database.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/EmailService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Notification.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/NotificationScheduler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order$Type.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Order.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Portfolio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Stock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/Trade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/TradingEngine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserAuthentication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore$Leaderboard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserScore.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WallStreetWarrior/UserSettings.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/API.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/API.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Database.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Order.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserScore$Leaderboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserScore$Leaderboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/WallStreetWarrior.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/WallStreetWarrior.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/search.java" beforeDir="false" afterPath="$PROJECT_DIR$/search.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,12 +76,12 @@
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.space&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="$USER_HOME$/.jdks/openjdk-20.0.1" />
+  <component name="RunManager">
+    <configuration name="UserAuthentication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-20" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="wsw2" />
@@ -62,30 +89,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Test" />
-      <module name="wsw2" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="search" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="search" />
-      <module name="wsw2" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="Application.Test" />
-      <item itemvalue="Application.search" />
-      <item itemvalue="Application.Main" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Test" />
-        <item itemvalue="Application.search" />
+        <item itemvalue="Application.UserAuthentication" />
       </list>
     </recent_temporary>
   </component>
@@ -112,21 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685499815589</updated>
     </task>
-    <task id="LOCAL-00003" summary="commit 6">
-      <created>1685590037531</created>
+    <task id="LOCAL-00003" summary="Fix Portfolio class, upload Main class">
+      <created>1685502929994</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1685590037531</updated>
+      <updated>1685502929994</updated>
     </task>
-    <task id="LOCAL-00004" summary="commit 8">
-      <created>1685659891109</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1685659891110</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -142,13 +141,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Upload database and fix some bug" />
-    <MESSAGE value="commit 5 (+boyermoore)" />
-    <MESSAGE value="commit 6" />
-    <MESSAGE value="commit 8" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit 8" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
+    <MESSAGE value="Fix all data related to database, upload Main class" />
+    <MESSAGE value="Fix Portfolio class, upload Main class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Portfolio class, upload Main class" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>

@@ -1,11 +1,15 @@
 public class Stock {
     private String symbol;
     private String name;
-    private double price;
 
     public Stock(String symbol, String name) {
         this.symbol = symbol;
         this.name = name;
+    }
+
+    public Stock(String symbol) {
+        this.symbol = symbol;
+
     }
 
     public String getSymbol() {
@@ -14,13 +18,5 @@ public class Stock {
 
     public String getName() {
         return name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 }

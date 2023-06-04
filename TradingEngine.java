@@ -11,25 +11,21 @@ public class TradingEngine {
     private Map<Stock, List<Order>> sellOrders;
     private Map<Stock, Integer> lotPool;
     API api = new API();
-
-
-
-    private Database db;
+    private final Database db = new Database();
 
     public TradingEngine() throws IOException {
         this.stocks = api.extractStocks();
         this.buyOrders = new HashMap<>();
         this.sellOrders = new HashMap<>();
-        db = new Database();
         for (Stock stock : stocks) {
             buyOrders.put(stock, new ArrayList<>());
             sellOrders.put(stock, new ArrayList<>());
         }
         this.lotPool = new HashMap<>();
-            for (Stock stock : stocks) {
-                lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
-            }
+        for (Stock stock : stocks) {
+            lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
         }
+    }
 
     public void executeOrder(Order order, Portfolio portfolio) throws IOException {
         replenishLotPoolDaily();
@@ -200,7 +196,6 @@ public class TradingEngine {
             System.out.println("No buy orders available.");
         }
     }
-
     private Order getOrderWithLongestTime(List<Order> orders) {
         Order orderWithLongestTime = null;
         LocalDateTime longestTime = LocalDateTime.MIN;

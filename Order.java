@@ -1,6 +1,8 @@
 import java.time.LocalDateTime;
 
 public class Order {
+
+
     public enum Type {
         BUY,
         SELL
@@ -16,27 +18,32 @@ public class Order {
 
     private double expectedBuyingPrice;
     private static double expectedSellingPrice;
-    int userKey;
-    String symbol;
-    //add time
+    private int userKey;
 
-    public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user, LocalDateTime timestamp) {
+    //add time
+    public Order(int userKey, Stock stock) {
+        this.userKey = userKey;
+        this.stock = stock;
+    }
+
+    public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user,LocalDateTime timestamp) {
         this.stock = stock;
         this.type = type;
         this.shares = shares;
         this.expectedBuyingPrice = expectedBuyingPrice;
         this.expectedSellingPrice = expectedSellingPrice;
-        this.timestamp=timestamp;
         this.user = user;
+        this.timestamp = timestamp;
 
     }
 
-    public Order(int userKey,Stock stock, int shares, double expectedBuyingPrice, LocalDateTime timestamp) {
+    public Order(int userKey, Stock stock, int shares, double expectedBuyingPrice, LocalDateTime timestamp, Type type) {
         this.stock = stock;
         this.userKey = userKey;
         this.shares = shares;
         this.expectedBuyingPrice = expectedBuyingPrice;
         this.timestamp = timestamp;
+        this.type = type;
     }
 
 
@@ -52,22 +59,26 @@ public class Order {
         return shares;
     }
 
-
+    public double getPrice() {
+        return price;
+    }
 
     public double getExpectedBuyingPrice() {
         return expectedBuyingPrice;
     }
 
-    public static double getExpectedSellingPrice() {
+    public double getExpectedSellingPrice() {
         return expectedSellingPrice;
     }
 
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
+
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
+
     public void setUser(User user) {
         this.user = user;
     }

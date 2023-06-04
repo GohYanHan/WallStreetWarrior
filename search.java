@@ -31,7 +31,7 @@ class search {
         Scanner k = new Scanner(System.in);
 
 
-        api.SearchdisplayStocks(readJsonFromFile(fileName),k.nextLine());
+        api.searchDisplayStocks(readJsonFromFile(fileName),k.nextLine());
     }
 
 
@@ -83,7 +83,7 @@ class search {
     }
 
     // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
-     static void searchStocks(String query) {
+    static void searchStocks(String query) {
 
 
 
@@ -268,4 +268,3 @@ class search {
         }
     }
 }
-
