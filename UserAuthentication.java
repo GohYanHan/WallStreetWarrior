@@ -92,126 +92,138 @@ public class UserAuthentication {
         return null;
     }
 
-    public void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine) throws IOException {
+    public void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine, Report report) throws IOException {
         while (true) {
             // Choose between buying or selling
-            System.out.println("1. Buy or sell stock \n2. Show current stock owned \n3. Cancel pending orders");
+            System.out.println("1. Buy or sell stock");
+            System.out.println("2. Show current stock owned");
+            System.out.println("3. Cancel pending orders");
+            System.out.println("4. Generate Report");
+            System.out.println("5. Log out");
             int choice = scanner.nextInt();
 
-            if (choice == 1) {
-                System.out.println("1. Buy stock \n2. Sell stock");
-                choice = scanner.nextInt();
-                scanner.nextLine();
-                if (choice == 1) {
-                    // Display stock in sellOrder list
-                    tradingEngine.displaySellOrders();
-                    // Place a buy order
-                    System.out.println("Enter stock symbol for buy order: ");
-                    String buyStockSymbol = scanner.nextLine();
+            switch (choice) {
+                case 1:
+                    System.out.println("1. Buy stock \n2. Sell stock");
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
+                    if (choice == 1) {
+                        // Display stock in sellOrder list
+                        tradingEngine.displaySellOrders();
+                        // Place a buy order
+                        System.out.println("Enter stock symbol for buy order: ");
+                        String buyStockSymbol = scanner.nextLine();
 
-                    // Find the stock by symbol
-                    Stock buyStock = findStockBySymbol(stocks, buyStockSymbol);
-                    while (buyStock == null) {
-                        System.out.println("Stock with symbol " + buyStockSymbol + " not found. Please enter a new stock symbol: ");
-                        buyStockSymbol = scanner.nextLine();
+                        // Find the stock by symbol
+                        Stock buyStock = findStockBySymbol(stocks, buyStockSymbol);
+                        while (buyStock == null) {
+                            System.out.println("Stock with symbol " + buyStockSymbol + " not found. Please enter a new stock symbol: ");
+                            buyStockSymbol = scanner.nextLine();
+                            buyStock = findStockBySymbol(stocks, buyStockSymbol);
+                        }
+
+                        System.out.println("Enter quantity for buy order: ");
+                        int buyQuantity = scanner.nextInt();
+                        if (buyQuantity < 100) {
+                            System.out.println("Minimum order quantity is 100 shares (one lot).");
+                            return;
+                        } else if (!tradingEngine.isStartOfTradingDay() && buyQuantity > 500) {
+                            System.out.println("Maximum order quantity is 500 shares");
+                            return;
+                        }
+
+                        // Display suggested price for a stock
+                        tradingEngine.displaySuggestedPrice(buyStockSymbol, buyQuantity);
+
+                        System.out.println("Enter expected buying price: ");
+                        double buyExpectedPrice = scanner.nextDouble();
+
+                        // Format the user input to two decimal points
+                        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                        double formattedBuyExpectedPrice = Double.parseDouble(decimalFormat.format(buyExpectedPrice));
+
                         buyStock = findStockBySymbol(stocks, buyStockSymbol);
-                    }
 
-                    System.out.println("Enter quantity for buy order: ");
-                    int buyQuantity = scanner.nextInt();
-                    if (buyQuantity < 100) {
-                        System.out.println("Minimum order quantity is 100 shares (one lot).");
-                        return;
-                    } else if (!tradingEngine.isStartOfTradingDay() && buyQuantity > 500) {
-                        System.out.println("Maximum order quantity is 500 shares");
-                        return;
-                    }
+                        if (buyStock != null) {
+                            LocalDateTime timestamp = LocalDateTime.now();
+                            Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user, timestamp);
+                            tradingEngine.executeOrder(buyOrder, portfolio);
 
-                    // Display suggested price for a stock
-                    tradingEngine.displaySuggestedPrice(buyStockSymbol, buyQuantity);
-
-                    System.out.println("Enter expected buying price: ");
-                    double buyExpectedPrice = scanner.nextDouble();
-
-                    // Format the user input to two decimal points
-                    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-                    double formattedBuyExpectedPrice = Double.parseDouble(decimalFormat.format(buyExpectedPrice));
-
-                    buyStock = findStockBySymbol(stocks, buyStockSymbol);
-
-                    if (buyStock != null) {
-                        LocalDateTime timestamp = LocalDateTime.now();
-                        Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user,timestamp);
-                        tradingEngine.executeOrder(buyOrder, portfolio);
-                        
-
-                        // if executeOrder success, add buyOrderList into a list, link list to cancelOrder() or move cancelOrder here
+                            // if executeOrder success, add buyOrderList into a list, link list to cancelOrder() or move cancelOrder here
 //                        Order buyOrderListElement = new Order(user.getKey(), buyStockSymbol, buyQuantity, formattedBuyExpectedPrice, timestamp);
-                        db.addOrder(user.getKey(), buyStockSymbol, buyQuantity, formattedBuyExpectedPrice, timestamp, Order.Type.BUY);
-                        buyOrderList = db.loadBuyOrder(user.getKey());
+                            db.addOrder(user.getKey(), buyStockSymbol, buyQuantity, formattedBuyExpectedPrice, timestamp, Order.Type.BUY);
+                            buyOrderList = db.loadBuyOrder(user.getKey());
+
+                        } else {
+                            System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
+                        }
+
+                    } else if (choice == 2) {
+                        // display buyOrders
+                        portfolio.displayBuyOrders();
+                        // Place a sell order
+                        System.out.println("Enter stock symbol for sell order: ");
+                        String sellStockSymbol = scanner.nextLine();
+                        // Find the stock by symbol
+                        Stock sellStock = portfolio.findStockBySymbol(sellStockSymbol);
+                        while (sellStock == null) {
+                            System.out.println("Stock with symbol " + sellStockSymbol + " not found. Please enter a new stock symbol: ");
+                            sellStockSymbol = scanner.nextLine();
+                            sellStock = portfolio.findStockBySymbol(sellStockSymbol);
+                        }
 
 
-                    } else {
-                        System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
-                    }
+                        System.out.println("Enter quantity for sell order: ");
+                        int sellQuantity = scanner.nextInt();
 
-                } else if (choice == 2) {
-                    // display buyOrders
-                    portfolio.displayBuyOrders();
-                    // Place a sell order
-                    System.out.println("Enter stock symbol for sell order: ");
-                    String sellStockSymbol = scanner.nextLine();
-                    // Find the stock by symbol
-                    Stock sellStock = portfolio.findStockBySymbol(sellStockSymbol);
-                    while (sellStock == null) {
-                        System.out.println("Stock with symbol " + sellStockSymbol + " not found. Please enter a new stock symbol: ");
-                        sellStockSymbol = scanner.nextLine();
+                        // Display suggested price for a stock
+                        tradingEngine.displaySuggestedPrice(sellStockSymbol, sellQuantity);
+
+                        System.out.println("Enter expected selling price: ");
+                        double sellExpectedPrice = scanner.nextDouble();
+
+                        // Format the user input to two decimal points
+                        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                        double formattedSellingPrice = Double.parseDouble(decimalFormat.format(sellExpectedPrice));
+
                         sellStock = portfolio.findStockBySymbol(sellStockSymbol);
-                    }
+                        if (sellStock != null) {
+                            LocalDateTime timestamp = LocalDateTime.now();
 
-
-                    System.out.println("Enter quantity for sell order: ");
-                    int sellQuantity = scanner.nextInt();
-
-                    // Display suggested price for a stock
-                    tradingEngine.displaySuggestedPrice(sellStockSymbol, sellQuantity);
-
-                    System.out.println("Enter expected selling price: ");
-                    double sellExpectedPrice = scanner.nextDouble();
-
-                    // Format the user input to two decimal points
-                    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-                    double formattedSellingPrice = Double.parseDouble(decimalFormat.format(sellExpectedPrice));
-
-                    sellStock = portfolio.findStockBySymbol(sellStockSymbol);
-                    if (sellStock != null) {
-                        LocalDateTime timestamp = LocalDateTime.now();
-
-                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user, timestamp);
-                        tradingEngine.executeOrder(sellOrder, portfolio);
-                        LocalDateTime timestamp = LocalDateTime.now();
+                            Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user, timestamp);
+                            tradingEngine.executeOrder(sellOrder, portfolio);
 
 //                        Order sellOrderListElement = new Order(user.getKey(), sellStockSymbol, sellQuantity, formattedSellingPrice, timestamp);
 //                        sellOrderList.add(sellOrderListElement);
-                        db.addOrder(user.getKey(), sellStockSymbol, sellQuantity, formattedSellingPrice, timestamp, Order.Type.SELL);
-                        sellOrderList = db.loadSellOrder();
+                            db.addOrder(user.getKey(), sellStockSymbol, sellQuantity, formattedSellingPrice, timestamp, Order.Type.SELL);
+                            sellOrderList = db.loadSellOrder();
 
-
-
-
-                    } else {
-                        System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
+                        } else {
+                            System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
+                        }
                     }
-                }
-            } else if (choice == 2) {
-                portfolio.displayHoldings();
+                    break;
 
+                case 2:
+                    portfolio.displayHoldings();
+                    break;
 
-            } else if (choice == 3) {
-                tradingEngine.cancelBuyOrder(buyOrderList, portfolio);
-            } else {
-                System.out.println("Execution invalid");
-                return;
+                case 3:
+                    tradingEngine.cancelBuyOrder(buyOrderList, portfolio);
+                    break;
+
+                case 4:
+                    report.generateReport();
+                    break;
+
+                case 5:
+                    System.out.println("Logged out successfully!");
+                    System.out.println("-----------------------------");
+                    return;
+
+                default:
+                    System.out.println("Execution invalid");
+                    return;
             }
 
         }
@@ -219,7 +231,7 @@ public class UserAuthentication {
 
     public void displayOrderList(List<Order> orders) {
         for (Order order : orders) {
-            System.out.println("Stock: " + order.getSymbol());
+            System.out.println("Stock: " + order.getStock().getSymbol());
             System.out.println("Price: " + order.getExpectedBuyingPrice());
             System.out.println("TimeStamp: " + order.getTimestamp());
             System.out.println("-".repeat(30));

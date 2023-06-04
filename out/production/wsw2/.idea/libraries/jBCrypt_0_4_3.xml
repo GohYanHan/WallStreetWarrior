@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="jBCrypt-0.4.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/jBCrypt-0.4.3.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/json-20230227.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/jsoup-1.16.1.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/mysql-connector-j-8.0.33.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
