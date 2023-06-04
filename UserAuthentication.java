@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserAuthentication {
-    private final Database db;
+    private final Database db = new Database();
     private final Scanner scanner = new Scanner(System.in);
 
     public UserAuthentication() {
-        db = new Database();
+
     }
 
     public boolean register() {
@@ -144,13 +144,13 @@ public class UserAuthentication {
                         buyStock = findStockBySymbol(stocks, buyStockSymbol);
 
                         if (buyStock != null) {
-                            Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user);
-                            tradingEngine.executeOrder(buyOrder, portfolio);
                             LocalDateTime timestamp = LocalDateTime.now();
+                            Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user, timestamp);
+                            tradingEngine.executeOrder(buyOrder, portfolio);
 
                             // if executeOrder success, add buyOrderList into a list, link list to cancelOrder() or move cancelOrder here
 //                        Order buyOrderListElement = new Order(user.getKey(), buyStockSymbol, buyQuantity, formattedBuyExpectedPrice, timestamp);
-                            db.addOrder(user.getKey(), buyStockSymbol, buyQuantity, formattedBuyExpectedPrice, timestamp, Order.Type.BUY);
+                            db.addOrder(user.getKey(), buyOrder);
 
 
                         } else {
@@ -187,13 +187,13 @@ public class UserAuthentication {
 
                         sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                         if (sellStock != null) {
-                            Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user);
-                            tradingEngine.executeOrder(sellOrder, portfolio);
                             LocalDateTime timestamp = LocalDateTime.now();
+                            Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user, timestamp);
+                            tradingEngine.executeOrder(sellOrder, portfolio);
 
 //                        Order sellOrderListElement = new Order(user.getKey(), sellStockSymbol, sellQuantity, formattedSellingPrice, timestamp);
 //                        sellOrderList.add(sellOrderListElement);
-                            db.addOrder(user.getKey(), sellStockSymbol, sellQuantity, formattedSellingPrice, timestamp, Order.Type.SELL);
+                            db.addOrder(user.getKey(), sellOrder);
 
 
                         } else {
