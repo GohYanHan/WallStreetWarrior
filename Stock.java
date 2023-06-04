@@ -1,7 +1,6 @@
 public class Stock {
     private String symbol;
     private String name;
-    private double price;
 
     public Stock(String symbol, String name) {
         this.symbol = symbol;

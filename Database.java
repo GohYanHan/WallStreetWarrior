@@ -2,7 +2,6 @@
 //import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,10 +25,62 @@ public class Database {
         Database.user = user;
     }
 
-
-    public boolean addHoldings(int userKey, Stock stock, int share) {
-        String sql = "INSERT INTO holdings (userKey, symbol, share) VALUES (?, ?, ?)";
+    public boolean storeLotPool(Stock stock, int share) {
+        Map<String, Integer> dbAPI = new HashMap<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "INSERT INTO lotpool (symbol, name, share) VALUES (?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, stock.getSymbol());
+            statement.setString(2, stock.getName());
+            statement.setInt(3, share);
+
+            int rowsInserted = statement.executeUpdate();
+            statement.close();
+
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Map<Stock, Integer> getLotPool() {
+        Map<Stock, Integer> lotpool = new HashMap<>();
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "SELECT * FROM lotpool";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Stock stock = new Stock(resultSet.getString("symbol"), resultSet.getString("name"));
+                lotpool.put(stock, resultSet.getInt("share"));
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lotpool;
+    }
+
+    public boolean refreshLotPool() {
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "DELETE FROM lotpool";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            int rowsAffected = statement.executeUpdate();
+
+            statement.close();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    boolean addHoldings(int userKey, Stock stock, int share) {
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "INSERT INTO holdings (userKey, symbol, share) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userKey);
             statement.setString(2, stock.getSymbol());
@@ -48,13 +99,13 @@ public class Database {
     public Map<Order, Integer> loadHolding(int userKey) {
         Map<Order, Integer> holding = new HashMap<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "SELECT userKey, symbol, share FROM holdings WHERE userKey = ?";
+            String sql = "SELECT * FROM holdings WHERE userKey = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userKey);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Order stock = new Order(userKey, new Stock(resultSet.getString("symbol")));
+                Order stock = new Order(userKey, new Stock(resultSet.getString("symbol"),resultSet.getString("name")));
                 holding.put(stock, resultSet.getInt("share"));
             }
 
@@ -66,12 +117,12 @@ public class Database {
         return holding;
     }
 
-    boolean removeHolding(int userKey, String symbol) {
+    boolean removeHolding(int userKey, Stock stock) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "DELETE FROM holdings WHERE userKey = ? AND symbol = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userKey);
-            statement.setString(2, symbol);
+            statement.setString(2, stock.getSymbol());
 
             int rowsAffected = statement.executeUpdate();
             statement.close();
@@ -83,13 +134,13 @@ public class Database {
         return false;
     }
 
-    public boolean updateHolding(int userKey, String symbol, int updateShares) {
+    boolean updateHolding(int userKey, Stock stock, int updateShares) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "UPDATE holdings SET share = ? WHERE userKey = ? AND symbol = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, updateShares);
             statement.setInt(2, userKey);
-            statement.setString(3, symbol);
+            statement.setString(3, stock.getSymbol());
             int rowsUpdated = statement.executeUpdate();
             statement.close();
 
@@ -101,16 +152,16 @@ public class Database {
         }
     }
 
-    public boolean addOrder(int userKey, String symbol, int share, double price, LocalDateTime time, Order.Type type) {
+    public boolean addOrder(int userKey, Order order) {
         String sql = "INSERT INTO `order` (userKey, symbol, share, price, time, type) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userKey);
-            statement.setString(2, symbol);
-            statement.setInt(3, share);
-            statement.setDouble(4, price);
-            statement.setTimestamp(5, java.sql.Timestamp.valueOf(time));
-            statement.setString(6, type.name());
+            statement.setString(2, order.getStock().getSymbol());
+            statement.setInt(3, order.getShares());
+            statement.setDouble(4, order.getPrice());
+            statement.setTimestamp(5, java.sql.Timestamp.valueOf(order.getTimestamp()));
+            statement.setString(6, order.getType().name());
 
             int rowsInserted = statement.executeUpdate();
             statement.close();
@@ -157,14 +208,14 @@ public class Database {
         return list;
     }
 
-    boolean removeOrder(int userKey, String symbol, int share, Order.Type type) {
+    boolean removeOrder(int userKey, Order order) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "DELETE FROM `order` WHERE userKey = ? AND symbol = ? AND share = ? AND type = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userKey);
-            statement.setString(2, symbol);
-            statement.setInt(3, share);
-            statement.setString(4, type.name());
+            statement.setString(2, order.getStock().getSymbol());
+            statement.setInt(3, order.getShares());
+            statement.setString(4, order.getType().name());
 
             int rowsAffected = statement.executeUpdate();
             statement.close();
@@ -176,16 +227,17 @@ public class Database {
         return false;
     }
 
-    public boolean addTransactionHistory(int userKey, String symbol, int share, double price, LocalDateTime time, Order.Type type) {
+    public boolean addTransactionHistory(int userKey, Order order) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "INSERT INTO history (userKey, symbol, share, price, time, type) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO history (userKey, symbol, name, share, price, time, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userKey);
-            statement.setString(2, symbol);
-            statement.setInt(3, share);
-            statement.setDouble(4, price);
-            statement.setTimestamp(5, java.sql.Timestamp.valueOf(time));
-            statement.setString(6, type.name());
+            statement.setString(2, order.getStock().getSymbol());
+            statement.setString(3, order.getStock().getName());
+            statement.setInt(4, order.getShares());
+            statement.setDouble(5, order.getPrice());
+            statement.setTimestamp(6, java.sql.Timestamp.valueOf(order.getTimestamp()));
+            statement.setString(7, order.getType().name());
 
             int rowsInserted = statement.executeUpdate();
             statement.close();
@@ -200,7 +252,7 @@ public class Database {
     public List<Order> loadTransactionHistory(int userKey) {
         List<Order> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String selectQuery = "SELECT userKey, symbol, share, price, time, type FROM history WHERE userKey = ?";
+            String selectQuery = "SELECT * FROM history WHERE userKey = ?";
 
             PreparedStatement statement = connection.prepareStatement(selectQuery);
             statement.setInt(1, userKey);
@@ -216,7 +268,8 @@ public class Database {
                 // Convert the type string to the enum type
                 Order.Type type = Order.Type.valueOf(typeStr);
 
-                list.add(new Order(resultSet.getInt("userKey"), new Stock(resultSet.getString("symbol")),resultSet.getInt("share"),
+                list.add(new Order(resultSet.getInt("userKey"), new Stock(resultSet.getString("symbol"),
+                        resultSet.getString("name")), resultSet.getInt("share"),
                         resultSet.getDouble("price"), resultSet.getTimestamp("time").toLocalDateTime(), type));
             }
             resultSet.close();
@@ -241,6 +294,7 @@ public class Database {
 
             return rowsInserted > 0;
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println("This email has already registered.");
             return false;
         }
@@ -248,7 +302,7 @@ public class Database {
 
     public User loadUser(String inputEmail) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "SELECT userKey, userEmail, userName, userPassword, userStatus, userBalance, PL_Points, role FROM users WHERE userEmail = ?";
+            String sql = "SELECT * FROM users WHERE userEmail = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, inputEmail);
@@ -257,7 +311,7 @@ public class Database {
             if (resultSet.next()) {
                 user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
-                        resultSet.getInt("PL_Points"), resultSet.getString("role")));
+                        resultSet.getInt("PL_Points"), resultSet.getString("role"),resultSet.getDouble("thresholds")));
 //                if (user.getRole().equals("Admin")) {
 ////                    dk wht to do
 //                } else if (user.getRole().equals("User")) {
@@ -404,13 +458,13 @@ public class Database {
     public List<User> getUsersList() {
         List<User> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "SELECT userKey, userName, userEmail, userStatus, userBalance, PL_Points, role FROM users WHERE role = \"User\"";
+            String sql = "SELECT userKey, userName, userEmail, userStatus, userBalance, PL_Points, thresholds FROM users WHERE role = \"User\"";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 list.add(new User(resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userStatus"), resultSet.getInt("userBalance"),
-                        resultSet.getInt("PL_Points"), resultSet.getInt("userKey")));
+                        resultSet.getInt("PL_Points"), resultSet.getInt("userKey"),resultSet.getDouble("thresholds")));
             }
             resultSet.close();
             statement.close();

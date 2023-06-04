@@ -1,7 +1,7 @@
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,7 +11,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Scanner;
 
 class search {
     private static String fileName = "MyStocks";
@@ -32,7 +31,7 @@ class search {
         Scanner k = new Scanner(System.in);
 
 
-        api.SearchdisplayStocks(readJsonFromFile(fileName),k.nextLine());
+        api.searchDisplayStocks(readJsonFromFile(fileName),k.nextLine());
     }
 
 
@@ -84,7 +83,7 @@ class search {
     }
 
     // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
-     static void searchStocks(String query) {
+    static void searchStocks(String query) {
 
 
 
@@ -269,4 +268,3 @@ class search {
         }
     }
 }
-
