@@ -59,7 +59,6 @@ public class Portfolio {
         }
     }
 
-
     double getAccBalance() {
         return accBalance;
     }

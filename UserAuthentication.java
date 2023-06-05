@@ -155,7 +155,7 @@ public class UserAuthentication {
                                 System.out.println("Buy order added into pending buy order list.");
                                 if (tradingEngine.executeBuyOrdersMatch(buyOrder, portfolio)) {
                                     tradingEngine.executeOrder(buyOrder, portfolio);
-                                    db.removeOrder(user.getKey(), buyStockSymbol, buyQuantity, Order.Type.BUY); // if successfully execute buy order remove from pending buy order
+                                    db.removeOrder(user.getKey(), buyOrder); // if successfully execute buy order remove from pending buy order
                                 }
                             } else {
                                 tradingEngine.executeOrder(buyOrder, portfolio);

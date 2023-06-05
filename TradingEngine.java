@@ -43,7 +43,7 @@ public class TradingEngine {
                         String symbolDb = orderDb.getStock().getSymbol();
                         if (symbolDb.equalsIgnoreCase(order.getStock().getSymbol())) {
                             tryExecuteBuyOrder(order, portfolio);
-                            db.removeOrder(order.getUserKey(), order.getStock().getSymbol(), order.getShares(), Order.Type.SELL);
+                            db.removeOrder(order.getUserKey(), order);
                             foundMatch = true;
                             break;
                         }
@@ -94,7 +94,7 @@ public class TradingEngine {
             String symbolDb = orderDb.getStock().getSymbol();
             if (symbolDb.equalsIgnoreCase(order.getStock().getSymbol())) {
                 tryExecuteBuyOrder(order, portfolio);
-                db.removeOrder(order.getUserKey(), order.getStock().getSymbol(), order.getShares(), Order.Type.SELL);
+                db.removeOrder(order.getUserKey(), order);
                 foundMatch = true;
                 break;
             }
@@ -164,7 +164,7 @@ public class TradingEngine {
         portfolio.setAccBalance(temp);
         portfolio.removeValue(price);
         portfolio.removeStock(order, shares); // remove share num
-        db.removeOrder(order.getUserKey(), order.getStock().getSymbol(), order.getShares(), Order.Type.SELL);
+        db.removeOrder(order.getUserKey(), order);
         System.out.println("Sell order executed successfully.");
     }
 
@@ -256,13 +256,13 @@ public class TradingEngine {
             switch (choice) {
                 case 1:
                     Order orderToCancelByTime = getOrderWithLongestTime(orders);
-                    db.removeOrder(orderToCancelByTime.getUserKey(), orderToCancelByTime.getStock().getSymbol(), orderToCancelByTime.getShares(), Order.Type.BUY);
+                    db.removeOrder(orderToCancelByTime.getUserKey(), orderToCancelByTime);
                     //portfolio.removeStock(orderToCancelByTime, orderToCancelByTime.getShares()); // no need bcs not in holdings
                     System.out.println("Buy order canceled based on longest time successfully.");
                     break;
                 case 2:
                     Order orderToCancelByPrice = getOrderWithHighestPrice(orders);
-                    db.removeOrder(orderToCancelByPrice.getUserKey(), orderToCancelByPrice.getStock().getSymbol(), orderToCancelByPrice.getShares(), Order.Type.BUY);
+                    db.removeOrder(orderToCancelByPrice.getUserKey(), orderToCancelByPrice);
                     //portfolio.removeStock(orderToCancelByPrice, orderToCancelByPrice.getShares());
                     System.out.println("Buy order canceled based on highest price successfully.");
                     break;
