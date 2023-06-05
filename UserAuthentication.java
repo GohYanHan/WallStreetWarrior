@@ -108,7 +108,7 @@ public class UserAuthentication {
                     scanner.nextLine();
                     if (choice == 1) {
                         // Display stock in sellOrder list
-                        tradingEngine.displaySellOrders();
+                        tradingEngine.displayLotpoolSellOrders(db.getLotPool(), sellOrderList);
                         // Place a buy order
                         System.out.println("Enter stock symbol for buy order: ");
                         String buyStockSymbol = scanner.nextLine();
@@ -134,7 +134,7 @@ public class UserAuthentication {
                         // Display suggested price for a stock
                         tradingEngine.displaySuggestedPrice(buyStockSymbol, buyQuantity);
 
-                        System.out.println("Enter expected buying price: ");
+                        System.out.println("Enter expected buying price: "); // if add into pending order list then no condition
                         double buyExpectedPrice = scanner.nextDouble();
 
                         // Format the user input to two decimal points
@@ -145,13 +145,16 @@ public class UserAuthentication {
 
                         if (buyStock != null) {
                             LocalDateTime timestamp = LocalDateTime.now();
-                            Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user, timestamp);
-                            tradingEngine.executeOrder(buyOrder, portfolio);
-
-                            // if executeOrder success, add buyOrderList into a list, link list to cancelOrder() or move cancelOrder here
-//                        Order buyOrderListElement = new Order(user.getKey(), buyStockSymbol, buyQuantity, formattedBuyExpectedPrice, timestamp);
-                            db.addOrder(user.getKey(), buyOrder);
-
+                            System.out.println("Add to pending order? [y/n]");
+                            String choose = scanner.next();
+                            char character = choose.charAt(0);
+                            if (character == 'y') {
+                                db.addOrder(user.getKey(), buyOrder);
+                                System.out.println("Buy order added into pending buy order list.");
+                            } else {
+                                Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user);
+                                tradingEngine.executeOrder(buyOrder, portfolio);
+                            }
 
                         } else {
                             System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
@@ -187,14 +190,10 @@ public class UserAuthentication {
 
                         sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                         if (sellStock != null) {
+                            Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user);
                             LocalDateTime timestamp = LocalDateTime.now();
-                            Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user, timestamp);
-                            tradingEngine.executeOrder(sellOrder, portfolio);
-
-//                        Order sellOrderListElement = new Order(user.getKey(), sellStockSymbol, sellQuantity, formattedSellingPrice, timestamp);
-//                        sellOrderList.add(sellOrderListElement);
                             db.addOrder(user.getKey(), sellOrder);
-
+                            tradingEngine.executeOrder(sellOrder, portfolio);
 
                         } else {
                             System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
@@ -224,15 +223,6 @@ public class UserAuthentication {
                     return;
             }
 
-        }
-    }
-
-    public void displayOrderList(List<Order> orders) {
-        for (Order order : orders) {
-            System.out.println("Stock: " + order.getStock().getSymbol());
-            System.out.println("Price: " + order.getExpectedBuyingPrice());
-            System.out.println("TimeStamp: " + order.getTimestamp());
-            System.out.println("-".repeat(30));
         }
     }
 }
