@@ -90,4 +90,8 @@ public class Order {
     public User getUser() {
         return user;
     }
+
+    public int getUserKey() {
+        return userKey;
+    }
 }

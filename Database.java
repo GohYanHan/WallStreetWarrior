@@ -78,6 +78,7 @@ public class Database {
         return false;
     }
 
+
     boolean addHoldings(int userKey, Stock stock, int share) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "INSERT INTO holdings (userKey, symbol, share) VALUES (?, ?, ?)";
@@ -267,6 +268,7 @@ public class Database {
                 String typeStr = resultSet.getString("type");
                 // Convert the type string to the enum type
                 Order.Type type = Order.Type.valueOf(typeStr);
+
 
                 list.add(new Order(resultSet.getInt("userKey"), new Stock(resultSet.getString("symbol"),
                         resultSet.getString("name")), resultSet.getInt("share"),
