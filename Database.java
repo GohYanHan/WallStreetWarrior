@@ -80,11 +80,12 @@ public class Database {
 
     boolean addHoldings(int userKey, Stock stock, int share) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "INSERT INTO holdings (userKey, symbol, share) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO holdings (userKey, symbol, name, share) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userKey);
             statement.setString(2, stock.getSymbol());
-            statement.setInt(3, share);
+            statement.setString(3, stock.getName());
+            statement.setInt(4, share);
 
             int rowsInserted = statement.executeUpdate();
             statement.close();
@@ -105,7 +106,7 @@ public class Database {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Order stock = new Order(userKey, new Stock(resultSet.getString("symbol"),resultSet.getString("name")));
+                Order stock = new Order(userKey, new Stock(resultSet.getString("symbol"), resultSet.getString("name")));
                 holding.put(stock, resultSet.getInt("share"));
             }
 
@@ -312,7 +313,7 @@ public class Database {
             if (resultSet.next()) {
                 user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
-                        resultSet.getInt("PL_Points"), resultSet.getString("role"),resultSet.getDouble("thresholds")));
+                        resultSet.getInt("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds")));
 //                if (user.getRole().equals("Admin")) {
 ////                    dk wht to do
 //                } else if (user.getRole().equals("User")) {
@@ -364,7 +365,26 @@ public class Database {
         }
     }
 
-    boolean updateUserThresholds(int userKey, int thresholds) {
+    public Map<Integer, Double> loadPLpoint() {
+        Map<Integer, Double> plPoints = new HashMap<>();
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "SELECT PL_Points, userKey FROM users";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                plPoints.put(resultSet.getInt("userKey"),resultSet.getDouble("PL_Points"));
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return plPoints;
+    }
+
+    boolean updateUserThresholds(int userKey, double thresholds) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "UPDATE users SET thresholds = ? WHERE userKey = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -465,7 +485,7 @@ public class Database {
             while (resultSet.next()) {
                 list.add(new User(resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userStatus"), resultSet.getInt("userBalance"),
-                        resultSet.getInt("PL_Points"), resultSet.getInt("userKey"),resultSet.getDouble("thresholds")));
+                        resultSet.getInt("PL_Points"), resultSet.getInt("userKey"), resultSet.getDouble("thresholds")));
             }
             resultSet.close();
             statement.close();
