@@ -163,7 +163,6 @@ public class UserAuthentication {
                         } else {
                             System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
                         }
-
                     } else if (choice == 2) {
                         // display buyOrders
                         portfolio.displayBuyOrders();
@@ -177,7 +176,6 @@ public class UserAuthentication {
                             sellStockSymbol = scanner.nextLine();
                             sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                         }
-
 
                         System.out.println("Enter quantity for sell order: ");
                         int sellQuantity = scanner.nextInt();
