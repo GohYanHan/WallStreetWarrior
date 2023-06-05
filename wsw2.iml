@@ -43,5 +43,16 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/json-20230227.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="jBCrypt-0.4.3" level="project" />
+    <orderEntry type="library" name="javax.mail" level="project" />
   </component>
 </module>

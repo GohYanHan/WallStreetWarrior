@@ -13,14 +13,12 @@ public class Portfolio {
         return userKey;
     }
 
-    private List<Order> tradeHistory;
 
     public Portfolio(int userKey, double balance) {
         db = new Database();
         this.userKey = userKey;
-        this.holdings =db.loadHolding(userKey);
+        this.holdings = db.loadHolding(userKey);
         this.accBalance = balance;
-        tradeHistory = new ArrayList<>();
 //        holdingList = db.loadHolding(userKey);
 //        for (Order holding : holdingList) {
 //            this.holdings.put(holding, holding.getShares());
@@ -72,7 +70,7 @@ public class Portfolio {
             if (existingOrder.getStock().getSymbol().equalsIgnoreCase(order.getStock().getSymbol())) {
                 int updatedShares = shares + buyShares;
                 holdings.replace(existingOrder, shares, updatedShares);
-                db.updateHolding(userKey, existingOrder.getStock().getSymbol(), updatedShares);
+                db.updateHolding(userKey, existingOrder.getStock(), updatedShares);
                 found = true;
                 break;
             }
@@ -96,10 +94,10 @@ public class Portfolio {
                     int updatedShares = shares - soldShares;
                     if (updatedShares == 0) {
                         holdings.remove(existingOrder);
-                        db.removeHolding(userKey, existingOrder.getStock().getSymbol());
+                        db.removeHolding(userKey, existingOrder.getStock());
                     } else {
                         holdings.replace(existingOrder, shares, updatedShares);
-                        db.updateHolding(userKey, existingOrder.getStock().getSymbol(), updatedShares);
+                        db.updateHolding(userKey, existingOrder.getStock(), updatedShares);
                     }
                     found = true;
                 } else {
@@ -180,11 +178,11 @@ public class Portfolio {
     }
 
     public List<Order> getTradeHistory() {
-        return tradeHistory;
+        return db.loadTransactionHistory(userKey);
     }
 
     public void addToTradeHistory(Order order) {
-        tradeHistory.add(order);
+        db.addTransactionHistory(userKey, order);
     }
 
 

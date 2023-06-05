@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserAuthentication {
-    private final Database db;
+    private final Database db = new Database();
     private final Scanner scanner = new Scanner(System.in);
 
     public UserAuthentication() {
-        db = new Database();
+
     }
 
     public boolean register() {
@@ -149,12 +149,13 @@ public class UserAuthentication {
                             String choose = scanner.next();
                             char character = choose.charAt(0);
                             if (character == 'y') {
-                                db.addOrder(user.getKey(), buyStockSymbol, buyQuantity, formattedBuyExpectedPrice, timestamp, Order.Type.BUY); // add to pending buy order
+                                db.addOrder(user.getKey(), buyOrder);
                                 System.out.println("Buy order added into pending buy order list.");
                             } else {
                                 Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user);
                                 tradingEngine.executeOrder(buyOrder, portfolio);
                             }
+
                         } else {
                             System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
                         }
@@ -191,8 +192,9 @@ public class UserAuthentication {
                         if (sellStock != null) {
                             Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user);
                             LocalDateTime timestamp = LocalDateTime.now();
-                            db.addOrder(user.getKey(), sellStockSymbol, sellQuantity, formattedSellingPrice, timestamp, Order.Type.SELL); // add in pending sell order list
+                            db.addOrder(user.getKey(), sellOrder);
                             tradingEngine.executeOrder(sellOrder, portfolio);
+
                         } else {
                             System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
                         }
