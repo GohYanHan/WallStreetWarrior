@@ -43,7 +43,8 @@ public class TradingEngine {
                         String symbolDb = orderDb.getStock().getSymbol();
                         if (symbolDb.equalsIgnoreCase(order.getStock().getSymbol())) {
                             tryExecuteBuyOrder(order, portfolio);
-                            db.removeOrder(order.getUserKey(), order);
+
+                            db.removeOrder(order.getUserKey(),order);
                             foundMatch = true;
                             break;
                         }
