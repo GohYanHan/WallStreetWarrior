@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="Report">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_51_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_51_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/WallStreetWarrior.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/.idea/WallStreetWarrior.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/jBCrypt_0_4_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/jBCrypt_0_4_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/BoyerMoore.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/BoyerMoore.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserDashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserDashboard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/search.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/search.class" afterDir="false" />
-    </list>
+    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -169,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685784702572</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Report">
+      <created>1685957808900</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1685957808900</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
