@@ -1,13 +1,10 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 class UserScore {
     private String name;
-    private int marks;
+    private double marks;
 
-    public UserScore(String name, int marks) {
+    public UserScore(String name, double marks) {
         this.name = name;
         this.marks = marks;
     }
@@ -16,42 +13,37 @@ class UserScore {
         return name;
     }
 
-    public int getMarks() {
+    public double getMarks() {
         return marks;
     }
+}
 
-    public class Leaderboard {
-        public static void main(String[] args) {
-            // Retrieve users' names and marks from the dashboard
-            List<UserScore> dashboardData = retrieveDataFromDashboard();
+class Leaderboard {
+    public void printLeaderboard() {
+        Database db = new Database(); // Assuming you have the Database class available
 
-            // Sort the data based on marks in descending order
-            Collections.sort(dashboardData, Comparator.comparingInt(UserScore::getMarks).reversed());
-
-            // Extract the top ten users
-            List<UserScore> topTenUsers = dashboardData.subList(0, Math.min(dashboardData.size(), 10));
-
-            // Display the leaderboard
-            System.out.println("Rank | User         | Marks");
-            System.out.println("-----|--------------|-------");
-            // Add condition if user is disqualified then score cannot be counted
-            for (int i = 0; i < topTenUsers.size(); i++) {
-                UserScore user = topTenUsers.get(i);
-                System.out.printf("%4d | %-12s | %5d%n", i + 1, user.getName(), user.getMarks());
-            }
+        // Create a list of UserScore objects from the dashboard data
+        List<UserScore> userScores = new ArrayList<>();
+        for (Map.Entry<Integer, Double> entry : db.loadPLpoint().entrySet()) {
+            int userKey = entry.getKey();
+            double points = entry.getValue();
+            userScores.add(new UserScore("User" + userKey, points));
         }
 
-        // Simulated method to retrieve data from the dashboard
-        private static List<UserScore> retrieveDataFromDashboard() {
+        // Sort the data based on marks in descending order
+        Collections.sort(userScores, Comparator.comparingDouble(UserScore::getMarks).reversed());
 
-            // Retrieve the data from the dashboard and populate a list of User objects
-            List<UserScore> dashboardData = new ArrayList<>();
+        // Extract the top ten users
+        List<UserScore> topTenUsers = userScores.subList(0, Math.min(userScores.size(), 10));
 
-            // Split dashboard de username n score
-            // Use for loop / while loop to add username n score into dashboard
-            dashboardData.add(new UserScore("User123", 500));
-
-            return dashboardData;
+        // Display the leaderboard
+        System.out.println("Rank | User         | Marks");
+        System.out.println("-----|--------------|-------");
+        for (int i = 0; i < topTenUsers.size(); i++) {
+            UserScore user = topTenUsers.get(i);
+            System.out.printf("%4d | %-12s | %5.2f%n", i + 1, user.getName(), user.getMarks());
         }
     }
 }
+
+
