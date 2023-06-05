@@ -86,7 +86,6 @@ public class TradingEngine {
             }
         }
     }
-
     public void autoMatching(Order order, Portfolio portfolio) {
         boolean foundMatch = false;
 

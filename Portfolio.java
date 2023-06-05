@@ -51,12 +51,16 @@ public class Portfolio {
     }
 
     void setAccBalance(double accBalance) {
-        if (db.updateUserBalance(userKey, accBalance)) {
-            this.accBalance = accBalance;
+        double roundedBalance = Math.round(accBalance * 100.0) / 100.0; // Round to two decimal places
+
+        if (db.updateUserBalance(userKey, roundedBalance)) {
+            this.accBalance = roundedBalance;
             System.out.println("New account balance: " + this.accBalance);
-        } else
+        } else {
             System.out.println("Account balance is not updated.\nCurrent account balance: " + this.accBalance);
+        }
     }
+
 
     double getAccBalance() {
         return accBalance;
