@@ -53,5 +53,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="jBCrypt-0.4.3" level="project" />
+    <orderEntry type="library" name="javax.mail" level="project" />
   </component>
 </module>
