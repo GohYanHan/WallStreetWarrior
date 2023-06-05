@@ -81,7 +81,6 @@ public class Portfolio {
             holdings.put(order, buyShares);
             db.addHoldings(userKey, order.getStock(), buyShares);
         }
-        System.out.println("Buy order executed successfully.");
     }
 
 
@@ -147,11 +146,11 @@ public class Portfolio {
 //            System.out.println("Shares: " + order.getShares());
 //            System.out.println("-".repeat(30));
 //        }
-        for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
+        for (Map.Entry<Order, Integer> entry : this.holdings.entrySet()) {
             Order order = entry.getKey();
             int shares = entry.getValue();
 
-            System.out.println("Stock: " + order.getSymbol());
+            System.out.println("Stock: " + order.getStock().getSymbol());
             System.out.println("Shares: " + shares);
             System.out.println("-".repeat(30));
         }
@@ -160,7 +159,7 @@ public class Portfolio {
     public boolean containsStockSymbol(String symbol) {
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order order = entry.getKey();
-            String stockSymbol = order.getSymbol();
+            String stockSymbol = order.getStock().getSymbol();
 
             if (stockSymbol.equals(symbol)) {
                 return true; // Symbol found in holdings
@@ -173,7 +172,7 @@ public class Portfolio {
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order order = entry.getKey();
 
-            if (order.getSymbol().equalsIgnoreCase(symbol)) {
+            if (order.getStock().getSymbol().equalsIgnoreCase(symbol)) {
                 return order.getStock();
             }
         }

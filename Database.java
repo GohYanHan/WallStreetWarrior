@@ -26,10 +26,62 @@ public class Database {
         Database.user = user;
     }
 
+    public boolean storeLotPool(Stock stock, int share) {
+        Map<String, Integer> dbAPI = new HashMap<>();
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "INSERT INTO lotpool (symbol, name, share) VALUES (?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, stock.getSymbol());
+            statement.setString(2, stock.getName());
+            statement.setInt(3, share);
+
+            int rowsInserted = statement.executeUpdate();
+            statement.close();
+
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Map<Stock, Integer> getLotPool() {
+        Map<Stock, Integer> lotpool = new HashMap<>();
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "SELECT * FROM lotpool";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Stock stock = new Stock(resultSet.getString("symbol"), resultSet.getString("name"));
+                lotpool.put(stock, resultSet.getInt("share"));
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lotpool;
+    }
+
+    public boolean refreshLotPool() {
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "DELETE FROM lotpool";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            int rowsAffected = statement.executeUpdate();
+
+            statement.close();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public boolean addHoldings(int userKey, Stock stock, int share) {
-        String sql = "INSERT INTO holdings (userKey, symbol, share) VALUES (?, ?, ?)";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "INSERT INTO holdings (userKey, symbol, share) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userKey);
             statement.setString(2, stock.getSymbol());
@@ -216,7 +268,7 @@ public class Database {
                 // Convert the type string to the enum type
                 Order.Type type = Order.Type.valueOf(typeStr);
 
-                list.add(new Order(resultSet.getInt("userKey"), new Stock(resultSet.getString("symbol")),resultSet.getInt("share"),
+                list.add(new Order(resultSet.getInt("userKey"), new Stock(resultSet.getString("symbol")), resultSet.getInt("share"),
                         resultSet.getDouble("price"), resultSet.getTimestamp("time").toLocalDateTime(), type));
             }
             resultSet.close();
