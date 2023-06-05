@@ -79,7 +79,6 @@ public class Portfolio {
             holdings.put(order, buyShares);
             db.addHoldings(userKey, order.getStock(), buyShares);
         }
-        System.out.println("Buy order executed successfully.");
     }
 
 
@@ -145,7 +144,7 @@ public class Portfolio {
 //            System.out.println("Shares: " + order.getShares());
 //            System.out.println("-".repeat(30));
 //        }
-        for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
+        for (Map.Entry<Order, Integer> entry : this.holdings.entrySet()) {
             Order order = entry.getKey();
             int shares = entry.getValue();
 
