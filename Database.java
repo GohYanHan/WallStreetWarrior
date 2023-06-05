@@ -26,7 +26,6 @@ public class Database {
     }
 
     public boolean storeLotPool(Stock stock, int share) {
-        Map<String, Integer> dbAPI = new HashMap<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "INSERT INTO lotpool (symbol, name, share) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
