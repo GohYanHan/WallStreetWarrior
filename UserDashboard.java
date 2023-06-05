@@ -4,13 +4,16 @@ import java.util.Scanner;
 
 public class UserDashboard {
     private User user;
+    private Database db = new Database();
+
 
     public UserDashboard(User user) {
         this.user = user;
+        this.db = db;
     }
 
     public void displayAccountBalance() {
-        double accountBalance = user.getBalance();
+        double accountBalance = user.getPortfolio().getAccBalance();
         System.out.println("Account Balance: $" + accountBalance);
     }
 
@@ -19,20 +22,21 @@ public class UserDashboard {
 
         //Overall account profit / loss  (account balance)
 
-        double pAndL = user.getPortfolio().getValue() - startingBalance;
-        double points = (pAndL / startingBalance) * 100;
+        double pAndL = user.getPortfolio().getAccBalance() - startingBalance;
+        int points = (int) ((pAndL / startingBalance) * 100);
+        db.updateUserPLpoint(user.getKey(), points);
         System.out.println("Current Points: " + points);
     }
 
+
     public void displayOpenPositions() {
-        Portfolio portfolio = user.getPortfolio();
-        portfolio.displayHoldings();
+        user.getPortfolio().displayHoldings();
     }
 
     public void displayTradeHistory() {
 
         System.out.println("Trade History:");
-        List<Order> tradeHistory = user.getPortfolio().getTradeHistory();
+        List<Order> tradeHistory = db.loadTransactionHistory(user.getKey());
 
         if (!tradeHistory.isEmpty()) {
 
@@ -62,7 +66,7 @@ public class UserDashboard {
 
     //lowest price to highest price
     public void sortTradeHistoryByPrice() {
-        List<Order> tradeHistorybyprice = user.getPortfolio().getTradeHistory();
+        List<Order> tradeHistorybyprice = db.loadTransactionHistory(user.getKey());
         tradeHistorybyprice.sort(Comparator.comparing(Order::getExpectedBuyingPrice));
         displayTradeHistory();
     }
@@ -70,7 +74,7 @@ public class UserDashboard {
 
     //oldest to newest
     public void sortTradeHistoryByPlacementTime() {
-        List<Order> tradeHistorybyplacementtime = user.getPortfolio().getTradeHistory();
+        List<Order> tradeHistorybyplacementtime = db.loadTransactionHistory(user.getKey());
 
         tradeHistorybyplacementtime.sort(Comparator.comparing(Order::getTimestamp));
         displayTradeHistory();
