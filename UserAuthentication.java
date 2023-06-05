@@ -88,6 +88,10 @@ public class UserAuthentication {
         return null;
     }
 
+    private boolean isValidBuyQuantity(int quantity) {
+        return quantity >= 100 && quantity <= 500;
+    }
+
     public void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine, Report report) throws IOException {
         while (true) {
             List<Order> buyOrderList = db.loadOrders(user.getKey(), Order.Type.BUY);
@@ -123,12 +127,10 @@ public class UserAuthentication {
 
                         System.out.println("Enter quantity for buy order: ");
                         int buyQuantity = scanner.nextInt();
-                        if (buyQuantity < 100) {
-                            System.out.println("Minimum order quantity is 100 shares (one lot).");
-                            return;
-                        } else if (!tradingEngine.isStartOfTradingDay() && buyQuantity > 500) {
-                            System.out.println("Maximum order quantity is 500 shares");
-                            return;
+                        while (!isValidBuyQuantity(buyQuantity)) {
+                            System.out.println("Invalid quantity. Minimum order quantity is 100 shares (one lot), and maximum is 500 shares.");
+                            System.out.println("Enter quantity for buy order: ");
+                            buyQuantity = scanner.nextInt();
                         }
 
                         // Display suggested price for a stock
