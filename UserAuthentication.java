@@ -148,11 +148,16 @@ public class UserAuthentication {
                             System.out.println("Add to pending order? [y/n]");
                             String choose = scanner.next();
                             char character = choose.charAt(0);
+                            Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user);
+
                             if (character == 'y') {
                                 db.addOrder(user.getKey(), buyStockSymbol, buyQuantity, formattedBuyExpectedPrice, timestamp, Order.Type.BUY); // add to pending buy order
                                 System.out.println("Buy order added into pending buy order list.");
+                                if (tradingEngine.executeBuyOrdersMatch(buyOrder, portfolio)) {
+                                    tradingEngine.executeOrder(buyOrder, portfolio);
+                                    db.removeOrder(user.getKey(), buyStockSymbol, buyQuantity, Order.Type.BUY); // if successfully execute buy order remove from pending buy order
+                                }
                             } else {
-                                Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user);
                                 tradingEngine.executeOrder(buyOrder, portfolio);
                             }
                         } else {

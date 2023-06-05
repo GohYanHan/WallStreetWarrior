@@ -149,7 +149,7 @@ public class TradingEngine {
             portfolio.addValue(order.getExpectedBuyingPrice());
             portfolio.addStock(order, shares);
             portfolio.addToTradeHistory(order);
-//          db.removeOrder(order.getUserKey(), order.getStock().getSymbol(), order.getShares(), Order.Type.BUY); // if successfully execute buy order remove from pending buy order
+//          db.removeOrder(order.getUserKey(), order.getStock().getSymbol(), order.getShares(), Order.Type.BUY);
             System.out.println("Buy order executed successfully.");
         } else {
             System.out.println("Not enough money");
@@ -169,6 +169,20 @@ public class TradingEngine {
         System.out.println("Sell order executed successfully.");
     }
 
+    public boolean executeBuyOrdersMatch(Order order, Portfolio portfolio) throws IOException {
+        List<Order> buyOrders = db.loadOrders(order.getUserKey(), Order.Type.BUY);
+
+        double currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
+        double expectedBuyingPrice = order.getExpectedBuyingPrice();
+
+        for (Order orders : buyOrders) {
+            if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
+                tryExecuteBuyOrder(orders, portfolio);
+                return true; // Order executed successfully within price range
+            }
+        }
+        return false; // No matching order found within price range
+    }
     public boolean isWithinInitialTradingPeriod() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.of(currentTime.getYear(), currentTime.getMonth(), currentTime.getDayOfMonth(), 0, 0)
