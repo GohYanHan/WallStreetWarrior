@@ -9,6 +9,7 @@
       <root url="jar://$USER_HOME$/Downloads/jBCrypt-0.4.3.jar!/" />
       <root url="jar://$USER_HOME$/Downloads/json-20230227.jar!/" />
       <root url="jar://$USER_HOME$/Downloads/jsoup-1.16.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/javax.mail.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
