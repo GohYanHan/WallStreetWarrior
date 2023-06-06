@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class UserAuthentication {
     private final Database db = new Database();
     private final Scanner scanner = new Scanner(System.in);
+    private final FinanceNewsAPI financeNewsAPI = new FinanceNewsAPI();
 
     public UserAuthentication() {
 
@@ -42,14 +43,16 @@ public class UserAuthentication {
         return db.addUser(email, hashPassword(password), name);
     }
 
-    public boolean login(String email, String password) {
+    public boolean login(String email, String password) throws IOException {
         User user = db.loadUser(email);
         db.setUser(user);
         if (user != null) {
             if (BCrypt.checkpw(password, user.getPassword())) {
                 System.out.println("Login successful!");
                 System.out.println("Welcome, " + user.getUsername() + "!");
-                System.out.println("-----------------------------");
+                System.out.println("-".repeat(90));
+                System.out.println("Displaying news today...");
+                financeNewsAPI.getNews();
                 return true;
             }
         }
@@ -170,7 +173,7 @@ public class UserAuthentication {
                         // display buyOrders
                         portfolio.displayBuyOrders();
                         // Place a sell order
-                        System.out.println("Enter stock symbol for sell order: ");
+                        System.out.print("Enter stock symbol for sell order: ");
                         String sellStockSymbol = scanner.nextLine();
                         // Find the stock by symbol
                         Stock sellStock = portfolio.findStockBySymbol(sellStockSymbol);
@@ -180,13 +183,13 @@ public class UserAuthentication {
                             sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                         }
 
-                        System.out.println("Enter quantity for sell order: ");
+                        System.out.print("Enter quantity for sell order: ");
                         int sellQuantity = scanner.nextInt();
 
                         // Display suggested price for a stock
                         tradingEngine.displaySuggestedPrice(sellStockSymbol, sellQuantity);
 
-                        System.out.println("Enter expected selling price: ");
+                        System.out.print("Enter expected selling price: ");
                         double sellExpectedPrice = scanner.nextDouble();
 
                         // Format the user input to two decimal points
@@ -220,7 +223,7 @@ public class UserAuthentication {
 
                 case 5:
                     System.out.println("Logged out successfully!");
-                    System.out.println("-----------------------------");
+                    System.out.println("-".repeat(90));
                     return;
 
                 default:
