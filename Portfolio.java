@@ -116,6 +116,7 @@ public class Portfolio {
 
     void displayHoldings() {
         System.out.println("Holdings:");
+        System.out.println("-".repeat(30));
 //        if (!this.holdingList.isEmpty()) {
 //            for (Order holding : holdingList) {
 //                System.out.println("Stock: " + holding.getSymbol());
