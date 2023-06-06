@@ -347,11 +347,11 @@ public class Database {
         }
     }
 
-    boolean updateUserPLpoint(int userKey, int pl_points) {
+    boolean updateUserPLpoint(int userKey, double pl_points) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "UPDATE users SET PL_Points = ? WHERE userKey = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, pl_points);
+            statement.setDouble(1, pl_points);
             statement.setInt(2, userKey);
             // Execute the update statement
             int rowsUpdated = statement.executeUpdate();
