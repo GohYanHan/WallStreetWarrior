@@ -11,7 +11,7 @@ public class AdminPanel {
     void adminPanel() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("-----------------------------");
+            System.out.println("-".repeat(90));
             System.out.println("1. List Users");
             System.out.println("2. Disqualify User");
             System.out.println("3. Remove User");
@@ -19,7 +19,7 @@ public class AdminPanel {
             System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
-            System.out.println("-----------------------------");
+            System.out.println("-".repeat(90));
             scanner.nextLine(); // Consume the newline character after reading the choice
 
             switch (choice) {
