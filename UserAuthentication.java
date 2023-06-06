@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class UserAuthentication {
     private final Database db = new Database();
     private final Scanner scanner = new Scanner(System.in);
+    private final FinanceNewsAPI financeNewsAPI = new FinanceNewsAPI();
 
     public UserAuthentication() {
 
@@ -42,14 +43,16 @@ public class UserAuthentication {
         return db.addUser(email, hashPassword(password), name);
     }
 
-    public boolean login(String email, String password) {
+    public boolean login(String email, String password) throws IOException {
         User user = db.loadUser(email);
         db.setUser(user);
         if (user != null) {
             if (BCrypt.checkpw(password, user.getPassword())) {
                 System.out.println("Login successful!");
                 System.out.println("Welcome, " + user.getUsername() + "!");
-                System.out.println("-----------------------------");
+                System.out.println("-".repeat(90));
+                System.out.println("Displaying news today...");
+                financeNewsAPI.getNews();
                 return true;
             }
         }
@@ -88,6 +91,10 @@ public class UserAuthentication {
         return null;
     }
 
+    private boolean isValidBuyQuantity(int quantity) {
+        return quantity >= 100 && quantity <= 500;
+    }
+
     public void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine, Report report) throws IOException {
         while (true) {
             List<Order> buyOrderList = db.loadOrders(user.getKey(), Order.Type.BUY);
@@ -123,12 +130,10 @@ public class UserAuthentication {
 
                         System.out.println("Enter quantity for buy order: ");
                         int buyQuantity = scanner.nextInt();
-                        if (buyQuantity < 100) {
-                            System.out.println("Minimum order quantity is 100 shares (one lot).");
-                            return;
-                        } else if (!tradingEngine.isStartOfTradingDay() && buyQuantity > 500) {
-                            System.out.println("Maximum order quantity is 500 shares");
-                            return;
+                        while (!isValidBuyQuantity(buyQuantity)) {
+                            System.out.println("Invalid quantity. Minimum order quantity is 100 shares (one lot), and maximum is 500 shares.");
+                            System.out.println("Enter quantity for buy order: ");
+                            buyQuantity = scanner.nextInt();
                         }
 
                         // Display suggested price for a stock
@@ -168,7 +173,7 @@ public class UserAuthentication {
                         // display buyOrders
                         portfolio.displayBuyOrders();
                         // Place a sell order
-                        System.out.println("Enter stock symbol for sell order: ");
+                        System.out.print("Enter stock symbol for sell order: ");
                         String sellStockSymbol = scanner.nextLine();
                         // Find the stock by symbol
                         Stock sellStock = portfolio.findStockBySymbol(sellStockSymbol);
@@ -178,13 +183,13 @@ public class UserAuthentication {
                             sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                         }
 
-                        System.out.println("Enter quantity for sell order: ");
+                        System.out.print("Enter quantity for sell order: ");
                         int sellQuantity = scanner.nextInt();
 
                         // Display suggested price for a stock
                         tradingEngine.displaySuggestedPrice(sellStockSymbol, sellQuantity);
 
-                        System.out.println("Enter expected selling price: ");
+                        System.out.print("Enter expected selling price: ");
                         double sellExpectedPrice = scanner.nextDouble();
 
                         // Format the user input to two decimal points
@@ -218,7 +223,7 @@ public class UserAuthentication {
 
                 case 5:
                     System.out.println("Logged out successfully!");
-                    System.out.println("-----------------------------");
+                    System.out.println("-".repeat(90));
                     return;
 
                 default:
