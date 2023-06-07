@@ -11,6 +11,8 @@ public class UserAuthentication {
     private final Scanner scanner = new Scanner(System.in);
     private final FinanceNewsAPI financeNewsAPI = new FinanceNewsAPI();
 
+    private final Notification notification = new Notification();
+
     public UserAuthentication() {
 
     }
@@ -107,7 +109,8 @@ public class UserAuthentication {
             System.out.println("4. Cancel pending orders");
             System.out.println("5. Display dashboard");
             System.out.println("6. Generate Report");
-            System.out.println("7. Log out");
+            System.out.println("7. Notification Settings");
+            System.out.println("8. Log out");
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -243,6 +246,22 @@ public class UserAuthentication {
                     break;
 
                 case 7:
+                    System.out.println("Notification \n1.turn ON \n2.turn OFF");
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
+                    if (choice == 1) {
+                        notification.setNotificationSendSettingTrue();
+                        break;
+                    } else if (choice == 2) {
+                        notification.setNotificationSendSettingFalse();
+                        break;
+                    } else {
+                        System.out.println("Execution invalid");
+                        break;
+                    }
+
+
+                case 8:
                     System.out.println("Logged out successfully!");
                     System.out.println("-".repeat(90));
                     return;

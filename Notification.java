@@ -1,345 +1,248 @@
-//import javax.mail.*;
-//import javax.mail.internet.InternetAddress;
-//import javax.mail.internet.MimeMessage;
-//import java.io.IOException;
-//import java.util.*;import javax.mail.*;
-//import javax.mail.internet.InternetAddress;
-//import javax.mail.internet.MimeMessage;
-//import java.io.IOException;
-//import java.util.*;
-//import java.util.concurrent.Executors;
-//import java.util.concurrent.ScheduledExecutorService;
-//
-//class Notification {
-//    private double thresholdPrice = 0; //default null
-//    private double updatedStockPrice;
-//    private boolean notificationSendSetting = true; //default true
-//
-//    private Map<Double, List> thresholdMap = new HashMap<>();
-//    User user;
-//    Stock stock;
-//    Order order;
-//    API api = new API();
-//    TradingEngine tradingEngine;
-//    ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-//
-//
-//    //hashmap with 3 keys, name(PK)(from MyStocks iterated into a linkedlist), threshholdPrice(paired with the name), currentPrice/updatedStockPrice(paired with name)
-//
-//
-//    //on button click do set true or set false, default true, assuming there are 2 buttons(enable/disable)
-//
-//
-//    public void setNotificationSendSettingTrue() {
-//        this.notificationSendSetting = true;
-//
-//        System.out.println("Notification setting has been turned on.");
-//    }
-//
-//    public void setNotificationSendSettingFalse() {
-//        this.notificationSendSetting = false;
-//        System.out.println("Notification setting has been turned off.");
-//    }
-//
-//    public void setThreshold() {
-//        for (int i = 0; i < tradingEngine.getBuyOrders().size(); i++) {
-//            thresholdMap.put(this.thresholdPrice, tradingEngine.getBuyOrders().get(i));
-//            System.out.println("Threshold for " + stock.getName() + " has been set to" + thresholdPrice);
-//        }
-//    }
-//
-//
-//    public void start() {
-//        Timer timer = new Timer();
-//
-//        TimerTask task = new TimerTask() {
-//            @Override
-//            public void run() {
-//                // Method to be called every 1 second
-//                try {
-//                    updateStockPrice();
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        };
-//
-//        // Schedule the task to run every 1 second
-//        timer.schedule(task, 0, 1000);
-//    }
-//
-//    public void updateStockPrice() throws IOException {
-//        updatedStockPrice = api.getRealTimePrice(order.getStock().getSymbol());
-//        this.updatedStockPrice = updatedStockPrice;
-//        System.out.println("Stock price updated: " + updatedStockPrice);
-//        if (updatedStockPrice > thresholdPrice) {
-//            sendNotif(1);
-//        } else if (updatedStockPrice < thresholdPrice) {
-//            sendNotif(2);
-//        }
-//    }
-//    //handled by timer, every XX call this method
-//
-//    public void sendNotif(int caseSymbol) {
-//        String hostAddress = "smtp.example.com"; // SMTP server host
-//        String serverPort = "587"; // SMTP server port
-//        final String hostEmail = "your_email@example.com"; // Your email address
-//        final String hostPassword = "your_password"; // Your email password
-//
-//        String toAddress = user.getEmail(); // Recipient's email address
-//        String subject = "WALL STREET WARRIORS"; // Email subject
-//        String body = ""; // Email body
-//
-//        if (notificationSendSetting = true) {
-//            //check stock price if neg
-//            if (updatedStockPrice >= 0) {
-//                //iterate through hashmap, find if thresholdPrice more or less than updatedStockPrice based on PK name, then if true send email
-//                /*for (i = 0; i < hashmap.length(); i++){
-//                        iterate though the treshholdVal and updatedStockPrice, check if more or less, then take note of the index
-//                        when get index, get the names linkedlist from hashmap, then find the index
-//                        the return value is your stockName, then just send email
-//                */
-//                switch (caseSymbol) {
-//
-//                    case 1: //(updatedStockPrice > thresholdPrice)==true
-//                        body = "Your stock " + stock.getName() + " has a profit of " + (thresholdPrice - updatedStockPrice);
-//
-//                    case 2: //(updatedStockPrice < thresholdPrice)==true
-//                        body = "Your stock " + stock.getName() + " has a loss of " + (updatedStockPrice - thresholdPrice);
-//
-//                    case 3: //when buy order successfully
-//                        body = "Thank you for buying " + stock.getName();
-//
-//                    case 4: //when sell order
-//                        body = "Stock " + stock.getName() + "has been sold";
-//                }
-//            }
-//        }
-//
-//        Properties props = new Properties();
-//        props.put("mail.smtp.auth", "true");
-//        props.put("mail.smtp.starttls.enable", "true");
-//        props.put("mail.smtp.host", hostAddress);
-//        props.put("mail.smtp.port", serverPort);
-//
-//        Session session = Session.getInstance(props, new Authenticator() {
-//            protected PasswordAuthentication getPasswordAuthentication() {
-//                return new PasswordAuthentication(hostEmail, hostPassword);
-//            }
-//        });
-//        try {
-//            Message message = new MimeMessage(session);
-//            message.setFrom(new InternetAddress(hostEmail));
-//            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toAddress));
-//            message.setSubject(subject);
-//            message.setText(body);
-//
-//            Transport.send(message);
-//
-//            System.out.println("Email sent successfully!");
-//        } catch (MessagingException e) {
-//            System.out.println("Failed to send email. Error: " + e.getMessage());
-//        }
-//    }
-//
-//    public void sendNotificationEnter() { //when buy
-//        if (notificationSendSetting = true) {
-//            //send email
-//            while (thresholdPrice != updatedStockPrice) {
-//                updateStockPrice(stock);
-//            }
-//        }
-//    }
-//
-//    public void sendNotificationExit() { //when sell
-//        if (notificationSendSetting = true) {
-//            //send email
-//        }
-//    }
-//}
-//
-///*} else if (choice == 4) {
-//                System.out.println("1. Notification ON \n2.Notification OFF");
-//                choice = scanner.nextInt();
-//                scanner.nextLine();
-//                if (choice == 1) {
-//                    notification.setNotificationSendSettingTrue();
-//                } else if (choice == 2) {
-//                    notification.setNotificationSendSettingFalse();
-//                } else {
-//                    System.out.println("Execution invalid");
-//                    return;
-//    this is for notification setting in main menu
-//    private Notification notification;
-//    notification.sendNotif(3);
-//    notification.sendNotif(4);
-//    this is for notification sent after buy/sell
-// */
-//import java.util.concurrent.Executors;
-//import java.util.concurrent.ScheduledExecutorService;
-//
-//class Notification {
-//    private double thresholdPrice = 0; //default null
-//    private double updatedStockPrice;
-//    private boolean notificationSendSetting = true; //default true
-//
-//    private Map<Double, List> thresholdMap = new HashMap<>();
-//    User user;
-//    Stock stock;
-//    Order order;
-//    API api = new API();
-//    TradingEngine tradingEngine;
-//    ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-//
-//
-//    //hashmap with 3 keys, name(PK)(from MyStocks iterated into a linkedlist), threshholdPrice(paired with the name), currentPrice/updatedStockPrice(paired with name)
-//
-//
-//    //on button click do set true or set false, default true, assuming there are 2 buttons(enable/disable)
-//
-//
-//    public void setNotificationSendSettingTrue() {
-//        this.notificationSendSetting = true;
-//
-//        System.out.println("Notification setting has been turned on.");
-//    }
-//
-//    public void setNotificationSendSettingFalse() {
-//        this.notificationSendSetting = false;
-//        System.out.println("Notification setting has been turned off.");
-//    }
-//
-//    public void setThreshold() {
-//        for (int i = 0; i < tradingEngine.getBuyOrders().size(); i++) {
-//            thresholdMap.put(this.thresholdPrice, tradingEngine.getBuyOrders().get(i));
-//            System.out.println("Threshold for " + stock.getName() + " has been set to" + thresholdPrice);
-//        }
-//    }
-//
-//
-//    public void start() {
-//        Timer timer = new Timer();
-//
-//        TimerTask task = new TimerTask() {
-//            @Override
-//            public void run() {
-//                // Method to be called every 1 second
-//                try {
-//                    updateStockPrice();
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        };
-//
-//        // Schedule the task to run every 1 second
-//        timer.schedule(task, 0, 1000);
-//    }
-//
-//    public void updateStockPrice() throws IOException {
-//        updatedStockPrice = api.getRealTimePrice(order.getStock().getSymbol());
-//        this.updatedStockPrice = updatedStockPrice;
-//        System.out.println("Stock price updated: " + updatedStockPrice);
-//        if (updatedStockPrice > thresholdPrice) {
-//            sendNotif(1);
-//        } else if (updatedStockPrice < thresholdPrice) {
-//            sendNotif(2);
-//        }
-//    }
-//    //handled by timer, every XX call this method
-//
-//    public void sendNotif(int caseSymbol) {
-//        String hostAddress = "smtp.example.com"; // SMTP server host
-//        String serverPort = "587"; // SMTP server port
-//        final String hostEmail = "your_email@example.com"; // Your email address
-//        final String hostPassword = "your_password"; // Your email password
-//
-//        String toAddress = user.getEmail(); // Recipient's email address
-//        String subject = "WALL STREET WARRIORS"; // Email subject
-//        String body = ""; // Email body
-//
-//        if (notificationSendSetting = true) {
-//            //check stock price if neg
-//            if (updatedStockPrice >= 0) {
-//                //iterate through hashmap, find if thresholdPrice more or less than updatedStockPrice based on PK name, then if true send email
-//                /*for (i = 0; i < hashmap.length(); i++){
-//                        iterate though the treshholdVal and updatedStockPrice, check if more or less, then take note of the index
-//                        when get index, get the names linkedlist from hashmap, then find the index
-//                        the return value is your stockName, then just send email
-//                */
-//                switch (caseSymbol) {
-//
-//                    case 1: //(updatedStockPrice > thresholdPrice)==true
-//                        body = "Your stock " + stock.getName() + " has a profit of " + (thresholdPrice - updatedStockPrice);
-//
-//                    case 2: //(updatedStockPrice < thresholdPrice)==true
-//                        body = "Your stock " + stock.getName() + " has a loss of " + (updatedStockPrice - thresholdPrice);
-//
-//                    case 3: //when buy order successfully
-//                        body = "Thank you for buying " + stock.getName();
-//
-//                    case 4: //when sell order
-//                        body = "Stock " + stock.getName() + "has been sold";
-//                }
-//            }
-//        }
-//
-//        Properties props = new Properties();
-//        props.put("mail.smtp.auth", "true");
-//        props.put("mail.smtp.starttls.enable", "true");
-//        props.put("mail.smtp.host", hostAddress);
-//        props.put("mail.smtp.port", serverPort);
-//
-//        Session session = Session.getInstance(props, new Authenticator() {
-//            protected PasswordAuthentication getPasswordAuthentication() {
-//                return new PasswordAuthentication(hostEmail, hostPassword);
-//            }
-//        });
-//        try {
-//            Message message = new MimeMessage(session);
-//            message.setFrom(new InternetAddress(hostEmail));
-//            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toAddress));
-//            message.setSubject(subject);
-//            message.setText(body);
-//
-//            Transport.send(message);
-//
-//            System.out.println("Email sent successfully!");
-//        } catch (MessagingException e) {
-//            System.out.println("Failed to send email. Error: " + e.getMessage());
-//        }
-//    }
-//
-//    public void sendNotificationEnter() { //when buy
-//        if (notificationSendSetting = true) {
-//            //send email
-//            while (thresholdPrice != updatedStockPrice) {
-//                updateStockPrice(stock);
-//            }
-//        }
-//    }
-//
-//    public void sendNotificationExit() { //when sell
-//        if (notificationSendSetting = true) {
-//            //send email
-//        }
-//    }
-//}
-//
-///*} else if (choice == 4) {
-//                System.out.println("1. Notification ON \n2.Notification OFF");
-//                choice = scanner.nextInt();
-//                scanner.nextLine();
-//                if (choice == 1) {
-//                    notification.setNotificationSendSettingTrue();
-//                } else if (choice == 2) {
-//                    notification.setNotificationSendSettingFalse();
-//                } else {
-//                    System.out.println("Execution invalid");
-//                    return;
-//    this is for notification setting in main menu
-//    private Notification notification;
-//    notification.sendNotif(3);
-//    notification.sendNotif(4);
-//    this is for notification sent after buy/sell
-// */
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+import java.sql.*;
+import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
+
+class Notification {
+    private double updatedStockPrice;
+    static boolean notificationSendSetting = true; //default true
+    private double thresholdProfit = 0; //default null
+    private double thresholdLoss = 0; //default null
+    private double thresholdPrice = 0;
+    private static double boughtPrice; // This attribute should fall under Orders or Portfolio?
+    private double profitLossPerStock; // should = boughtPrice - currentPrice of Stock
+    User user;
+    Stock stock = new Stock();
+    Order order = new Order();
+    API api = new API();
+    TradingEngine tradingEngine;
+    ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
+    private void setThresholdProfit(User user, double threshholdProfit) {
+        this.thresholdProfit = threshholdProfit;
+    }
+
+    ;
+
+    private void setThresholdLoss(Integer input) {
+        this.thresholdLoss = input;
+    }
+
+    ;
+
+    private void setProfitLossPerStock() {
+    }
+
+    ;
+
+    /*
+    public boolean setThresholdPrice(int userKey, double thresholdPrice, String stockName) {
+        //set in db
+
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "INSERT INTO thresholdTable (userKey, thresholdPrice, stockName) VALUES (?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, userKey);
+            statement.setDouble(2, thresholdPrice);
+            statement.setString(3, stockName);
+
+            // Execute the update statement
+            int rowsUpdated = statement.executeUpdate();
+            statement.close();
+            return rowsInserted > 0;
+         catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+    */
+    /*
+    public void getThresholdPrice(int userKey, String stockName){
+        //get the threshhold price based on stockname and userkey
+        //can be modified if only want based on userkey
+
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "SELECT thresholdPrice FROM lotpool WHERE stockName = ? AND userKey = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, stockName);
+            statement.setInt(2, userKey);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Stock stock = new Stock(resultSet.getString("symbol"), resultSet.getString("name"));
+                lotpool.put(stock, resultSet.getInt("share"));
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    */
+    // get all stocks that is owned by the user // Userid
+    // check for the threshold for any of the stocks owned // i assume this is under some class either(UserAuthetication)
+    // Where do we store User stocks
+    // send a notification everytime the threshold has been reached // You need to have the stock info from the market
+
+
+    //on button click do set true or set false, default true, assuming there are 2 buttons(enable/disable)
+    public boolean setNotificationSendSettingTrue() {
+        System.out.println("Notification setting has been turned on.");
+        return notificationSendSetting = true;
+    }
+
+    public boolean setNotificationSendSettingFalse() {
+        System.out.println("Notification setting has been turned off.");
+        return notificationSendSetting = false;
+    }
+
+
+    public void start() {
+        Timer timer = new Timer();
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                // Method to be called every 1 second
+                try {
+                    updateStockPrice(order);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+
+        // Schedule the task to run every 1 second
+        timer.schedule(task, 0, 1000);
+    }
+
+    public void updateStockPrice(Order order) throws IOException {
+        updatedStockPrice = api.getRealTimePrice(order.getStock().getSymbol());
+        this.updatedStockPrice = updatedStockPrice;
+        System.out.println("Stock price updated: " + updatedStockPrice);
+        if (updatedStockPrice >= 0) {
+            if (updatedStockPrice > thresholdPrice) {
+                sendNotification(1, order.getStock());
+            } else if (updatedStockPrice < thresholdPrice) {
+                sendNotification(2, order.getStock());
+            }
+        }
+
+    }
+    //handled by timer, every XX call this method
+
+    public void sendNotification(int caseSymbol, Stock stock) {
+        //initialising
+        String emailscol = "";
+        String subject = "";
+        String body = "";
+
+        switch (caseSymbol) {
+            case 1: //(updatedStockPrice > thresholdPrice)==true
+                body = "Your stock " + order.getType() + " has a profit of " + (thresholdPrice - updatedStockPrice);
+
+            case 2: //(updatedStockPrice < thresholdPrice)==true
+                body = "Your stock " + order.getType() + " has a loss of " + (updatedStockPrice - thresholdPrice);
+
+            case 3: //when buy order
+                body = "Notification: Thank you for buying. ";
+
+            case 4: //when sell order
+                body = "Notification: Stock has been sold. ";
+        }
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wsw1", "root", "abc123")) {
+            // Fetch email details from the database
+            String sql = "SELECT emailscol, subject, body FROM emails";
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(sql)) {
+
+                // Iterate over the result set
+                while (resultSet.next()) {
+                    // Get the email details from the result set
+                    emailscol = resultSet.getString("emailscol");
+                    subject = resultSet.getString("subject");
+                    body = resultSet.getString("body");
+
+                    // Use JavaMail API to send the email
+                    // Set the recipient email, subject, body, etc.
+                    // Send the email using SMTP server or other configuration
+                    //sendEmail(emailscol, subject, body);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
+    public void sendNotificationEnter() throws IOException { //when buy
+        if (notificationSendSetting = true) {
+            //send email
+            while (thresholdPrice != updatedStockPrice) {
+                updateStockPrice(order);
+            }
+        }
+    }
+
+    public void sendNotificationExit() { //when sell
+        if (notificationSendSetting = true) {
+            //send email
+        }
+    }
+}
+
+class SendEmail {
+
+    public static void main(String[] args) {
+        Properties props;
+        Session session;
+        MimeMessage message;
+
+        props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+
+
+        Authenticator auth = new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("sornphert03@gmail.com", "hhftdeernmxqlnaq");
+            }
+        };
+
+        session = Session.getInstance(props, auth);
+
+        try {
+
+            InternetAddress[] recipients = new InternetAddress[1];
+            recipients[0] = new InternetAddress("sornphert03@gmail.com");
+
+            message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("sornphert03@gmail.com"));
+            message.addRecipients(Message.RecipientType.TO, recipients);
+            message.setSubject("Testing");
+            message.setText("This is the first test email. ");
+
+            Transport.send(message);
+
+            System.out.println("Email sent");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
