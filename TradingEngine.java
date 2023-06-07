@@ -24,7 +24,7 @@ public class TradingEngine {
         }
         this.lotPool = new HashMap<>();
         for (Stock stock : stocks) {
-            lotPool.put(stock, 500); // Initialize the lotpool with 500 shares for each stock
+            lotPool.put(stock, 50000); // Initialize the lotpool with 50000 shares for each stock
         }
     }
 
@@ -39,17 +39,16 @@ public class TradingEngine {
                 if (isWithinInitialTradingPeriod()) {
                     boolean foundMatch = false;
 
-                    for (Order orderDb : db.loadOrders(order.getUserKey(), Order.Type.SELL)) {
+                    for (Order orderDb : db.loadOrders(order.getUserKey(), Order.Type.SELL)) { // if in sell order list
                         String symbolDb = orderDb.getStock().getSymbol();
                         if (symbolDb.equalsIgnoreCase(order.getStock().getSymbol())) {
                             tryExecuteBuyOrder(order, portfolio);
-
-                            db.removeOrder(order.getUserKey(),order);
+                            portfolio.addToTradeHistory(order);
+                            db.removeOrder(order.getUserKey(), order);
                             foundMatch = true;
                             break;
                         }
                     }
-
                     if (!foundMatch) {
                         tryExecuteBuyOrder(order, portfolio);
                         portfolio.addToTradeHistory(order);
@@ -63,7 +62,7 @@ public class TradingEngine {
         } else { // order type is sell
             boolean found = false;
 
-            for (Map.Entry<Order, Integer> entry : portfolio.getHoldings().entrySet()) {
+            for (Map.Entry<Order, Integer> entry : portfolio.getHoldings().entrySet()) { // sell stock in holdings only
                 Order orders = entry.getKey();
                 String stockSymbol = orders.getStock().getSymbol();
 
@@ -87,9 +86,9 @@ public class TradingEngine {
             }
         }
     }
+
     public void autoMatching(Order order, Portfolio portfolio) {
         boolean foundMatch = false;
-
         // Condition 1: Find order in the sell order list
         for (Order orderDb : db.loadOrders(order.getUserKey(), Order.Type.SELL)) {
             String symbolDb = orderDb.getStock().getSymbol();
@@ -102,14 +101,6 @@ public class TradingEngine {
         }
         if (!foundMatch) {
             // Condition 2: If not in the sell order list, check the lotpool
-
-//            Map<Stock, Integer> lotpoolDb = db.getLotPool(); // in displaySellOrders d
-//            for (Map.Entry<Stock, Integer> entry : lotpoolDb.entrySet()) {
-//                Stock stockDb = entry.getKey();
-//                int sharesDb = entry.getValue();
-//                lotPool.put(stockDb, sharesDb);
-//            }
-
             for (Map.Entry<Stock, Integer> entry : lotPool.entrySet()) {
                 Stock stock = entry.getKey();
                 int shares = entry.getValue();
@@ -137,8 +128,7 @@ public class TradingEngine {
     }
 
 
-    private void tryExecuteBuyOrder(Order order, Portfolio portfolio) { //need ziji remove from sellOrders/lotpool after this method is called
-        //List<Order> orders = buyOrders.get(order.getStock()); //loop buy order,if enough money, add buy order into portfolio
+    private void tryExecuteBuyOrder(Order order, Portfolio portfolio) {
         double price = order.getExpectedBuyingPrice();
         int shares = order.getShares();
 
@@ -198,7 +188,7 @@ public class TradingEngine {
             lotPool.clear();
             db.refreshLotPool();
             for (Stock stock : stocks) {
-                lotPool.put(stock, 500);
+                lotPool.put(stock, 50000);
             }
             System.out.println("Lot pool replenished for the day.");
         }
@@ -311,7 +301,7 @@ public class TradingEngine {
         if (isWithinTradingHours()) {
             System.out.println("The market is still open. Cannot close the market now.");
             return;
-        }else {
+        } else {
 
             // Check if the account balance is non-negative
             if (accountBalance >= 0) {
@@ -355,33 +345,50 @@ public class TradingEngine {
         }
     }
 
-    public void displayLotpoolSellOrders(Map<Stock, Integer> lotpoolDb, List<Order> sellOrders) { // sellOrderList
-        lotpoolDb = db.getLotPool();
-        for (Map.Entry<Stock, Integer> entry : lotpoolDb.entrySet()) {
-            Stock stockDb = entry.getKey();
-            int sharesDb = entry.getValue();
-            lotPool.put(stockDb, sharesDb);
-        }
+    public void displayLotpoolSellOrders(List<Order> sellOrders) { // sellOrderList
+        if (!isStartOfTradingDay()) {
+            Map<Stock, Integer> lotpoolDb = db.getLotPool();
+            for (Map.Entry<Stock, Integer> entry : lotpoolDb.entrySet()) {
+                Stock stockDb = entry.getKey();
+                int sharesDb = entry.getValue();
+                lotPool.put(stockDb, sharesDb);
+            }
 
-        System.out.println("Orders available: ");
-        System.out.printf("%-15s %-10s\n", "Stock", "Shares");
+            System.out.println("Orders available: ");
+            System.out.printf("%-20s %-10s\n", "Stock", "Shares");
 
-        for (Map.Entry<Stock, Integer> entry : lotPool.entrySet()) {
-            Stock stock = entry.getKey();
-            Integer value = entry.getValue();
-            System.out.printf("%-20s %-10s%n", stock.getSymbol(), value);
-        }
-//        for (Map.Entry<Stock, Integer> entry : lotpoolDb.entrySet()) {
-//            Stock stock = entry.getKey();
-//            Integer value = entry.getValue();
-//            System.out.printf("%-20s %-10s%n", stock.getSymbol(), value);
-//        }
-        System.out.println("Orders in sell order list: ");
-        for (Order order : sellOrders) {
-            System.out.printf("%-20s %-10s%n", order.getStock().getSymbol(), order.getShares());
+            for (Map.Entry<Stock, Integer> entry : lotPool.entrySet()) {
+                Stock stock = entry.getKey();
+                Integer value = entry.getValue();
+                System.out.printf("%-20s %-10s%n", stock.getSymbol(), value);
+            }
+
+            System.out.println("Orders in sell order list: ");
+            for (Order order : sellOrders) {
+                System.out.printf("%-20s %-10s%n", order.getStock().getSymbol(), order.getShares());
+            }
+        } else {
+            Map<Stock, Integer> lotpoolDb = db.getLotPool();
+            for (Map.Entry<Stock, Integer> entry : lotpoolDb.entrySet()) {
+                Stock stockDb = entry.getKey();
+                int sharesDb = entry.getValue();
+                lotPool.put(stockDb, sharesDb);
+            }
+
+            System.out.println("Orders available: ");
+            System.out.printf("%-20s %-10s\n", "Stock", "Shares");
+
+            for (Map.Entry<Stock, Integer> entry : lotPool.entrySet()) {
+                Stock stock = entry.getKey();
+                Integer value = entry.getValue();
+                System.out.printf("%-20s %-10s", stock.getSymbol(), "unlimited");
+            }
+            System.out.println("Orders in sell order list: ");
+            for (Order order : sellOrders) {
+                System.out.printf("%-20s %-10s%n", order.getStock().getSymbol(), order.getShares());
+            }
         }
     }
-
     private void displayBuyOrders(List<Order> orders) {
         for (Order order : orders) {
             System.out.println("Stock: " + order.getStock().getSymbol());
@@ -390,5 +397,4 @@ public class TradingEngine {
             System.out.println("-".repeat(30));
         }
     }
-
 }
