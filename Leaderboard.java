@@ -22,7 +22,6 @@ class Leaderboard {
     public void printLeaderboard() {
         Database db = new Database(); // Assuming you have the Database class available
 
-
         // Create a list of UserScore objects from the dashboard data
         List<UserScore> userScores = new ArrayList<>();
         for (Map.Entry<Integer, Double> entry : db.loadPLpoint().entrySet()) {

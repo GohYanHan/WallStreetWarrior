@@ -127,7 +127,6 @@ public class UserAuthentication {
                             buyStockSymbol = scanner.nextLine();
                             buyStock = findStockBySymbol(stocks, buyStockSymbol);
                         }
-
                         System.out.println("Enter quantity for buy order: ");
                         int buyQuantity = scanner.nextInt();
                         while (!isValidBuyQuantity(buyQuantity)) {

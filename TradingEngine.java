@@ -320,7 +320,6 @@ public class TradingEngine {
             }
         }
     }
-
     public void displaySuggestedPrice(String stockSymbol, int quantity) throws IOException {
         Stock stock = null;
 
