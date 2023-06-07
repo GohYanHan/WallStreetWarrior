@@ -12,7 +12,7 @@ public class Main {
 
         System.out.println("Welcome to the Application!");
         while (true) {
-            System.out.println("-----------------------------");
+            System.out.println("-".repeat(90));
             System.out.println("1. Register");
             System.out.println("2. Login");
             System.out.println("3. Forget Password");
@@ -20,7 +20,7 @@ public class Main {
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
-            System.out.println("-----------------------------");
+            System.out.println("-".repeat(90));
             switch (choice) {
                 case 1 -> {
                     if (userAuth.register())
@@ -55,7 +55,7 @@ public class Main {
                 case 3 -> userAuth.forgetPassword();
                 case 4 -> {
                     System.out.println("Exiting...");
-                    System.out.println("-----------------------------");
+                    System.out.println("-".repeat(90));
                     return;
                 }
                 default -> System.out.println("Invalid choice. Please try again.");

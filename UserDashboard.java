@@ -1,5 +1,6 @@
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class UserDashboard {
@@ -17,15 +18,41 @@ public class UserDashboard {
         System.out.println("Account Balance: $" + accountBalance);
     }
 
+
+    public double calculateProfitAndLoss() {
+        List<Order> tradeHistory = db.loadTransactionHistory(user.getKey());
+
+        double totalProfitAndLoss = 0.0;
+
+        for (Order buyOrder : tradeHistory) {
+            if (buyOrder.getType() == Order.Type.BUY) {
+                for (Order sellOrder : tradeHistory) {
+                    if (sellOrder.getType() == Order.Type.SELL
+                            && buyOrder.getStock().getSymbol().equals(sellOrder.getStock().getSymbol())) {
+                        double profitOrLoss = sellOrder.getExpectedSellingPrice() - buyOrder.getExpectedBuyingPrice();
+                        totalProfitAndLoss += profitOrLoss;
+                    }
+                }
+            }
+        }
+        return totalProfitAndLoss;
+    }
+
+
     public void displayCurrentPoints() {
         double startingBalance = 50000.0; // Assuming a fixed starting balance
 
-        //Overall account profit / loss  (account balance)
+        Map<Integer, Double> plPoints = db.loadPLpoint();
+        Double points = plPoints.get(user.getKey());
 
-        double pAndL = user.getPortfolio().getAccBalance() - startingBalance;
-        int points = (int) ((pAndL / startingBalance) * 100);
-        db.updateUserPLpoint(user.getKey(), points);
+
+        double pAndL = calculateProfitAndLoss();
+
+        points += ((pAndL / startingBalance) * 100);
         System.out.println("Current Points: " + points);
+
+        db.updateUserPLpoint(user.getKey(), points);
+
     }
 
 
