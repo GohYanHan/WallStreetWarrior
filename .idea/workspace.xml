@@ -5,16 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="Report">
+      <change afterPath="$PROJECT_DIR$/FinanceNewsAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdminPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdminPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Portfolio.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Database.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Order.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Report.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Report.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserDashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserDashboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wsw2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/wsw2.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,8 +54,22 @@
   }
 }</component>
   <component name="RunManager" selected="Application.Main">
+    <configuration name="FinanceNewsAPI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="FinanceNewsAPI" />
+      <module name="wsw2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="wsw2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NewsApiClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="NewsApiClient" />
       <module name="wsw2" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -74,6 +90,8 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.FinanceNewsAPI" />
+      <item itemvalue="Application.NewsApiClient" />
       <item itemvalue="Application.UserAuthentication" />
       <item itemvalue="Application.testAPI" />
       <item itemvalue="Application.Main" />
@@ -81,6 +99,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.FinanceNewsAPI" />
+        <item itemvalue="Application.NewsApiClient" />
         <item itemvalue="Application.testAPI" />
         <item itemvalue="Application.UserAuthentication" />
       </list>
@@ -172,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685885023719</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Report">
+      <created>1685977732504</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1685977732504</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

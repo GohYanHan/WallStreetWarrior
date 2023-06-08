@@ -152,7 +152,6 @@ public class Database {
             return false;
         }
     }
-
     public boolean addOrder(int userKey, Order order) {
         String sql = "INSERT INTO `order` (userKey, symbol, share, price, time, type) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
@@ -160,7 +159,11 @@ public class Database {
             statement.setInt(1, userKey);
             statement.setString(2, order.getStock().getSymbol());
             statement.setInt(3, order.getShares());
-            statement.setDouble(4, order.getPrice());
+            if (order.getType().equals(Order.Type.BUY))
+                statement.setDouble(4, order.getExpectedBuyingPrice());
+            else
+                statement.setDouble(4, order.getExpectedSellingPrice());
+
             statement.setTimestamp(5, java.sql.Timestamp.valueOf(order.getTimestamp()));
             statement.setString(6, order.getType().name());
 

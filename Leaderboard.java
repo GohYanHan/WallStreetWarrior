@@ -18,7 +18,7 @@ class UserScore {
     }
 }
 
-class Leaderboard {
+public class Leaderboard {
     public void printLeaderboard() {
         Database db = new Database(); // Assuming you have the Database class available
 

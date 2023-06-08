@@ -308,17 +308,17 @@ public class API {
 
 
 
-     void searchDisplayStocks(String jsonResponse, String searchQuery) {
+    void searchDisplayStocks(String jsonResponse, String searchQuery) {
         try {
             JSONArray jsonArray = new JSONArray(jsonResponse);
 
-             System.out.printf("%-12s\t%-40s\n", "Symbol", "Name");
-             System.out.println("----------------------------------------");
+            System.out.printf("%-12s\t%-40s\n", "Symbol", "Name");
+            System.out.println("----------------------------------------");
 
-             for (int i = 0; i < jsonArray.length(); i++) {
-                 JSONObject stockJson = jsonArray.getJSONObject(i);
-                 String symbol = stockJson.getString("symbol");
-                 String name = stockJson.getString("name");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject stockJson = jsonArray.getJSONObject(i);
+                String symbol = stockJson.getString("symbol");
+                String name = stockJson.getString("name");
 
                 // Use Boyer-Moore for string matching
                 char[] text = symbol.toCharArray();
