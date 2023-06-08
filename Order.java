@@ -7,7 +7,6 @@ public class Order {
         BUY,
         SELL
     }
-
     private Stock stock;
     private Type type;
     private int shares;
@@ -22,7 +21,7 @@ public class Order {
     private double price;
 
     private double expectedBuyingPrice;
-    private static double expectedSellingPrice;
+    private double expectedSellingPrice;
     private int userKey;
     private String symbol;
 
@@ -42,13 +41,15 @@ public class Order {
         this.timestamp = timestamp;
     }
 
-    public Order(int userKey, Stock stock, int shares, double expectedBuyingPrice, LocalDateTime timestamp, Type type) {
+    public Order(int userKey, Stock stock, int shares, double price, LocalDateTime timestamp, Type type) {
         this.stock = stock;
         this.userKey = userKey;
         this.shares = shares;
-        this.expectedBuyingPrice = expectedBuyingPrice;
         this.timestamp = timestamp;
         this.type = type;
+        if (type == Type.BUY)
+            this.expectedBuyingPrice = price;
+        else this.expectedSellingPrice = price;
     }
 
     public String getSymbol() {
@@ -75,7 +76,7 @@ public class Order {
         return expectedBuyingPrice;
     }
 
-    public static double getExpectedSellingPrice() {
+    public double getExpectedSellingPrice() {
         return expectedSellingPrice;
     }
 
