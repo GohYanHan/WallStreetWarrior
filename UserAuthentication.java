@@ -11,6 +11,8 @@ public class UserAuthentication {
     private final Scanner scanner = new Scanner(System.in);
     private final FinanceNewsAPI financeNewsAPI = new FinanceNewsAPI();
 
+    private final Notification notification = new Notification();
+
     public UserAuthentication() {
 
     }
@@ -107,7 +109,8 @@ public class UserAuthentication {
             System.out.println("4. Cancel pending orders");
             System.out.println("5. Display dashboard");
             System.out.println("6. Generate Report");
-            System.out.println("7. Log out");
+            System.out.println("7. Notification Settings");
+            System.out.println("8. Log out");
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -117,7 +120,7 @@ public class UserAuthentication {
                     scanner.nextLine();
                     if (choice == 1) {
                         // Display stock in sellOrder list
-                        tradingEngine.displayLotpoolSellOrders(db.getLotPool(), sellOrderList);
+                        tradingEngine.displayLotpoolSellOrders(sellOrderList);
                         // Place a buy order
                         System.out.println("Enter stock symbol for buy order: ");
                         String buyStockSymbol = scanner.nextLine();
@@ -129,7 +132,6 @@ public class UserAuthentication {
                             buyStockSymbol = scanner.nextLine();
                             buyStock = findStockBySymbol(stocks, buyStockSymbol);
                         }
-
                         System.out.println("Enter quantity for buy order: ");
                         int buyQuantity = scanner.nextInt();
                         while (!isValidBuyQuantity(buyQuantity)) {
@@ -167,7 +169,6 @@ public class UserAuthentication {
                             } else {
                                 tradingEngine.executeOrder(buyOrder, portfolio);
                             }
-
                         } else {
                             System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
                         }
@@ -240,9 +241,26 @@ public class UserAuthentication {
 
                 case 6:
                     report.generateReport();
+                    notification.sendNotification(5);
                     break;
 
                 case 7:
+                    System.out.println("Notification \n1.turn ON \n2.turn OFF");
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
+                    if (choice == 1) {
+                        notification.setNotificationSendSettingTrue();
+                        break;
+                    } else if (choice == 2) {
+                        notification.setNotificationSendSettingFalse();
+                        break;
+                    } else {
+                        System.out.println("Execution invalid");
+                        break;
+                    }
+
+
+                case 8:
                     System.out.println("Logged out successfully!");
                     System.out.println("-".repeat(90));
                     return;

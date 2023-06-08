@@ -14,6 +14,11 @@ public class Order {
     private LocalDateTime timestamp;
     private User user;
 
+    public Order() {
+    }
+
+    ;
+
     private double price;
 
     private double expectedBuyingPrice;
@@ -27,7 +32,7 @@ public class Order {
         this.stock = stock;
     }
 
-    public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user,LocalDateTime timestamp) {
+    public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user, LocalDateTime timestamp) {
         this.stock = stock;
         this.type = type;
         this.shares = shares;
