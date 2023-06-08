@@ -162,7 +162,7 @@ public class UserAuthentication {
                             if (character == 'y') {
                                 db.addOrder(user.getKey(), buyOrder);
                                 System.out.println("Buy order added into pending buy order list.");
-                                if (tradingEngine.executeOrder(buyOrder, portfolio)) { // how to make it keep check
+                                if (tradingEngine.autoMatching(db.loadOrders(user.getKey(), Order.Type.BUY), portfolio)) { // how to make it keep check
                                     db.removeOrder(user.getKey(), buyOrder); // if successfully execute buy order remove from pending buy order
                                 }
                             } else {

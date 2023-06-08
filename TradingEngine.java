@@ -4,6 +4,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class TradingEngine {
     private List<Stock> stocks;
@@ -65,6 +67,7 @@ public class TradingEngine {
 
     private void findMatch(Order order, Portfolio portfolio) throws IOException {
         boolean foundMatch = false;
+        double currentPrice = api.getRealTimePrice(order.getStock().getSymbol());
 
         // Condition 1: Find order in the sell order list
         for (Order orderDb : db.loadOrders(order.getUserKey(), Order.Type.SELL)) {
@@ -86,7 +89,6 @@ public class TradingEngine {
                 int shares = entry.getValue();
                 String stockSymbol = stock.getSymbol();
 
-                double currentPrice = api.getRealTimePrice(stockSymbol);
                 if (isPriceWithinRange(order.getExpectedBuyingPrice(), currentPrice, 1)) {
                     if (!isWithinInitialTradingPeriod() && stockSymbol.equalsIgnoreCase(order.getStock().getSymbol()) && order.getShares() <= shares) {
                         int updatedShares = lotPool.get(order.getStock()) - order.getShares();
@@ -97,11 +99,11 @@ public class TradingEngine {
                             foundMatch = true;
                             break;
                         }
+                    } else if (isWithinInitialTradingPeriod() && stockSymbol.equalsIgnoreCase(order.getStock().getSymbol())) { // First 3 days buy whatever in lotpool
+                        tryExecuteBuyOrder(order, portfolio);
+                        foundMatch = true;
+                        break;
                     }
-                } else if (isWithinInitialTradingPeriod() && stockSymbol.equalsIgnoreCase(order.getStock().getSymbol())) { // First 3 days buy whatever in lotpool
-                    tryExecuteBuyOrder(order, portfolio);
-                    foundMatch = true;
-                    break;
                 }
 //                else {
 //                    // Condition 3: If not found in both conditions 1 and 2, stock is not available
@@ -145,6 +147,20 @@ public class TradingEngine {
         System.out.println("Sell order executed successfully.");
     }
 
+    public void runAutoMatchingInBackground(List<Order> orders, Portfolio portfolio) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            try {
+                autoMatching(orders, portfolio);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        executor.shutdown();
+    }
+
     public boolean autoMatching(List<Order> orders, Portfolio portfolio) throws IOException {
         boolean allBuyOrdersMatched = false;
 
@@ -152,6 +168,7 @@ public class TradingEngine {
             for (Order order : orders) {
                 findMatch(order, portfolio);
             }
+
             // Check if all buy orders are matched
             allBuyOrdersMatched = true;
             for (Order order : orders) {
@@ -165,10 +182,12 @@ public class TradingEngine {
         return allBuyOrdersMatched;
     }
 
+
     public boolean isWithinInitialTradingPeriod() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.of(currentTime.getYear(), currentTime.getMonth(), currentTime.getDayOfMonth(), 0, 0)
-                .plusDays(3); // Add 3 days to the current date
+//                .plusDays(3); // Add 3 days to the current date
+                .plusMinutes(1);
         return currentTime.isBefore(endTime);
     }
 
@@ -288,9 +307,13 @@ public class TradingEngine {
     }
 
 
-    public boolean closeMarket(double accountBalance) { // argument = portfolio.getAccBalance()
+    public void closeMarket(User user) { // argument = portfolio.getAccBalance()
+        if (user.getBalance() >= 25000) {
+            db.disqualifyUser(user.getEmail());
+            System.out.println("You have been disqualified. Your account balance is exceed 50% of initial balance.");
+        }
         // Check if the account balance is non-negative
-        if (accountBalance >= 0) {
+        if (user.getBalance() >= 0) {
             // Perform any necessary actions to finalize the market closing
 
             // Reset the buy and sell orders values in api
@@ -300,10 +323,8 @@ public class TradingEngine {
                 buyOrders.put(stock, new ArrayList<>());
                 sellOrders.put(stock, new ArrayList<>());
             }
-
-            return true; // Market closed successfully
         } else {
-            return false; // Failed to close the market
+            System.out.println("User balance is negative.");
         }
     }
 
