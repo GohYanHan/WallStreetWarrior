@@ -120,7 +120,7 @@ public class UserAuthentication {
                     scanner.nextLine();
                     if (choice == 1) {
                         // Display stock in sellOrder list
-                        tradingEngine.displayLotpoolSellOrders(db.getLotPool(), sellOrderList);
+                        tradingEngine.displayLotpoolSellOrders(sellOrderList);
                         // Place a buy order
                         System.out.println("Enter stock symbol for buy order: ");
                         String buyStockSymbol = scanner.nextLine();
@@ -132,7 +132,6 @@ public class UserAuthentication {
                             buyStockSymbol = scanner.nextLine();
                             buyStock = findStockBySymbol(stocks, buyStockSymbol);
                         }
-
                         System.out.println("Enter quantity for buy order: ");
                         int buyQuantity = scanner.nextInt();
                         while (!isValidBuyQuantity(buyQuantity)) {
@@ -170,7 +169,6 @@ public class UserAuthentication {
                             } else {
                                 tradingEngine.executeOrder(buyOrder, portfolio);
                             }
-
                         } else {
                             System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
                         }
