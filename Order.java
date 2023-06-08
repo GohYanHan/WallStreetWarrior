@@ -7,7 +7,6 @@ public class Order {
         BUY,
         SELL
     }
-
     private Stock stock;
     private Type type;
     private int shares;
