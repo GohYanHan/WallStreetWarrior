@@ -243,6 +243,7 @@ public class UserAuthentication {
 
                 case 6:
                     report.generateReport();
+                    notification.sendNotification(5);
                     break;
 
                 case 7:

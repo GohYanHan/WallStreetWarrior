@@ -1,8 +1,13 @@
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.io.IOException;
-import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -11,19 +16,27 @@ import java.util.concurrent.ScheduledExecutorService;
 
 
 class Notification {
-    private double updatedStockPrice;
+    double updatedStockPrice;
     static boolean notificationSendSetting = true; //default true
     private double thresholdProfit = 0; //default null
     private double thresholdLoss = 0; //default null
-    private double thresholdPrice = 0;
+    double thresholdPrice = 0;
     private static double boughtPrice; // This attribute should fall under Orders or Portfolio?
     private double profitLossPerStock; // should = boughtPrice - currentPrice of Stock
     User user;
     Stock stock = new Stock();
     Order order = new Order();
     API api = new API();
+    Database database = new Database();
+
     TradingEngine tradingEngine;
     ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
+    /*Notification(){
+        this.thresholdPrice=thresholdPrice;
+        this.updatedStockPrice= updatedStockPrice;
+
+    }*/
 
     private void setThresholdProfit(User user, double threshholdProfit) {
         this.thresholdProfit = threshholdProfit;
@@ -133,15 +146,15 @@ class Notification {
         System.out.println("Stock price updated: " + updatedStockPrice);
         if (updatedStockPrice >= 0) {
             if (updatedStockPrice > thresholdPrice) {
-                sendNotification(1, order.getStock());
+                sendNotification(1/*, order.getStock()*/);
             } else if (updatedStockPrice < thresholdPrice) {
-                sendNotification(2, order.getStock());
+                sendNotification(2/*, order.getStock()*/);
             }
         }
 
     }
     //handled by timer, every XX call this method
-
+/*
     public void sendNotification(int caseSymbol, Stock stock) {
         //initialising
         String emailscol = "";
@@ -185,7 +198,7 @@ class Notification {
             throw new RuntimeException(ex);
         }
     }
-
+*/
 
     public void sendNotificationEnter() throws IOException { //when buy
         if (notificationSendSetting = true) {
@@ -201,11 +214,9 @@ class Notification {
             //send email
         }
     }
-}
 
-class SendEmail {
 
-    public static void main(String[] args) {
+    public void sendNotification(int caseSymbol/*, Stock stock*/) {
         Properties props;
         Session session;
         MimeMessage message;
@@ -217,6 +228,7 @@ class SendEmail {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 
+        User user = database.getUser();
 
         Authenticator auth = new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -234,12 +246,46 @@ class SendEmail {
             message = new MimeMessage(session);
             message.setFrom(new InternetAddress("sornphert03@gmail.com"));
             message.addRecipients(Message.RecipientType.TO, recipients);
-            message.setSubject("Testing");
-            message.setText("This is the first test email. ");
+            message.setSubject("WallStreetWarrior");
+
+            switch (caseSymbol) {
+                case 1: //(updatedStockPrice > thresholdPrice)==true
+                    message.setText("Your stock " + /*order.getStock() +*/ " has a profit of " + (thresholdPrice - updatedStockPrice));
+                    break;
+
+                case 2: //(updatedStockPrice < thresholdPrice)==true
+                    message.setText("Your stock " + order.getStock() + " has a loss of " + (updatedStockPrice - thresholdPrice));
+                    break;
+
+                case 3: //when buy order
+                    message.setText("Your purchase order has went through successfully. ");
+                    break;
+
+                case 4: //when sell order
+                    message.setText("Your stock has successfully been put up for sale. ");
+                    break;
+
+                case 5:
+                    BodyPart attachment2 = new MimeBodyPart();
+                    attachment2.setDataHandler(new DataHandler(new FileDataSource(System.getProperty("user.home") + "/Downloads/" + user.getUsername() + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".txt")));
+                    attachment2.setFileName("User Report");
+
+                    BodyPart emailText = new MimeBodyPart();
+                    emailText.setText(" ");
+
+                    Multipart multipartContent = new MimeMultipart();
+                    //multipartContent.addBodyPart(attachment1);
+                    multipartContent.addBodyPart(attachment2);
+                    multipartContent.addBodyPart(emailText);
+
+                    message.setContent(multipartContent);
+
+            }
+
 
             Transport.send(message);
 
-            System.out.println("Email sent");
+            System.out.println("Email sent successfully.");
         } catch (MessagingException e) {
             e.printStackTrace();
         }
