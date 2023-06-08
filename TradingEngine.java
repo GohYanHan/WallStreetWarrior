@@ -13,6 +13,7 @@ public class TradingEngine {
     API api = new API();
 
     private final Database db = new Database();
+    Notification notification = new Notification();
 
     public TradingEngine() throws IOException {
         this.stocks = api.extractStocks();
@@ -151,6 +152,7 @@ public class TradingEngine {
             portfolio.addToTradeHistory(order);
 //          db.removeOrder(order.getUserKey(), order.getStock().getSymbol(), order.getShares(), Order.Type.BUY);
             System.out.println("Buy order executed successfully.");
+            notification.sendNotification(3);
         } else {
             System.out.println("Not enough money");
         }
@@ -167,6 +169,7 @@ public class TradingEngine {
         portfolio.removeStock(order, shares); // remove share num
         db.removeOrder(order.getUserKey(), order);
         System.out.println("Sell order executed successfully.");
+        notification.sendNotification(4/*, order.getStock()*/);
     }
 
     public boolean executeBuyOrdersMatch(Order order, Portfolio portfolio) throws IOException {
