@@ -152,7 +152,6 @@ public class Database {
             return false;
         }
     }
-
     public boolean addOrder(int userKey, Order order) {
         String sql = "INSERT INTO `order` (userKey, symbol, share, price, time, type) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
