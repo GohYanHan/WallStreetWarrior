@@ -10,8 +10,9 @@ public class UserAuthentication {
     private final Database db = new Database();
     private final Scanner scanner = new Scanner(System.in);
     private final FinanceNewsAPI financeNewsAPI = new FinanceNewsAPI();
+    private final TradingEngine tradingEngine = new TradingEngine();
 
-    public UserAuthentication() {
+    public UserAuthentication() throws IOException {
 
     }
 
@@ -52,7 +53,7 @@ public class UserAuthentication {
                 System.out.println("Welcome, " + user.getUsername() + "!");
                 System.out.println("-".repeat(90));
                 System.out.println("Displaying news today...");
-                financeNewsAPI.getNews();
+//                financeNewsAPI.getNews();
                 return true;
             }
         }
@@ -91,8 +92,12 @@ public class UserAuthentication {
         return null;
     }
 
-    private boolean isValidBuyQuantity(int quantity) {
-        return quantity >= 100 && quantity <= 500;
+    private boolean isValidQuantity(int quantity) {
+        if (!tradingEngine.isWithinInitialTradingPeriod()) {
+            return quantity >= 100 && quantity <= 500;
+        } else {
+            return quantity >= 100;
+        }
     }
 
     public void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine, Report report) throws IOException {
@@ -114,7 +119,7 @@ public class UserAuthentication {
                     choice = scanner.nextInt();
                     scanner.nextLine();
                     if (choice == 1) {
-                        // Display stock in sellOrder list
+                        // Display stock in sellOrder list & api
                         tradingEngine.displayLotpoolSellOrders(sellOrderList);
                         // Place a buy order
                         System.out.println("Enter stock symbol for buy order: ");
@@ -129,8 +134,8 @@ public class UserAuthentication {
                         }
                         System.out.println("Enter quantity for buy order: ");
                         int buyQuantity = scanner.nextInt();
-                        while (!isValidBuyQuantity(buyQuantity)) {
-                            System.out.println("Invalid quantity. Minimum order quantity is 100 shares (one lot), and maximum is 500 shares.");
+                        while (!isValidQuantity(buyQuantity)) {
+                            System.out.println("Invalid quantity. Minimum buy order quantity is 100 shares (one lot), and maximum is 500 shares.");
                             System.out.println("Enter quantity for buy order: ");
                             buyQuantity = scanner.nextInt();
                         }
@@ -157,8 +162,7 @@ public class UserAuthentication {
                             if (character == 'y') {
                                 db.addOrder(user.getKey(), buyOrder);
                                 System.out.println("Buy order added into pending buy order list.");
-                                if (tradingEngine.executeBuyOrdersMatch(buyOrder, portfolio)) {
-                                    tradingEngine.executeOrder(buyOrder, portfolio);
+                                if (tradingEngine.executeOrder(buyOrder, portfolio)) { // how to make it keep check
                                     db.removeOrder(user.getKey(), buyOrder); // if successfully execute buy order remove from pending buy order
                                 }
                             } else {
@@ -183,6 +187,11 @@ public class UserAuthentication {
 
                         System.out.print("Enter quantity for sell order: ");
                         int sellQuantity = scanner.nextInt();
+                        while (sellQuantity < 100) {
+                            System.out.println("Invalid quantity. Minimum sell order quantity is 100 shares (one lot).");
+                            System.out.println("Enter quantity for sell order: ");
+                            sellQuantity = scanner.nextInt();
+                        }
 
                         // Display suggested price for a stock
                         tradingEngine.displaySuggestedPrice(sellStockSymbol, sellQuantity);
@@ -197,9 +206,10 @@ public class UserAuthentication {
                         sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                         if (sellStock != null) {
                             LocalDateTime timestamp = LocalDateTime.now();
-                            Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, sellExpectedPrice, user,timestamp);
-                            db.addOrder(user.getKey(), sellOrder);
-                            tradingEngine.executeOrder(sellOrder, portfolio);
+                            Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, formattedSellingPrice, user, timestamp);
+                            if (tradingEngine.executeOrder(sellOrder, portfolio)) {
+                                db.addOrder(user.getKey(), sellOrder);
+                            }
 
                         } else {
                             System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
@@ -212,7 +222,7 @@ public class UserAuthentication {
                     break;
 
                 case 3:
-                    tradingEngine.cancelBuyOrder(buyOrderList, portfolio);
+                    tradingEngine.cancelBuyOrder(buyOrderList);
                     break;
 
                 case 4:

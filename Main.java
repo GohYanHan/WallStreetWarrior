@@ -41,12 +41,16 @@ public class Main {
                         } else {
                             // Create a list of stocks
                             TradingEngine tradingEngine = new TradingEngine();
-
+//                            tradingEngine.autoMatching(db.loadOrders(user.getKey(), Order.Type.BUY), user.getPortfolio());
 //                            if (tradingEngine.isWithinTradingHours()) {
                             userAuth.loopTrade(api.extractStocks(), user.getPortfolio(), user, tradingEngine, report);
 
 //                            } else {
-//                                System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
+//                                if(tradingEngine.closeMarket(db.getUser().getBalance())) {
+//                                    System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
+//                                } else {
+//                                    System.out.println("Cannot close the market. Account balance is negative.");
+//                                }
 //                            }
                         }
                     }
