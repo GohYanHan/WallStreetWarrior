@@ -15,6 +15,7 @@ public class TradingEngine {
     API api = new API();
 
     private final Database db = new Database();
+    Notification notification = new Notification();
 
     public TradingEngine() throws IOException {
         this.stocks = api.extractStocks();
@@ -130,6 +131,7 @@ public class TradingEngine {
             portfolio.addStock(order, shares);
             portfolio.addToTradeHistory(order);
             System.out.println("Buy order executed successfully.");
+            notification.sendNotification(3);
         } else {
             System.out.println("Not enough money");
         }
@@ -145,6 +147,7 @@ public class TradingEngine {
         portfolio.removeValue(price);
         portfolio.removeStock(order, shares); // remove share num
         System.out.println("Sell order executed successfully.");
+        notification.sendNotification(4/*, order.getStock()*/);
     }
 
     public void runAutoMatchingInBackground(List<Order> orders, Portfolio portfolio) {
