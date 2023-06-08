@@ -53,8 +53,8 @@ public class UserAuthentication {
                 System.out.println("Login successful!");
                 System.out.println("Welcome, " + user.getUsername() + "!");
                 System.out.println("-".repeat(90));
-                System.out.println("Displaying news today...");
-                financeNewsAPI.getNews();
+//                System.out.println("Displaying news today...");
+//                financeNewsAPI.getNews();
                 return true;
             }
         }
@@ -122,7 +122,7 @@ public class UserAuthentication {
                         // Display stock in sellOrder list
                         tradingEngine.displayLotpoolSellOrders(sellOrderList);
                         // Place a buy order
-                        System.out.println("Enter stock symbol for buy order: ");
+                        System.out.print("Enter stock symbol for buy order: ");
                         String buyStockSymbol = scanner.nextLine();
 
                         // Find the stock by symbol
@@ -132,18 +132,19 @@ public class UserAuthentication {
                             buyStockSymbol = scanner.nextLine();
                             buyStock = findStockBySymbol(stocks, buyStockSymbol);
                         }
-                        System.out.println("Enter quantity for buy order: ");
+
+                        System.out.print("Enter quantity for buy order: ");
                         int buyQuantity = scanner.nextInt();
                         while (!isValidBuyQuantity(buyQuantity)) {
                             System.out.println("Invalid quantity. Minimum order quantity is 100 shares (one lot), and maximum is 500 shares.");
-                            System.out.println("Enter quantity for buy order: ");
+                            System.out.print("Enter quantity for buy order: ");
                             buyQuantity = scanner.nextInt();
                         }
 
                         // Display suggested price for a stock
                         tradingEngine.displaySuggestedPrice(buyStockSymbol, buyQuantity);
 
-                        System.out.println("Enter expected buying price: "); // if add into pending order list then no condition
+                        System.out.print("Enter expected buying price: "); // if add into pending order list then no condition
                         double buyExpectedPrice = scanner.nextDouble();
 
                         // Format the user input to two decimal points
@@ -154,7 +155,7 @@ public class UserAuthentication {
 
                         if (buyStock != null) {
                             LocalDateTime timestamp = LocalDateTime.now();
-                            System.out.println("Add to pending order? [y/n]");
+                            System.out.print("Add to pending order? [y/n]");
                             String choose = scanner.next();
                             char character = choose.charAt(0);
                             Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user,timestamp);
