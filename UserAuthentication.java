@@ -11,6 +11,8 @@ public class UserAuthentication {
     private final Scanner scanner = new Scanner(System.in);
     private final FinanceNewsAPI financeNewsAPI = new FinanceNewsAPI();
 
+    private final Notification notification = new Notification();
+
     public UserAuthentication() {
 
     }
@@ -102,10 +104,13 @@ public class UserAuthentication {
 
             // Choose between buying or selling
             System.out.println("1. Buy or sell stock");
-            System.out.println("2. Show current stock owned");
-            System.out.println("3. Cancel pending orders");
-            System.out.println("4. Generate Report");
-            System.out.println("5. Log out");
+            System.out.println("2. Search stock");
+            System.out.println("3. Show current stock owned");
+            System.out.println("4. Cancel pending orders");
+            System.out.println("5. Display dashboard");
+            System.out.println("6. Generate Report");
+            System.out.println("7. Notification Settings");
+            System.out.println("8. Log out");
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -207,19 +212,55 @@ public class UserAuthentication {
                     }
                     break;
 
+
                 case 2:
-                    portfolio.displayHoldings();
+                    Scanner k = new Scanner(System.in);
+                    System.out.println("Search stock using name or symbol. ");
+                    String searchstring = k.nextLine();
+
+                    search stocksearch = new search();
+                    stocksearch.searchStocks(searchstring);
                     break;
 
                 case 3:
-                    tradingEngine.cancelBuyOrder(buyOrderList, portfolio);
+                    portfolio.displayHoldings();
                     break;
 
                 case 4:
-                    report.generateReport();
+                    tradingEngine.cancelBuyOrder(buyOrderList, portfolio);
                     break;
 
                 case 5:
+                    UserDashboard dashboard = new UserDashboard(user);
+                    dashboard.displayAccountBalance();
+                    dashboard.displayCurrentPoints();
+                    dashboard.displayOpenPositions();
+                    dashboard.displayTradeHistory();
+                    dashboard.chooseSort();
+                    break;
+
+                case 6:
+                    report.generateReport();
+                    notification.sendNotification(5);
+                    break;
+
+                case 7:
+                    System.out.println("Notification \n1.turn ON \n2.turn OFF");
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
+                    if (choice == 1) {
+                        notification.setNotificationSendSettingTrue();
+                        break;
+                    } else if (choice == 2) {
+                        notification.setNotificationSendSettingFalse();
+                        break;
+                    } else {
+                        System.out.println("Execution invalid");
+                        break;
+                    }
+
+
+                case 8:
                     System.out.println("Logged out successfully!");
                     System.out.println("-".repeat(90));
                     return;
