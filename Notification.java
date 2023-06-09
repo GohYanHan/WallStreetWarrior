@@ -5,6 +5,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -194,11 +195,11 @@ class Notification {
 
             switch (caseSymbol) {
                 case 1: //(updatedStockPrice > thresholdPrice)==true
-                    message.setText("Your stock " + /*order.getStock() +*/ " has a profit of " + (thresholdPrice - updatedStockPrice));
+                    message.setText("Your stock " + stock.getName() + " (" + stock.getSymbol() + ") has a profit of " + (thresholdPrice - updatedStockPrice));
                     break;
 
                 case 2: //(updatedStockPrice < thresholdPrice)==true
-                    message.setText("Your stock " + order.getStock() + " has a loss of " + (updatedStockPrice - thresholdPrice));
+                    message.setText("Your stock " + stock.getName() + " (" + stock.getSymbol() + ") has a loss of " + (updatedStockPrice - thresholdPrice));
                     break;
 
                 case 3: //when buy order
@@ -211,14 +212,14 @@ class Notification {
 
                 case 5:
                     BodyPart attachment2 = new MimeBodyPart();
-                    attachment2.setDataHandler(new DataHandler(new FileDataSource(System.getProperty("user.home") + "/Downloads/" + user.getUsername() + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".txt")));
-                    attachment2.setFileName("User Report");
+                    File pdfFile = new File(System.getProperty("user.home") + "/Downloads/" + user.getUsername() + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".pdf");
+                    attachment2.setDataHandler(new DataHandler(new FileDataSource(pdfFile)));
+                    attachment2.setFileName("UserReport.pdf"); // Set the desired file name for the attachment
 
                     BodyPart emailText = new MimeBodyPart();
                     emailText.setText(" ");
 
                     Multipart multipartContent = new MimeMultipart();
-                    //multipartContent.addBodyPart(attachment1);
                     multipartContent.addBodyPart(attachment2);
                     multipartContent.addBodyPart(emailText);
 

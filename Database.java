@@ -1,6 +1,3 @@
-//import javafx.collections.FXCollections;
-//import javafx.collections.ObservableList;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +22,7 @@ public class Database {
         Database.user = user;
     }
 
+    // Store only the remaining stock after bought by user in lot pool to database
     public boolean storeLotPool(Stock stock, int share) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "INSERT INTO lotpool (symbol, name, share) VALUES (?, ?, ?)";
@@ -42,7 +40,7 @@ public class Database {
             return false;
         }
     }
-
+    // Get the remaining stock in lot pool from database
     public Map<Stock, Integer> getLotPool() {
         Map<Stock, Integer> lotpool = new HashMap<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
@@ -63,6 +61,7 @@ public class Database {
         return lotpool;
     }
 
+    // Refresh the lot pool to initial
     public boolean refreshLotPool() {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "DELETE FROM lotpool";
@@ -78,6 +77,7 @@ public class Database {
     }
 
 
+    // Add holdings of users into database
     boolean addHoldings(int userKey, Stock stock, int share) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "INSERT INTO holdings (userKey, symbol, name, share) VALUES (?, ?, ?, ?)";
@@ -97,6 +97,7 @@ public class Database {
         }
     }
 
+    // Load users holdings from database
     public Map<Order, Integer> loadHolding(int userKey) {
         Map<Order, Integer> holding = new HashMap<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
@@ -118,6 +119,7 @@ public class Database {
         return holding;
     }
 
+    // Remove holdings from users in database
     boolean removeHolding(int userKey, Stock stock) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "DELETE FROM holdings WHERE userKey = ? AND symbol = ?";
@@ -135,6 +137,7 @@ public class Database {
         return false;
     }
 
+    // Update user holding (shares) when buying the same stock
     boolean updateHolding(int userKey, Stock stock, int updateShares) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "UPDATE holdings SET share = ? WHERE userKey = ? AND symbol = ?";
@@ -152,6 +155,8 @@ public class Database {
             return false;
         }
     }
+
+    // Add users order into database (Type is BUY or SELL)
     public boolean addOrder(int userKey, Order order) {
         String sql = "INSERT INTO `order` (userKey, symbol, share, price, time, type) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
@@ -177,6 +182,7 @@ public class Database {
         }
     }
 
+    // Load users order from database (Type is BUY or SELL)
     public List<Order> loadOrders(int userKey, Order.Type type) {
         List<Order> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
@@ -212,6 +218,7 @@ public class Database {
         return list;
     }
 
+    // Cancel users order from database (Type is BUY or SELL)
     boolean removeOrder(int userKey, Order order) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "DELETE FROM `order` WHERE userKey = ? AND symbol = ? AND share = ? AND type = ?";
@@ -231,6 +238,7 @@ public class Database {
         return false;
     }
 
+    // Add users transaction history into database (Type is BUY or SELL)
     public boolean addTransactionHistory(int userKey, Order order) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "INSERT INTO history (userKey, symbol, name, share, price, time, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -239,7 +247,10 @@ public class Database {
             statement.setString(2, order.getStock().getSymbol());
             statement.setString(3, order.getStock().getName());
             statement.setInt(4, order.getShares());
-            statement.setDouble(5, order.getPrice());
+            if (order.getType().equals(Order.Type.BUY))
+                statement.setDouble(5, order.getExpectedBuyingPrice());
+            else
+                statement.setDouble(5, order.getExpectedSellingPrice());
             statement.setTimestamp(6, java.sql.Timestamp.valueOf(order.getTimestamp()));
             statement.setString(7, order.getType().name());
 
@@ -253,6 +264,7 @@ public class Database {
         }
     }
 
+    // Load users transaction history from database (Type is BUY or SELL)
     public List<Order> loadTransactionHistory(int userKey) {
         List<Order> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
@@ -262,11 +274,6 @@ public class Database {
             statement.setInt(1, userKey);
             ResultSet resultSet = statement.executeQuery();
 
-//            while (resultSet.next()) {
-//                list.add(new Order(resultSet.getInt("userKey"), resultSet.getString("symbol"),
-//                        resultSet.getInt("share"), resultSet.getDouble("price"),
-//                        resultSet.getTimestamp("time").toLocalDateTime()), Order.Type.valueOf(resultSet.getString("type")));
-//            }
             while (resultSet.next()) {
                 String typeStr = resultSet.getString("type");
                 // Convert the type string to the enum type
@@ -285,6 +292,7 @@ public class Database {
         return list;
     }
 
+    // Add users into database
     public boolean addUser(String email, String hashedPassword, String username) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "INSERT INTO users (userEmail, userPassword, userName) VALUES (?, ?, ?)";
@@ -305,6 +313,7 @@ public class Database {
         }
     }
 
+    // Load users from database
     public User loadUser(String inputEmail) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "SELECT * FROM users WHERE userEmail = ?";
@@ -317,12 +326,6 @@ public class Database {
                 user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
                         resultSet.getInt("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds")));
-//                if (user.getRole().equals("Admin")) {
-////                    dk wht to do
-//                } else if (user.getRole().equals("User")) {
-//                    user.setBalance(resultSet.getDouble("userBalance"));
-//                    user.setPL_Points(resultSet.getInt("PL_Points"));
-//                }
                 return user;
             }
 
@@ -335,6 +338,7 @@ public class Database {
         return null;
     }
 
+    // Remove users from database
     boolean removeUser(String email) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "DELETE FROM users WHERE userEmail = ?";
@@ -350,6 +354,7 @@ public class Database {
         }
     }
 
+    // Update users PL points into database
     boolean updateUserPLpoint(int userKey, double pl_points) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "UPDATE users SET PL_Points = ? WHERE userKey = ?";
@@ -368,6 +373,7 @@ public class Database {
         }
     }
 
+    // Load users PL points from database
     public Map<Integer, Double> loadPLpoint() {
         Map<Integer, Double> plPoints = new HashMap<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
@@ -376,7 +382,7 @@ public class Database {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                plPoints.put(resultSet.getInt("userKey"),resultSet.getDouble("PL_Points"));
+                plPoints.put(resultSet.getInt("userKey"), resultSet.getDouble("PL_Points"));
             }
 
             resultSet.close();
@@ -387,6 +393,7 @@ public class Database {
         return plPoints;
     }
 
+    // Update users thresholds into database
     boolean updateUserThresholds(int userKey, double thresholds) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "UPDATE users SET thresholds = ? WHERE userKey = ?";
@@ -405,6 +412,7 @@ public class Database {
         }
     }
 
+    // Update users balance into database
     boolean updateUserBalance(int userKey, double balance) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "UPDATE users SET userBalance = ? WHERE userKey = ?";
@@ -423,6 +431,7 @@ public class Database {
         }
     }
 
+    // Reset users password into database
     boolean resetPassword(String email, String username, String newPassword) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "UPDATE users SET userPassword = ? WHERE userEmail = ? AND userName = ?";
@@ -443,6 +452,7 @@ public class Database {
         }
     }
 
+    // Update username into database
     public boolean updateUsername(String email, String newUsername) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "UPDATE users SET userName = ? WHERE userEmail = ?";
@@ -461,6 +471,7 @@ public class Database {
         }
     }
 
+    // Disqualify users from database
     boolean disqualifyUser(String email) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "UPDATE users SET userStatus = ? WHERE userEmail = ?";
@@ -479,6 +490,7 @@ public class Database {
         }
     }
 
+    // Get list of users from database
     public List<User> getUsersList() {
         List<User> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
@@ -499,27 +511,4 @@ public class Database {
         return list;
     }
 
-//    public ObservableList<User> displayUsers() {
-//        ObservableList<User> list = FXCollections.observableArrayList();
-//
-//        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-//
-//            String selectQuery = "SELECT userKey, userName, userEmail, userPassword, userStatus, userBalance, PL_Points, role FROM users WHERE role = User";
-//
-//            PreparedStatement statement = connection.prepareStatement(selectQuery);
-//            ResultSet resultSet = statement.executeQuery();
-//
-//            while (resultSet.next()) {
-//                list.add(new User(resultSet.getString("userEmail"), resultSet.getString("userName"),
-//                        resultSet.getString("userStatus"), resultSet.getInt("userBalance"),
-//                        resultSet.getInt("PL_Points"), resultSet.getInt("userKey")));
-//            }
-//            resultSet.close();
-//            statement.close();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return list;
-//    }
 }
