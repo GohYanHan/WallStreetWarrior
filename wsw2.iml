@@ -36,7 +36,6 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="library" name="javax.mail" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -44,16 +43,6 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$APPLICATION_HOME_DIR$/lib/iText7-Core-8.0.0-only-jars" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$APPLICATION_HOME_DIR$/lib/iText7-Core-8.0.0-only-jars" recursive="false" />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -70,7 +59,16 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/lib/slf4j.jar!/" />
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/activation-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/javax.mail-1.6.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
