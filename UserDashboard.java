@@ -74,21 +74,23 @@ public class UserDashboard {
 
 
             for (Order order : tradeHistory) {
-                System.out.println("Stock: " + order.getStock().getSymbol());
-                System.out.println("Name: " + order.getStock().getName());
-                System.out.println("Type: " + order.getType());
-                System.out.println("Shares: " + order.getShares());
+                System.out.println("=================================================================================");
+                System.out.printf("| Stock     : %-75s |\n", order.getStock().getSymbol());
+                System.out.printf("| Name      : %-75s |\n", order.getStock().getName());
+                System.out.printf("| Type      : %-75s |\n", order.getType());
+                System.out.printf("| Shares    : %-75s |\n", order.getShares());
 
                 if (order.getType() == Order.Type.BUY)
-                    System.out.println("Price: $" + order.getExpectedBuyingPrice());
+                    System.out.printf("| Price     : RM %-72s |\n", order.getExpectedBuyingPrice());
                 else
-                    System.out.println("Price: $" + order.getExpectedSellingPrice());
+                    System.out.printf("| Price     : RM %-72s |\n", order.getExpectedSellingPrice());
 
-                System.out.println("Timestamp: " + order.getTimestamp());
-                System.out.println("-".repeat(30));
+                System.out.printf("| Timestamp : %-75s |\n", order.getTimestamp());
+                System.out.println("=================================================================================");
             }
-
         }
+
+
     }
 
 
