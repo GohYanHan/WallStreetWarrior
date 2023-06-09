@@ -115,8 +115,6 @@ public class Portfolio {
     }
 
     void displayHoldings() {
-        System.out.println("Holdings:");
-        System.out.println("-".repeat(30));
 //        if (!this.holdingList.isEmpty()) {
 //            for (Order holding : holdingList) {
 //                System.out.println("Stock: " + holding.getSymbol());
@@ -129,12 +127,15 @@ public class Portfolio {
         if (holdings.isEmpty()) {
             System.out.println("No holdings");
         } else {
+            System.out.println("           Holdings           ");
+            System.out.println("------------------------------");
+            System.out.println("|    Stock     |    Shares   |");
+            System.out.println("------------------------------");
             for (Map.Entry<Order, Integer> entry : this.holdings.entrySet()) {
                 Order order = entry.getKey();
                 int shares = entry.getValue();
-                System.out.println("Stock: " + order.getStock().getSymbol());
-                System.out.println("Shares: " + shares);
-                System.out.println("-".repeat(30));
+                System.out.printf("|%10s    |   %5d     |\n", order.getStock().getSymbol(), shares);
+                System.out.println("------------------------------");
             }
         }
     }

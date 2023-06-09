@@ -38,11 +38,14 @@ public class Leaderboard {
         List<UserScore> topTenUsers = userScores.subList(0, Math.min(userScores.size(), 10));
 
         // Display the leaderboard
-        System.out.println("Rank | User         | Marks");
+        System.out.println("     Top 10 Leaderboard      ");
+        System.out.println("=============================");
+        System.out.println("Rank |     User     |  Point ");
         System.out.println("=====|==============|========");
         for (int i = 0; i < topTenUsers.size(); i++) {
             UserScore users = topTenUsers.get(i);
             System.out.printf("%4d | %-12s | %5.2f%n", i + 1, users.getName(), users.getMarks());
         }
+        System.out.println("=============================");
     }
 }
