@@ -4,17 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="Report">
+    <list default="true" id="db22b5e4-c29f-406d-b526-0b0023f095da" name="Changes" comment="Update leaderboard, leaderboard in userAuth, display sell order if null">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/activation_jaf1_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jBCrypt_0_4_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jBCrypt_0_4_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/javax_mail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/javax_mail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_29_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_29_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_51_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_29_2023_6_51_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_31_2023_10_19_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_31_2023_10_19_AM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Leaderboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/Leaderboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TradingEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/TradingEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/jBCrypt_0_4_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/jBCrypt_0_4_3.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Report.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Report.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Stock.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserDashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserDashboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserScore.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,17 +50,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Sornphert/Downloads/javax.mail.jar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/Rachel/Downloads/wia1002/jBCrypt-0.4.3.jar",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />

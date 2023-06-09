@@ -356,7 +356,7 @@ public class TradingEngine {
             lotPool.put(stockDb, sharesDb);
         }
         System.out.println("=".repeat(47));
-        System.out.printf("%-1s %-43s %-1s%n", "|", "Orders available: ", "|");
+        System.out.println("Orders available: ");
         System.out.println("=".repeat(47));
         System.out.printf("%-1s %-20s %-1s %-20s %-1s%n", "|", "Stock", "|", "Shares", "|");
         System.out.println("-".repeat(47));
@@ -376,7 +376,7 @@ public class TradingEngine {
             }
         }
         System.out.println("=".repeat(47));
-        System.out.printf("%-1s %-43s %-1s%n", "|", "Orders in sell order list: ", "|");
+        System.out.println("Orders in sell order list: ");
         System.out.println("=".repeat(47));
         System.out.printf("%-1s %-12s %-1s %-12s %-1s %-13s %-1s%n", "|", "Stock", "|", "Shares", "|", "Selling Price", "|");
         System.out.println("-".repeat(47));
