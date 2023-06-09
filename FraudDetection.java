@@ -9,41 +9,44 @@ public class FraudDetection {
         this.user = user;
     }
 
+    List<User> users = database.loadAllUsers();
+
+
     public void displaySuspiciousUsers() {
-        List<User> users = database.loadAllUsers();
 
-        System.out.println("Suspicious Users:");
-
+        System.out.println("Questionable Users:");
         for (User user : users) {
-            List<Order> transactions = database.loadTransactionHistory(user.getKey());
+            if (isSuspiciousUser(user)) {
+                List<Order> transactions = database.loadTransactionHistory(user.getKey());
 
-            System.out.println("User:");
-            System.out.println("Name: " + user.getUsername());
-            System.out.println("Email: " + user.getEmail());
+                System.out.println("----------------------------------------");
+                System.out.println("User: " + user.getUsername());
+                System.out.println("Email: " + user.getEmail());
+                System.out.println("Questionable Transactions:");
 
-            System.out.println("Questionable Transactions:");
-            for (Order transaction : transactions) {
-                if (isSuspiciousTransaction(transaction, user)) {
-                    System.out.println("=================================================================================");
-                    System.out.printf("| Stock     : %-75s |\n", transaction.getStock().getSymbol());
-                    System.out.printf("| Name      : %-75s |\n", transaction.getStock().getName());
-                    System.out.printf("| Type      : %-75s |\n", transaction.getType());
-                    System.out.printf("| Shares    : %-75s |\n", transaction.getShares());
-
-                    if (transaction.getType() == Order.Type.BUY)
-                        System.out.printf("| Price     : RM %-72s |\n", transaction.getExpectedBuyingPrice());
-                    else
-                        System.out.printf("| Price     : RM %-72s |\n", transaction.getExpectedSellingPrice());
-
-                    System.out.printf("| Timestamp : %-75s |\n", transaction.getTimestamp());
-                    System.out.println("=================================================================================");
+                boolean suspiciousTransactionsFound = false;
+                for (Order transaction : transactions) {
+                    if (isSuspiciousTransaction(transaction, user)) {
+                        suspiciousTransactionsFound = true;
+                        displaySuspiciousTransaction(transaction);
+                    }
                 }
+
+                if (!suspiciousTransactionsFound) {
+                    System.out.println("No questionable transactions found.");
+                }
+
+                System.out.println("----------------------------------------");
             }
         }
     }
 
     public boolean isSuspiciousTransaction(Order transaction, User user) {
         return isShortSelling(user.getKey()) && checkDuplicateOrders(transaction, user);
+    }
+
+    public boolean isSuspiciousUser(User user) {
+        return isShortSelling(user.getKey());
     }
 
     public boolean isShortSelling(int userKey) {
@@ -73,5 +76,21 @@ public class FraudDetection {
         }
 
         return false; // No duplicate orders found
+    }
+
+    private void displaySuspiciousTransaction(Order transaction) {
+        System.out.println("=================================================================================");
+        System.out.printf("| Stock     : %-75s |\n", transaction.getStock().getSymbol());
+        System.out.printf("| Name      : %-75s |\n", transaction.getStock().getName());
+        System.out.printf("| Type      : %-75s |\n", transaction.getType());
+        System.out.printf("| Shares    : %-75s |\n", transaction.getShares());
+
+        if (transaction.getType() == Order.Type.BUY)
+            System.out.printf("| Price     : RM %-72s |\n", transaction.getExpectedBuyingPrice());
+        else
+            System.out.printf("| Price     : RM %-72s |\n", transaction.getExpectedSellingPrice());
+
+        System.out.printf("| Timestamp : %-75s |\n", transaction.getTimestamp());
+        System.out.println("=================================================================================");
     }
 }
