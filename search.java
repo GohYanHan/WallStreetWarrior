@@ -1,7 +1,7 @@
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.Scanner;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +11,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Scanner;
 
 class search {
     private static String fileName = "MyStocks";
@@ -84,8 +85,7 @@ class search {
 
     // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
     static void searchStocks(String query) {
-
-
+        boolean found = false; // Flag to track if a match is found
 
         try {
             String jsonResponse = readJsonFromFile(fileName);
@@ -102,17 +102,24 @@ class search {
                 // Search by symbol
                 if (symbol.toLowerCase().contains(query.toLowerCase())) {
                     System.out.printf("%-12s\t%-40s\n", symbol, name);
+                    found = true; // Match found
                 }
                 // Search by name
                 else if (boyerMoore.search(name.toLowerCase().toCharArray(), query.toLowerCase().toCharArray()) != -1) {
                     System.out.printf("%-12s\t%-40s\n", symbol, name);
+                    found = true; // Match found
                 }
+            }
+
+            if (!found) {
+                System.out.println("Stock not found.");
             }
             System.out.println();
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
     }
+
 
     // Prompt the user for stock symbols, timestamp, and interval, and display the prices by calling getStockPrice() and displayPrices()
     static void getPrices() {

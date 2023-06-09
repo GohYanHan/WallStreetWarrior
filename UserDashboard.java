@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 public class UserDashboard {
     private User user;
-    private Database db = new Database();
+    private Database db;
 
 
     public UserDashboard(User user) {
         this.user = user;
-        this.db = db;
+        db = new Database();
     }
 
     public void displayAccountBalance() {
@@ -75,6 +75,7 @@ public class UserDashboard {
 
             for (Order order : tradeHistory) {
                 System.out.println("Stock: " + order.getStock().getSymbol());
+                System.out.println("Name: " + order.getStock().getName());
                 System.out.println("Type: " + order.getType());
                 System.out.println("Shares: " + order.getShares());
 
@@ -93,8 +94,8 @@ public class UserDashboard {
 
     //lowest price to highest price
     public void sortTradeHistoryByPrice() {
-        List<Order> tradeHistorybyprice = db.loadTransactionHistory(user.getKey());
-        tradeHistorybyprice.sort(Comparator.comparing(Order::getExpectedBuyingPrice));
+        List<Order> tradeHistoryByPrice = db.loadTransactionHistory(user.getKey());
+        tradeHistoryByPrice.sort(Comparator.comparingDouble(order -> Math.min(order.getExpectedBuyingPrice(), order.getExpectedSellingPrice())));
         displayTradeHistory();
     }
 
