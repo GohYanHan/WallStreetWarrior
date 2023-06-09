@@ -150,9 +150,9 @@ class Notification {
         System.out.println("Stock price updated: " + updatedStockPrice);
         if (updatedStockPrice >= 0) {
             if (updatedStockPrice > thresholdPrice) {
-                sendNotification(1/*, order.getStock()*/);
+                sendNotification(1, order.getStock());
             } else if (updatedStockPrice < thresholdPrice) {
-                sendNotification(2/*, order.getStock()*/);
+                sendNotification(2, order.getStock());
             }
         }
 
@@ -160,7 +160,7 @@ class Notification {
     //handled by timer, every XX call this method
 
 
-    public void sendNotification(int caseSymbol/*, Stock stock*/) {
+    public void sendNotification(int caseSymbol, Stock stock) {
         Properties props;
         Session session;
         MimeMessage message;
