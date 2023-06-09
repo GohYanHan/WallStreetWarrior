@@ -4,17 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="Report">
-      <change afterPath="$PROJECT_DIR$/FinanceNewsAPI.java" afterDir="false" />
+    <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="FinanceNewsAPI which will display finance news once login">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdminPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdminPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Portfolio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/Report.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Database.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/FinanceNewsAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/FinanceNewsAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Report.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Report.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserDashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserDashboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserScore$Leaderboard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserScore.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wsw2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/wsw2.iml" afterDir="false" />
     </list>
@@ -42,17 +42,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Sornphert/Downloads/javax.mail.jar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Program Files/JetBrains/IntelliJ IDEA Community Edition 2022.2.3/lib/slf4j.jar",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\User\Desktop\Data Structure\WallStreetWarrior\.idea\libraries" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="FinanceNewsAPI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FinanceNewsAPI" />
@@ -75,34 +80,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserAuthentication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="UserAuthentication" />
-      <module name="WallStreetWarrior" />
+    <configuration name="Report" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Report" />
+      <module name="wsw2" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="testAPI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="testAPI" />
-      <module name="WallStreetWarrior" />
+    <configuration name="tester" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="tester" />
+      <module name="wsw2" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.tester" />
+      <item itemvalue="Application.Report" />
       <item itemvalue="Application.FinanceNewsAPI" />
       <item itemvalue="Application.NewsApiClient" />
-      <item itemvalue="Application.UserAuthentication" />
-      <item itemvalue="Application.testAPI" />
       <item itemvalue="Application.Main" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.tester" />
+        <item itemvalue="Application.Report" />
         <item itemvalue="Application.FinanceNewsAPI" />
         <item itemvalue="Application.NewsApiClient" />
-        <item itemvalue="Application.testAPI" />
-        <item itemvalue="Application.UserAuthentication" />
       </list>
     </recent_temporary>
   </component>
@@ -199,7 +204,28 @@
       <option name="project" value="LOCAL" />
       <updated>1685977732504</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="FinanceNewsAPI which will display finance news once login">
+      <created>1686026450308</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1686026450308</updated>
+    </task>
+    <task id="LOCAL-00014" summary="FinanceNewsAPI which will display finance news once login">
+      <created>1686026469925</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1686026469925</updated>
+    </task>
+    <task id="LOCAL-00015" summary="FinanceNewsAPI which will display finance news once login">
+      <created>1686026478738</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1686026478738</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -218,7 +244,8 @@
     <MESSAGE value="small changes on Main, UserAuthentication &amp; AdminPanel" />
     <MESSAGE value="unversioned files" />
     <MESSAGE value="Report" />
-    <option name="LAST_COMMIT_MESSAGE" value="Report" />
+    <MESSAGE value="FinanceNewsAPI which will display finance news once login" />
+    <option name="LAST_COMMIT_MESSAGE" value="FinanceNewsAPI which will display finance news once login" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

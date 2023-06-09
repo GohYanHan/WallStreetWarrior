@@ -2,10 +2,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,16 +16,17 @@ getRealTimePrice() - For TradingEngine, it returns a double price ONLY
 extractStocks() - return ArrayList of symbols and name
  */
 
-class testAPI {
-    public static void main(String[] args) throws IOException {
-        API api = new API();
+//class testAPI {
+//    public static void main(String[] args) throws IOException {
+//        API api = new API();
 //        api.StockList();
-        api.getPrices();
+//        api.updateStockList();
+//        api.getPrices();
 //        System.out.println(api.getRealTimePrice("8206.MY"));
 //        api.extractStocks();
-
-    }
-}
+//
+//    }
+//}
 
 public class API {
     public static String fileName = "MyStocks";
@@ -37,7 +35,7 @@ public class API {
 
     private BoyerMoore boyerMoore;
 
-    public API(){
+    public API() {
         boyerMoore = new BoyerMoore();
     }
 
@@ -50,6 +48,33 @@ public class API {
             e.printStackTrace();
         }
     }
+
+
+//    void updateStockList() {
+//        try {
+//            List<Stock> stocks = extractStocks();
+//            List<Stock> stocksWithPrice = new ArrayList<>();
+//
+//            for (Stock stock : stocks) {
+//                double price = getRealTimePrice(stock.getSymbol());
+//                if (price != 0) {
+//                    stocksWithPrice.add(stock);
+//                }
+//            }
+//
+//            // Save the stocks with price to a file
+//            try (BufferedWriter writer = new BufferedWriter(new FileWriter("UpdatedMyStock.txt"))) {
+//                for (Stock stock : stocksWithPrice) {
+//                    writer.write(stock.getSymbol() + "," + stock.getName());
+//                    writer.newLine();
+//                }
+//            }
+//
+//            System.out.println("Stock list updated successfully.");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     // Call this method to read JSON data from a file copied from API end point provided
     String readJsonFromFile(String fileName) throws IOException {
@@ -68,26 +93,27 @@ public class API {
 
     // Extract the stocks' symbols and names from the JSON response and store them in a List
     List<Stock> extractStocks() throws IOException {
-        String jsonResponse = readJsonFromFile(fileName);
         List<Stock> stockList = new ArrayList<>();
 
-        try {
-            JSONArray jsonArray = new JSONArray(jsonResponse);
+        try (BufferedReader reader = new BufferedReader(new FileReader("UpdatedMyStock.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    String symbol = parts[0].trim();
+                    String name = parts[1].trim();
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject stockJson = jsonArray.getJSONObject(i);
-                String symbol = stockJson.getString("symbol");
-                String name = stockJson.getString("name");
-
-                Stock stock = new Stock(symbol, name);
-                stockList.add(stock);
+                    Stock stock = new Stock(symbol, name);
+                    stockList.add(stock);
+                }
             }
-        } catch (JSONException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
         return stockList;
     }
+
 
     // Display the stocks' symbols & name from the JSON response
     void displayStocks(String jsonResponse) {
@@ -307,13 +333,11 @@ public class API {
     }
 
 
-
     void searchDisplayStocks(String jsonResponse, String searchQuery) {
         try {
             JSONArray jsonArray = new JSONArray(jsonResponse);
+            int index = -1;
 
-            System.out.printf("%-12s\t%-40s\n", "Symbol", "Name");
-            System.out.println("----------------------------------------");
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject stockJson = jsonArray.getJSONObject(i);
@@ -323,17 +347,26 @@ public class API {
                 // Use Boyer-Moore for string matching
                 char[] text = symbol.toCharArray();
                 char[] pattern = searchQuery.toCharArray();
-                int index = boyerMoore.search(text, pattern);
+                index = boyerMoore.search(text, pattern);
 
                 if (index != -1) {
-                    System.out.printf("%-12s\t%-40s\n", symbol, name);
+                    // Fetch the price using getStockPrice() method
+                    double price = getRealTimePrice(symbol); // Assuming getStockPrice() method is implemented
+
+                    System.out.printf("%-12s\t%-40s\t%-10s\n", "Symbol", "Name", "Price");
+                    System.out.printf("%-12s\t%-40s\t%-10.2f\n", symbol, name, price);
+                } else {
+                    System.out.printf("The symbol %s is not in the pool.\n", symbol);
                 }
             }
             System.out.println();
 
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
+
 
 }

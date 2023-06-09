@@ -131,7 +131,7 @@ public class TradingEngine {
             portfolio.addStock(order, shares);
             portfolio.addToTradeHistory(order);
             System.out.println("Buy order executed successfully.");
-            notification.sendNotification(3);
+            notification.sendNotification(3, order.getStock());
         } else {
             System.out.println("Not enough money");
         }
@@ -147,7 +147,7 @@ public class TradingEngine {
         portfolio.removeValue(price);
         portfolio.removeStock(order, shares); // remove share num
         System.out.println("Sell order executed successfully.");
-        notification.sendNotification(4/*, order.getStock()*/);
+        notification.sendNotification(4, order.getStock());
     }
 
     public void runAutoMatchingInBackground(List<Order> orders, Portfolio portfolio) {
@@ -386,7 +386,11 @@ public class TradingEngine {
         System.out.println("Orders in sell order list: ");
         System.out.printf("%-20s %-10s %-10s\n", "Stock", "Shares", "Selling Price");
         for (Order order : sellOrders) {
-            System.out.printf("%-20s %-10s %-10s%n", order.getStock().getSymbol(), order.getShares(), order.getExpectedSellingPrice());
+            if (!sellOrders.isEmpty()) {
+                System.out.printf("%-20s %-10s %-10s%n", order.getStock().getSymbol(), order.getShares(), order.getExpectedSellingPrice());
+            } else {
+                System.out.printf("%-20s %-10s %-10s%n", "-", "-", "-");
+            }
         }
     }
     private void displayBuyOrders(List<Order> orders) {
