@@ -387,15 +387,16 @@ public class TradingEngine {
         System.out.printf("%-1s %-12s %-1s %-12s %-1s %-13s %-1s%n", "|", "Stock", "|", "Shares", "|", "Selling Price", "|");
         System.out.println("-".repeat(47));
 
-        for (Order order : sellOrders) {
-            if (!sellOrders.isEmpty()) {
+        if (sellOrders.isEmpty()) {
+            System.out.printf("%-1s %-12s %-1s %-12s %-1s %-13s %-1s%n", "|", "-", "|", "-", "|", "-", "|");
+        } else {
+            for (Order order : sellOrders) {
                 System.out.printf("%-1s %-12s %-1s %-12s %-1s %-13s %-1s%n", "|", order.getStock().getSymbol(), "|", order.getShares(), "|", order.getExpectedSellingPrice(), "|");
-            } else {
-                System.out.printf("%-1s %-12s %-1s %-12s %-1s %-13s %-1s%n", "|", "-", "|", "-", "|", "-", "|");
             }
         }
         System.out.println("=".repeat(47));
     }
+
     private void displayBuyOrders(List<Order> orders) {
         for (Order order : orders) {
             System.out.println("Stock: " + order.getStock().getSymbol());
