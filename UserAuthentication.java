@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class UserAuthentication {
@@ -11,7 +12,6 @@ public class UserAuthentication {
     private final Scanner scanner = new Scanner(System.in);
     private final FinanceNewsAPI financeNewsAPI = new FinanceNewsAPI();
     private final TradingEngine tradingEngine = new TradingEngine();
-
     private final Notification notification = new Notification();
     private final Leaderboard leaderboard = new Leaderboard();
 
@@ -54,9 +54,11 @@ public class UserAuthentication {
             if (BCrypt.checkpw(password, user.getPassword())) {
                 System.out.println("Login successful!");
                 System.out.println("Welcome, " + user.getUsername() + "!");
-                System.out.println("-".repeat(90));
-                System.out.println("Displaying news today...");
-                financeNewsAPI.getNews();
+                System.out.println("-".repeat(120));
+                if (!Objects.equals(db.getUser().getRole(), "Admin")) {
+                    System.out.println("Displaying news today...");
+                    financeNewsAPI.getNews();
+                }
                 return true;
             }
         }
@@ -109,6 +111,7 @@ public class UserAuthentication {
             List<Order> sellOrderList = db.loadOrders(user.getKey(), Order.Type.SELL);
 
             // Choose between buying or selling
+            System.out.println("\t-Main Menu-");
             System.out.println("1. Buy or sell stock");
             System.out.println("2. Search stock");
             System.out.println("3. Show current stock owned");
@@ -129,17 +132,18 @@ public class UserAuthentication {
                         // Display stock in sellOrder list & api
                         tradingEngine.displayLotpoolSellOrders(sellOrderList);
                         // Place a buy order
-                        System.out.println("Enter stock symbol for buy order: ");
+                        System.out.print("Enter stock symbol for buy order: ");
                         String buyStockSymbol = scanner.nextLine();
 
                         // Find the stock by symbol
                         Stock buyStock = findStockBySymbol(stocks, buyStockSymbol);
                         while (buyStock == null) {
-                            System.out.println("Stock with symbol " + buyStockSymbol + " not found. Please enter a new stock symbol: ");
+                            System.out.print("Stock with symbol " + buyStockSymbol + " not found. Please enter a new stock symbol: ");
                             buyStockSymbol = scanner.nextLine();
                             buyStock = findStockBySymbol(stocks, buyStockSymbol);
                         }
-                        System.out.println("Enter quantity for buy order: ");
+
+                        System.out.print("Enter quantity for buy order: ");
                         int buyQuantity = scanner.nextInt();
                         while (!isValidQuantity(buyQuantity)) {
                             System.out.println("Invalid quantity. Minimum buy order quantity is 100 shares (one lot), and maximum is 500 shares.");
@@ -150,7 +154,7 @@ public class UserAuthentication {
                         // Display suggested price for a stock
                         tradingEngine.displaySuggestedPrice(buyStockSymbol, buyQuantity);
 
-                        System.out.println("Enter expected buying price: "); // if add into pending order list then no condition
+                        System.out.print("Enter expected buying price: "); // if add into pending order list then no condition
                         double buyExpectedPrice = scanner.nextDouble();
 
                         // Format the user input to two decimal points
@@ -161,10 +165,10 @@ public class UserAuthentication {
 
                         if (buyStock != null) {
                             LocalDateTime timestamp = LocalDateTime.now();
-                            System.out.println("Add to pending order? [y/n]");
+                            System.out.print("Add to pending order? [y/n] ");
                             String choose = scanner.next();
                             char character = choose.charAt(0);
-                            Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user,timestamp);
+                            Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user, timestamp);
 
                             if (character == 'y') {
                                 db.addOrder(user.getKey(), buyOrder);
@@ -256,7 +260,7 @@ public class UserAuthentication {
 
                 case 7:
                     report.generateReport();
-                    notification.sendNotification(5);
+//                    notification.sendNotification(5);
                     break;
 
                 case 8:

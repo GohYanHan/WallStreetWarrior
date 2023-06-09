@@ -11,7 +11,7 @@ public class AdminPanel {
     void adminPanel() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("-".repeat(90));
+            System.out.println("-".repeat(120));
             System.out.println("1. List Users");
             System.out.println("2. Disqualify User");
             System.out.println("3. Remove User");
