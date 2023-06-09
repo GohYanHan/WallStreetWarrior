@@ -5,29 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="commit only">
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/API.java" beforeDir="false" afterPath="$PROJECT_DIR$/API.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FinanceNewsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/FinanceNewsAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TradingEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/TradingEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Leaderboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/Leaderboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Portfolio.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/API.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/API.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Database.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/FinanceNewsAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/FinanceNewsAPI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Leaderboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Leaderboard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Report.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Report.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Stock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Notification$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Notification$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Notification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserDashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserDashboard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/testAPI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wsw2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/wsw2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/search.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/search.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/search.java" beforeDir="false" afterPath="$PROJECT_DIR$/search.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +244,28 @@
       <option name="project" value="LOCAL" />
       <updated>1686242954321</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="API(UpdatedStockList), FinanceNewsAPI, Main">
+      <created>1686287066465</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1686287066465</updated>
+    </task>
+    <task id="LOCAL-00019" summary="UpdatedMyStock.txt">
+      <created>1686287122729</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1686287122729</updated>
+    </task>
+    <task id="LOCAL-00020" summary="commit only">
+      <created>1686287139712</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1686287139712</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -271,6 +286,8 @@
     <MESSAGE value="Report" />
     <MESSAGE value="FinanceNewsAPI which will display finance news once login" />
     <MESSAGE value="PDF Report" />
+    <MESSAGE value="API(UpdatedStockList), FinanceNewsAPI, Main" />
+    <MESSAGE value="UpdatedMyStock.txt" />
     <MESSAGE value="commit only" />
     <option name="LAST_COMMIT_MESSAGE" value="commit only" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
