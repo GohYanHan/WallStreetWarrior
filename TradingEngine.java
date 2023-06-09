@@ -133,6 +133,7 @@ public class TradingEngine {
         temp += price;
         portfolio.setAccBalance(temp);
         portfolio.removeValue(price);
+        portfolio.addToTradeHistory(order);
         portfolio.removeStock(order, shares); // remove share num
         System.out.println("Sell order executed successfully.");
         notification.sendNotification(4, order.getStock());

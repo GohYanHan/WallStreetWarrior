@@ -9,25 +9,32 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 
 class search {
     private static String fileName = "MyStocks";
     private static final String API_KEY = "UM-1cd15cbc8ba9f613f94373ca35c267a52acf88978d73439e9f3c941b1c49318d";
     private static final String API_ENDPOINT = "https://wall-street-warriors-api-um.vercel.app/price";
 
+
     private static BoyerMoore boyerMoore;
 
-    public search() {
+    private static API api;
+
+
+    public search(){
         boyerMoore = new BoyerMoore();
+        api = new API();
     }
 
-//    public static void main(String[] args) throws IOException {
-//        API api = new API();
-//        Scanner k = new Scanner(System.in);
-//        api.searchDisplayStocks(readJsonFromFile(fileName),k.nextLine());
-//    }
+    public static void main(String[] args) throws IOException {
+        API api = new API();
+        Scanner k = new Scanner(System.in);
+
+
+        api.searchDisplayStocks(readJsonFromFile(fileName),k.nextLine());
+    }
+
 
 
     // Call this method to display a list of Malaysia Stock
@@ -77,12 +84,13 @@ class search {
     }
 
     // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
-    void searchStocks(String query) {
+    static void searchStocks(String query) {
+        boolean found = false; // Flag to track if a match is found
+        List<Stock> matchingStocks = new ArrayList<>(); // List to store matching stocks
 
         try {
             String jsonResponse = readJsonFromFile(fileName);
             JSONArray jsonArray = new JSONArray(jsonResponse);
-
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject stockJson = jsonArray.getJSONObject(i);
@@ -91,24 +99,36 @@ class search {
 
                 // Search by symbol
                 if (symbol.toLowerCase().contains(query.toLowerCase())) {
-                    System.out.printf("%-12s\t%-40s\n", "Symbol", "Name");
-                    System.out.printf("%-12s\t%-40s\n", symbol, name);
+                    matchingStocks.add(new Stock(symbol, name));
+                    found = true; // Match found
                 }
                 // Search by name
                 else if (boyerMoore.search(name.toLowerCase().toCharArray(), query.toLowerCase().toCharArray()) != -1) {
-                    System.out.println("----------------------------------------");
-                    System.out.printf("%-12s\t%-40s\n", "Symbol", "Name");
-                    System.out.println("----------------------------------------");
-                    System.out.printf("%-12s\t%-40s\n", symbol, name);
-                } else {
-                    System.out.println("Symbol/name entered not found.");
+                    matchingStocks.add(new Stock(symbol, name));
+                    found = true; // Match found
                 }
             }
+
+            if (found) {
+                System.out.println("==================================================================================================");
+                System.out.printf("|%-10s | %-50s | %-30s|\n", "Symbol", "Name", "Current Price per share (RM)");
+                System.out.println("--------------------------------------------------------------------------------------------------");
+                for (Stock stock : matchingStocks) {
+                    System.out.printf("|%-10s | %-50s | %-30s|\n", stock.getSymbol(), stock.getName(), api.getRealTimePrice(stock.getSymbol()));
+                }
+                System.out.println("==================================================================================================");
+
+
+            } else {
+                System.out.println("Stock not found.");
+            }
             System.out.println();
+
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
     }
+
 
     // Prompt the user for stock symbols, timestamp, and interval, and display the prices by calling getStockPrice() and displayPrices()
     static void getPrices() {
