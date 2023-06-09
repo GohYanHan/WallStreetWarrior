@@ -280,7 +280,6 @@ public class UserAuthentication {
 
                 case 9:
                     System.out.println("Logged out successfully!");
-                    System.out.println("-".repeat(90));
                     return;
 
                 default:
