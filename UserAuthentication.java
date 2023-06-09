@@ -13,6 +13,7 @@ public class UserAuthentication {
     private final TradingEngine tradingEngine = new TradingEngine();
 
     private final Notification notification = new Notification();
+    private final Leaderboard leaderboard = new Leaderboard();
 
     public UserAuthentication() throws IOException {
 
@@ -113,9 +114,10 @@ public class UserAuthentication {
             System.out.println("3. Show current stock owned");
             System.out.println("4. Cancel pending orders");
             System.out.println("5. Display dashboard");
-            System.out.println("6. Generate Report");
-            System.out.println("7. Notification Settings");
-            System.out.println("8. Log out");
+            System.out.println("6. Display Leaderboard");
+            System.out.println("7. Generate Report");
+            System.out.println("8. Notification Settings");
+            System.out.println("9. Log Out");
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -251,11 +253,14 @@ public class UserAuthentication {
                     break;
 
                 case 6:
+                    leaderboard.printLeaderboard();
+
+                case 7:
                     report.generateReport();
                     notification.sendNotification(5);
                     break;
 
-                case 7:
+                case 8:
                     System.out.println("Notification \n1.turn ON \n2.turn OFF");
                     choice = scanner.nextInt();
                     scanner.nextLine();
@@ -270,8 +275,7 @@ public class UserAuthentication {
                         break;
                     }
 
-
-                case 8:
+                case 9:
                     System.out.println("Logged out successfully!");
                     System.out.println("-".repeat(90));
                     return;
