@@ -511,4 +511,30 @@ public class Database {
         return list;
     }
 
+    // Load all users (including admins) from the database. For Fraud Detection Only.
+    public List<User> loadAllUsers() {
+        List<User> userList = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "SELECT * FROM users";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                User user = new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"),
+                        resultSet.getString("userName"), resultSet.getString("userPassword"),
+                        resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
+                        resultSet.getInt("PL_Points"), resultSet.getString("role"),
+                        resultSet.getDouble("thresholds"));
+                userList.add(user);
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
+
 }
