@@ -120,7 +120,7 @@ public class TradingEngine {
             portfolio.addStock(order, shares);
             portfolio.addToTradeHistory(order);
             System.out.println("Buy order executed successfully.");
-            notification.sendNotification(3);
+            notification.sendNotification(3, order.getStock());
         } else {
             System.out.println("Not enough money");
         }
@@ -134,9 +134,10 @@ public class TradingEngine {
         temp += price;
         portfolio.setAccBalance(temp);
         portfolio.removeValue(price);
+        portfolio.addToTradeHistory(order);
         portfolio.removeStock(order, shares); // remove share num
         System.out.println("Sell order executed successfully.");
-        notification.sendNotification(4/*, order.getStock()*/);
+        notification.sendNotification(4, order.getStock());
     }
 
     public void runAutoMatchingInBackground(List<Order> orders, Portfolio portfolio) {
@@ -362,12 +363,17 @@ public class TradingEngine {
         System.out.println("-".repeat(47));
 
         if (!isWithinInitialTradingPeriod()) {
+            System.out.println("Orders available: ");
+            System.out.printf("%-20s %-10s\n", "Stock", "Shares");
+
             for (Map.Entry<Stock, Integer> entry : lotPool.entrySet()) {
                 Stock stock = entry.getKey();
                 Integer value = entry.getValue();
                 System.out.printf("%-1s %-20s %-1s %-20s %-10s%n", "|", stock.getSymbol(), "|", value, "|");
             }
         } else {
+            System.out.println("Orders available: ");
+            System.out.printf("%-20s %-10s\n", "Stock", "Shares");
 
             for (Map.Entry<Stock, Integer> entry : lotPool.entrySet()) {
                 Stock stock = entry.getKey();

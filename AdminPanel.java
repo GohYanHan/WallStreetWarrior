@@ -11,12 +11,13 @@ public class AdminPanel {
     void adminPanel() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("-".repeat(90));
+            System.out.println("-".repeat(120));
             System.out.println("1. List Users");
-            System.out.println("2. Disqualify User");
-            System.out.println("3. Remove User");
-            System.out.println("4. Update User Information");
-            System.out.println("5. Exit");
+            System.out.println("2. Display Potential Frauds");
+            System.out.println("3. Disqualify User");
+            System.out.println("4. Remove User");
+            System.out.println("5. Update User Information");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             System.out.println("-".repeat(90));
@@ -25,6 +26,11 @@ public class AdminPanel {
             switch (choice) {
                 case 1 -> listUsers();
                 case 2 -> {
+                    FraudDetection fd = new FraudDetection(db);
+                    fd.displaySuspiciousUsers();
+                }
+
+                case 3 -> {
                     System.out.print("Enter the email of the user: ");
                     String email = scanner.nextLine();
                     if (disqualifyUser(email))
@@ -32,7 +38,7 @@ public class AdminPanel {
                     else
                         System.out.println("User (" + email + ") not found, please try again.");
                 }
-                case 3 -> {
+                case 4 -> {
                     System.out.print("Enter the email of the user to be removed: ");
                     String email = scanner.nextLine();
                     if (removeUser(email))
@@ -40,7 +46,7 @@ public class AdminPanel {
                     else
                         System.out.println("User (" + email + ") not found, please try again.");
                 }
-                case 4 -> {
+                case 5 -> {
                     System.out.print("Enter the email of the user: ");
                     String email = scanner.nextLine();
                     System.out.print("Enter the new username: ");
@@ -51,7 +57,7 @@ public class AdminPanel {
                         System.out.println("User (" + email + ") not found, please try again.");
 
                 }
-                case 5 -> {
+                case 6 -> {
                     System.out.println("Exiting Admin Panel...");
                     return;
                 }

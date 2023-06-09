@@ -1,7 +1,7 @@
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.Scanner;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,8 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 
 class search {
     private static String fileName = "MyStocks";
@@ -20,10 +19,12 @@ class search {
 
     private static BoyerMoore boyerMoore;
 
+    private static API api;
 
 
     public search(){
         boyerMoore = new BoyerMoore();
+        api = new API();
     }
 
     public static void main(String[] args) throws IOException {
@@ -84,15 +85,12 @@ class search {
 
     // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
     static void searchStocks(String query) {
-
-
+        boolean found = false; // Flag to track if a match is found
+        List<Stock> matchingStocks = new ArrayList<>(); // List to store matching stocks
 
         try {
             String jsonResponse = readJsonFromFile(fileName);
             JSONArray jsonArray = new JSONArray(jsonResponse);
-
-            System.out.printf("%-12s\t%-40s\n", "Symbol", "Name");
-            System.out.println("----------------------------------------");
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject stockJson = jsonArray.getJSONObject(i);
@@ -101,18 +99,36 @@ class search {
 
                 // Search by symbol
                 if (symbol.toLowerCase().contains(query.toLowerCase())) {
-                    System.out.printf("%-12s\t%-40s\n", symbol, name);
+                    matchingStocks.add(new Stock(symbol, name));
+                    found = true; // Match found
                 }
                 // Search by name
                 else if (boyerMoore.search(name.toLowerCase().toCharArray(), query.toLowerCase().toCharArray()) != -1) {
-                    System.out.printf("%-12s\t%-40s\n", symbol, name);
+                    matchingStocks.add(new Stock(symbol, name));
+                    found = true; // Match found
                 }
             }
+
+            if (found) {
+                System.out.println("==================================================================================================");
+                System.out.printf("|%-10s | %-50s | %-30s|\n", "Symbol", "Name", "Current Price per share (RM)");
+                System.out.println("--------------------------------------------------------------------------------------------------");
+                for (Stock stock : matchingStocks) {
+                    System.out.printf("|%-10s | %-50s | %-30s|\n", stock.getSymbol(), stock.getName(), api.getRealTimePrice(stock.getSymbol()));
+                }
+                System.out.println("==================================================================================================");
+
+
+            } else {
+                System.out.println("Stock not found.");
+            }
             System.out.println();
+
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
     }
+
 
     // Prompt the user for stock symbols, timestamp, and interval, and display the prices by calling getStockPrice() and displayPrices()
     static void getPrices() {

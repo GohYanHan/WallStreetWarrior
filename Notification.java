@@ -5,12 +5,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -23,11 +24,16 @@ class Notification {
     double thresholdPrice = 0;
     private static double boughtPrice; // This attribute should fall under Orders or Portfolio?
     private double profitLossPerStock; // should = boughtPrice - currentPrice of Stock
-    User user;
-    Stock stock = new Stock();
-    Order order = new Order();
-    API api = new API();
+    private List<Stock> stocks;
+    private Map<Stock, List<Order>> buyOrders; // api de stock
+    private Map<Stock, List<Order>> sellOrders;
+    private Map<Stock, Integer> lotPool;
+    static User user = new User();
+    static Stock stock = new Stock();
+    static Order order = new Order(user.getKey(), stock);
+    static API api = new API();
     Database database = new Database();
+
 
     TradingEngine tradingEngine;
     ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
@@ -108,7 +114,6 @@ class Notification {
     // Where do we store User stocks
     // send a notification everytime the threshold has been reached // You need to have the stock info from the market
 
-
     //on button click do set true or set false, default true, assuming there are 2 buttons(enable/disable)
     public boolean setNotificationSendSettingTrue() {
         System.out.println("Notification setting has been turned on.");
@@ -121,102 +126,42 @@ class Notification {
     }
 
 
-    public void start() {
-        Timer timer = new Timer();
+    /*   public void start() {
+           Timer timer = new Timer();
 
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                // Method to be called every 1 second
-                try {
-                    updateStockPrice(order);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
+           TimerTask task = new TimerTask() {
+               @Override
+               public void run() {
+                   // Method to be called every 1 second
+                   try {
+                       updateStockPrice(order);
+                   } catch (IOException e) {
+                       throw new RuntimeException(e);
+                   }
+               }
+           };
 
-        // Schedule the task to run every 1 second
-        timer.schedule(task, 0, 1000);
-    }
-
+           // Schedule the task to run every 1 second
+           timer.schedule(task, 0, 1000);
+       }
+   */
     public void updateStockPrice(Order order) throws IOException {
         updatedStockPrice = api.getRealTimePrice(order.getStock().getSymbol());
         this.updatedStockPrice = updatedStockPrice;
         System.out.println("Stock price updated: " + updatedStockPrice);
         if (updatedStockPrice >= 0) {
             if (updatedStockPrice > thresholdPrice) {
-                sendNotification(1/*, order.getStock()*/);
+                sendNotification(1, order.getStock());
             } else if (updatedStockPrice < thresholdPrice) {
-                sendNotification(2/*, order.getStock()*/);
+                sendNotification(2, order.getStock());
             }
         }
 
     }
     //handled by timer, every XX call this method
-/*
+
+
     public void sendNotification(int caseSymbol, Stock stock) {
-        //initialising
-        String emailscol = "";
-        String subject = "";
-        String body = "";
-
-        switch (caseSymbol) {
-            case 1: //(updatedStockPrice > thresholdPrice)==true
-                body = "Your stock " + order.getType() + " has a profit of " + (thresholdPrice - updatedStockPrice);
-
-            case 2: //(updatedStockPrice < thresholdPrice)==true
-                body = "Your stock " + order.getType() + " has a loss of " + (updatedStockPrice - thresholdPrice);
-
-            case 3: //when buy order
-                body = "Notification: Thank you for buying. ";
-
-            case 4: //when sell order
-                body = "Notification: Stock has been sold. ";
-        }
-
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wsw1", "root", "abc123")) {
-            // Fetch email details from the database
-            String sql = "SELECT emailscol, subject, body FROM emails";
-            try (Statement statement = connection.createStatement();
-                 ResultSet resultSet = statement.executeQuery(sql)) {
-
-                // Iterate over the result set
-                while (resultSet.next()) {
-                    // Get the email details from the result set
-                    emailscol = resultSet.getString("emailscol");
-                    subject = resultSet.getString("subject");
-                    body = resultSet.getString("body");
-
-                    // Use JavaMail API to send the email
-                    // Set the recipient email, subject, body, etc.
-                    // Send the email using SMTP server or other configuration
-                    //sendEmail(emailscol, subject, body);
-                }
-            }
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-*/
-
-    public void sendNotificationEnter() throws IOException { //when buy
-        if (notificationSendSetting = true) {
-            //send email
-            while (thresholdPrice != updatedStockPrice) {
-                updateStockPrice(order);
-            }
-        }
-    }
-
-    public void sendNotificationExit() { //when sell
-        if (notificationSendSetting = true) {
-            //send email
-        }
-    }
-
-
-    public void sendNotification(int caseSymbol/*, Stock stock*/) {
         Properties props;
         Session session;
         MimeMessage message;
@@ -241,7 +186,7 @@ class Notification {
         try {
 
             InternetAddress[] recipients = new InternetAddress[1];
-            recipients[0] = new InternetAddress("sornphert03@gmail.com");
+            recipients[0] = new InternetAddress(user.getEmail());
 
             message = new MimeMessage(session);
             message.setFrom(new InternetAddress("sornphert03@gmail.com"));
@@ -250,11 +195,11 @@ class Notification {
 
             switch (caseSymbol) {
                 case 1: //(updatedStockPrice > thresholdPrice)==true
-                    message.setText("Your stock " + /*order.getStock() +*/ " has a profit of " + (thresholdPrice - updatedStockPrice));
+                    message.setText("Your stock " + stock.getName() + " (" + stock.getSymbol() + ") has a profit of " + (thresholdPrice - updatedStockPrice));
                     break;
 
                 case 2: //(updatedStockPrice < thresholdPrice)==true
-                    message.setText("Your stock " + order.getStock() + " has a loss of " + (updatedStockPrice - thresholdPrice));
+                    message.setText("Your stock " + stock.getName() + " (" + stock.getSymbol() + ") has a loss of " + (updatedStockPrice - thresholdPrice));
                     break;
 
                 case 3: //when buy order
@@ -267,14 +212,14 @@ class Notification {
 
                 case 5:
                     BodyPart attachment2 = new MimeBodyPart();
-                    attachment2.setDataHandler(new DataHandler(new FileDataSource(System.getProperty("user.home") + "/Downloads/" + user.getUsername() + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".txt")));
-                    attachment2.setFileName("User Report");
+                    File pdfFile = new File(System.getProperty("user.home") + "/Downloads/" + user.getUsername() + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".pdf");
+                    attachment2.setDataHandler(new DataHandler(new FileDataSource(pdfFile)));
+                    attachment2.setFileName("UserReport.pdf"); // Set the desired file name for the attachment
 
                     BodyPart emailText = new MimeBodyPart();
                     emailText.setText(" ");
 
                     Multipart multipartContent = new MimeMultipart();
-                    //multipartContent.addBodyPart(attachment1);
                     multipartContent.addBodyPart(attachment2);
                     multipartContent.addBodyPart(emailText);
 
@@ -290,5 +235,43 @@ class Notification {
             e.printStackTrace();
         }
 
+    /*    double boguhtPrice;
+        final double price = boughtPrice;
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                double currentPrice = 0;
+                String symbol = stock.getSymbol();
+
+                //if (symbol != null){
+                    currentPrice = 60 ;//api.getRealTimePrice(stock.getSymbol()) /* * quantity;
+                //} else {
+                //System.out.println("Symbol is null. Unable to fetch current price.");
+                timer.cancel();
+                return; // Exit the run() method if the symbol is null
+            }
+                if ( price - currentPrice > /*threshold 1){
+                            sendNotification(2);
+                        }
+                        else if (currentPrice - price > /*threshold 1){
+                            sendNotification(1);
+                        }
+
+                System.out.println(" ");
+
+                //get the price of the stock in real time
+                //get the price of the stock bought
+                //compare the two prices
+                //if the differences crosses the threshold then we send an email
+                //
+                System.out.println("Command executed");
+            }
+        }, 0, 1000); // 1000 milliseconds = 1 second
+    }
+
+
+        */
     }
 }
