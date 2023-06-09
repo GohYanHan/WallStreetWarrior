@@ -151,9 +151,9 @@ class Notification {
         System.out.println("Stock price updated: " + updatedStockPrice);
         if (updatedStockPrice >= 0) {
             if (updatedStockPrice > thresholdPrice) {
-                sendNotification(1/*, order.getStock()*/);
+                sendNotification(1, order.getStock());
             } else if (updatedStockPrice < thresholdPrice) {
-                sendNotification(2/*, order.getStock()*/);
+                sendNotification(2, order.getStock());
             }
         }
 
@@ -161,7 +161,7 @@ class Notification {
     //handled by timer, every XX call this method
 
 
-    public void sendNotification(int caseSymbol/*, Stock stock*/) {
+    public void sendNotification(int caseSymbol, Stock stock) {
         Properties props;
         Session session;
         MimeMessage message;
@@ -195,11 +195,11 @@ class Notification {
 
             switch (caseSymbol) {
                 case 1: //(updatedStockPrice > thresholdPrice)==true
-                    message.setText("Your stock " + /*order.getStock() +*/ " has a profit of " + (thresholdPrice - updatedStockPrice));
+                    message.setText("Your stock " + stock.getName() + " (" + stock.getSymbol() + ") has a profit of " + (thresholdPrice - updatedStockPrice));
                     break;
 
                 case 2: //(updatedStockPrice < thresholdPrice)==true
-                    message.setText("Your stock " + order.getStock() + " has a loss of " + (updatedStockPrice - thresholdPrice));
+                    message.setText("Your stock " + stock.getName() + " (" + stock.getSymbol() + ") has a loss of " + (updatedStockPrice - thresholdPrice));
                     break;
 
                 case 3: //when buy order
