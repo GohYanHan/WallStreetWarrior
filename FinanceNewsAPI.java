@@ -71,6 +71,7 @@ public class FinanceNewsAPI {
                         String url_link = newsObject.getString("url");
                         JSONArray entitiesArray = newsObject.getJSONArray("entities");
 
+                        System.out.println("***");
                         System.out.println("Title: " + title);
                         System.out.println("Description: " + description);
                         System.out.println("Snippet: " + snippet);

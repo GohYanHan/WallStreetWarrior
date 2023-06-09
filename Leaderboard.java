@@ -20,17 +20,18 @@ class UserScore {
 
 public class Leaderboard {
     public void printLeaderboard() {
-        Database db = new Database(); // Assuming you have the Database class available
+        Database db = new Database();
 
         // Create a list of UserScore objects from the dashboard data
         List<UserScore> userScores = new ArrayList<>();
         for (Map.Entry<Integer, Double> entry : db.loadPLpoint().entrySet()) {
             int userKey = entry.getKey();
             double points = entry.getValue();
-            userScores.add(new UserScore("User" + userKey, points));
+            if (!db.getUser().getStatus().equalsIgnoreCase("disqualified"))
+                userScores.add(new UserScore("User" + userKey, points));
         }
 
-        // Sort the data based on marks in descending order
+        // Sort the data based on marks (highest to lowest)
         Collections.sort(userScores, Comparator.comparingDouble(UserScore::getMarks).reversed());
 
         // Extract the top ten users
@@ -38,12 +39,10 @@ public class Leaderboard {
 
         // Display the leaderboard
         System.out.println("Rank | User         | Marks");
-        System.out.println("-----|--------------|-------");
+        System.out.println("=====|==============|========");
         for (int i = 0; i < topTenUsers.size(); i++) {
-            UserScore user = topTenUsers.get(i);
-            System.out.printf("%4d | %-12s | %5.2f%n", i + 1, user.getName(), user.getMarks());
+            UserScore users = topTenUsers.get(i);
+            System.out.printf("%4d | %-12s | %5.2f%n", i + 1, users.getName(), users.getMarks());
         }
     }
 }
-
-

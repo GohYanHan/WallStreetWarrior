@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class UserAuthentication {
@@ -11,8 +12,8 @@ public class UserAuthentication {
     private final Scanner scanner = new Scanner(System.in);
     private final FinanceNewsAPI financeNewsAPI = new FinanceNewsAPI();
     private final TradingEngine tradingEngine = new TradingEngine();
-
     private final Notification notification = new Notification();
+    private final Leaderboard leaderboard = new Leaderboard();
 
     public UserAuthentication() throws IOException {
 
@@ -21,7 +22,7 @@ public class UserAuthentication {
     public boolean register() {
         System.out.print("Email: ");
         String email = scanner.nextLine();
-        System.out.println("Your password should contain at least one uppercase letter, one lowercase letter, one digit and minimum length of 8 characters.");
+        System.out.println("Your password should contain at least one uppercase letter,\none lowercase letter, one digit and minimum length of 8 characters.");
         System.out.print("Password: ");
         String password = scanner.nextLine();
         System.out.print("Username: ");
@@ -33,14 +34,13 @@ public class UserAuthentication {
         boolean isPwValid = password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
 
         if (!isPwValid && !isEmailValid) {
-            System.out.println("Invalid email and password. Please enter again.");
+            System.out.println("Invalid email and password.");
             return false;
         } else if (!isEmailValid) {
-            System.out.println("Invalid email. Please enter again.");
+            System.out.println("Invalid email.");
             return false;
         } else if (!isPwValid) {
-            System.out.println("Invalid password. Please enter again.");
-            System.out.println("Your password should contain at least one uppercase letter, one lowercase letter, one digit and minimum length of 8 characters.");
+            System.out.println("Invalid password.");
             return false;
         }
         return db.addUser(email, hashPassword(password), name);
@@ -53,9 +53,11 @@ public class UserAuthentication {
             if (BCrypt.checkpw(password, user.getPassword())) {
                 System.out.println("Login successful!");
                 System.out.println("Welcome, " + user.getUsername() + "!");
-                System.out.println("-".repeat(90));
-                System.out.println("Displaying news today...");
-                financeNewsAPI.getNews();
+                System.out.println("-".repeat(120));
+                if (!Objects.equals(db.getUser().getRole(), "Admin")) {
+                    System.out.println("Displaying news today...");
+//                    financeNewsAPI.getNews();
+                }
                 return true;
             }
         }
@@ -108,36 +110,44 @@ public class UserAuthentication {
             List<Order> sellOrderList = db.loadOrders(user.getKey(), Order.Type.SELL);
 
             // Choose between buying or selling
-            System.out.println("1. Buy or sell stock");
-            System.out.println("2. Search stock");
-            System.out.println("3. Show current stock owned");
-            System.out.println("4. Cancel pending orders");
-            System.out.println("5. Display dashboard");
-            System.out.println("6. Generate Report");
-            System.out.println("7. Notification Settings");
-            System.out.println("8. Log out");
+            System.out.println("=".repeat(40));
+            System.out.printf("%-15s%-24s%s%n","|","Main Menu","|");
+            System.out.println("=".repeat(40));
+            System.out.printf("%-39s%s%n","|1. Buy or sell stock","|");
+            System.out.printf("%-39s%s%n","|2. Search stock","|");
+            System.out.printf("%-39s%s%n","|3. Show current stock owned","|");
+            System.out.printf("%-39s%s%n","|4. Cancel pending orders","|");
+            System.out.printf("%-39s%s%n","|5. Display dashboard","|");
+            System.out.printf("%-39s%s%n","|6. Display Leaderboard","|");
+            System.out.printf("%-39s%s%n","|7. Generate Report","|");
+            System.out.printf("%-39s%s%n","|8. Notification Settings","|");
+            System.out.printf("%-39s%s%n","|9. Log Out","|");
+            System.out.println("=".repeat(40));
+            System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
                     System.out.println("1. Buy stock \n2. Sell stock");
+                    System.out.print("Enter your choice: ");
                     choice = scanner.nextInt();
                     scanner.nextLine();
                     if (choice == 1) {
                         // Display stock in sellOrder list & api
                         tradingEngine.displayLotpoolSellOrders(sellOrderList);
                         // Place a buy order
-                        System.out.println("Enter stock symbol for buy order: ");
+                        System.out.print("Enter stock symbol for buy order: ");
                         String buyStockSymbol = scanner.nextLine();
 
                         // Find the stock by symbol
                         Stock buyStock = findStockBySymbol(stocks, buyStockSymbol);
                         while (buyStock == null) {
-                            System.out.println("Stock with symbol " + buyStockSymbol + " not found. Please enter a new stock symbol: ");
+                            System.out.print("Stock with symbol " + buyStockSymbol + " not found. Please enter a new stock symbol: ");
                             buyStockSymbol = scanner.nextLine();
                             buyStock = findStockBySymbol(stocks, buyStockSymbol);
                         }
-                        System.out.println("Enter quantity for buy order: ");
+
+                        System.out.print("Enter quantity for buy order: ");
                         int buyQuantity = scanner.nextInt();
                         while (!isValidQuantity(buyQuantity)) {
                             System.out.println("Invalid quantity. Minimum buy order quantity is 100 shares (one lot), and maximum is 500 shares.");
@@ -148,7 +158,7 @@ public class UserAuthentication {
                         // Display suggested price for a stock
                         tradingEngine.displaySuggestedPrice(buyStockSymbol, buyQuantity);
 
-                        System.out.println("Enter expected buying price: "); // if add into pending order list then no condition
+                        System.out.print("Enter expected buying price: "); // if add into pending order list then no condition
                         double buyExpectedPrice = scanner.nextDouble();
 
                         // Format the user input to two decimal points
@@ -159,10 +169,10 @@ public class UserAuthentication {
 
                         if (buyStock != null) {
                             LocalDateTime timestamp = LocalDateTime.now();
-                            System.out.println("Add to pending order? [y/n]");
+                            System.out.print("Add to pending order? [y/n] ");
                             String choose = scanner.next();
                             char character = choose.charAt(0);
-                            Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user,timestamp);
+                            Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user, timestamp);
 
                             if (character == 'y') {
                                 db.addOrder(user.getKey(), buyOrder);
@@ -250,14 +260,18 @@ public class UserAuthentication {
                     break;
 
                 case 6:
-                    report.generateReport();
-                    notification.sendNotification(5);
+                    leaderboard.printLeaderboard();
                     break;
 
                 case 7:
+                    report.generateReport();
+//                    notification.sendNotification(5);
+                    break;
+
+                case 8:
                     System.out.println("Notification \n1.turn ON \n2.turn OFF");
+                    System.out.print("Enter your choice: ");
                     choice = scanner.nextInt();
-                    scanner.nextLine();
                     if (choice == 1) {
                         notification.setNotificationSendSettingTrue();
                         break;
@@ -269,10 +283,8 @@ public class UserAuthentication {
                         break;
                     }
 
-
-                case 8:
+                case 9:
                     System.out.println("Logged out successfully!");
-                    System.out.println("-".repeat(90));
                     return;
 
                 default:

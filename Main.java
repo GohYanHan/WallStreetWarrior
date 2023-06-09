@@ -12,7 +12,7 @@ public class Main {
 
         System.out.println("Welcome to the Application!");
         while (true) {
-            System.out.println("-".repeat(90));
+            System.out.println("-".repeat(120));
             System.out.println("1. Register");
             System.out.println("2. Login");
             System.out.println("3. Forget Password");
@@ -20,7 +20,7 @@ public class Main {
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
-            System.out.println("-".repeat(90));
+            System.out.println("-".repeat(120));
             switch (choice) {
                 case 1 -> {
                     if (userAuth.register())
@@ -42,13 +42,14 @@ public class Main {
                             // Create a list of stocks
                             TradingEngine tradingEngine = new TradingEngine();
                             tradingEngine.runAutoMatchingInBackground(db.loadOrders(user.getKey(), Order.Type.BUY), user.getPortfolio());
-                            if (tradingEngine.isWithinTradingHours()) {
+//                            if (tradingEngine.isWithinTradingHours()) {
+
                                 userAuth.loopTrade(api.extractStocks(), user.getPortfolio(), user, tradingEngine, report);
 
-                            } else {
-                                tradingEngine.closeMarket(db.getUser());
-                                System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
-                            }
+//                            } else {
+//                                tradingEngine.closeMarket(db.getUser());
+//                                System.out.println("Trading is currently closed. Orders cannot be executed outside trading hours.");
+//                            }
                         }
                     }
 
@@ -56,7 +57,7 @@ public class Main {
                 case 3 -> userAuth.forgetPassword();
                 case 4 -> {
                     System.out.println("Exiting...");
-                    System.out.println("-".repeat(90));
+                    System.out.println("-".repeat(120));
                     return;
                 }
                 default -> System.out.println("Invalid choice. Please try again.");
