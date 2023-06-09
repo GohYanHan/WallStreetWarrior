@@ -326,12 +326,6 @@ public class Database {
                 user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
                         resultSet.getInt("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds")));
-//                if (user.getRole().equals("Admin")) {
-////                    dk wht to do
-//                } else if (user.getRole().equals("User")) {
-//                    user.setBalance(resultSet.getDouble("userBalance"));
-//                    user.setPL_Points(resultSet.getInt("PL_Points"));
-//                }
                 return user;
             }
 

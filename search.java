@@ -83,7 +83,7 @@ class search {
     }
 
     // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
-    static void searchStocks(String query) {
+    void searchStocks(String query) {
 
 
 
