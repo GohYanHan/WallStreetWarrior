@@ -40,6 +40,7 @@ public class Database {
             return false;
         }
     }
+
     // Get the remaining stock in lot pool from database
     public Map<Stock, Integer> getLotPool() {
         Map<Stock, Integer> lotpool = new HashMap<>();
@@ -61,7 +62,7 @@ public class Database {
         return lotpool;
     }
 
-    // Refresh the lot pool to initial
+    // Replenish the lot pool to initial
     public boolean refreshLotPool() {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "DELETE FROM lotpool";
@@ -158,19 +159,20 @@ public class Database {
 
     // Add users order into database (Type is BUY or SELL)
     public boolean addOrder(int userKey, Order order) {
-        String sql = "INSERT INTO `order` (userKey, symbol, share, price, time, type) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO `order` (userKey, symbol, name, share, price, time, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userKey);
             statement.setString(2, order.getStock().getSymbol());
-            statement.setInt(3, order.getShares());
+            statement.setString(3, order.getStock().getName());
+            statement.setInt(4, order.getShares());
             if (order.getType().equals(Order.Type.BUY))
-                statement.setDouble(4, order.getExpectedBuyingPrice());
+                statement.setDouble(5, order.getExpectedBuyingPrice());
             else
-                statement.setDouble(4, order.getExpectedSellingPrice());
+                statement.setDouble(5, order.getExpectedSellingPrice());
 
-            statement.setTimestamp(5, java.sql.Timestamp.valueOf(order.getTimestamp()));
-            statement.setString(6, order.getType().name());
+            statement.setTimestamp(6, java.sql.Timestamp.valueOf(order.getTimestamp()));
+            statement.setString(7, order.getType().name());
 
             int rowsInserted = statement.executeUpdate();
             statement.close();
@@ -191,7 +193,7 @@ public class Database {
             ResultSet resultSet;
             //load buy orders of current user
             if (type.equals(Order.Type.BUY)) {
-                sql = "SELECT userKey, symbol, share, price, time FROM `order` WHERE userKey = ? AND type = ?";
+                sql = "SELECT userKey, symbol, name, share, price, time FROM `order` WHERE userKey = ? AND type = ?";
                 statement = connection.prepareStatement(sql);
                 statement.setInt(1, userKey);
                 statement.setString(2, type.name());
@@ -199,14 +201,15 @@ public class Database {
 
             } else {
                 //load all sell orders by all users
-                sql = "SELECT userKey, symbol, share, price, time FROM `order` WHERE type = ?";
+                sql = "SELECT userKey, symbol, name, share, price, time FROM `order` WHERE type = ?";
                 statement = connection.prepareStatement(sql);
                 statement.setString(1, type.name());
                 resultSet = statement.executeQuery();
             }
 
             while (resultSet.next()) {
-                list.add(new Order(resultSet.getInt("userKey"), new Stock(resultSet.getString("symbol")),
+                list.add(new Order(resultSet.getInt("userKey"),
+                        new Stock(resultSet.getString("symbol"), resultSet.getString("name")),
                         resultSet.getInt("share"), resultSet.getDouble("price"),
                         resultSet.getTimestamp("time").toLocalDateTime(), type));
             }
@@ -313,8 +316,8 @@ public class Database {
         }
     }
 
-    // Load users from database
-    public User loadUser(String inputEmail) {
+    // Get user by email from database
+    public User loadUserByEmail(String inputEmail) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "SELECT * FROM users WHERE userEmail = ?";
 
@@ -325,7 +328,32 @@ public class Database {
             if (resultSet.next()) {
                 user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
-                        resultSet.getInt("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds")));
+                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds")));
+                return user;
+            }
+
+            resultSet.close();
+            statement.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Get user by key from database
+    public User loadUserByKey(int key) {
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "SELECT * FROM users WHERE userKey = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, key);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
+                        resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
+                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds")));
                 return user;
             }
 
@@ -490,17 +518,19 @@ public class Database {
         }
     }
 
-    // Get list of users from database
+    // Get list of users (including admins) from database
     public List<User> getUsersList() {
         List<User> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "SELECT userKey, userName, userEmail, userStatus, userBalance, PL_Points, thresholds FROM users WHERE role = \"User\"";
+            String sql = "SELECT userKey, userName, userEmail, userStatus, userBalance, PL_Points, thresholds FROM users";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                list.add(new User(resultSet.getString("userEmail"), resultSet.getString("userName"),
-                        resultSet.getString("userStatus"), resultSet.getInt("userBalance"),
-                        resultSet.getInt("PL_Points"), resultSet.getInt("userKey"), resultSet.getDouble("thresholds")));
+                list.add(new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"),
+                        resultSet.getString("userName"), resultSet.getString("userPassword"),
+                        resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
+                        resultSet.getDouble("PL_Points"), resultSet.getString("role"),
+                        resultSet.getDouble("thresholds")));
             }
             resultSet.close();
             statement.close();
@@ -509,31 +539,6 @@ public class Database {
             e.printStackTrace();
         }
         return list;
-    }
-
-    // Load all users (including admins) from the database. For Fraud Detection Only.
-    public List<User> loadAllUsers() {
-        List<User> userList = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "SELECT * FROM users";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                User user = new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"),
-                        resultSet.getString("userName"), resultSet.getString("userPassword"),
-                        resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
-                        resultSet.getInt("PL_Points"), resultSet.getString("role"),
-                        resultSet.getDouble("thresholds"));
-                userList.add(user);
-            }
-
-            resultSet.close();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return userList;
     }
 
 

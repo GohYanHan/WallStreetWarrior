@@ -48,7 +48,9 @@ public class TradingEngine {
                     double expectedBuyingPrice = order.getExpectedSellingPrice();
 
                     if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
-                        tryExecuteSellOrder(order, portfolio);
+//                        tryExecuteSellOrder(order, portfolio);
+                        System.out.println("Sell order executed successfully.");
+                        notification.sendNotification(4,order.getUser().getEmail());
                     } else {
                         System.out.println("The expected selling price is not within the acceptable range.\nOrder not placed.");
                         return false;
@@ -74,9 +76,11 @@ public class TradingEngine {
             String symbolDb = orderDb.getStock().getSymbol();
             int shareDb = orderDb.getShares();
             double priceDb = orderDb.getExpectedSellingPrice();
+            int sellUserKey = orderDb.getUserKey();
 
             if (symbolDb.equalsIgnoreCase(order.getStock().getSymbol()) && shareDb == order.getShares() && priceDb == order.getExpectedBuyingPrice()) {
                 tryExecuteBuyOrder(order, portfolio);
+                tryExecuteSellOrder(orderDb,db.loadUserByKey(sellUserKey).getPortfolio());
                 db.removeOrder(orderDb.getUserKey(), orderDb); // Remove from sell order list
                 return true;
             }
@@ -119,7 +123,7 @@ public class TradingEngine {
             portfolio.addStock(order, shares);
             portfolio.addToTradeHistory(order);
             System.out.println("Buy order executed successfully.");
-            notification.sendNotification(3, order.getStock());
+            notification.sendNotification(3,order.getUser().getEmail());
         } else {
             System.out.println("Not enough money");
         }
@@ -131,12 +135,14 @@ public class TradingEngine {
 
         double temp = portfolio.getAccBalance();
         temp += price;
-        portfolio.setAccBalance(temp);
+        db.updateUserBalance(portfolio.getUserKey(), Math.round(temp* 100.0) / 100.0);
+//        portfolio.setAccBalance(temp);
         portfolio.removeValue(price);
         portfolio.addToTradeHistory(order);
         portfolio.removeStock(order, shares); // remove share num
-        System.out.println("Sell order executed successfully.");
-        notification.sendNotification(4, order.getStock());
+        User user = db.loadUserByKey(order.getUserKey());
+//        System.out.println("Sell order executed successfully.");
+        notification.sendNotification(5,user.getEmail());
     }
 
     public void runAutoMatchingInBackground(List<Order> orders, Portfolio portfolio) {

@@ -74,9 +74,11 @@ public class AdminPanel {
     // Method to list all users
     public void listUsers() {
         List<User> users = db.getUsersList();
-        System.out.printf("%-6s%-30s%-20s%-15s%-15s%-12s%s%n", "ID", "Email", "Username", "Status", "Balance", "PL Points","Thresholds");
+        System.out.printf("%-6s%-30s%-20s%-15s%-15s%-12s%s%n", "ID", "Email", "Username", "Status", "Balance", "PL Points", "Thresholds");
         for (User user : users) {
-            System.out.printf("%-6d%-30s%-20s%-15s%-15.2f%-12d%.3f%n", user.getKey(), user.getEmail(), user.getUsername(), user.getStatus(), user.getBalance(), user.getPL_Points(),user.getThresholds());
+            if (user.getRole().equals("User"))
+                System.out.printf("%-6d%-30s%-20s%-15s%-15.2f%-12.3f%.3f%n", user.getKey(), user.getEmail(), user.getUsername(), user.getStatus(), user.getBalance(), user.getPL_Points(), user.getThresholds());
+            else continue;
         }
     }
 

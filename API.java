@@ -320,41 +320,41 @@ public class API {
         }
     }
 
-//
-//    void searchDisplayStocks(String jsonResponse, String searchQuery) {
-//        try {
-//            JSONArray jsonArray = new JSONArray(jsonResponse);
-//            int index = -1;
-//
-//
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                JSONObject stockJson = jsonArray.getJSONObject(i);
-//                String symbol = stockJson.getString("symbol");
-//                String name = stockJson.getString("name");
-//
-//                // Use Boyer-Moore for string matching
-//                char[] text = symbol.toCharArray();
-//                char[] pattern = searchQuery.toCharArray();
-//                index = boyerMoore.search(text, pattern);
-//
-//                if (index != -1) {
-//                    // Fetch the price using getStockPrice() method
-//                    double price = getRealTimePrice(symbol); // Assuming getStockPrice() method is implemented
-//
-//                    System.out.printf("%-12s\t%-40s\t%-10s\n", "Symbol", "Name", "Price");
-//                    System.out.printf("%-12s\t%-40s\t%-10.2f\n", symbol, name, price);
-//                } else {
-//                    System.out.printf("The symbol %s is not in the pool.\n", symbol);
-//                }
-//            }
-//            System.out.println();
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+
+    void searchDisplayStocks(String jsonResponse, String searchQuery) {
+        try {
+            JSONArray jsonArray = new JSONArray(jsonResponse);
+            int index = -1;
+
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject stockJson = jsonArray.getJSONObject(i);
+                String symbol = stockJson.getString("symbol");
+                String name = stockJson.getString("name");
+
+                // Use Boyer-Moore for string matching
+                char[] text = symbol.toCharArray();
+                char[] pattern = searchQuery.toCharArray();
+                index = boyerMoore.search(text, pattern);
+
+                if (index != -1) {
+                    // Fetch the price using getStockPrice() method
+                    double price = getRealTimePrice(symbol); // Assuming getStockPrice() method is implemented
+
+                    System.out.printf("%-12s\t%-40s\t%-10s\n", "Symbol", "Name", "Price");
+                    System.out.printf("%-12s\t%-40s\t%-10.2f\n", symbol, name, price);
+                } else {
+                    System.out.printf("The symbol %s is not in the pool.\n", symbol);
+                }
+            }
+            System.out.println();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }
