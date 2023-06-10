@@ -34,7 +34,7 @@ public class TradingEngine {
     public boolean executeOrder(Order order, Portfolio portfolio) throws IOException { // for execute immediately orders
         replenishLotPoolDaily();
         if (order.getType() == Order.Type.BUY) {
-            findMatch(order, portfolio);
+            if (!findMatch(order, portfolio)) System.out.println("Buy unsuccessful");
         } else { // order type is sell
             boolean found = false;
 
@@ -47,13 +47,20 @@ public class TradingEngine {
                     double currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
                     double expectedBuyingPrice = order.getExpectedSellingPrice();
 
+
                     if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
 //                        tryExecuteSellOrder(order, portfolio);
                         System.out.println("Sell order executed successfully.");
-                        notification.sendNotification(4,order.getUser().getEmail(),order);
+                        
                     } else {
+
+                    if (!isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
+
                         System.out.println("The expected selling price is not within the acceptable range.\nOrder not placed.");
                         return false;
+                    } else {
+                        System.out.println("Sell order placed successfully.");
+                        notification.sendNotification(4,order.getUser().getEmail(),order);
                     }
 
                     found = true;
@@ -76,11 +83,10 @@ public class TradingEngine {
             String symbolDb = orderDb.getStock().getSymbol();
             int shareDb = orderDb.getShares();
             double priceDb = orderDb.getExpectedSellingPrice();
-            int sellUserKey = orderDb.getUserKey();
 
             if (symbolDb.equalsIgnoreCase(order.getStock().getSymbol()) && shareDb == order.getShares() && priceDb == order.getExpectedBuyingPrice()) {
                 tryExecuteBuyOrder(order, portfolio);
-                tryExecuteSellOrder(orderDb,db.loadUserByKey(sellUserKey).getPortfolio());
+                tryExecuteSellOrder(order, portfolio);
                 db.removeOrder(orderDb.getUserKey(), orderDb); // Remove from sell order list
                 return true;
             }
@@ -107,7 +113,6 @@ public class TradingEngine {
                 }
             }
         }
-
         return false; // No match found
     }
 
@@ -137,13 +142,14 @@ public class TradingEngine {
         double temp = portfolio.getAccBalance();
         temp += price;
         db.updateUserBalance(portfolio.getUserKey(), Math.round(temp* 100.0) / 100.0);
-//        portfolio.setAccBalance(temp);
+        //portfolio.setAccBalance(Math.round(temp* 100.0) / 100.0);
         portfolio.removeValue(price);
         portfolio.addToTradeHistory(order);
         portfolio.removeStock(order, shares); // remove share num
         User user = db.loadUserByKey(order.getUserKey());
 //        System.out.println("Sell order executed successfully.");
         notification.sendNotification(5,user.getEmail(),order);
+
     }
 
     public void runAutoMatchingInBackground(List<Order> orders, Portfolio portfolio) {

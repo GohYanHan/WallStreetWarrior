@@ -54,7 +54,6 @@ public class Main {
 //                            }
                         }
                     }
-
                 }
                 case 3 -> userAuth.forgetPassword();
                 case 4 -> leaderboard.printLeaderboard();
