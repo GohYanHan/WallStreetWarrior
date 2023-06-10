@@ -34,7 +34,7 @@ public class TradingEngine {
     public boolean executeOrder(Order order, Portfolio portfolio) throws IOException { // for execute immediately orders
         replenishLotPoolDaily();
         if (order.getType() == Order.Type.BUY) {
-            findMatch(order, portfolio);
+            if (!findMatch(order, portfolio)) System.out.println("Buy unsuccessful");
         } else { // order type is sell
             boolean found = false;
 
@@ -47,9 +47,7 @@ public class TradingEngine {
                     double currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
                     double expectedBuyingPrice = order.getExpectedSellingPrice();
 
-                    if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
-                        tryExecuteSellOrder(order, portfolio);
-                    } else {
+                    if (!isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
                         System.out.println("The expected selling price is not within the acceptable range.\nOrder not placed.");
                         return false;
                     }
@@ -77,6 +75,7 @@ public class TradingEngine {
 
             if (symbolDb.equalsIgnoreCase(order.getStock().getSymbol()) && shareDb == order.getShares() && priceDb == order.getExpectedBuyingPrice()) {
                 tryExecuteBuyOrder(order, portfolio);
+                tryExecuteSellOrder(order, portfolio);
                 db.removeOrder(orderDb.getUserKey(), orderDb); // Remove from sell order list
                 return true;
             }
