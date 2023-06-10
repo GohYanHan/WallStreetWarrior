@@ -50,7 +50,7 @@ public class TradingEngine {
                     if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
 //                        tryExecuteSellOrder(order, portfolio);
                         System.out.println("Sell order executed successfully.");
-                        notification.sendNotification(4,order.getUser().getEmail());
+                        notification.sendNotification(4,order.getUser().getEmail(),order);
                     } else {
                         System.out.println("The expected selling price is not within the acceptable range.\nOrder not placed.");
                         return false;
@@ -124,7 +124,7 @@ public class TradingEngine {
             portfolio.addStock(order, shares);
             portfolio.addToTradeHistory(order);
             System.out.println("Buy order executed successfully.");
-            notification.sendNotification(3,order.getUser().getEmail());
+            notification.sendNotification(3,order.getUser().getEmail(),order);
         } else {
             System.out.println("Not enough money");
         }
@@ -143,7 +143,7 @@ public class TradingEngine {
         portfolio.removeStock(order, shares); // remove share num
         User user = db.loadUserByKey(order.getUserKey());
 //        System.out.println("Sell order executed successfully.");
-        notification.sendNotification(5,user.getEmail());
+        notification.sendNotification(5,user.getEmail(),order);
     }
 
     public void runAutoMatchingInBackground(List<Order> orders, Portfolio portfolio) {

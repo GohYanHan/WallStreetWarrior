@@ -278,14 +278,16 @@ public class UserAuthentication {
                             break;
 
                         case 8:
-                            System.out.println("Notification\nCurrent notification setting is " + ((Notification.notificationSendSetting) ? "ON" : "OFF") + "\n1.turn ON \n2.turn OFF");
+                            System.out.println("Notification\nCurrent notification setting is set to " + ((Notification.notificationSendSetting)? "ON":"OFF") + "\n1.turn ON \n2.turn OFF");
                             System.out.print("Enter your choice: ");
                             choice = scanner.nextInt();
                             if (choice == 1) {
                                 notification.setNotificationSendSettingTrue();
+                                Notification.saveNotificationSettings();
                                 break;
                             } else if (choice == 2) {
                                 notification.setNotificationSendSettingFalse();
+                                Notification.saveNotificationSettings();
                                 break;
                             } else {
                                 System.out.println("Execution invalid");

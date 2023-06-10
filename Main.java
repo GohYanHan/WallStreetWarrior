@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        Notification.loadNotificationSettings();
         UserAuthentication userAuth = new UserAuthentication();
         AdminPanel admin = new AdminPanel();
         Database db = new Database();
@@ -18,7 +19,7 @@ public class Main {
             System.out.println("2. Login");
             System.out.println("3. Forget Password");
             System.out.println("4. Leaderboard");
-            System.out.println("4. Exit");
+            System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();

@@ -29,7 +29,7 @@ class search {
         Scanner k = new Scanner(System.in);
 
 
-        api.searchDisplayStocks(readJsonFromFile(fileName),k.nextLine());
+//        api.searchDisplayStocks(readJsonFromFile(fileName),k.nextLine());
     }
 
 
