@@ -111,6 +111,7 @@ public class TradingEngine {
         return false; // No match found
     }
 
+
     private void tryExecuteBuyOrder(Order order, Portfolio portfolio) { // enough money jiu buy
         double price = order.getExpectedBuyingPrice();
         int shares = order.getShares();
@@ -164,7 +165,7 @@ public class TradingEngine {
 
         while (isWithinTradingHours() && !allBuyOrdersMatched) {
             for (Order order : orders) {
-                if(findMatch(order, portfolio)) {
+                if (findMatch(order, portfolio)) {
                     db.removeOrder(order.getUserKey(), order); // Remove from buy order list
                     System.out.println("Buy order removed from buy order list.");
                 }
@@ -355,12 +356,17 @@ public class TradingEngine {
     }
 
     public void displayLotpoolSellOrders(List<Order> sellOrders) { // sellOrderList
-            Map<Stock, Integer> lotpoolDb = db.getLotPool();
-            for (Map.Entry<Stock, Integer> entry : lotpoolDb.entrySet()) {
-                Stock stockDb = entry.getKey();
-                int sharesDb = entry.getValue();
-                lotPool.put(stockDb, sharesDb);
-            }
+        Map<Stock, Integer> lotpoolDb = db.getLotPool();
+        for (Map.Entry<Stock, Integer> entry : lotpoolDb.entrySet()) {
+            Stock stockDb = entry.getKey();
+            int sharesDb = entry.getValue();
+            lotPool.put(stockDb, sharesDb);
+        }
+        System.out.println("=".repeat(47));
+        System.out.println("Orders available: ");
+        System.out.println("=".repeat(47));
+        System.out.printf("%-1s %-20s %-1s %-20s %-1s%n", "|", "Stock", "|", "Shares", "|");
+        System.out.println("-".repeat(47));
 
         if (!isWithinInitialTradingPeriod()) {
             System.out.println("Orders available: ");
@@ -369,7 +375,7 @@ public class TradingEngine {
             for (Map.Entry<Stock, Integer> entry : lotPool.entrySet()) {
                 Stock stock = entry.getKey();
                 Integer value = entry.getValue();
-                System.out.printf("%-20s %-10s%n", stock.getSymbol(), value);
+                System.out.printf("%-1s %-20s %-1s %-20s %-10s%n", "|", stock.getSymbol(), "|", value, "|");
             }
         } else {
             System.out.println("Orders available: ");
@@ -377,20 +383,26 @@ public class TradingEngine {
 
             for (Map.Entry<Stock, Integer> entry : lotPool.entrySet()) {
                 Stock stock = entry.getKey();
-                System.out.printf("%-20s %-10s\n", stock.getSymbol(), "unlimited");
+                Integer value = entry.getValue();
+                System.out.printf("%-1s %-20s %-1s %-20s %-1s%n", "|", stock.getSymbol(), "|", "unlimited", "|");
             }
         }
+        System.out.println("=".repeat(47));
         System.out.println("Orders in sell order list: ");
-        System.out.printf("%-20s %-10s %-10s\n", "Stock", "Shares", "Selling Price");
-        for (Order order : sellOrders) {
-            if (!sellOrders.isEmpty()) {
-                System.out.printf("%-20s %-10s %-10s%n", order.getStock().getSymbol(), order.getShares(), order.getExpectedSellingPrice());
-            } else {
-                System.out.printf("%-20s %-10s %-10s%n", "-", "-", "-");
+        System.out.println("=".repeat(47));
+        System.out.printf("%-1s %-12s %-1s %-12s %-1s %-13s %-1s%n", "|", "Stock", "|", "Shares", "|", "Selling Price", "|");
+        System.out.println("-".repeat(47));
+
+        if (sellOrders.isEmpty()) {
+            System.out.printf("%-1s %-12s %-1s %-12s %-1s %-13s %-1s%n", "|", "-", "|", "-", "|", "-", "|");
+        } else {
+            for (Order order : sellOrders) {
+                System.out.printf("%-1s %-12s %-1s %-12s %-1s %-13s %-1s%n", "|", order.getStock().getSymbol(), "|", order.getShares(), "|", order.getExpectedSellingPrice(), "|");
             }
         }
-        System.out.println();
+        System.out.println("=".repeat(47));
     }
+
     private void displayBuyOrders(List<Order> orders) {
         for (Order order : orders) {
             System.out.println("Stock: " + order.getStock().getSymbol());
