@@ -187,53 +187,58 @@ public class UserAuthentication {
                                             }
                                         } else {
                                             tradingEngine.executeOrder(buyOrder, portfolio);
-                                            System.out.println("Buy order executed successfully.");
+                                            System.out.println("Sell order executed successfully.");
                                         }
                                     } else {
                                         System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
                                     }
-                                } else if (choice == 2) {
-                                    // display buyOrders
-                                    portfolio.displayBuyOrders();
-                                    // Place a sell order
-                                    System.out.print("Enter stock symbol for sell order: ");
-                                    String sellStockSymbol = scanner.nextLine();
-                                    // Find the stock by symbol
-                                    Stock sellStock = portfolio.findStockBySymbol(sellStockSymbol);
-                                    while (sellStock == null) {
-                                        System.out.println("Stock with symbol " + sellStockSymbol + " not found. Please enter a new stock symbol: ");
-                                        sellStockSymbol = scanner.nextLine();
-                                        sellStock = portfolio.findStockBySymbol(sellStockSymbol);
-                                    }
-
-                                    System.out.print("Enter quantity for sell order: ");
-                                    int sellQuantity = scanner.nextInt();
-                                    while (sellQuantity < 100) {
-                                        System.out.println("Invalid quantity. Minimum sell order quantity is 100 shares (one lot).");
-                                        System.out.println("Enter quantity for sell order: ");
-                                        sellQuantity = scanner.nextInt();
-                                    }
-
-                                    // Display suggested price for a stock
-                                    tradingEngine.displaySuggestedPrice(sellStockSymbol, sellQuantity);
-
-                                    System.out.print("Enter expected selling price: ");
-                                    double sellExpectedPrice = scanner.nextDouble();
-
-                                    // Format the user input to two decimal points
-                                    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-                                    double formattedSellingPrice = Double.parseDouble(decimalFormat.format(sellExpectedPrice));
-
-                                    sellStock = portfolio.findStockBySymbol(sellStockSymbol);
-                                    if (sellStock != null) {
-                                        LocalDateTime timestamp = LocalDateTime.now();
-                                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, formattedSellingPrice, user, timestamp);
-                                        if (tradingEngine.executeOrder(sellOrder, portfolio)) {
-                                            db.addOrder(user.getKey(), sellOrder);
+                                } else if (choice == 2) { // Sell order
+                                    // display holdings
+                                    if (!portfolio.isHoldingsEmpty()) {
+                                        portfolio.displayBuyOrders();
+                                        // Place a sell order
+                                        System.out.print("Enter stock symbol for sell order: ");
+                                        String sellStockSymbol = scanner.nextLine();
+                                        // Find the stock by symbol
+                                        Stock sellStock = portfolio.findStockBySymbol(sellStockSymbol);
+                                        while (sellStock == null) {
+                                            System.out.println("Stock with symbol " + sellStockSymbol + " not found. Please enter a new stock symbol: ");
+                                            sellStockSymbol = scanner.nextLine();
+                                            sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                                         }
 
+                                        System.out.print("Enter quantity for sell order: ");
+                                        int sellQuantity = scanner.nextInt();
+                                        while (sellQuantity < 100) {
+                                            System.out.println("Invalid quantity. Minimum sell order quantity is 100 shares (one lot).");
+                                            System.out.println("Enter quantity for sell order: ");
+                                            sellQuantity = scanner.nextInt();
+                                        }
+
+                                        // Display suggested price for a stock
+                                        tradingEngine.displaySuggestedPrice(sellStockSymbol, sellQuantity);
+
+                                        System.out.print("Enter expected selling price: ");
+                                        double sellExpectedPrice = scanner.nextDouble();
+
+                                        // Format the user input to two decimal points
+                                        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                                        double formattedSellingPrice = Double.parseDouble(decimalFormat.format(sellExpectedPrice));
+
+                                        sellStock = portfolio.findStockBySymbol(sellStockSymbol);
+                                        if (sellStock != null) {
+                                            LocalDateTime timestamp = LocalDateTime.now();
+                                            Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, formattedSellingPrice, user, timestamp);
+                                            if (tradingEngine.executeOrder(sellOrder, portfolio)) {
+                                                db.addOrder(user.getKey(), sellOrder);
+                                                System.out.println("Stock added to sell order list.");
+                                            }
+
+                                        } else {
+                                            System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
+                                        }
                                     } else {
-                                        System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
+                                        System.out.println("Holdings is empty. Cannot sell stock.");
                                     }
                                 }
                             } else {

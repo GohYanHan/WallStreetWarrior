@@ -159,16 +159,8 @@ public class Portfolio {
         }
     }
 
-    public boolean containsStockSymbol(String symbol) {
-        for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
-            Order order = entry.getKey();
-            String stockSymbol = order.getStock().getSymbol();
-
-            if (stockSymbol.equals(symbol)) {
-                return true; // Symbol found in holdings
-            }
-        }
-        return false; // Symbol not found in holdings
+    public boolean isHoldingsEmpty() {
+        return holdings.isEmpty();
     }
 
     public Stock findStockBySymbol(String symbol) {
@@ -189,6 +181,5 @@ public class Portfolio {
     public void addToTradeHistory(Order order) {
         db.addTransactionHistory(userKey, order);
     }
-
 
 }
