@@ -50,6 +50,9 @@ public class TradingEngine {
                     if (!isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
                         System.out.println("The expected selling price is not within the acceptable range.\nOrder not placed.");
                         return false;
+                    } else {
+                        System.out.println("Sell order placed successfully.");
+                        notification.sendNotification(4, order.getUser().getEmail());
                     }
 
                     found = true;
@@ -102,7 +105,6 @@ public class TradingEngine {
                 }
             }
         }
-
         return false; // No match found
     }
 
@@ -132,12 +134,12 @@ public class TradingEngine {
         double temp = portfolio.getAccBalance();
         temp += price;
         db.updateUserBalance(portfolio.getUserKey(), Math.round(temp* 100.0) / 100.0);
-        portfolio.setAccBalance(temp);
+        //portfolio.setAccBalance(Math.round(temp* 100.0) / 100.0);
         portfolio.removeValue(price);
         portfolio.addToTradeHistory(order);
         portfolio.removeStock(order, shares); // remove share num
         User user = db.loadUserByKey(order.getUserKey());
-        System.out.println("Sell order executed successfully.");
+        //System.out.println("Sell order executed successfully.");
         notification.sendNotification(5,user.getEmail());
     }
 

@@ -182,5 +182,4 @@ public class Portfolio {
         db.addTransactionHistory(userKey, order);
     }
 
-
 }

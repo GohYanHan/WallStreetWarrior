@@ -187,6 +187,7 @@ public class UserAuthentication {
                                             }
                                         } else {
                                             tradingEngine.executeOrder(buyOrder, portfolio);
+                                            System.out.println("Sell order executed successfully.");
                                         }
                                     } else {
                                         System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
