@@ -9,6 +9,7 @@ public class Main {
         API api = new API();
         Report report = new Report();
         Scanner scanner = new Scanner(System.in);
+        Leaderboard leaderboard = new Leaderboard();
 
         System.out.println("Welcome to the Application!");
         while (true) {
@@ -16,6 +17,7 @@ public class Main {
             System.out.println("1. Register");
             System.out.println("2. Login");
             System.out.println("3. Forget Password");
+            System.out.println("4. Leaderboard");
             System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
@@ -54,7 +56,8 @@ public class Main {
 
                 }
                 case 3 -> userAuth.forgetPassword();
-                case 4 -> {
+                case 4 -> leaderboard.printLeaderboard();
+                case 5 -> {
                     System.out.println("Exiting...");
                     System.out.println("-".repeat(120));
                     return;
