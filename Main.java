@@ -9,6 +9,7 @@ public class Main {
         API api = new API();
         Report report = new Report();
         Scanner scanner = new Scanner(System.in);
+        String email = "";
 
         System.out.println("Welcome to the Application!");
         while (true) {
@@ -29,7 +30,7 @@ public class Main {
                 }
                 case 2 -> {
                     System.out.print("Email: ");
-                    String email = scanner.nextLine();
+                    email = scanner.nextLine();
                     System.out.print("Password: ");
                     String password = scanner.nextLine();
                     if (userAuth.login(email, password)) {
