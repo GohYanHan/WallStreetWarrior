@@ -47,24 +47,24 @@ public class TradingEngine {
                     double currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
                     double expectedBuyingPrice = order.getExpectedSellingPrice();
 
-
                     if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
 //                        tryExecuteSellOrder(order, portfolio);
                         System.out.println("Sell order executed successfully.");
-                        
+
                     } else {
 
-                    if (!isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
+                        if (!isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
 
-                        System.out.println("The expected selling price is not within the acceptable range.\nOrder not placed.");
-                        return false;
-                    } else {
-                        System.out.println("Sell order placed successfully.");
-                        notification.sendNotification(4,order.getUser().getEmail(),order);
+                            System.out.println("The expected selling price is not within the acceptable range.\nOrder not placed.");
+                            return false;
+                        } else {
+                            System.out.println("Sell order placed successfully.");
+                            notification.sendNotification(4, order.getUser().getEmail(), order);
+                        }
+
+                        found = true;
+                        break;
                     }
-
-                    found = true;
-                    break;
                 }
             }
             if (!found) {
@@ -74,6 +74,7 @@ public class TradingEngine {
         }
         return true;
     }
+
 
     private boolean findMatch(Order order, Portfolio portfolio) throws IOException {
         double currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
@@ -129,7 +130,8 @@ public class TradingEngine {
             portfolio.addStock(order, shares);
             portfolio.addToTradeHistory(order);
             System.out.println("Buy order executed successfully.");
-            notification.sendNotification(3,order.getUser().getEmail(),order);
+            User user = db.loadUserByKey(order.getUserKey());
+            notification.sendNotification(3, user.getEmail(), order);
         } else {
             System.out.println("Not enough money");
         }
@@ -141,14 +143,14 @@ public class TradingEngine {
 
         double temp = portfolio.getAccBalance();
         temp += price;
-        db.updateUserBalance(portfolio.getUserKey(), Math.round(temp* 100.0) / 100.0);
+        db.updateUserBalance(portfolio.getUserKey(), Math.round(temp * 100.0) / 100.0);
         //portfolio.setAccBalance(Math.round(temp* 100.0) / 100.0);
         portfolio.removeValue(price);
         portfolio.addToTradeHistory(order);
         portfolio.removeStock(order, shares); // remove share num
         User user = db.loadUserByKey(order.getUserKey());
 //        System.out.println("Sell order executed successfully.");
-        notification.sendNotification(5,user.getEmail(),order);
+        notification.sendNotification(5, user.getEmail(), order);
 
     }
 
@@ -169,7 +171,7 @@ public class TradingEngine {
     public boolean autoMatching(List<Order> orders, Portfolio portfolio) throws IOException {
         boolean allBuyOrdersMatched = false;
 
-        while (isWithinTradingHours() && !allBuyOrdersMatched) {
+        while (!allBuyOrdersMatched) { //within trading hours
             for (Order order : orders) {
                 if (findMatch(order, portfolio)) {
                     db.removeOrder(order.getUserKey(), order); // Remove from buy order list
@@ -179,11 +181,9 @@ public class TradingEngine {
 
             // Check if all buy orders are matched
             allBuyOrdersMatched = true;
-            for (Order order : orders) {
-                if (order.getType() == Order.Type.BUY) {
-                    allBuyOrdersMatched = false;
-                    break;
-                }
+            if (orders.isEmpty()) {
+                allBuyOrdersMatched = false;
+                break;
             }
         }
 
