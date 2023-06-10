@@ -98,5 +98,4 @@ public class API {
         return latestClosePrice;
     }
 
-
 }

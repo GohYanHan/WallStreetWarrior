@@ -48,7 +48,7 @@ public class UserAuthentication {
     }
 
     public boolean login(String email, String password) throws IOException {
-        User user = db.loadUser(email);
+        User user = db.loadUserByEmail(email);
         db.setUser(user);
         if (user != null) {
             if (BCrypt.checkpw(password, user.getPassword())) {
@@ -104,7 +104,6 @@ public class UserAuthentication {
 
     public void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine, Report report) throws IOException {
         while (true) {
-
             boolean running = true;
 
             while (running) {
@@ -118,9 +117,12 @@ public class UserAuthentication {
                 System.out.printf("%-39s%s%n", "| 3. Show current stock owned", "|");
                 System.out.printf("%-39s%s%n", "| 4. Cancel pending orders", "|");
                 System.out.printf("%-39s%s%n", "| 5. Display dashboard", "|");
-                System.out.printf("%-39s%s%n", "| 6. Generate Report", "|");
-                System.out.printf("%-39s%s%n", "| 7. Notification Settings", "|");
-                System.out.printf("%-39s%s%n", "| 8. Log Out", "|");
+                System.out.printf("%-39s%s%n", "| 6. Display Leaderboard", "|");
+                System.out.printf("%-39s%s%n", "| 7. Generate Report", "|");
+                System.out.printf("%-39s%s%n", "| 8. Notification Settings", "|");
+                System.out.printf("%-39s%s%n", "| 9. Set Threshold ", "|");
+                System.out.printf("%-39s%s%n", "| 10. Log Out", "|");
+
                 System.out.println("=".repeat(40));
                 System.out.print("Enter your choice: ");
 
@@ -272,11 +274,11 @@ public class UserAuthentication {
 
                         case 6:
                             report.generateReport();
-//                    notification.sendNotification(5);
+//                            notification.sendNotification(5, stocks.get(2));
                             break;
 
-                        case 7:
-                            System.out.println("Notification \n1.turn ON \n2.turn OFF");
+                        case 8:
+                            System.out.println("Notification\nCurrent notification setting is " + ((Notification.notificationSendSetting) ? "ON" : "OFF") + "\n1.turn ON \n2.turn OFF");
                             System.out.print("Enter your choice: ");
                             choice = scanner.nextInt();
                             if (choice == 1) {
@@ -289,11 +291,29 @@ public class UserAuthentication {
                                 System.out.println("Execution invalid");
                                 break;
                             }
-
-                        case 8:
+                        case 9:
+                            user = db.loadUserByKey(user.getKey());
+                            System.out.println("Current threshold value is set to RM" + (user.getThresholds()) + "\nThreshold range has to be within 10 - 10000\nEnter an amount to set as your threshold: ");
+                            while (true) {
+                                if (scanner.hasNextDouble()) {
+                                    double thresholds = scanner.nextDouble();
+                                    if (thresholds > 10000 || thresholds < 10) {
+                                        System.out.println("Threshold amount not within range.\nPlease enter a different amount.");
+                                    } else {
+                                        db.updateUserThresholds(user.getKey(), thresholds);
+                                        System.out.println("Threshold set successfully!");
+                                        break;
+                                    }
+                                } else {
+                                    System.out.println("Threshold has to be a number. Please enter a valid amount.");
+                                    scanner.next();
+                                }
+                            }
+                            break;
+                        case 10:
                             System.out.println("Logged out successfully!");
                             running = false; // Set running to false to exit the loop
-                            break;
+                            return;
 
                         default:
                             System.out.println("Invalid choice. Please enter a number from 1 to 9.");
@@ -304,7 +324,6 @@ public class UserAuthentication {
                     scanner.nextLine(); // Consume the invalid input
                 }
             }
-            scanner.close();
         }
     }
 }

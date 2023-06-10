@@ -12,11 +12,6 @@ public class Stock {
         this.name = name;
     }
 
-    public Stock(String symbol) {
-        this.symbol = symbol;
-
-    }
-
     public String getSymbol() {
         return symbol;
     }

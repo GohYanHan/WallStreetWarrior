@@ -9,7 +9,7 @@ public class FraudDetection {
         this.user = user;
     }
 
-    List<User> users = database.loadAllUsers();
+    List<User> users = database.getUsersList();
 
 
     public void displaySuspiciousUsers() {
