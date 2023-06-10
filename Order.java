@@ -73,10 +73,6 @@ public class Order {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public void setUser(User user) {
         this.user = user;
     }

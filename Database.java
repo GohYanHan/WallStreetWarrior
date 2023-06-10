@@ -522,7 +522,7 @@ public class Database {
     public List<User> getUsersList() {
         List<User> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "SELECT userKey, userName, userEmail, userStatus, userBalance, PL_Points, thresholds FROM users";
+            String sql = "SELECT * FROM users";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {

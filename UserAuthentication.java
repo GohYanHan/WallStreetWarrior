@@ -7,6 +7,9 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class UserAuthentication {
     private final Database db = new Database();
@@ -14,6 +17,7 @@ public class UserAuthentication {
     private final FinanceNewsAPI financeNewsAPI = new FinanceNewsAPI();
     private final TradingEngine tradingEngine = new TradingEngine();
     private final Notification notification = new Notification();
+    private final Leaderboard leaderboard = new Leaderboard();
 
 
     public UserAuthentication() throws IOException {
@@ -107,24 +111,26 @@ public class UserAuthentication {
             boolean running = true;
 
             while (running) {
-                // Display menu and prompt for choice
-                System.out.println();
-                System.out.println("=".repeat(40));
-                System.out.printf("%-15s%-24s%s%n", "|", "Main Menu", "|");
-                System.out.println("=".repeat(40));
-                System.out.printf("%-39s%s%n", "| 1. Buy or sell stock", "|");
-                System.out.printf("%-39s%s%n", "| 2. Search stock", "|");
-                System.out.printf("%-39s%s%n", "| 3. Show current stock owned", "|");
-                System.out.printf("%-39s%s%n", "| 4. Cancel pending orders", "|");
-                System.out.printf("%-39s%s%n", "| 5. Display dashboard", "|");
-                System.out.printf("%-39s%s%n", "| 6. Display Leaderboard", "|");
-                System.out.printf("%-39s%s%n", "| 7. Generate Report", "|");
-                System.out.printf("%-39s%s%n", "| 8. Notification Settings", "|");
-                System.out.printf("%-39s%s%n", "| 9. Set Threshold ", "|");
-                System.out.printf("%-39s%s%n", "| 10. Log Out", "|");
-
-                System.out.println("=".repeat(40));
-                System.out.print("Enter your choice: ");
+                ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+                executor.schedule(() -> {
+                    // Display menu and prompt for choice
+                    System.out.println();
+                    System.out.println("=".repeat(40));
+                    System.out.printf("%-15s%-24s%s%n", "|", "Main Menu", "|");
+                    System.out.println("=".repeat(40));
+                    System.out.printf("%-39s%s%n", "| 1. Buy or sell stock", "|");
+                    System.out.printf("%-39s%s%n", "| 2. Search stock", "|");
+                    System.out.printf("%-39s%s%n", "| 3. Show current stock owned", "|");
+                    System.out.printf("%-39s%s%n", "| 4. Cancel pending orders", "|");
+                    System.out.printf("%-39s%s%n", "| 5. Display dashboard", "|");
+                    System.out.printf("%-39s%s%n", "| 6. Display Leaderboard", "|");
+                    System.out.printf("%-39s%s%n", "| 7. Generate Report", "|");
+                    System.out.printf("%-39s%s%n", "| 8. Notification Settings", "|");
+                    System.out.printf("%-39s%s%n", "| 9. Set Threshold ", "|");
+                    System.out.printf("%-39s%s%n", "| 10. Log Out", "|");
+                    System.out.println("=".repeat(40));
+                    System.out.print("Enter your choice: ");
+                }, 5, TimeUnit.SECONDS);
 
                 try {
                     int choice = scanner.nextInt();
@@ -182,9 +188,8 @@ public class UserAuthentication {
                                         if (character == 'y') {
                                             db.addOrder(user.getKey(), buyOrder);
                                             System.out.println("Buy order added into pending buy order list.");
-                                            if (tradingEngine.autoMatching(db.loadOrders(user.getKey(), Order.Type.BUY), portfolio)) { // how to make it keep check
-                                                db.removeOrder(user.getKey(), buyOrder); // if successfully execute buy order remove from pending buy order
-                                            }
+                                            tradingEngine.runAutoMatchingInBackground(db.loadOrders(user.getKey(), Order.Type.BUY), portfolio);
+
                                         } else {
                                             tradingEngine.executeOrder(buyOrder, portfolio);
                                             System.out.println("Sell order executed successfully.");
@@ -278,12 +283,14 @@ public class UserAuthentication {
                             break;
 
                         case 6:
+                            leaderboard.printLeaderboard();
+                        case 7:
                             report.generateReport();
 //                            notification.sendNotification(5, stocks.get(2));
                             break;
 
                         case 8:
-                            System.out.println("Notification\nCurrent notification setting is set to " + ((Notification.notificationSendSetting)? "ON":"OFF") + "\n1.turn ON \n2.turn OFF");
+                            System.out.println("Notification\nCurrent notification setting is set to " + ((Notification.notificationSendSetting) ? "ON" : "OFF") + "\n1.turn ON \n2.turn OFF");
                             System.out.print("Enter your choice: ");
                             choice = scanner.nextInt();
                             if (choice == 1) {
