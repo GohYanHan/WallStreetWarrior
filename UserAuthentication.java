@@ -14,7 +14,7 @@ public class UserAuthentication {
     private final FinanceNewsAPI financeNewsAPI = new FinanceNewsAPI();
     private final TradingEngine tradingEngine = new TradingEngine();
     private final Notification notification = new Notification();
-    private final Leaderboard leaderboard = new Leaderboard();
+
 
     public UserAuthentication() throws IOException {
 
@@ -118,10 +118,9 @@ public class UserAuthentication {
                 System.out.printf("%-39s%s%n", "| 3. Show current stock owned", "|");
                 System.out.printf("%-39s%s%n", "| 4. Cancel pending orders", "|");
                 System.out.printf("%-39s%s%n", "| 5. Display dashboard", "|");
-                System.out.printf("%-39s%s%n", "| 6. Display Leaderboard", "|");
-                System.out.printf("%-39s%s%n", "| 7. Generate Report", "|");
-                System.out.printf("%-39s%s%n", "| 8. Notification Settings", "|");
-                System.out.printf("%-39s%s%n", "| 9. Log Out", "|");
+                System.out.printf("%-39s%s%n", "| 6. Generate Report", "|");
+                System.out.printf("%-39s%s%n", "| 7. Notification Settings", "|");
+                System.out.printf("%-39s%s%n", "| 8. Log Out", "|");
                 System.out.println("=".repeat(40));
                 System.out.print("Enter your choice: ");
 
@@ -272,15 +271,11 @@ public class UserAuthentication {
                             break;
 
                         case 6:
-                            leaderboard.printLeaderboard();
-                            break;
-
-                        case 7:
                             report.generateReport();
 //                    notification.sendNotification(5);
                             break;
 
-                        case 8:
+                        case 7:
                             System.out.println("Notification \n1.turn ON \n2.turn OFF");
                             System.out.print("Enter your choice: ");
                             choice = scanner.nextInt();
@@ -295,7 +290,7 @@ public class UserAuthentication {
                                 break;
                             }
 
-                        case 9:
+                        case 8:
                             System.out.println("Logged out successfully!");
                             running = false; // Set running to false to exit the loop
                             break;

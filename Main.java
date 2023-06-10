@@ -9,7 +9,7 @@ public class Main {
         API api = new API();
         Report report = new Report();
         Scanner scanner = new Scanner(System.in);
-        String email = "";
+        Leaderboard leaderboard = new Leaderboard();
 
         System.out.println("Welcome to the Application!");
         while (true) {
@@ -17,6 +17,7 @@ public class Main {
             System.out.println("1. Register");
             System.out.println("2. Login");
             System.out.println("3. Forget Password");
+            System.out.println("4. Leaderboard");
             System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
@@ -30,7 +31,7 @@ public class Main {
                 }
                 case 2 -> {
                     System.out.print("Email: ");
-                    email = scanner.nextLine();
+                    String email = scanner.nextLine();
                     System.out.print("Password: ");
                     String password = scanner.nextLine();
                     if (userAuth.login(email, password)) {
@@ -55,7 +56,8 @@ public class Main {
 
                 }
                 case 3 -> userAuth.forgetPassword();
-                case 4 -> {
+                case 4 -> leaderboard.printLeaderboard();
+                case 5 -> {
                     System.out.println("Exiting...");
                     System.out.println("-".repeat(120));
                     return;
