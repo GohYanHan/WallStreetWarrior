@@ -168,7 +168,7 @@ public class Report {
                 document.close();
                 writer.close();
 
-                System.out.println("User report generated successfully.\n");
+                System.out.println("User report generated successfully in the Downloads folder.\n");
             } catch (DocumentException | IOException e) {
                 System.out.println("An error occurred while generating the user report.");
                 e.printStackTrace();
