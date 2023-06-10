@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.prefs.Preferences;
 
 
 class Notification {
@@ -20,9 +21,8 @@ class Notification {
     private double thresholds = 0; //default null
 
     //static Stock stock = new Stock(order.getSymbol());
-
-    private final Database database = new Database();
-    private final User user = database.getUser();
+    private final Database db = new Database();
+    private final User user = db.getUser();
     ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
     //on button click do set true or set false, default true, assuming there are 2 buttons(enable/disable)
@@ -36,7 +36,28 @@ class Notification {
         return notificationSendSetting = false;
     }
 
-    public void sendNotification(int caseSymbol, String userEmail) {
+    private static final String NOTIFICATION_PREF_KEY = "notificationSetting";
+    private static Preferences preferences = Preferences.userNodeForPackage(Notification.class);
+
+    public static boolean isNotificationSendSetting() {
+        return preferences.getBoolean(NOTIFICATION_PREF_KEY, true);
+    }
+
+    public static void setNotificationSendSetting(boolean value) {
+        preferences.putBoolean(NOTIFICATION_PREF_KEY, value);
+    }
+
+    public static void loadNotificationSettings() {
+        // Load the notification setting from Preferences
+        notificationSendSetting = preferences.getBoolean(NOTIFICATION_PREF_KEY, true);
+    }
+
+    public static void saveNotificationSettings() {
+        // Save the notification setting to Preferences
+        preferences.putBoolean(NOTIFICATION_PREF_KEY, notificationSendSetting);
+    }
+
+    public void sendNotification(int caseSymbol, String userEmail, Order order){
         if (notificationSendSetting) {
             Properties props;
             Session session;
@@ -69,23 +90,20 @@ class Notification {
 
                 switch (caseSymbol) {
                     case 1:
-                        message.setText("Your stock has made a profit of RM" + (thresholds));
+                        message.setText("Your stock has made a profit of RM " + thresholds);
                         break;
-
                     case 2:
-                        message.setText("Your stock has reached a loss of RM" + (thresholds));
+                        message.setText("Your stock has reached a loss of RM " + thresholds);
                         break;
-
-                    case 3: //when buy order
-                        message.setText("Your purchase order has went through successfully. ");
+                    case 3: //when successfully execute buy order
+                            message.setText("Your have successfully purchased " + (order.getStock().getSymbol()) +" at a price of RM" + (order.getExpectedBuyingPrice())+ " for " + (order.getShares())+" shares."  );
                         break;
-
-                    case 4: //when putting sell order
-                        message.setText("Your stock has successfully been put up for sale. ");
+                    case 4: // when place sell order
+                            message.setText("Your have successfully placed sell order of " + (order.getStock().getSymbol()) +" at a price of RM" + (order.getExpectedSellingPrice())+ " for " + (order.getShares())+" shares."  );
                         break;
 
                     case 5: //when sell order bought by others
-                        message.setText("Your stock has been bought by others. ");
+                            message.setText("Your have successfully sold " + (order.getStock().getSymbol()) +" at a price of RM" + (order.getExpectedSellingPrice())+ " for " + (order.getShares())+" shares."  );
                         break;
                     case 6:
                         BodyPart attachment2 = new MimeBodyPart();
@@ -101,55 +119,56 @@ class Notification {
                         multipartContent.addBodyPart(emailText);
 
                         message.setContent(multipartContent);
-
                 }
                 Transport.send(message);
+
                 if (caseSymbol != 5)
                     System.out.println("Email sent successfully. ");
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
         }
+       /* Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                List<Order> order =  database.loadOrders(user.getKey(), Order.Type.BUY);
+                thresholds = user.getThresholds();
+                double boughtPrice = order.price(); // bought price
 
-//        Timer timer = new Timer();
-//        timer.scheduleAtFixedRate(new TimerTask() {
-//            @Override
-//            public void run() {
-//                API api = new API();
-//                List<Order> orders = database.loadOrders(user.getKey(), Order.Type.BUY);
-//                thresholds = user.getThresholds();
-//                double boughtPrice = order.getExpectedBuyingPrice(); // bought price
-//
-//                double currentPrice = 0;
-//                try {
-//                    currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//
-//                if (boughtPrice - currentPrice >= thresholds) {
-//                    try {
-//                        sendNotification(2);
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                } else if (currentPrice - boughtPrice >= thresholds) {
-//                    try {
-//                        sendNotification(1);
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
-//
-//                //get the price of the stock in real time
-//                //get the price of the stock bought
-//                //compare the two prices
-//                //if the differences crosses the threshold then we send an email
-//                //
-//                System.out.println("Command executed");
-//            }
-//        }, 0, 1000); // 1000 milliseconds = 1 second
+                double currentPrice = 0;
+                try {
+                    currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
+
+                if ( boughtPrice - currentPrice >= thresholds ){
+                    try {
+                        sendNotification(1);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                else if (currentPrice - boughtPrice >= thresholds ){
+                    try {
+                        sendNotification(2);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+
+                //get the price of the stock in real time
+                //get the price of the stock bought
+                //compare the two prices
+                //if the differences crosses the threshold then we send an email
+                //
+                System.out.println("Command executed");
+            }
+        }, 0, 1000); // 1000 milliseconds = 1 second
+*/
 
     }
 

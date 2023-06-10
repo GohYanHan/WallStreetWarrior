@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        Notification.loadNotificationSettings();
         UserAuthentication userAuth = new UserAuthentication();
         AdminPanel admin = new AdminPanel();
         Database db = new Database();

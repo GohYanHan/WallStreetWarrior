@@ -47,12 +47,20 @@ public class TradingEngine {
                     double currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
                     double expectedBuyingPrice = order.getExpectedSellingPrice();
 
+
+                    if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
+//                        tryExecuteSellOrder(order, portfolio);
+                        System.out.println("Sell order executed successfully.");
+                        
+                    } else {
+
                     if (!isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
+
                         System.out.println("The expected selling price is not within the acceptable range.\nOrder not placed.");
                         return false;
                     } else {
                         System.out.println("Sell order placed successfully.");
-                        notification.sendNotification(4, order.getUser().getEmail());
+                        notification.sendNotification(4,order.getUser().getEmail(),order);
                     }
 
                     found = true;
@@ -121,7 +129,7 @@ public class TradingEngine {
             portfolio.addStock(order, shares);
             portfolio.addToTradeHistory(order);
             System.out.println("Buy order executed successfully.");
-            notification.sendNotification(3,order.getUser().getEmail());
+            notification.sendNotification(3,order.getUser().getEmail(),order);
         } else {
             System.out.println("Not enough money");
         }
@@ -139,8 +147,9 @@ public class TradingEngine {
         portfolio.addToTradeHistory(order);
         portfolio.removeStock(order, shares); // remove share num
         User user = db.loadUserByKey(order.getUserKey());
-        //System.out.println("Sell order executed successfully.");
-        notification.sendNotification(5,user.getEmail());
+//        System.out.println("Sell order executed successfully.");
+        notification.sendNotification(5,user.getEmail(),order);
+
     }
 
     public void runAutoMatchingInBackground(List<Order> orders, Portfolio portfolio) {
