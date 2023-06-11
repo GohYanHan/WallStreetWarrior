@@ -541,5 +541,26 @@ public class Database {
         return list;
     }
 
+    //get all admin emails for notification. FraudDetection only
+    public List<String> getAllAdminEmails() {
+        List<String> adminEmails = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "SELECT userEmail FROM users WHERE role = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, "admin");
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                adminEmails.add(resultSet.getString("userEmail"));
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return adminEmails;
+    }
+
 
 }

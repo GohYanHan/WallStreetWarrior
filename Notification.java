@@ -6,10 +6,10 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.prefs.Preferences;
@@ -57,7 +57,7 @@ class Notification {
         preferences.putBoolean(NOTIFICATION_PREF_KEY, notificationSendSetting);
     }
 
-    public void sendNotification(int caseSymbol, String userEmail, Order order){
+    public void sendNotification(int caseSymbol, String userEmail, Order order) {
         if (notificationSendSetting) {
             Properties props;
             Session session;
@@ -96,14 +96,14 @@ class Notification {
                         message.setText("Your stock has reached a loss of RM " + thresholds);
                         break;
                     case 3: //when successfully execute buy order
-                            message.setText("Your have successfully purchased " + (order.getStock().getSymbol()) +" at a price of RM" + (order.getExpectedBuyingPrice())+ " for " + (order.getShares())+" shares."  );
+                        message.setText("Your have successfully purchased " + (order.getStock().getSymbol()) + " at a price of RM" + (order.getExpectedBuyingPrice()) + " for " + (order.getShares()) + " shares.");
                         break;
                     case 4: // when place sell order
-                            message.setText("Your have successfully placed sell order of " + (order.getStock().getSymbol()) +" at a price of RM" + (order.getExpectedSellingPrice())+ " for " + (order.getShares())+" shares."  );
+                        message.setText("Your have successfully placed sell order of " + (order.getStock().getSymbol()) + " at a price of RM" + (order.getExpectedSellingPrice()) + " for " + (order.getShares()) + " shares.");
                         break;
 
                     case 5: //when sell order bought by others
-                            message.setText("Your have successfully sold " + (order.getStock().getSymbol()) +" at a price of RM" + (order.getExpectedSellingPrice())+ " for " + (order.getShares())+" shares."  );
+                        message.setText("Your have successfully sold " + (order.getStock().getSymbol()) + " at a price of RM" + (order.getExpectedSellingPrice()) + " for " + (order.getShares()) + " shares.");
                         break;
                     case 6:
                         BodyPart attachment2 = new MimeBodyPart();
@@ -128,6 +128,71 @@ class Notification {
                 e.printStackTrace();
             }
         }
+
+    }
+
+    //for FraudDetection only
+    public void sendNotificationToAdmin(String userEmail, List<Order> orders, User suspiciousUser) {
+        Properties props;
+        Session session;
+        MimeMessage message;
+
+        props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+
+        Authenticator auth = new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("sornphert03@gmail.com", "hhftdeernmxqlnaq");
+            }
+        };
+
+        session = Session.getInstance(props, auth);
+
+        try {
+            InternetAddress[] recipients = new InternetAddress[1];
+            recipients[0] = new InternetAddress(userEmail);
+
+            message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(userEmail));
+            message.addRecipients(Message.RecipientType.TO, recipients);
+            message.setSubject("Suspicious User");
+
+            // Build the body of the message
+            StringBuilder bodyBuilder = new StringBuilder();
+            bodyBuilder.append("A suspicious user has been detected.\n\n");
+            bodyBuilder.append("Name: ").append(suspiciousUser.getUsername()).append("\n");
+            bodyBuilder.append("Email: ").append(suspiciousUser.getEmail()).append("\n\n");
+            bodyBuilder.append("Transaction History:\n");
+
+            // Append each transaction to the body
+            for (Order order : db.loadTransactionHistory(suspiciousUser.getKey())) {
+                bodyBuilder.append("Stock Symbol: ").append(order.getStock().getSymbol()).append("\n");
+                bodyBuilder.append("Stock Name: ").append(order.getStock().getName()).append("\n");
+                bodyBuilder.append("Type:  ").append(order.getType()).append("\n");
+                bodyBuilder.append("Shares: ").append(order.getShares()).append("\n");
+                if (order.getType() == Order.Type.BUY)
+                    bodyBuilder.append("Price: ").append(order.getExpectedBuyingPrice()).append("\n");
+                else
+                    bodyBuilder.append("Price: ").append(order.getExpectedSellingPrice()).append("\n");
+
+
+                bodyBuilder.append("Date: ").append(order.getTimestamp()).append("\n\n");
+            }
+
+            message.setText(bodyBuilder.toString());
+
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
        /* Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -172,7 +237,6 @@ class Notification {
 
     }
 
-}
 
 
     /*

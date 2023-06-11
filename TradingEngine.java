@@ -149,6 +149,8 @@ public class TradingEngine {
         portfolio.addToTradeHistory(order);
         portfolio.removeStock(order, shares); // remove share num
         User user = db.loadUserByKey(order.getUserKey());
+        UserDashboard dashboard = new UserDashboard(user);
+        dashboard.calculatePLPoints();
 //        System.out.println("Sell order executed successfully.");
         notification.sendNotification(5, user.getEmail(), order);
 

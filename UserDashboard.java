@@ -1,7 +1,4 @@
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserDashboard {
     private User user;
@@ -19,40 +16,77 @@ public class UserDashboard {
     }
 
 
-    public double calculateProfitAndLoss() {
+    public void calculatePLPoints() {
         List<Order> tradeHistory = db.loadTransactionHistory(user.getKey());
 
         double totalProfitAndLoss = 0.0;
 
-        for (Order buyOrder : tradeHistory) {
-            if (buyOrder.getType() == Order.Type.BUY) {
-                for (Order sellOrder : tradeHistory) {
-                    if (sellOrder.getType() == Order.Type.SELL
-                            && buyOrder.getStock().getSymbol().equals(sellOrder.getStock().getSymbol())) {
-                        double profitOrLoss = sellOrder.getExpectedSellingPrice() - buyOrder.getExpectedBuyingPrice();
-                        totalProfitAndLoss += profitOrLoss;
+        // Create a map to keep track of the remaining shares for each stock
+        Map<String, Integer> remainingShares = new HashMap<>();
+
+        // Create a copy of the tradeHistory list to remove sell orders from
+        List<Order> remainingOrders = new ArrayList<>(tradeHistory);
+
+        for (Order order : tradeHistory) {
+            if (order.getType() == Order.Type.BUY) {
+                // Update the remaining shares for the stock being bought
+                remainingShares.put(order.getStock().getSymbol(), order.getShares());
+            }
+        }
+
+        for (Order order : tradeHistory) {
+            if (order.getType() == Order.Type.SELL) {
+                // Get the remaining shares for the stock being sold
+                int remainingQuantity = remainingShares.getOrDefault(order.getStock().getSymbol(), 0);
+
+                // Check if the remaining quantity is greater than or equal to the sell order quantity
+                while (remainingQuantity >= order.getShares()) {
+                    // Calculate profit or loss based on the sell order
+                    double profitOrLoss = (order.getExpectedSellingPrice() - order.getExpectedBuyingPrice());
+                    totalProfitAndLoss += profitOrLoss;
+
+                    // Update the remaining shares for the stock being sold
+                    remainingShares.put(order.getStock().getSymbol(), remainingQuantity - order.getShares());
+
+                    // Remove the sell order from the remaining orders list
+                    remainingOrders.remove(order);
+
+                    // Check if the remaining quantity is less than 100, remove the stock from the searching list
+                    if (remainingQuantity - order.getShares() < 100) {
+                        remainingShares.remove(order.getStock().getSymbol());
+                    }
+
+                    // Find the next matching sell order, if any
+                    Order nextSellOrder = findMatchingSellOrder(order, remainingOrders);
+                    if (nextSellOrder != null) {
+                        order = nextSellOrder;
+                        remainingQuantity = remainingShares.getOrDefault(order.getStock().getSymbol(), 0);
+                    } else {
+                        break; // No more matching sell orders, exit the loop
                     }
                 }
             }
         }
-        return totalProfitAndLoss;
-    }
 
-
-    public void displayCurrentPoints() {
         double startingBalance = 50000.0; // Assuming a fixed starting balance
-
         Map<Integer, Double> plPoints = db.loadPLpoint();
         Double points = plPoints.get(user.getKey());
-
-
-        double pAndL = calculateProfitAndLoss();
-
-        points += ((pAndL / startingBalance) * 100);
-        System.out.println("Current Points: " + points);
-
+        points += ((totalProfitAndLoss / startingBalance) * 100);
         db.updateUserPLpoint(user.getKey(), points);
 
+    }
+
+    private Order findMatchingSellOrder(Order buyOrder, List<Order> remainingOrders) {
+        for (Order order : remainingOrders) {
+            if (order.getType() == Order.Type.SELL && order.getStock().getSymbol().equals(buyOrder.getStock().getSymbol())) {
+                return order;
+            }
+        }
+        return null; // No matching sell order found
+    }
+
+    public void displayCurrentPoints() {
+        System.out.println("Current Points: " + db.loadPLpoint());
     }
 
 
@@ -72,27 +106,44 @@ public class UserDashboard {
 
             //tradeHistory list will be sorted in ascending order first by expectedBuyingPrice, and if there are elements with the same expectedBuyingPrice, those will be further sorted by timestamp.
 
+            System.out.println("===========================================================================================");
+            System.out.println("|                                Trade History                                            |");
+            System.out.println("===========================================================================================");
 
-            for (Order order : tradeHistory) {
-                System.out.println("=================================================================================");
-                System.out.printf("| Stock     : %-75s |\n", order.getStock().getSymbol());
-                System.out.printf("| Name      : %-75s |\n", order.getStock().getName());
-                System.out.printf("| Type      : %-75s |\n", order.getType());
-                System.out.printf("| Shares    : %-75s |\n", order.getShares());
+
+            int tradeHistorySize = tradeHistory.size(); // Get the size of the tradeHistory list
+
+// Iterate through the tradeHistory list and print each order
+            for (int i = 0; i < tradeHistorySize; i++) {
+                Order order = tradeHistory.get(i);
+
+                System.out.println("| Stock     : " + padRight(order.getStock().getSymbol(), 75) + " |");
+                System.out.println("| Name      : " + padRight(order.getStock().getName(), 75) + " |");
+                System.out.println("| Type      : " + padRight(order.getType().toString(), 75) + " |");
+                System.out.println("| Shares    : " + padRight(String.valueOf(order.getShares()), 75) + " |");
 
                 if (order.getType() == Order.Type.BUY)
-                    System.out.printf("| Price     : RM %-72s |\n", order.getExpectedBuyingPrice());
+                    System.out.println("| Price     : RM " + padRight(String.valueOf(order.getExpectedBuyingPrice()), 72) + " |");
                 else
-                    System.out.printf("| Price     : RM %-72s |\n", order.getExpectedSellingPrice());
+                    System.out.println("| Price     : RM " + padRight(String.valueOf(order.getExpectedSellingPrice()), 72) + " |");
 
-                System.out.printf("| Timestamp : %-75s |\n", order.getTimestamp());
-                System.out.println("=================================================================================");
+                System.out.println("| Timestamp : " + padRight(order.getTimestamp().toString(), 75) + " |");
+
+                if (i == tradeHistorySize - 1) {
+                } else {
+                    System.out.println("|-----------------------------------------------------------------------------------------|");
+                }
             }
+
+// Print the closing line
+            System.out.println("===========================================================================================");
         }
-
-
     }
 
+
+    private static String padRight(String s, int length) {
+        return String.format("%-" + length + "s", s);
+    }
 
     //lowest price to highest price
     public void sortTradeHistoryByPrice() {

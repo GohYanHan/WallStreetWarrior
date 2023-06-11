@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -15,7 +17,10 @@ class search {
     private static String fileName = "MyStocks";
     private static final String API_KEY = "UM-1cd15cbc8ba9f613f94373ca35c267a52acf88978d73439e9f3c941b1c49318d";
     private static final String API_ENDPOINT = "https://wall-street-warriors-api-um.vercel.app/price";
+
+
     private static BoyerMoore boyerMoore;
+
     private static API api;
 
 
@@ -29,7 +34,6 @@ class search {
         Scanner k = new Scanner(System.in);
 
 
-//        api.searchDisplayStocks(readJsonFromFile(fileName),k.nextLine());
     }
 
 
@@ -81,28 +85,26 @@ class search {
     }
 
     // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
-    void searchStocks(String query) {
+    static void searchStocks(String query) {
         boolean found = false; // Flag to track if a match is found
         List<Stock> matchingStocks = new ArrayList<>(); // List to store matching stocks
 
         try {
-            String jsonResponse = readJsonFromFile(fileName);
-            JSONArray jsonArray = new JSONArray(jsonResponse);
+            // Read the txt file
+            List<String> lines = Files.readAllLines(Paths.get(fileName));
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject stockJson = jsonArray.getJSONObject(i);
-                String symbol = stockJson.getString("symbol");
-                String name = stockJson.getString("name");
+            for (String line : lines) {
+                // Split the line into symbol and name
+                String[] parts = line.split(",");
+                if (parts.length >= 2) {
+                    String symbol = parts[0].trim();
+                    String name = parts[1].trim();
 
-                // Search by symbol
-                if (symbol.toLowerCase().contains(query.toLowerCase())) {
-                    matchingStocks.add(new Stock(symbol, name));
-                    found = true; // Match found
-                }
-                // Search by name
-                else if (boyerMoore.search(name.toLowerCase().toCharArray(), query.toLowerCase().toCharArray()) != -1) {
-                    matchingStocks.add(new Stock(symbol, name));
-                    found = true; // Match found
+                    // Search by symbol or name
+                    if (symbol.toLowerCase().contains(query.toLowerCase()) || name.toLowerCase().contains(query.toLowerCase())) {
+                        matchingStocks.add(new Stock(symbol, name));
+                        found = true; // Match found
+                    }
                 }
             }
 
@@ -114,14 +116,11 @@ class search {
                     System.out.printf("|%-10s | %-50s | %-30s|\n", stock.getSymbol(), stock.getName(), api.getRealTimePrice(stock.getSymbol()));
                 }
                 System.out.println("==================================================================================================");
-
-
             } else {
                 System.out.println("Stock not found.");
             }
             System.out.println();
-
-        } catch (JSONException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
