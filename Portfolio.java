@@ -87,7 +87,7 @@ public class Portfolio {
 
     public void removeStock(Order order, int soldShares) {
         boolean found = false;
-
+        Map<Order,Integer> holdings = db.loadHolding(order.getUserKey());
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order existingOrder = entry.getKey();
             int shares = entry.getValue();
@@ -97,10 +97,10 @@ public class Portfolio {
                     int updatedShares = shares - soldShares;
                     if (updatedShares == 0) {
                         holdings.remove(existingOrder);
-                        db.removeHolding(userKey, existingOrder.getStock());
+                        db.removeHolding(order.getUserKey(), existingOrder.getStock());
                     } else {
                         holdings.replace(existingOrder, shares, updatedShares);
-                        db.updateHolding(userKey, existingOrder.getStock(), updatedShares);
+                        db.updateHolding(order.getUserKey(), existingOrder.getStock(), updatedShares);
                     }
                     found = true;
                 } else {
@@ -159,16 +159,8 @@ public class Portfolio {
         }
     }
 
-    public boolean containsStockSymbol(String symbol) {
-        for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
-            Order order = entry.getKey();
-            String stockSymbol = order.getStock().getSymbol();
-
-            if (stockSymbol.equals(symbol)) {
-                return true; // Symbol found in holdings
-            }
-        }
-        return false; // Symbol not found in holdings
+    public boolean isHoldingsEmpty() {
+        return holdings.isEmpty();
     }
 
     public Stock findStockBySymbol(String symbol) {
@@ -189,6 +181,5 @@ public class Portfolio {
     public void addToTradeHistory(Order order) {
         db.addTransactionHistory(userKey, order);
     }
-
 
 }

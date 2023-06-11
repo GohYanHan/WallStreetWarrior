@@ -15,10 +15,7 @@ class search {
     private static String fileName = "MyStocks";
     private static final String API_KEY = "UM-1cd15cbc8ba9f613f94373ca35c267a52acf88978d73439e9f3c941b1c49318d";
     private static final String API_ENDPOINT = "https://wall-street-warriors-api-um.vercel.app/price";
-
-
     private static BoyerMoore boyerMoore;
-
     private static API api;
 
 
@@ -32,7 +29,7 @@ class search {
         Scanner k = new Scanner(System.in);
 
 
-        api.searchDisplayStocks(readJsonFromFile(fileName),k.nextLine());
+//        api.searchDisplayStocks(readJsonFromFile(fileName),k.nextLine());
     }
 
 
@@ -84,7 +81,7 @@ class search {
     }
 
     // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
-    static void searchStocks(String query) {
+    void searchStocks(String query) {
         boolean found = false; // Flag to track if a match is found
         List<Stock> matchingStocks = new ArrayList<>(); // List to store matching stocks
 

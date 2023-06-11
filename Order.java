@@ -1,8 +1,6 @@
 import java.time.LocalDateTime;
 
 public class Order {
-
-
     public enum Type {
         BUY,
         SELL
@@ -13,17 +11,12 @@ public class Order {
     private LocalDateTime timestamp;
     private User user;
 
-    public Order() {
-    }
-
-    ;
-
     private double price;
-
     private double expectedBuyingPrice;
     private double expectedSellingPrice;
     private int userKey;
-    private String symbol;
+    public Order() {
+    }
 
     //add time
     public Order(int userKey, Stock stock) {
@@ -50,10 +43,6 @@ public class Order {
         if (type == Type.BUY)
             this.expectedBuyingPrice = price;
         else this.expectedSellingPrice = price;
-    }
-
-    public String getSymbol() {
-        return symbol;
     }
 
     public Stock getStock() {
@@ -84,16 +73,8 @@ public class Order {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public void setShares(int shares) {
-        this.shares = shares;
     }
 
     public User getUser() {

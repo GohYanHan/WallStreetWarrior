@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 class UserScore {
     private String name;
@@ -24,11 +27,12 @@ public class Leaderboard {
 
         // Create a list of UserScore objects from the dashboard data
         List<UserScore> userScores = new ArrayList<>();
-        for (Map.Entry<Integer, Double> entry : db.loadPLpoint().entrySet()) {
-            int userKey = entry.getKey();
-            double points = entry.getValue();
-            if (!db.getUser().getStatus().equalsIgnoreCase("disqualified"))
-                userScores.add(new UserScore("User" + userKey, points));
+        for (User userScore : db.getUsersList()) {
+            String username = userScore.getUsername();
+            double PLpoints = userScore.getPL_Points();
+            String status = userScore.getStatus();
+            if (!status.equalsIgnoreCase("disqualified"))
+                userScores.add(new UserScore(username, PLpoints));
         }
 
         // Sort the data based on marks (highest to lowest)
