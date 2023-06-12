@@ -64,7 +64,7 @@ public class Portfolio {
     }
 
 
-    public void addStock(Order order, int buyShares) {
+    public void addStock(Order order, int buyShares, Map<Order, Integer> holdings) {
         boolean found = false;
 
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
@@ -73,21 +73,19 @@ public class Portfolio {
             if (existingOrder.getStock().getSymbol().equalsIgnoreCase(order.getStock().getSymbol())) {
                 int updatedShares = shares + buyShares;
                 holdings.replace(existingOrder, shares, updatedShares);
-                db.updateHolding(userKey, existingOrder.getStock(), updatedShares);
+                db.updateHolding(order.getUserKey(), existingOrder.getStock(), updatedShares);
                 found = true;
                 break;
             }
         }
         if (!found) {
             holdings.put(order, buyShares);
-            db.addHoldings(userKey, order.getStock(), buyShares);
+            db.addHoldings(order.getUserKey(), order.getStock(), buyShares);
         }
     }
 
-
-    public void removeStock(Order order, int soldShares) {
+    public void removeStock(Order order, int soldShares, Map<Order, Integer> holdings) {
         boolean found = false;
-        Map<Order,Integer> holdings = db.loadHolding(order.getUserKey());
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order existingOrder = entry.getKey();
             int shares = entry.getValue();
@@ -141,7 +139,7 @@ public class Portfolio {
 //            System.out.println("Shares: " + order.getShares());
 //            System.out.println("-".repeat(30));
 //        }
-        for (Map.Entry<Order, Integer> entry : this.holdings.entrySet()) {
+        for (Map.Entry<Order, Integer> entry : db.loadHolding(userKey).entrySet()) {
             Order order = entry.getKey();
             int shares = entry.getValue();
 
