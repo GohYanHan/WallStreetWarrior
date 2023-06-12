@@ -65,7 +65,6 @@ public class UserDashboard {
         Double points = plPoints.get(user.getKey());
         points += ((totalProfitAndLoss / startingBalance) * 100);
         db.updateUserPLpoint(user.getKey(), points);
-
     }
 
     private Order findMatchingSellOrder(Order buyOrder, List<Order> remainingOrders) {
@@ -78,7 +77,7 @@ public class UserDashboard {
     }
 
     public void displayCurrentPoints() {
-        System.out.println("Current Points: " + db.loadPLpoint());
+        System.out.println("Current Points: " + db.loadPLpoint().get(user.getKey()));
     }
 
     public void displayOpenPositions() {
@@ -87,6 +86,7 @@ public class UserDashboard {
 
     public void displayTradeHistory(List<Order> tradeHistory) {
 
+        System.out.println("Trade History: ");
 
         if (!tradeHistory.isEmpty()) {
 
