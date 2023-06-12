@@ -127,7 +127,7 @@ public class UserAuthentication {
                 System.out.printf("%-39s%s%n", "| 10. Log Out", "|");
                 System.out.println("=".repeat(40));
                 System.out.print("Enter your choice: ");
-            }, 5, TimeUnit.SECONDS);
+            }, 3, TimeUnit.SECONDS);
             try {
                 int choice = scanner.nextInt();
                 scanner.nextLine();
@@ -187,7 +187,6 @@ public class UserAuthentication {
 
                                     } else {
                                         tradingEngine.executeOrder(buyOrder, portfolio);
-                                        System.out.println("Sell order executed successfully.");
                                     }
                                 } else {
                                     System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
@@ -231,9 +230,7 @@ public class UserAuthentication {
                                         Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, formattedSellingPrice, user, timestamp);
                                         if (tradingEngine.executeOrder(sellOrder, portfolio)) {
                                             db.addOrder(user.getKey(), sellOrder);
-                                            System.out.println("Stock added to sell order list.");
                                         }
-
                                     } else {
                                         System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
                                     }
@@ -273,7 +270,6 @@ public class UserAuthentication {
                         dashboard.displayAccountBalance();
                         dashboard.displayCurrentPoints();
                         dashboard.displayOpenPositions();
-                        dashboard.displayTradeHistory();
                         dashboard.chooseSort();
                         break;
 
