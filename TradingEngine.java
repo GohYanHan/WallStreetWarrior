@@ -148,6 +148,8 @@ public class TradingEngine {
         portfolio.removeStock(order, shares); // remove share num
         User user = db.loadUserByKey(order.getUserKey());
 //        System.out.println("Sell order executed successfully.");
+        UserDashboard dashboard = new UserDashboard(user);
+        dashboard.calculatePLPoints();
         notification.sendNotification(5, user.getEmail(), order);
 
     }
@@ -372,11 +374,14 @@ public class TradingEngine {
         System.out.printf("%-1s %-20s %-1s %-20s %-1s%n", "|", "Stock", "|", "Shares", "|");
         System.out.println("-".repeat(47));
 
+        Map<Stock, Integer> lotPools = new TreeMap<>(Comparator.comparing(Stock::getSymbol));
+        lotPools.putAll(lotPool);
+
         if (!isWithinInitialTradingPeriod()) {
             System.out.println("Orders available: ");
             System.out.printf("%-20s %-10s\n", "Stock", "Shares");
 
-            for (Map.Entry<Stock, Integer> entry : lotPool.entrySet()) {
+            for (Map.Entry<Stock, Integer> entry : lotPools.entrySet()) {
                 Stock stock = entry.getKey();
                 Integer value = entry.getValue();
                 System.out.printf("%-1s %-20s %-1s %-20s %-10s%n", "|", stock.getSymbol(), "|", value, "|");
@@ -385,7 +390,7 @@ public class TradingEngine {
             System.out.println("Orders available: ");
             System.out.printf("%-20s %-10s\n", "Stock", "Shares");
 
-            for (Map.Entry<Stock, Integer> entry : lotPool.entrySet()) {
+            for (Map.Entry<Stock, Integer> entry : lotPools.entrySet()) {
                 Stock stock = entry.getKey();
                 Integer value = entry.getValue();
                 System.out.printf("%-1s %-20s %-1s %-20s %-1s%n", "|", stock.getSymbol(), "|", "unlimited", "|");

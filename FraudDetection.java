@@ -1,12 +1,14 @@
 import java.util.List;
 
 public class FraudDetection {
+    private Notification notification;
     private Database database;
     private User user;
 
     public FraudDetection(Database database) {
         this.database = database;
-        this.user = user;
+        this.user = new User();
+        this.notification = new Notification();
     }
 
     List<User> users = database.getUsersList();
@@ -18,35 +20,21 @@ public class FraudDetection {
         for (User user : users) {
             if (isSuspiciousUser(user)) {
                 List<Order> transactions = database.loadTransactionHistory(user.getKey());
-
-                System.out.println("----------------------------------------");
-                System.out.println("User: " + user.getUsername());
-                System.out.println("Email: " + user.getEmail());
-                System.out.println("Questionable Transactions:");
-
-                boolean suspiciousTransactionsFound = false;
-                for (Order transaction : transactions) {
-                    if (isSuspiciousTransaction(transaction, user)) {
-                        suspiciousTransactionsFound = true;
-                        displaySuspiciousTransaction(transaction);
-                    }
+// Send notifications to admin users
+                List<String> adminEmails = database.getAllAdminEmails();
+                for (String adminEmail : adminEmails) {
+                    notification.sendNotificationToAdmin(adminEmail, transactions, user);
                 }
-
-                if (!suspiciousTransactionsFound) {
-                    System.out.println("No questionable transactions found.");
-                }
-
-                System.out.println("----------------------------------------");
             }
         }
     }
 
     public boolean isSuspiciousTransaction(Order transaction, User user) {
-        return isShortSelling(user.getKey()) && checkDuplicateOrders(transaction, user);
+        return isShortSelling(user.getKey()) || checkTradeOnMargin(user);
     }
 
     public boolean isSuspiciousUser(User user) {
-        return isShortSelling(user.getKey());
+        return isShortSelling(user.getKey()) || checkTradeOnMargin(user);
     }
 
     public boolean isShortSelling(int userKey) {
@@ -66,16 +54,17 @@ public class FraudDetection {
         return totalSharesSold > totalSharesBought;
     }
 
-    private boolean checkDuplicateOrders(Order order, User user) {
-        List<Order> orders = database.loadOrders(user.getKey(), order.getType());
+    private boolean checkTradeOnMargin(User user) {
+        return user.getPortfolio().getAccBalance() > 50000;
+    }
 
-        for (Order existingOrder : orders) {
-            if (existingOrder.getStock().equals(order.getStock()) && existingOrder.getShares() == order.getShares()) {
-                return true; // Duplicate order found
-            }
-        }
-
-        return false; // No duplicate orders found
+    private void sendNotification(String userEmail, Order order) {
+        // Logic to send a notification to the provided userEmail
+        // You can implement the notification mechanism here
+        // For example:
+        System.out.println("Sending notification to admin: " + userEmail);
+        System.out.println("Order details: " + order.toString());
+        System.out.println("Notification sent.");
     }
 
     private void displaySuspiciousTransaction(Order transaction) {

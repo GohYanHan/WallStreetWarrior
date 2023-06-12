@@ -2,3 +2,5 @@
 .idea/workspace.xml
 *.class
 *.meta
+*.xml
+*.class

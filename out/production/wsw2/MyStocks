@@ -1,1 +1,981 @@
-[{"symbol": "0001.MY", "name": "SCOMNET", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0002.MY", "name": "KOTRA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0005.MY", "name": "UCREST", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0006.MY", "name": "PINEAPP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0007.MY", "name": "PUC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0008.MY", "name": "WILLOW", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0010.MY", "name": "IRIS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0011.MY", "name": "BTECH", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0012.MY", "name": "3A", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0017.MY", "name": "M3TECH", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0018.MY", "name": "LAMBO", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0020.MY", "name": "NETX", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0021.MY", "name": "GHLSYS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0022.MY", "name": "PARLO", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0023.MY", "name": "IFCAMSC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0024.MY", "name": "JAG", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0025.MY", "name": "YBS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0026.MY", "name": "NOVAMSC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0026PA.MY", "name": "NOVAMSC-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0028.MY", "name": "SCOPE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0029.MY", "name": "DIGISTA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0032.MY", "name": "REDTONE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0034.MY", "name": "MMAG", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0035.MY", "name": "OPCOM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0036.MY", "name": "KGROUP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0037.MY", "name": "RGB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0038.MY", "name": "ARTRONIQ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0039.MY", "name": "GFM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0040.MY", "name": "OPENSYS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0041.MY", "name": "HONGSENG", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0041PA.MY", "name": "HONGSENG-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0043.MY", "name": "MTRONIC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0045.MY", "name": "G Neptune Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0048.MY", "name": "ANCOMLB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0049.MY", "name": "OCNCASH", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0050.MY", "name": "SYSTECH", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0051.MY", "name": "CUSCAPI", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0053.MY", "name": "OSKVI", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0054.MY", "name": "KARYON", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0055.MY", "name": "SERSOL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0056.MY", "name": "GRANFLO", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0058.MY", "name": "JCBNEXT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0059.MY", "name": "ECOHLDS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0060.MY", "name": "VC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0060PA.MY", "name": "VC-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0064.MY", "name": "EFFICEN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0065.MY", "name": "EFORCE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0066.MY", "name": "VSOLAR", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0068.MY", "name": "ASDION", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0069.MY", "name": "VIVOCOM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0070.MY", "name": "MQTECH", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0072.MY", "name": "AT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0074.MY", "name": "GOCEAN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0075.MY", "name": "LYC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0078.MY", "name": "GDEX", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0079.MY", "name": "ORION", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0080.MY", "name": "STRAITS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0081.MY", "name": "MEGASUN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0082.MY", "name": "GPACKET", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0083.MY", "name": "NOTION", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0084.MY", "name": "TECFAST", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0085.MY", "name": "MLAB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0086.MY", "name": "YGL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0089.MY", "name": "TEXCYCL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0090.MY", "name": "ELSOFT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0091.MY", "name": "DAYA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0092.MY", "name": "MTOUCHE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0093.MY", "name": "SOLUTN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0094.MY", "name": "INIX", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0095.MY", "name": "MAG", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0096.MY", "name": "NEXGRAM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0097.MY", "name": "VITROX", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0098.MY", "name": "BAHVEST", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0099.MY", "name": "SCICOM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0100.MY", "name": "ESCERAM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0101.MY", "name": "TMCLIFE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0102.MY", "name": "CONNECT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0103.MY", "name": "MNC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0103PA.MY", "name": "M N C Wireless Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0104.MY", "name": "GENETEC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0105.MY", "name": "ASIAPLY", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0106.MY", "name": "REXIT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0107.MY", "name": "EDUSPEC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0107OR.MY", "name": "EDUSPEC-OR", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0108.MY", "name": "N2N", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0109.MY", "name": "SCBUILD", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0111.MY", "name": "K1", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0112.MY", "name": "MIKROMB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0113.MY", "name": "MMSV", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0116.MY", "name": "FOCUS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0116PA.MY", "name": "FOCUS-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0117.MY", "name": "SMRT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0118.MY", "name": "TRIVE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0119.MY", "name": "APPASIA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0120.MY", "name": "VIS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0122.MY", "name": "AIM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0123.MY", "name": "PRIVA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0126.MY", "name": "MICROLN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0127.MY", "name": "JHM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0128.MY", "name": "FRONTKN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0129.MY", "name": "SRIDGE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0131.MY", "name": "DGSB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0132.MY", "name": "TDEX", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0133.MY", "name": "SANICHI", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0136.MY", "name": "GREENYB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0138.MY", "name": "MYEG", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0140.MY", "name": "MACPIE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0143.MY", "name": "KEYASIC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0145.MY", "name": "TFP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0146.MY", "name": "JFTECH", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0147.MY", "name": "INNITY", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0148.MY", "name": "SUNZEN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0149.MY", "name": "FIBON", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0150.MY", "name": "FINTEC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0150PA.MY", "name": "FINTEC-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0151.MY", "name": "KGB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0152.MY", "name": "DGB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0153.MY", "name": "OVERSEA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0154.MY", "name": "EAH", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0155.MY", "name": "MGRC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0156.MY", "name": "MPAY", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0157.MY", "name": "FOCUSP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0158.MY", "name": "SCC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0159.MY", "name": "AMEDIA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0160.MY", "name": "HHHCORP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0161.MY", "name": "SCH", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0162.MY", "name": "WIDAD", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0163.MY", "name": "CAREPLS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0165.MY", "name": "XOX", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0165PA.MY", "name": "XOX Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0166.MY", "name": "INARI", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0167.MY", "name": "MCLEAN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0168.MY", "name": "BOILERM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0169.MY", "name": "SMTRACK", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0170.MY", "name": "KANGER", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0171.MY", "name": "PLABS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0172.MY", "name": "OCK", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0173.MY", "name": "REV", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0174.MY", "name": "IDMENSN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0174PA.MY", "name": "EVD Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0175.MY", "name": "HHGROUP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0176.MY", "name": "KRONO", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0177.MY", "name": "PASUKGB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0178.MY", "name": "SEDANIA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0179.MY", "name": "BIOHLDG", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0179PA.MY", "name": "Bioalpha Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0180.MY", "name": "KTC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0181.MY", "name": "AEMULUS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0182.MY", "name": "LKL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0183.MY", "name": "SALUTE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0185.MY", "name": "HSSEB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0186.MY", "name": "PTRANS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0187.MY", "name": "BCMALL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0188.MY", "name": "HLT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0189.MY", "name": "MATANG", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0190.MY", "name": "ESAFE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0191.MY", "name": "CABNET", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0192.MY", "name": "INTA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0193.MY", "name": "KAB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0195.MY", "name": "BINACOM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0196.MY", "name": "QES", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0197.MY", "name": "WEGMANS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0198.MY", "name": "GDB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0199.MY", "name": "TRIMODE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0200.MY", "name": "REVENUE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0201.MY", "name": "NOVA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0202.MY", "name": "RGTECH", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0203.MY", "name": "SMETRIC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0205.MY", "name": "DPIH", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0206.MY", "name": "NADIBHD", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0207.MY", "name": "MESTRON", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0208.MY", "name": "GREATEC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0209.MY", "name": "ISTONE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0210.MY", "name": "KHJB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0211.MY", "name": "TASHIN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0212.MY", "name": "SDS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0213.MY", "name": "MTAG", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0215.MY", "name": "SLVEST", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0216.MY", "name": "SPRING", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0217.MY", "name": "PWRWELL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0218.MY", "name": "ACO", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0219.MY", "name": "RL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0220.MY", "name": "OVH", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0221.MY", "name": "TCS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0222.MY", "name": "OPTIMAX", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0223.MY", "name": "SAMAIDEN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0225.MY", "name": "SCGBHD", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0226.MY", "name": "ANEKA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0227.MY", "name": "EFRAME", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0228.MY", "name": "HPPHB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0229.MY", "name": "MOBILIA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0230.MY", "name": "TELADAN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0231.MY", "name": "FLEXI", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0232.MY", "name": "VOLCANO", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0233.MY", "name": "Pekat Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0235.MY", "name": "Nestcon Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0236.MY", "name": "Ramssol Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0237.MY", "name": "Haily Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0238.MY", "name": "Cekd Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0239.MY", "name": "Ecomate Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0240.MY", "name": "Coraza Integrated Technology Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0241.MY", "name": "Siab Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0242.MY", "name": "Pappajack Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0243.MY", "name": "Cengild Medical Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0245.MY", "name": "MN Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0246.MY", "name": "Cnergenz Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0247.MY", "name": "Unitrade Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0248.MY", "name": "Yew Lee Pacific Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0249.MY", "name": "LGMS Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0250.MY", "name": "YX Precious Metals Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0251.MY", "name": "SFP Tech Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0252.MY", "name": "Orgabio Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0253.MY", "name": "Infoline Tec Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0255.MY", "name": "Ecoscience International Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0256.MY", "name": "Umedic Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0257.MY", "name": "Unique Fire Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0258.MY", "name": "Agmo Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0259.MY", "name": "SNS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0260.MY", "name": "PTRB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0261.MY", "name": "COSMOS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0262.MY", "name": "SUNVIEW", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0263.MY", "name": "BETA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0265.MY", "name": "INFOM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0266.MY", "name": "LEFORM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0267.MY", "name": "ECA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0268.MY", "name": "L&PBHD", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0269.MY", "name": "DSS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0270.MY", "name": "NATGATE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0271.MY", "name": "WELLS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0272.MY", "name": "TTVHB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0273.MY", "name": "VLB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0275.MY", "name": "OPPSTAR", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0276.MY", "name": "ADB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03001.MY", "name": "Cloudaron Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03002.MY", "name": "Red Ideas Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03005.MY", "name": "Metro Healthcare Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03008.MY", "name": "SL Innovation Capital Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03011.MY", "name": "Amlex Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03012.MY", "name": "Baba Eco Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03016.MY", "name": "CRG", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03018.MY", "name": "Supreme Consolidated Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03021.MY", "name": "EquitiesTracker Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03023.MY", "name": "SMILE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03025.MY", "name": "Enest Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03027.MY", "name": "MMIS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03030.MY", "name": "IDB Technologies Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03036.MY", "name": "RedPlanet Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03038P.MY", "name": "ICTZONE-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03040.MY", "name": "Jishan Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03046.MY", "name": "Dynafront Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03047.MY", "name": "Lim Seong Hai Capital Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03048.MY", "name": "Carzo Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03049.MY", "name": "Steel Hawk Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03050.MY", "name": "Sunmow Holding Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03051.MY", "name": "Alpha Ocean Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03052.MY", "name": "Ray Go Solar Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03053.MY", "name": "CC International Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03055.MY", "name": "DSR Taiko Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "03057.MY", "name": "SANCY", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0800EA.MY", "name": "ABF Malaysia Bond Index", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0820EA.MY", "name": "FTSE Bursa Malaysia KLCI ETF", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0821EA.MY", "name": "MYETF DJ Islamic Malaysia Titans 25", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0822EA.MY", "name": "Principal FTSE ASEAN 40 Malaysia", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0823EA.MY", "name": "Principal FTSE China 50 ETF", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0824EA.MY", "name": "MyETF MSCI Malaysia Islamic Dividend", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0825EA.MY", "name": "MyETF MSCI SEA Islamic Dividend", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0827EA.MY", "name": "MyETF Dow Jones U.S. Titans 50 ", "currency": "USD", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0828EA.MY", "name": "TradePlus Shariah Gold ETF", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0829EA.MY", "name": "TradePlus S&P New China Tracker ETF", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0829EB.MY", "name": "TradePlus S&P New China Tracker ETF", "currency": "USD", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0830EA.MY", "name": "TradePlus NYSE FANG+ Daily ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0831EA.MY", "name": "TradePlus NYSE FANG+ Daily ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0832EA.MY", "name": "TradePlus HSCEI Daily ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0834EA.MY", "name": "Kenanga KLCI Daily 2x Leveraged ETF", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0835EA.MY", "name": "Kenanga KLCI Daily ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0836EA.MY", "name": "TradePlus DWA Malaysia Momentum Tracker ETF", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0837EA.MY", "name": "TradePlus MSCI Asia ex Japan REITs Tracker ETF", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "0838EA.MY", "name": "VP-DJ Shariah China A-Shares 100 ETF", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1015.MY", "name": "AMMB Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1023.MY", "name": "CIMB Group Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1058.MY", "name": "Manulife Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1066.MY", "name": "RHB Capital Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1082.MY", "name": "Hong Leong Financial Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1147.MY", "name": "GOB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1155.MY", "name": "Malayan Banking Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1163.MY", "name": "Allianz Malaysia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1163PA.MY", "name": "ALLIANZ-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1171.MY", "name": "Malaysia Building Society Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1198.MY", "name": "MAA Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1287.MY", "name": "Pan Malaysia Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1295.MY", "name": "Public Bank Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1368.MY", "name": "UEM Edgenta Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1481.MY", "name": "Advance Synergy Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1503.MY", "name": "GuocoLand ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1538.MY", "name": "Symphony Life Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1562.MY", "name": "Berjaya Sports Toto Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1589.MY", "name": "Iskandar Waterfront City Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1619.MY", "name": "DRB-HICOM Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1643.MY", "name": "Landmarks Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1651.MY", "name": "Malaysian Resources Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1694.MY", "name": "Menang Corp. M Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1724.MY", "name": "Paramount Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1818.MY", "name": "Bursa Malaysia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1899.MY", "name": "Batu Kawan Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1902.MY", "name": "PINEPAC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1929.MY", "name": "Chin Teck Plantations Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1961.MY", "name": "IOI Corp.Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "1996.MY", "name": "Kretam Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2038.MY", "name": "Negri Sembilan Oil Palms Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2054.MY", "name": "TDM Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2062.MY", "name": "Harbour-Link Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2089.MY", "name": "United Plantations Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2097.MY", "name": "EastLand Equity Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2127.MY", "name": "Comfort Gloves Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2135.MY", "name": "GOPENG", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2143.MY", "name": "ECM Libra Financial Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2186.MY", "name": "Kuchai Development Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2224.MY", "name": "Selangor Dredging Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2259.MY", "name": "Talam Transform Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2283.MY", "name": "Zelan Berhad ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2291.MY", "name": "GENP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2305.MY", "name": "AYER", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2429.MY", "name": "Tanco Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2445.MY", "name": "Kuala Lumpur Kepong Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2453.MY", "name": "KLUANG", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2488.MY", "name": "Alliance Financial Group Berhad.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2542.MY", "name": "Riverview Rubber Estates, Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2569.MY", "name": "Sungei Bagan Rubber Co. Malaya Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2593.MY", "name": "UMCCA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2607.MY", "name": "Inch Kenneth Kajang Rubber Public Limited Company", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2658.MY", "name": "Ajinomoto Malaysia Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2674.MY", "name": "Aluminium Co. of Malaysia Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2682.MY", "name": "Amalgamated Industrial Steel Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2739.MY", "name": "Sino Hua-An International Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2755.MY", "name": "FCW Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2771.MY", "name": "Boustead Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2828.MY", "name": "CI Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2836.MY", "name": "Carlsberg Brewery Malaysia Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2852.MY", "name": "Cahya Mata Sarawak Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "2984.MY", "name": "FACB Industries Inc. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3018.MY", "name": "Olympia Industries Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3026.MY", "name": "Dutch Lady Milk Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3034.MY", "name": "Hap Seng Consolidated Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3042.MY", "name": "Petron Malaysia Refining & Marketing Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3069.MY", "name": "Mega First Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3107.MY", "name": "Fima Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3158.MY", "name": "Ynh Property Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3174.MY", "name": "Land & General Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3182.MY", "name": "Genting Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3204.MY", "name": "George Kent ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3239.MY", "name": "Berjaya Assets Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3247.MY", "name": "GUH Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3255.MY", "name": "Heineken Malaysia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3298.MY", "name": "Hexza Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3301.MY", "name": "Hong Leong Industries Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3336.MY", "name": "IJM Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3379.MY", "name": "Insas Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3379PB.MY", "name": "Insas Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3395.MY", "name": "Berjaya Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3417.MY", "name": "Eastern & Oriental Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3441.MY", "name": "Johan Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3476.MY", "name": "Keck Seng Malaysia Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3484.MY", "name": "Damansara Realty Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3514.MY", "name": "Marco Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3557.MY", "name": "Ecofirst Consolidated Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3565.MY", "name": "Kumpulan Europlus Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3573.MY", "name": "Lien Hoe Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3611.MY", "name": "PGLOBE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3662.MY", "name": "Malayan Flour Mills Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3689.MY", "name": "Fraser & Neave Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3719.MY", "name": "Panasonic Manufacturing Malaysia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3743.MY", "name": "Sunsuria Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3778.MY", "name": "Melewar Industrial Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3794.MY", "name": "Lafarge Malaysia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3816.MY", "name": "MISC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3859.MY", "name": "Magnum Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3867.MY", "name": "Malaysian Pacific Industries Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3883.MY", "name": "Muda Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3891.MY", "name": "Malayan United Industries Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3905.MY", "name": "MULPHA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3913.MY", "name": "MUI Properties Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "3948.MY", "name": "DutaLand Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4006.MY", "name": "Oriental Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4022.MY", "name": "Tadmax Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4057.MY", "name": "Asian Pac Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4065.MY", "name": "PPB Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4081.MY", "name": "Pan Malaysia Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4162.MY", "name": "British American Tobacco Malaysia Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4197.MY", "name": "Sime Darby Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4219.MY", "name": "Berjaya Land Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4235.MY", "name": "Lion Industries Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4243.MY", "name": "WTK Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4251.MY", "name": "I-Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4286.MY", "name": "Seal Inc. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4316.MY", "name": "Sin Heng Chan ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4324.MY", "name": "Shell Refining Company ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4359.MY", "name": "Turiya Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4375.MY", "name": "South Malaysia Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4383.MY", "name": "Jaya Tiasa Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4405.MY", "name": "Tan Chong Motor Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4456.MY", "name": "Dagang NeXchange Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4464.MY", "name": "Naim Indah Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4502.MY", "name": "Media Prima Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4588.MY", "name": "UMW Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4596.MY", "name": "Sapura Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4634.MY", "name": "Pos Malaysia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4677.MY", "name": "YTL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4707.MY", "name": "Nestl\u00e9 ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4715.MY", "name": "Genting Malaysia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4723.MY", "name": "JAKS Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4731.MY", "name": "Scientex Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4758.MY", "name": "Ancom Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4847.MY", "name": "Konsortium Transnasional Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4863.MY", "name": "Telekom Malaysia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4936.MY", "name": "Malpac Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4944.MY", "name": "Nylex ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "4995.MY", "name": "Versatile Creative Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5000.MY", "name": "Hume Industries Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5001.MY", "name": "Mieco Chipboard Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5005.MY", "name": "Unisem ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5006.MY", "name": "Merge Energy Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5007.MY", "name": "Chin Well Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5008.MY", "name": "Harrisons Holdings ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5009.MY", "name": "White Horse Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5010.MY", "name": "Tong Herr Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5011.MY", "name": "Mesiniaga Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5012.MY", "name": "TA Ann Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5014.MY", "name": "Malaysia Airports Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5015.MY", "name": "APM Automotive Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5016.MY", "name": "Warisan TC Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5020.MY", "name": "Glomac Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5021.MY", "name": "AYS Ventures Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5022.MY", "name": "Paos Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5024.MY", "name": "Hup Seng Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5025.MY", "name": "NWP Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5026.MY", "name": "MHC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5027.MY", "name": "Kim Loong Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5028.MY", "name": "Heitech Padu Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5029.MY", "name": "Far East Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5031.MY", "name": "Time Dotcom Bhd.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5032.MY", "name": "Bintulu Port Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5035.MY", "name": "Knusford Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5036.MY", "name": "Edaran Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5037.MY", "name": "COMPUGT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5038.MY", "name": "KSL Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5040.MY", "name": "Meda Inc. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5041.MY", "name": "PBA Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5042.MY", "name": "TSR Capital Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5047.MY", "name": "NPC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5048.MY", "name": "Yi-Lai Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5049.MY", "name": "Country View Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5053.MY", "name": "OSK Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5054.MY", "name": "TRC Synergy Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5056.MY", "name": "Engtex Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5062.MY", "name": "Hua Yang Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5065.MY", "name": "Ornapaper Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5066.MY", "name": "NTPM Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5068.MY", "name": "Luster Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5069.MY", "name": "Bld Plantation Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5070.MY", "name": "Protasco Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5071.MY", "name": "COASTAL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5072.MY", "name": "Hiap Teck Venture Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5073.MY", "name": "Naim Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5075.MY", "name": "Plenitude Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5077.MY", "name": "Malaysian Bulk Carriers Bhd.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5078.MY", "name": "Silk Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5079.MY", "name": "KBES Bhd.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5080.MY", "name": "Poh Kong Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5081.MY", "name": "EIG", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5082.MY", "name": "Cymao Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5084.MY", "name": "Ibraco Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5085.MY", "name": "MUDAJYA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5087.MY", "name": "Mycron Steel Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5088.MY", "name": "Apex Equity Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5090.MY", "name": "Media Chinese International Limited", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5094.MY", "name": "CSC Steel Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5095.MY", "name": "HeveaBoard Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5098.MY", "name": "Malaysia Steel Works ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5099.MY", "name": "AirAsia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5100.MY", "name": "BP Plastics Holding Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5101.MY", "name": "Evergreen Fibreboard Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5102.MY", "name": "Guan Chong Bhd.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5104.MY", "name": "CNI", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5105.MY", "name": "Can-One Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5106.MY", "name": "Axis Real Estate Investment Trust", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5107.MY", "name": "IQ Group Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5108.MY", "name": "iCapital.biz Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5109.MY", "name": "YTL Hospitality REIT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5110.MY", "name": "Uoa Real Estate Investment", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5111.MY", "name": "Tower Real Estate Investment Trust", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5112.MY", "name": "TH Plantations Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5113.MY", "name": "Rimbunan Sawit Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5115.MY", "name": "Alam Maritim Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5116.MY", "name": "Al-&apos;Aqar Healthcare REIT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5120.MY", "name": "AmFirst Real Estate Investment Trust", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5121.MY", "name": "Hektar Real Estate Investment Trust", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5123.MY", "name": "MRCB-Quill REIT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5125.MY", "name": "Pantech Group Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5126.MY", "name": "Sarawak Oil Palms Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5127.MY", "name": "AmanahRaya Real Estate Investment Trust", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5129.MY", "name": "Melati Ehsan Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5130.MY", "name": "Atrium Real Estate Investment Trust", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5131.MY", "name": "Zhulian Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5132.MY", "name": "DELEUM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5133.MY", "name": "Petra Energy Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5134.MY", "name": "Southern Acids M Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5135.MY", "name": "SARAWAK Plantation Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5136.MY", "name": "Complete Logistic Services Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5138.MY", "name": "Hap Seng Plantations Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5139.MY", "name": "Aeon Credit Service M Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5140.MY", "name": "TASCO Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5141.MY", "name": "Dayang Enterprise Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5142.MY", "name": "Wah Seong Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5143.MY", "name": "Luxchem Corporation Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5145.MY", "name": "Sealink International Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5147.MY", "name": "Samchem Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5148.MY", "name": "UEM Sunrise Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5149.MY", "name": "TAS Offshore Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5151.MY", "name": "Halex Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5152.MY", "name": "Muar Ban Lee Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5156.MY", "name": "XiDeLang Holdings Limited", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5157.MY", "name": "Saudee Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5159.MY", "name": "YOCB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5160.MY", "name": "Homeritz Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5161.MY", "name": "JCY International Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5162.MY", "name": "ECS ICT Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5163.MY", "name": "Seremban Engineering Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5165.MY", "name": "Hock Heng Stone Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5166.MY", "name": "MINDA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5167.MY", "name": "TURBO", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5168.MY", "name": "Hartalega Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5169.MY", "name": "Ho Hup Construction Company Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5170.MY", "name": "Sarawak Cable Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5171.MY", "name": "Kimlun Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5172.MY", "name": "K-Star Sports Limited", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5173.MY", "name": "Shin Yang Shipping Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5175.MY", "name": "Ivory Properties Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5176.MY", "name": "Sunway Real Estate Investment Trust", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5178.MY", "name": "Tatt Giap Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5178PA.MY", "name": "Ingenieur Gudang Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5180.MY", "name": "CMMT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5182.MY", "name": "MCT Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5183.MY", "name": "PCHEM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5184.MY", "name": "Cypark Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5185.MY", "name": "Affin Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5186.MY", "name": "Malaysia Marine and Heavy Engineering Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5187.MY", "name": "HB Global Limited", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5188.MY", "name": "China Ouhua Winery Holdings Limited", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5190.MY", "name": "Benalec Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5191.MY", "name": "Tambun Indah Land Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5192.MY", "name": "K.Seng Seng Corporation Bhd.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5195.MY", "name": "Censof Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5196.MY", "name": "Berjaya Food Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5197.MY", "name": "Focus Lumber Berhad.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5198.MY", "name": "ABM Fujiya Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5199.MY", "name": "Hibiscus Petroleum Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5200.MY", "name": "UOA Development Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5202.MY", "name": "MSM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5204.MY", "name": "Prestariang Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5205.MY", "name": "SENDAI", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5207.MY", "name": "SBC Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5208.MY", "name": "EITA Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5209.MY", "name": "Gas Malaysia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5210.MY", "name": "Bumi Armada Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5211.MY", "name": "Sunway Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5211PA.MY", "name": "SUNWAY-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5212.MY", "name": "Pavilion Real Estate Investment Trust", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5213.MY", "name": "Sentoria Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5216.MY", "name": "DSONIC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5218.MY", "name": "SapuraKencana Petroleum Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5218PA.MY", "name": "SAPNRG-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5219.MY", "name": "Pestech International Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5220.MY", "name": "Globaltec Formation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5222.MY", "name": "Felda Global Ventures Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5223.MY", "name": "Mentiga Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5225.MY", "name": "IHH Healthcare Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5226.MY", "name": "Gabungan AQRS Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5227.MY", "name": "IGB Real Estate Investment Trust", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5228.MY", "name": "ELK-Desa Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5230.MY", "name": "Tune Protect Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5231.MY", "name": "Pelikan International Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5232.MY", "name": "Leon Fuat Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5235SS.MY", "name": "KLCC Real Estate Investment Trust", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5236.MY", "name": "Matrix Concepts Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5237.MY", "name": "MPHB Capital Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5238.MY", "name": "AirAsia X Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5239.MY", "name": "Titijaya Land Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5242.MY", "name": "Solid Automotive Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5243.MY", "name": "VELESTO", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5246.MY", "name": "Westports Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5247.MY", "name": "Karex Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5248.MY", "name": "Berjaya Auto Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5249.MY", "name": "IOI Properties Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5250.MY", "name": "7-Eleven Malaysia Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5252.MY", "name": "Sasbadi Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5253.MY", "name": "ECONBHD", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5254.MY", "name": "Boustead Plantations Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5255.MY", "name": "Icon Offshore Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5256.MY", "name": "Reach Energy Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5257.MY", "name": "Carimin Petroleum Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5258.MY", "name": "BIMB Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5259.MY", "name": "E.A. Technique ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5260.MY", "name": "Only World Group Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5263.MY", "name": "SUNCON", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5264.MY", "name": "MALAKOF", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5265.MY", "name": "DOLPHIN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5267.MY", "name": "XINHWA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5268.MY", "name": "TOPBLDS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5269.MY", "name": "ALSREIT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5270.MY", "name": "RED SENA BERHAD", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5271.MY", "name": "PECCA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5272.MY", "name": "RANHILL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5273.MY", "name": "CHINHIN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5274.MY", "name": "HLCAP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5275.MY", "name": "MYNEWS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5276.MY", "name": "DANCO", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5277.MY", "name": "FPGROUP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5278.MY", "name": "RHONEMA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5279.MY", "name": "SERBADK", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5280.MY", "name": "KIPREIT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5281.MY", "name": "ADVCON", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5283.MY", "name": "EWINT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5284.MY", "name": "LCTITAN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5285.MY", "name": "SIMEPLT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5286.MY", "name": "MI", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5288.MY", "name": "SIMEPROP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5289.MY", "name": "TECHBND", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5291.MY", "name": "HPMT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5292.MY", "name": "UWC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5293.MY", "name": "AME", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5295.MY", "name": "INNATURE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5296.MY", "name": "MRDIY", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5297.MY", "name": "Tuju Setia Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5298.MY", "name": "OM Holdings Ltd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5299.MY", "name": "IGB Commercial REIT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5300.MY", "name": "Yenher Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5301.MY", "name": "CTOS Digital Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5302.MY", "name": "Aurelius Technologies Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5303.MY", "name": "Swift Haulage Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5305.MY", "name": "Senheng New Retail Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5306.MY", "name": "Farm Fresh Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5307.MY", "name": "AMEREIT", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5308.MY", "name": "Seng Fong Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5309.MY", "name": "ITMAX", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5310.MY", "name": "KITACON", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5311.MY", "name": "CEB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5347.MY", "name": "Tenaga Nasional Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5371.MY", "name": "KIMHIN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5398.MY", "name": "Gamuda Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5401.MY", "name": "TROP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5436.MY", "name": "PERSTIM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5517.MY", "name": "Shangri-La Hotels Malaysia Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5533.MY", "name": "OCB Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5568.MY", "name": "APB Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5576.MY", "name": "Minho M Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5592.MY", "name": "Grand Central Enterprises Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5606.MY", "name": "Goldis Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5614.MY", "name": "Integrated Logistics Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5622.MY", "name": "Triplc Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5649.MY", "name": "Golden Pharos Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5657.MY", "name": "Parkson Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5665.MY", "name": "Southern Steel Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5673.MY", "name": "Ipmuda Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5681.MY", "name": "Petronas Dagangan Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5703.MY", "name": "Muhibbah Engineering M Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5738.MY", "name": "Country Heights Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5789.MY", "name": "LBS Bina Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5789PA.MY", "name": "LBS Bina Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5797.MY", "name": "Choo Bee Metal Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5819.MY", "name": "Hong Leong Bank Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5827.MY", "name": "Oriental Interest Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5843.MY", "name": "Kumpulan Perangsang Selangor Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5878.MY", "name": "KPJ Healthcare Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5908.MY", "name": "DKSH Holdings ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5916.MY", "name": "Malaysia Smelting Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5932.MY", "name": "Bina Puri Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5932OR.MY", "name": "BPURI-OR", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "5983.MY", "name": "MBM Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6009.MY", "name": "Pacific & Orient Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6012.MY", "name": "Maxis Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6017.MY", "name": "SHL Consolidated Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6033.MY", "name": "Petronas Gas Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6041.MY", "name": "FARLIM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6068.MY", "name": "PCCS Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6076.MY", "name": "ENCORP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6084.MY", "name": "Star Media Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6114.MY", "name": "MKH Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6139.MY", "name": "Syarikat Takaful Malaysia Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6149.MY", "name": "Metrod Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6173.MY", "name": "BDB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6181.MY", "name": "Malton Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6203.MY", "name": "Khee San Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6211.MY", "name": "Kia Lim Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6254.MY", "name": "PDZ Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6262.MY", "name": "Innoprise Plantations Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6297.MY", "name": "Box-Pak Malaysia Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6351.MY", "name": "Amway ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6378.MY", "name": "Tekala Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6399.MY", "name": "Astro Malaysia Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6432.MY", "name": "Apollo Food Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6459.MY", "name": "MNRB Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6483.MY", "name": "K & N Kenanga Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6491.MY", "name": "Kumpulan Fima Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6521.MY", "name": "Suria Capital Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6556.MY", "name": "Ann Joo Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6556PA.MY", "name": "ANNJOO-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6599.MY", "name": "Aeon Co. ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6602.MY", "name": "BCB Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6633.MY", "name": "LHI", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6637.MY", "name": "PNE PCB Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6645.MY", "name": "Lingkaran Trans Kota Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6718.MY", "name": "Crescendo Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6742.MY", "name": "YTL Power International Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6769.MY", "name": "JKG Land Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6807.MY", "name": "Puncak Niaga Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6815.MY", "name": "EUPE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6874.MY", "name": "KUB Malaysia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6888.MY", "name": "Axiata Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6904.MY", "name": "Subur Tiasa Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6912.MY", "name": "Pasdec Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6939.MY", "name": "Fiamma Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6947.MY", "name": "DiGi.Com Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6963.MY", "name": "VS Industry Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6971.MY", "name": "Kobay Technology Bhd.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "6998.MY", "name": "Bintai Kinden Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7003.MY", "name": "Y&G", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7004.MY", "name": "Multi-Code Electronics Industries ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7005.MY", "name": "BIG Industries Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7006.MY", "name": "Latitude Tree Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7007.MY", "name": "ARK Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7010.MY", "name": "Grand Hoover Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7013.MY", "name": "Hubline Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7014.MY", "name": "YLI Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7016.MY", "name": "Chuan Huat Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7017.MY", "name": "Komarkcorp Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7018.MY", "name": "CME Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7020.MY", "name": "YKGI Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7022.MY", "name": "Globetronics Technology Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7025.MY", "name": "Woodlandor Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7028.MY", "name": "Zecon Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7029.MY", "name": "Master-Pack Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7031.MY", "name": "Amtel Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7033.MY", "name": "Kumpulan H & L High-Tech Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7034.MY", "name": "Thong Guan Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7035.MY", "name": "CCK", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7036.MY", "name": "Borneo Oil Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7043.MY", "name": "JMR Conglomeration Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7045.MY", "name": "Scomi Energy Services Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7047.MY", "name": "Fajarbaru Builder Group Bhd.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7048.MY", "name": "Atlan Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7050.MY", "name": "Wong Engineering Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7052.MY", "name": "Padini Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7053.MY", "name": "SEEHUP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7054.MY", "name": "Astral Asia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7055.MY", "name": "PLB Engineering Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7060.MY", "name": "New Hoong Fatt Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7062.MY", "name": "Khind Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7066.MY", "name": "Yong Tai Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7066PA.MY", "name": "YONGTAI-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7070.MY", "name": "VIZIONE", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7071.MY", "name": "O&C Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7073.MY", "name": "Seacera Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7076.MY", "name": "CB Industrial Product Holding Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7077.MY", "name": "GSB Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7078.MY", "name": "Ahmad Zaki Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7079.MY", "name": "Tiger Synergy Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7080.MY", "name": "Permaju Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7080PA.MY", "name": "PERMAJU-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7081.MY", "name": "Pharmaniaga Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7082.MY", "name": "SYF Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7083.MY", "name": "Analabs Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7084.MY", "name": "QL Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7085.MY", "name": "LTKM Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7086.MY", "name": "AbleGroup Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7087.MY", "name": "Magni-Tech Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7088.MY", "name": "Poh Huat Resources Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7089.MY", "name": "Lii Hen Industries Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7090.MY", "name": "Apex Healthcare Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7091.MY", "name": "Unimech Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7094.MY", "name": "Eurospan Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7095.MY", "name": "PIE Industrial Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7096.MY", "name": "GPA Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7097.MY", "name": "Ta Win Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7099.MY", "name": "ATTA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7100.MY", "name": "Uchi Technologies Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7103.MY", "name": "Spritzer Bhd.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7105.MY", "name": "HCK Capital Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7106.MY", "name": "Supermax Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7107.MY", "name": "Oriental Food Industries Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7108.MY", "name": "PERDANA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7108PA.MY", "name": "PERDANA-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7113.MY", "name": "Top Glove Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7114.MY", "name": "D Nonce Technology Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7115.MY", "name": "SKB Shutters Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7117.MY", "name": "Century Logistics Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7120.MY", "name": "Acoustech Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7121.MY", "name": "Xian Leng Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7123.MY", "name": "Priceworth International Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7128.MY", "name": "Cam Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7129.MY", "name": "Asia File Corporation Bhd.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7130.MY", "name": "Kumpulan Powernet Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7131.MY", "name": "ACME", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7132.MY", "name": "SMIS Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7133.MY", "name": "United U-LI Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7134.MY", "name": "PWF Consolidated Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7137.MY", "name": "UMS Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7139.MY", "name": "Niche Capital Emas Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7140.MY", "name": "Oka Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7145.MY", "name": "Prinsiptek Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7145PA.MY", "name": "AGES-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7146.MY", "name": "AE Multi Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7148.MY", "name": "CCM Duopharma Biotech Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7149.MY", "name": "Eng Kah Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7152.MY", "name": "Jaycorp Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7153.MY", "name": "Kossan Rubber Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7154.MY", "name": "Caely Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7155.MY", "name": "SKP Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7157.MY", "name": "CYL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7160.MY", "name": "Pentamaster Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7161.MY", "name": "Kerjaya Prospek Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7162.MY", "name": "Astino Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7163.MY", "name": "PJBUMI", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7164.MY", "name": "KNM Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7165.MY", "name": "Spring Gallery Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7167.MY", "name": "Johore Tin Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7168.MY", "name": "PRG Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7169.MY", "name": "DOMINAN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7170.MY", "name": "LFECORP", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7172.MY", "name": "PMB Technology Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7173.MY", "name": "Toyo Ink Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7174.MY", "name": "CAB Cakaran Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7176.MY", "name": "TPC Plus Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7178.MY", "name": "Y.S.P. Southeast Asia Holding Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7179.MY", "name": "DBE Gurney Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7180.MY", "name": "Sern Kou Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7181.MY", "name": "Aturmaju Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7181PA.MY", "name": "ARBB-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7183.MY", "name": "Ire-Tex Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7184.MY", "name": "Yen Global Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7186.MY", "name": "SWS Capital Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7187.MY", "name": "Boon Koon Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7188.MY", "name": "BTM Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7191.MY", "name": "Adventa Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7192.MY", "name": "Goodway Integrated Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7195.MY", "name": "Comintel Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7197.MY", "name": "GE-Shen Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7198.MY", "name": "DPS Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7199.MY", "name": "Kein Hing International Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7200.MY", "name": "Tek Seng Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7201.MY", "name": "Progressive Impact Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7202.MY", "name": "Classic Scenic Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7203.MY", "name": "Wang-Zheng Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7204.MY", "name": "D & O Green Technologies Berhad.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7207.MY", "name": "Success Transformer Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7208.MY", "name": "Euro Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7209.MY", "name": "Cheetah Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7210.MY", "name": "Freight Management Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7211.MY", "name": "TAFI Industries Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7212.MY", "name": "Destini Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7214.MY", "name": "A-Rank Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7215.MY", "name": "NIHSIN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7215PA.MY", "name": "Ni Hsin Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7216.MY", "name": "Kawan Food Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7217.MY", "name": "Eonmetall Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7218.MY", "name": "Transocean Holdings Bhd.", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7219.MY", "name": "Minetech Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7219PA.MY", "name": "Minetech Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7221.MY", "name": "BSL Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7222.MY", "name": "Imaspro Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7223.MY", "name": "Jadi Imaging Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7225.MY", "name": "P.A. Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7226.MY", "name": "Watta Holding Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7227.MY", "name": "UMSNGB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7228.MY", "name": "Tanjung Offshore Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7229.MY", "name": "Favelle Favco Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7230.MY", "name": "Tomei Consolidated Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7231.MY", "name": "WELLCAL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7232.MY", "name": "Resintech Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7233.MY", "name": "Dufu Technology Corp. Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7234.MY", "name": "MESB Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7235.MY", "name": "Superlon Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7237.MY", "name": "Power Root Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7239.MY", "name": "Scanwolf Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7240.MY", "name": "Voir Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7241.MY", "name": "BHS Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7243.MY", "name": "Bio Osmo Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7245.MY", "name": "WZ Satu Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7245PA.MY", "name": "Citaglobal Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7246.MY", "name": "Signature International Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7247.MY", "name": "SCGM Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7248.MY", "name": "SLP Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7249.MY", "name": "EWEIN", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7250.MY", "name": "Uzma Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7251.MY", "name": "Barakah Offshore Petroleum Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7252.MY", "name": "Teo Seng Capital Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7253.MY", "name": "Handal Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7277.MY", "name": "Dialog Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7285.MY", "name": "Tomypak Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7293.MY", "name": "Yinson Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7315.MY", "name": "AHB Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7323.MY", "name": "Ken Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7374.MY", "name": "Tien Wah Press Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7382.MY", "name": "Golden Land Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7412.MY", "name": "SHH Resources Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7439.MY", "name": "Teck Guan Perdana Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7471.MY", "name": "Eden Inc. Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7498.MY", "name": "RALCO", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7501.MY", "name": "Harn Len Corporation Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7528.MY", "name": "DKLS Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7544.MY", "name": "Quality Concrete Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7579.MY", "name": "AWC Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7595.MY", "name": "ML Global Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7609.MY", "name": "Ajiya Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7617.MY", "name": "MAGNA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7668.MY", "name": "Hai-O Enterprise Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7676.MY", "name": "Gunung Capital Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7692.MY", "name": "Widetech Malaysia Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7722.MY", "name": "Asia Brands Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7757.MY", "name": "UPA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7765.MY", "name": "Rapid Synergy Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7773.MY", "name": "EP Manufacturing Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7803.MY", "name": "Rubberex Corp. M Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7811.MY", "name": "Sapura Industrial Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7854.MY", "name": "TIMWELL", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7889.MY", "name": "Thriven Global Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7935.MY", "name": "MILUX", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7943.MY", "name": "SNC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "7986.MY", "name": "CN Asia Corp.Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8044.MY", "name": "CFM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8052.MY", "name": "CGB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8079.MY", "name": "Lee Swee Kiat Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8117.MY", "name": "Poly Glass Fibre M Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8117PA.MY", "name": "PGF Capital Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8125.MY", "name": "Daibochi Plastic & Packaging Industry Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8133.MY", "name": "Boustead Heavy Industries Corporation Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8141.MY", "name": "Majuperak Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8176.MY", "name": "Denko Industrial Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8192.MY", "name": "Mercury Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8206.MY", "name": "Eco World Development Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8273.MY", "name": "Public Packages Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8303.MY", "name": "Kuantan Flour Mills Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8311.MY", "name": "Pesona Metro Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8338.MY", "name": "Dataprep Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8346.MY", "name": "Perak Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8362.MY", "name": "KYM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8397.MY", "name": "Tiong Nam Logistics Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8419.MY", "name": "Pansar Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8419PA.MY", "name": "Pansar Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8435.MY", "name": "CEPCO", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8443.MY", "name": "HIL Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8478.MY", "name": "HWA TAI Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8486.MY", "name": "Lion Forest Industries Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8494.MY", "name": "LBI Capital Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8524.MY", "name": "TALIWRK", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8532.MY", "name": "Sinotop Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8567.MY", "name": "Salcon Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8583.MY", "name": "Mah Sing Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8591.MY", "name": "Crest Builder Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8605.MY", "name": "Federal Furniture Holdings M Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8605PA.MY", "name": "FIHB-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8613.MY", "name": "ENRA Group Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8621.MY", "name": "LPI Capital Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8648.MY", "name": "Jasa Kita Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8664.MY", "name": "S P Setia Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8664PA.MY", "name": "SPSETIA-PA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8664PB.MY", "name": "SPSETIA-PB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8664PC.MY", "name": "SPSETIA-PC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8672.MY", "name": "Kamdar Group ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8702.MY", "name": "Texchem Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8745.MY", "name": "Leweko Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8834.MY", "name": "IREKA", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8869.MY", "name": "Press Metal Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8877.MY", "name": "Ekovest Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8885.MY", "name": "Reliance Pacific Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8893.MY", "name": "MKLAND", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8907.MY", "name": "EG Industries Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8923.MY", "name": "Jiankun International Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8931.MY", "name": "Jerasia Capital Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8966.MY", "name": "Prolexus Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "8982.MY", "name": "Cepatwawasan Group Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9008.MY", "name": "OMESTI", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9008PB.MY", "name": "Omesti Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9016.MY", "name": "Eksons Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9059.MY", "name": "TSH Resources Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9075.MY", "name": "Theta Edge Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9083.MY", "name": "Kumpulan Jetson Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9091.MY", "name": "Emico Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9113.MY", "name": "Sanbumi Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9121.MY", "name": "KPSCB", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9148.MY", "name": "Advanced Packaging Technology M Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9172.MY", "name": "Formosa Prosonic Industries Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9199.MY", "name": "Lysaght Galvanized Steel Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9237.MY", "name": "Sarawak Consolidated Industries Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9261.MY", "name": "Gadang Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9288.MY", "name": "Bonia Corporation Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9296.MY", "name": "RCE Capital Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9318.MY", "name": "Fitters Diversified Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9318OR.MY", "name": "FITTERS-OR", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9326.MY", "name": "LB Aluminium Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9334.MY", "name": "KESM Industries Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9369.MY", "name": "Teo Guan Lee Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9377.MY", "name": "FSBM", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9385.MY", "name": "Lay Hong Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9393.MY", "name": "ITRONIC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9407.MY", "name": "Paragon Union Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9423.MY", "name": "Chee Wah Corp. Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9431.MY", "name": "SJC", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9466.MY", "name": "KKB Engineering Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9539.MY", "name": "Multi-Usage Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9571.MY", "name": "Mitrajaya Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9598.MY", "name": "Pintaras Jaya Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9601.MY", "name": "Ho Wah Genting Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9628.MY", "name": "LEBTECH", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9679.MY", "name": "WCT Holdings Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9687.MY", "name": "Ideal United Bintang Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9695.MY", "name": "PLS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9717.MY", "name": "Sycal Ventures Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9741.MY", "name": "ROHAS", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9776.MY", "name": "Farm&apos;s Best Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9792.MY", "name": "SEG International Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9814.MY", "name": "Bertam Alliance Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9822.MY", "name": "SAM Engineering & Equipment ", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9873.MY", "name": "Prestar Resources Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9881.MY", "name": "Leader Steel Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9938.MY", "name": "Bright Packaging Industry Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9946.MY", "name": "Rex Industry Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9954.MY", "name": "Asia Knight Berhad", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9962.MY", "name": "Gromutual Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}, {"symbol": "9997.MY", "name": "Pensonic Holdings Bhd", "currency": "MYR", "exchange": "MYX", "mic_code": "XKLS", "country": "Malaysia", "type": "Common Stock"}]
+0001.KL,SCOMNET
+0002.KL,KOTRA
+0005.KL,UCREST
+0006.KL,PINEAPP
+0007.KL,PUC
+0008.KL,WILLOW
+0010.KL,IRIS
+0011.KL,BTECH
+0012.KL,3A
+0017.KL,M3TECH
+0018.KL,LAMBO
+0020.KL,NETX
+0021.KL,GHLSYS
+0022.KL,PARLO
+0023.KL,IFCAMSC
+0024.KL,JAG
+0025.KL,YBS
+0026.KL,NOVAMSC
+0028.KL,SCOPE
+0029.KL,DIGISTA
+0032.KL,REDTONE
+0034.KL,MMAG
+0035.KL,OPCOM
+0036.KL,KGROUP
+0037.KL,RGB
+0038.KL,ARTRONIQ
+0039.KL,GFM
+0040.KL,OPENSYS
+0041.KL,HONGSENG
+0043.KL,MTRONIC
+0045.KL,G Neptune Bhd
+0048.KL,ANCOMLB
+0049.KL,OCNCASH
+0050.KL,SYSTECH
+0051.KL,CUSCAPI
+0053.KL,OSKVI
+0054.KL,KARYON
+0055.KL,SERSOL
+0056.KL,GRANFLO
+0058.KL,JCBNEXT
+0059.KL,ECOHLDS
+0060.KL,VC
+0060PA.KL,VC-PA
+0064.KL,EFFICEN
+0065.KL,EFORCE
+0066.KL,VSOLAR
+0068.KL,ASDION
+0069.KL,VIVOCOM
+0070.KL,MQTECH
+0072.KL,AT
+0074.KL,GOCEAN
+0075.KL,LYC
+0078.KL,GDEX
+0079.KL,ORION
+0080.KL,STRAITS
+0081.KL,MEGASUN
+0082.KL,GPACKET
+0083.KL,NOTION
+0084.KL,TECFAST
+0085.KL,MLAB
+0086.KL,YGL
+0089.KL,TEXCYCL
+0090.KL,ELSOFT
+0091.KL,DAYA
+0092.KL,MTOUCHE
+0093.KL,SOLUTN
+0094.KL,INIX
+0095.KL,MAG
+0096.KL,NEXGRAM
+0097.KL,VITROX
+0098.KL,BAHVEST
+0099.KL,SCICOM
+0100.KL,ESCERAM
+0101.KL,TMCLIFE
+0102.KL,CONNECT
+0103.KL,MNC
+0104.KL,GENETEC
+0105.KL,ASIAPLY
+0106.KL,REXIT
+0107.KL,EDUSPEC
+0108.KL,N2N
+0109.KL,SCBUILD
+0111.KL,K1
+0112.KL,MIKROMB
+0113.KL,MMSV
+0116.KL,FOCUS
+0116PA.KL,FOCUS-PA
+0117.KL,SMRT
+0118.KL,TRIVE
+0119.KL,APPASIA
+0120.KL,VIS
+0122.KL,AIM
+0123.KL,PRIVA
+0126.KL,MICROLN
+0127.KL,JHM
+0128.KL,FRONTKN
+0129.KL,SRIDGE
+0131.KL,DGSB
+0132.KL,TDEX
+0133.KL,SANICHI
+0136.KL,GREENYB
+0138.KL,MYEG
+0140.KL,MACPIE
+0143.KL,KEYASIC
+0145.KL,TFP
+0146.KL,JFTECH
+0147.KL,INNITY
+0148.KL,SUNZEN
+0149.KL,FIBON
+0150.KL,FINTEC
+0150PA.KL,FINTEC-PA
+0151.KL,KGB
+0152.KL,DGB
+0153.KL,OVERSEA
+0154.KL,EAH
+0155.KL,MGRC
+0156.KL,MPAY
+0157.KL,FOCUSP
+0159.KL,AMEDIA
+0160.KL,HHHCORP
+0161.KL,SCH
+0162.KL,WIDAD
+0163.KL,CAREPLS
+0165.KL,XOX
+0165PA.KL,XOX Bhd
+0166.KL,INARI
+0167.KL,MCLEAN
+0168.KL,BOILERM
+0169.KL,SMTRACK
+0170.KL,KANGER
+0171.KL,PLABS
+0172.KL,OCK
+0173.KL,REV
+0174.KL,IDMENSN
+0175.KL,HHGROUP
+0176.KL,KRONO
+0177.KL,PASUKGB
+0178.KL,SEDANIA
+0179.KL,BIOHLDG
+0179PA.KL,Bioalpha Holdings Bhd
+0180.KL,KTC
+0181.KL,AEMULUS
+0182.KL,LKL
+0183.KL,SALUTE
+0185.KL,HSSEB
+0186.KL,PTRANS
+0187.KL,BCMALL
+0188.KL,HLT
+0189.KL,MATANG
+0190.KL,ESAFE
+0191.KL,CABNET
+0192.KL,INTA
+0193.KL,KAB
+0195.KL,BINACOM
+0196.KL,QES
+0197.KL,WEGMANS
+0198.KL,GDB
+0199.KL,TRIMODE
+0200.KL,REVENUE
+0201.KL,NOVA
+0202.KL,RGTECH
+0203.KL,SMETRIC
+0205.KL,DPIH
+0206.KL,NADIBHD
+0207.KL,MESTRON
+0208.KL,GREATEC
+0209.KL,ISTONE
+0210.KL,KHJB
+0211.KL,TASHIN
+0212.KL,SDS
+0213.KL,MTAG
+0215.KL,SLVEST
+0216.KL,SPRING
+0217.KL,PWRWELL
+0218.KL,ACO
+0219.KL,RL
+0220.KL,OVH
+0221.KL,TCS
+0222.KL,OPTIMAX
+0223.KL,SAMAIDEN
+0225.KL,SCGBHD
+0226.KL,ANEKA
+0227.KL,EFRAME
+0228.KL,HPPHB
+0229.KL,MOBILIA
+0230.KL,TELADAN
+0231.KL,FLEXI
+0232.KL,VOLCANO
+0233.KL,Pekat Group Bhd
+0235.KL,Nestcon Bhd
+0236.KL,Ramssol Group Bhd
+0237.KL,Haily Group Bhd
+0238.KL,Cekd Bhd
+0239.KL,Ecomate Holdings Bhd
+0240.KL,Coraza Integrated Technology Bhd
+0241.KL,Siab Holdings Bhd
+0242.KL,Pappajack Bhd
+0243.KL,Cengild Medical Bhd
+0245.KL,MN Holdings Bhd
+0246.KL,Cnergenz Bhd
+0247.KL,Unitrade Industries Bhd
+0248.KL,Yew Lee Pacific Group Bhd
+0249.KL,LGMS Bhd
+0250.KL,YX Precious Metals Bhd
+0251.KL,SFP Tech Holdings Bhd
+0252.KL,Orgabio Holdings Bhd
+0253.KL,Infoline Tec Group Bhd
+0255.KL,Ecoscience International Bhd
+0256.KL,Umedic Group Bhd
+0257.KL,Unique Fire Holdings Bhd
+0258.KL,Agmo Holdings Bhd
+0259.KL,SNS
+0260.KL,PTRB
+0261.KL,COSMOS
+0262.KL,SUNVIEW
+0263.KL,BETA
+0265.KL,INFOM
+0266.KL,LEFORM
+0267.KL,ECA
+0268.KL,L&PBHD
+0269.KL,DSS
+0270.KL,NATGATE
+0271.KL,WELLS
+0272.KL,TTVHB
+0273.KL,VLB
+0275.KL,OPPSTAR
+0276.KL,ADB
+0277.KL,Cloudpoint Technology Berhad
+0278.KL,Edelteq Holdings Berhad
+0279.KL,SYNERGY
+03016.KL,CRG
+03021.KL,EquitiesTracker Holdings Bhd
+03023.KL,SMILE
+03029.KL,GPP Resources Berhad
+03046.KL,Dynafront Holdings Bhd
+03050.KL,Sunmow Holding Bhd
+03053.KL,CC International Bhd
+0800EA.KL,ABF Malaysia Bond Index
+0820EA.KL,FTSE Bursa Malaysia KLCI ETF
+0821EA.KL,MYETF DJ Islamic Malaysia Titans 25
+0822EA.KL,Principal FTSE ASEAN 40 Malaysia
+0823EA.KL,Principal FTSE China 50 ETF
+0824EA.KL,MyETF MSCI Malaysia Islamic Dividend
+0825EA.KL,MyETF MSCI SEA Islamic Dividend
+0827EA.KL,MyETF Dow Jones U.S. Titans 50
+0828EA.KL,TradePlus Shariah Gold ETF
+0829EA.KL,TradePlus S&P New China Tracker ETF
+0834EA.KL,Kenanga KLCI Daily 2x Leveraged ETF
+0835EA.KL,Kenanga KLCI Daily
+0836EA.KL,TradePlus DWA Malaysia Momentum Tracker ETF
+0837EA.KL,TradePlus MSCI Asia ex Japan REITs Tracker ETF
+0838EA.KL,VP-DJ Shariah China A-Shares 100 ETF
+1015.KL,AMMB Holdings Berhad
+1023.KL,CIMB Group Holdings Berhad
+1058.KL,Manulife Holdings Berhad
+1066.KL,RHB Capital Berhad
+1082.KL,Hong Leong Financial Group Berhad
+1147.KL,GOB
+1155.KL,Malayan Banking Berhad
+1163.KL,Allianz Malaysia Berhad
+1163PA.KL,ALLIANZ-PA
+1171.KL,Malaysia Building Society Bhd
+1198.KL,MAA Group Berhad
+1287.KL,Pan Malaysia Holdings Bhd
+1295.KL,Public Bank Berhad
+1368.KL,UEM Edgenta Berhad
+1481.KL,Advance Synergy Berhad
+1503.KL,GuocoLand
+1538.KL,Symphony Life Berhad
+1562.KL,Berjaya Sports Toto Berhad
+1589.KL,Iskandar Waterfront City Berhad
+1619.KL,DRB-HICOM Berhad
+1643.KL,Landmarks Bhd
+1651.KL,Malaysian Resources Corporation Berhad
+1694.KL,Menang Corp. M Bhd
+1724.KL,Paramount Corporation Berhad
+1818.KL,Bursa Malaysia Berhad
+1899.KL,Batu Kawan Berhad
+1902.KL,PINEPAC
+1929.KL,Chin Teck Plantations Berhad
+1961.KL,IOI Corp.Bhd
+1996.KL,Kretam Holdings Berhad
+2038.KL,Negri Sembilan Oil Palms Berhad
+2054.KL,TDM Berhad
+2062.KL,Harbour-Link Group Berhad
+2089.KL,United Plantations Bhd
+2097.KL,EastLand Equity Bhd
+2127.KL,Comfort Gloves Berhad
+2135.KL,GOPENG
+2143.KL,ECM Libra Financial Group Berhad
+2186.KL,Kuchai Development Bhd
+2224.KL,Selangor Dredging Bhd
+2259.KL,Talam Transform Berhad
+2283.KL,Zelan Berhad
+2291.KL,GENP
+2429.KL,Tanco Holdings Bhd
+2445.KL,Kuala Lumpur Kepong Berhad
+2453.KL,KLUANG
+2488.KL,Alliance Financial Group Berhad.
+2542.KL,Riverview Rubber Estates, Berhad
+2569.KL,Sungei Bagan Rubber Co. Malaya Bhd
+2593.KL,UMCCA
+2607.KL,Inch Kenneth Kajang Rubber Public Limited Company
+2658.KL,Ajinomoto Malaysia Bhd
+2674.KL,Aluminium Co. of Malaysia Bhd
+2739.KL,Sino Hua-An International Bhd
+2755.KL,FCW Holdings Bhd
+2771.KL,Boustead Holdings Bhd
+2828.KL,CI Holdings Bhd
+2836.KL,Carlsberg Brewery Malaysia Bhd
+2852.KL,Cahya Mata Sarawak Bhd
+2984.KL,FACB Industries Inc. Bhd
+3018.KL,Olympia Industries Berhad
+3026.KL,Dutch Lady Milk Industries Bhd
+3034.KL,Hap Seng Consolidated Berhad
+3042.KL,Petron Malaysia Refining & Marketing Bhd
+3069.KL,Mega First Corp. Bhd
+3107.KL,Fima Corp. Bhd
+3158.KL,Ynh Property Berhad
+3174.KL,Land & General Bhd
+3182.KL,Genting Berhad
+3204.KL,George Kent
+3239.KL,Berjaya Assets Berhad
+3247.KL,GUH Holdings Berhad
+3255.KL,Heineken Malaysia Berhad
+3298.KL,Hexza Corporation Berhad
+3301.KL,Hong Leong Industries Berhad
+3336.KL,IJM Corporation Berhad
+3379.KL,Insas Berhad
+3379PB.KL,Insas Bhd
+3395.KL,Berjaya Corporation Berhad
+3417.KL,Eastern & Oriental Berhad
+3441.KL,Johan Holdings Bhd
+3476.KL,Keck Seng Malaysia Bhd
+3514.KL,Marco Holdings Berhad
+3557.KL,Ecofirst Consolidated Bhd
+3565.KL,Kumpulan Europlus Berhad
+3573.KL,Lien Hoe Corp. Bhd
+3611.KL,PGLOBE
+3662.KL,Malayan Flour Mills Bhd
+3689.KL,Fraser & Neave Holdings Bhd
+3719.KL,Panasonic Manufacturing Malaysia Berhad
+3743.KL,Sunsuria Berhad
+3778.KL,Melewar Industrial Group Berhad
+3794.KL,Lafarge Malaysia Berhad
+3816.KL,MISC
+3859.KL,Magnum Berhad
+3867.KL,Malaysian Pacific Industries Berhad
+3883.KL,Muda Holdings Berhad
+3891.KL,Malayan United Industries Berhad
+3905.KL,MULPHA
+3913.KL,MUI Properties Berhad
+3948.KL,DutaLand Berhad
+4006.KL,Oriental Holdings Bhd
+4022.KL,Tadmax Resources Berhad
+4057.KL,Asian Pac Holdings Berhad
+4065.KL,PPB Group Berhad
+4081.KL,Pan Malaysia Corporation Berhad
+4162.KL,British American Tobacco Malaysia Bhd
+4197.KL,Sime Darby Berhad
+4219.KL,Berjaya Land Berhad
+4235.KL,Lion Industries Corporation Berhad
+4243.KL,WTK Holdings Bhd
+4251.KL,I-Berhad
+4286.KL,Seal Inc. Bhd
+4316.KL,Sin Heng Chan
+4324.KL,Shell Refining Company
+4359.KL,Turiya Berhad
+4375.KL,South Malaysia Industries Bhd
+4383.KL,Jaya Tiasa Holdings Berhad
+4405.KL,Tan Chong Motor Holdings Bhd
+4456.KL,Dagang NeXchange Berhad
+4464.KL,Naim Indah Corp. Bhd
+4502.KL,Media Prima Bhd
+4588.KL,UMW Holdings Bhd
+4596.KL,Sapura Resources Berhad
+4634.KL,Pos Malaysia Berhad
+4677.KL,YTL
+4707.KL,Nestlé
+4715.KL,Genting Malaysia Berhad
+4723.KL,JAKS Resources Berhad
+4731.KL,Scientex Berhad
+4758.KL,Ancom Berhad
+4847.KL,Konsortium Transnasional Bhd
+4863.KL,Telekom Malaysia Berhad
+4936.KL,Malpac Holdings Bhd
+4944.KL,Nylex
+4995.KL,Versatile Creative Berhad
+5000.KL,Hume Industries Berhad
+5001.KL,Mieco Chipboard Bhd
+5005.KL,Unisem
+5006.KL,Merge Energy Bhd
+5007.KL,Chin Well Holdings Berhad
+5008.KL,Harrisons Holdings
+5009.KL,White Horse Bhd
+5010.KL,Tong Herr Resources Bhd
+5011.KL,Mesiniaga Bhd
+5012.KL,TA Ann Holdings Bhd
+5014.KL,Malaysia Airports Holdings Bhd
+5015.KL,APM Automotive Holdings Berhad
+5016.KL,Warisan TC Holdings Bhd
+5020.KL,Glomac Berhad
+5021.KL,AYS Ventures Berhad
+5022.KL,Paos Holdings Berhad
+5024.KL,Hup Seng Industries Bhd
+5025.KL,NWP Holdings Berhad
+5026.KL,MHC
+5027.KL,Kim Loong Resources Berhad
+5028.KL,Heitech Padu Bhd
+5029.KL,Far East Holdings Bhd
+5031.KL,Time Dotcom Bhd.
+5032.KL,Bintulu Port Holdings Bhd
+5036.KL,Edaran Berhad
+5037.KL,COMPUGT
+5038.KL,KSL Holdings Bhd
+5040.KL,Meda Inc. Bhd
+5041.KL,PBA Holdings Bhd
+5042.KL,TSR Capital Berhad
+5047.KL,NPC
+5048.KL,Yi-Lai Bhd
+5049.KL,Country View Bhd
+5053.KL,OSK Holdings Berhad
+5054.KL,TRC Synergy Bhd
+5056.KL,Engtex Group Bhd
+5062.KL,Hua Yang Bhd
+5065.KL,Ornapaper Bhd
+5066.KL,NTPM Holdings Berhad
+5068.KL,Luster Industries Bhd
+5069.KL,Bld Plantation Bhd
+5070.KL,Protasco Bhd
+5071.KL,COASTAL
+5072.KL,Hiap Teck Venture Bhd
+5073.KL,Naim Holdings Berhad
+5075.KL,Plenitude Berhad
+5077.KL,Malaysian Bulk Carriers Bhd.
+5078.KL,Silk Holdings Berhad
+5079.KL,KBES Bhd.
+5080.KL,Poh Kong Holdings Bhd
+5081.KL,EIG
+5082.KL,Cymao Holdings Berhad
+5085.KL,MUDAJYA
+5087.KL,Mycron Steel Bhd
+5088.KL,Apex Equity Holdings Berhad
+5090.KL,Media Chinese International Limited
+5094.KL,CSC Steel Holdings Bhd
+5095.KL,HeveaBoard Bhd
+5098.KL,Malaysia Steel Works
+5099.KL,AirAsia Berhad
+5100.KL,BP Plastics Holding Bhd
+5101.KL,Evergreen Fibreboard Bhd
+5102.KL,Guan Chong Bhd.
+5104.KL,CNI
+5105.KL,Can-One Berhad
+
+5106.KL,Axis Real Estate Investment Trust
+5107.KL,IQ Group Holdings Berhad
+5108.KL,iCapital.biz Berhad
+5109.KL,YTL Hospitality REIT
+5110.KL,Uoa Real Estate Investment
+5111.KL,Tower Real Estate Investment Trust
+5112.KL,TH Plantations Berhad
+5113.KL,Rimbunan Sawit Berhad
+5115.KL,Alam Maritim Resources Berhad
+5116.KL,Al-&apos;Aqar Healthcare REIT
+5120.KL,AmFirst Real Estate Investment Trust
+5121.KL,Hektar Real Estate Investment Trust
+5123.KL,MRCB-Quill REIT
+5125.KL,Pantech Group Holdings Bhd
+5126.KL,Sarawak Oil Palms Bhd
+5127.KL,AmanahRaya Real Estate Investment Trust
+5129.KL,Melati Ehsan Holdings Berhad
+5130.KL,Atrium Real Estate Investment Trust
+5131.KL,Zhulian Corporation Berhad
+5132.KL,DELEUM
+5133.KL,Petra Energy Berhad
+5134.KL,Southern Acids M Bhd
+5135.KL,SARAWAK Plantation Bhd
+5136.KL,Complete Logistic Services Berhad
+5138.KL,Hap Seng Plantations Holdings Bhd
+5139.KL,Aeon Credit Service M Bhd
+5140.KL,TASCO Berhad
+5141.KL,Dayang Enterprise Holdings Berhad
+5142.KL,Wah Seong Corporation Berhad
+5143.KL,Luxchem Corporation Bhd
+5145.KL,Sealink International Bhd
+5147.KL,Samchem Holdings Bhd
+5148.KL,UEM Sunrise Berhad
+5149.KL,TAS Offshore Berhad
+5151.KL,Halex Holdings Berhad
+5152.KL,Muar Ban Lee Group Berhad
+5156.KL,XiDeLang Holdings Limited
+5157.KL,Saudee Group Berhad
+5159.KL,YOCB
+5160.KL,Homeritz Corporation Berhad
+5161.KL,JCY International Berhad
+5162.KL,ECS ICT Berhad
+5163.KL,Seremban Engineering Berhad
+5165.KL,Hock Heng Stone Industries Bhd
+5166.KL,MINDA
+5168.KL,Hartalega Holdings Berhad
+5169.KL,Ho Hup Construction Company Berhad
+5170.KL,Sarawak Cable Berhad
+5171.KL,Kimlun Corporation Berhad
+5172.KL,K-Star Sports Limited
+5173.KL,Shin Yang Shipping Corporation Berhad
+5175.KL,Ivory Properties Group Berhad
+5176.KL,Sunway Real Estate Investment Trust
+5178.KL,Tatt Giap Group Berhad
+5180.KL,CMMT
+5182.KL,MCT Berhad
+5183.KL,PCHEM
+5184.KL,Cypark Resources Berhad
+5185.KL,Affin Holdings Bhd
+5186.KL,Malaysia Marine and Heavy Engineering Holdings Berhad
+5187.KL,HB Global Limited
+5188.KL,China Ouhua Winery Holdings Limited
+5190.KL,Benalec Holdings Berhad
+5191.KL,Tambun Indah Land Berhad
+5192.KL,K.Seng Seng Corporation Bhd.
+5195.KL,Censof Holdings Berhad
+5196.KL,Berjaya Food Berhad
+5197.KL,Focus Lumber Berhad.
+5198.KL,ABM Fujiya Berhad
+5199.KL,Hibiscus Petroleum Berhad
+5200.KL,UOA Development Bhd
+5202.KL,MSM
+5204.KL,Prestariang Berhad
+5205.KL,SENDAI
+5207.KL,SBC Corporation Berhad
+5208.KL,EITA Resources Berhad
+5209.KL,Gas Malaysia Berhad
+5210.KL,Bumi Armada Berhad
+5211.KL,Sunway Berhad
+5211PA.KL,SUNWAY-PA
+5212.KL,Pavilion Real Estate Investment Trust
+5213.KL,Sentoria Group Berhad
+5216.KL,DSONIC
+5218.KL,SapuraKencana Petroleum Berhad
+5218PA.KL,SAPNRG-PA
+5219.KL,Pestech International Berhad
+5220.KL,Globaltec Formation Berhad
+5222.KL,Felda Global Ventures Holdings Berhad
+5225.KL,IHH Healthcare Berhad
+5226.KL,Gabungan AQRS Berhad
+5227.KL,IGB Real Estate Investment Trust
+5228.KL,ELK-Desa Resources Berhad
+5230.KL,Tune Protect Group Berhad
+5231.KL,Pelikan International Corporation Berhad
+5232.KL,Leon Fuat Berhad
+5235SS.KL,KLCC Real Estate Investment Trust
+5236.KL,Matrix Concepts Holdings Berhad
+5237.KL,MPHB Capital Berhad
+5238.KL,AirAsia X Berhad
+5239.KL,Titijaya Land Berhad
+5242.KL,Solid Automotive Berhad
+5243.KL,VELESTO
+5246.KL,Westports Holdings Berhad
+5247.KL,Karex Berhad
+5248.KL,Berjaya Auto Berhad
+5249.KL,IOI Properties Group Berhad
+5250.KL,7-Eleven Malaysia Holdings Berhad
+5252.KL,Sasbadi Holdings Berhad
+5253.KL,ECONBHD
+5254.KL,Boustead Plantations Berhad
+5255.KL,Icon Offshore Berhad
+5256.KL,Reach Energy Berhad
+5257.KL,Carimin Petroleum Berhad
+5258.KL,BIMB Holdings Berhad
+5259.KL,E.A. Technique
+5260.KL,Only World Group Holdings Berhad
+5263.KL,SUNCON
+5264.KL,MALAKOF
+5265.KL,DOLPHIN
+5267.KL,XINHWA
+5269.KL,ALSREIT
+5271.KL,PECCA
+5272.KL,RANHILL
+5273.KL,CHINHIN
+5274.KL,HLCAP
+5275.KL,MYNEWS
+5276.KL,DANCO
+5277.KL,FPGROUP
+5278.KL,RHONEMA
+5280.KL,KIPREIT
+5281.KL,ADVCON
+5283.KL,EWINT
+5284.KL,LCTITAN
+5285.KL,SIMEPLT
+5286.KL,MI
+5288.KL,SIMEPROP
+5289.KL,TECHBND
+5291.KL,HPMT
+5292.KL,UWC
+5293.KL,AME
+5295.KL,INNATURE
+5296.KL,MRDIY
+5297.KL,Tuju Setia Bhd
+5298.KL,OM Holdings Ltd
+5299.KL,IGB Commercial REIT
+5300.KL,Yenher Holdings Bhd
+5301.KL,CTOS Digital Bhd
+5302.KL,Aurelius Technologies Bhd
+5303.KL,Swift Haulage Bhd
+5305.KL,Senheng New Retail Bhd
+5306.KL,Farm Fresh Bhd
+5307.KL,AMEREIT
+5308.KL,Seng Fong Holdings Bhd
+5309.KL,ITMAX
+5310.KL,KITACON
+5311.KL,CEB
+5313.KL,Radium Development Berhad
+5318.KL,DXN Holdings Bhd
+5347.KL,Tenaga Nasional Berhad
+5371.KL,KIMHIN
+5398.KL,Gamuda Bhd
+5401.KL,TROP
+5436.KL,PERSTIM
+5517.KL,Shangri-La Hotels Malaysia Bhd
+5533.KL,OCB Bhd
+5568.KL,APB Resources Berhad
+5576.KL,Minho M Bhd
+5592.KL,Grand Central Enterprises Bhd
+5606.KL,Goldis Berhad
+5614.KL,Integrated Logistics Bhd
+5622.KL,Triplc Berhad
+5649.KL,Golden Pharos Bhd
+5657.KL,Parkson Holdings Berhad
+5665.KL,Southern Steel Berhad
+5673.KL,Ipmuda Berhad
+5681.KL,Petronas Dagangan Bhd
+5703.KL,Muhibbah Engineering M Bhd
+5738.KL,Country Heights Holdings Berhad
+5789.KL,LBS Bina Group Bhd
+5789PA.KL,LBS Bina Group Bhd
+5797.KL,Choo Bee Metal Industries Bhd
+5819.KL,Hong Leong Bank Berhad
+5827.KL,Oriental Interest Bhd
+5843.KL,Kumpulan Perangsang Selangor Bhd
+5878.KL,KPJ Healthcare Bhd
+5908.KL,DKSH Holdings
+5916.KL,Malaysia Smelting Corporation Berhad
+5932.KL,Bina Puri Holdings Bhd
+5983.KL,MBM Resources Bhd
+6009.KL,Pacific & Orient Bhd
+6012.KL,Maxis Berhad
+6017.KL,SHL Consolidated Bhd
+6033.KL,Petronas Gas Bhd
+6041.KL,FARLIM
+6068.KL,PCCS Group Bhd
+6076.KL,ENCORP
+6084.KL,Star Media Group Berhad
+6114.KL,MKH Berhad
+6139.KL,Syarikat Takaful Malaysia Bhd
+6149.KL,Metrod Holdings Berhad
+6173.KL,BDB
+6181.KL,Malton Bhd
+6203.KL,Khee San Berhad
+6254.KL,PDZ Holdings Bhd
+6262.KL,Innoprise Plantations Bhd
+6297.KL,Box-Pak Malaysia Bhd
+6351.KL,Amway
+6378.KL,Tekala Corp. Bhd
+6399.KL,Astro Malaysia Holdings Berhad
+6432.KL,Apollo Food Holdings Berhad
+6459.KL,MNRB Holdings Berhad
+6483.KL,K & N Kenanga Holdings Berhad
+6491.KL,Kumpulan Fima Bhd
+6521.KL,Suria Capital Holdings Bhd
+6556.KL,Ann Joo Resources Berhad
+6599.KL,Aeon Co.
+6602.KL,BCB Berhad
+6633.KL,LHI
+6637.KL,PNE PCB Bhd
+6645.KL,Lingkaran Trans Kota Holdings Berhad
+6718.KL,Crescendo Corporation Berhad
+6742.KL,YTL Power International Berhad
+6769.KL,JKG Land Berhad
+6807.KL,Puncak Niaga Holdings Berhad
+6815.KL,EUPE
+6874.KL,KUB Malaysia Berhad
+6888.KL,Axiata Group Berhad
+6904.KL,Subur Tiasa Holdings Bhd
+6912.KL,Pasdec Holdings Bhd
+6939.KL,Fiamma Holdings Bhd
+6947.KL,DiGi.Com Berhad
+6963.KL,VS Industry Berhad
+6971.KL,Kobay Technology Bhd.
+6998.KL,Bintai Kinden Corp. Bhd
+7003.KL,Y&G
+7004.KL,Multi-Code Electronics Industries
+7005.KL,BIG Industries Berhad
+7006.KL,Latitude Tree Holdings Bhd
+7007.KL,ARK Resources Berhad
+7010.KL,Grand Hoover Berhad
+7013.KL,Hubline Bhd
+7014.KL,YLI Holdings Bhd
+7016.KL,Chuan Huat Resources Bhd
+7017.KL,Komarkcorp Bhd
+7017OR.KL,KOMARK-OR
+7018.KL,CME Group Bhd
+7020.KL,YKGI Holdings Berhad
+7022.KL,Globetronics Technology Bhd
+7025.KL,Woodlandor Holdings Bhd
+7028.KL,Zecon Berhad
+7029.KL,Master-Pack Group Berhad
+7031.KL,Amtel Holdings Berhad
+7033.KL,Kumpulan H & L High-Tech Berhad
+7034.KL,Thong Guan Industries Bhd
+7035.KL,CCK
+7036.KL,Borneo Oil Berhad
+7043.KL,JMR Conglomeration Bhd
+7045.KL,Scomi Energy Services Bhd
+7047.KL,Fajarbaru Builder Group Bhd.
+7048.KL,Atlan Holdings Bhd
+7050.KL,Wong Engineering Corporation Berhad
+7052.KL,Padini Holdings Berhad
+7054.KL,Astral Asia Berhad
+7060.KL,New Hoong Fatt Holdings Bhd
+7062.KL,Khind Holdings Bhd
+7066.KL,Yong Tai Berhad
+7066PA.KL,YONGTAI-PA
+7070.KL,VIZIONE
+7071.KL,O&C Resources Berhad
+7073.KL,Seacera Group Berhad
+7076.KL,CB Industrial Product Holding Bhd
+7077.KL,GSB Group Berhad
+7078.KL,Ahmad Zaki Resources Berhad
+7079.KL,Tiger Synergy Berhad
+7080.KL,Permaju Industries Bhd
+7080PA.KL,PERMAJU-PA
+7081.KL,Pharmaniaga Bhd
+7082.KL,SYF Resources Bhd
+7082OR.KL,SYF-OR
+7083.KL,Analabs Resources Berhad
+7084.KL,QL Resources Berhad
+7085.KL,LTKM Bhd
+7086.KL,AbleGroup Berhad
+7087.KL,Magni-Tech Industries Bhd
+7088.KL,Poh Huat Resources Holdings Bhd
+7089.KL,Lii Hen Industries Berhad
+7090.KL,Apex Healthcare Berhad
+7091.KL,Unimech Group Bhd
+7094.KL,Eurospan Holdings Bhd
+7095.KL,PIE Industrial Bhd
+7096.KL,GPA Holdings Bhd
+7097.KL,Ta Win Holdings Bhd
+7099.KL,ATTA
+7100.KL,Uchi Technologies Berhad
+7103.KL,Spritzer Bhd.
+7105.KL,HCK Capital Group Berhad
+7106.KL,Supermax Corporation Berhad
+7107.KL,Oriental Food Industries Holdings Bhd
+7108.KL,PERDANA
+7108PA.KL,PERDANA-PA
+7113.KL,Top Glove Corporation Berhad
+7114.KL,D Nonce Technology Bhd
+7115.KL,SKB Shutters Corp. Bhd
+7117.KL,Century Logistics Holdings Bhd
+7120.KL,Acoustech Berhad
+7121.KL,Xian Leng Holdings Bhd
+7123.KL,Priceworth International Berhad
+7128.KL,Cam Resources Bhd
+7129.KL,Asia File Corporation Bhd.
+7130.KL,Kumpulan Powernet Bhd
+7131.KL,ACME
+7132.KL,SMIS Corp. Bhd
+7133.KL,United U-LI Corporation Berhad
+7134.KL,PWF Consolidated Berhad
+7137.KL,UMS Holdings Berhad
+7139.KL,Niche Capital Emas Holdings Berhad
+7140.KL,Oka Corp. Bhd
+7146.KL,AE Multi Holdings Berhad
+7148.KL,CCM Duopharma Biotech Berhad
+7149.KL,Eng Kah Corporation Berhad
+7152.KL,Jaycorp Berhad
+7153.KL,Kossan Rubber Industries Bhd
+7154.KL,Caely Holdings Bhd
+7155.KL,SKP Resources Bhd
+7157.KL,CYL
+7160.KL,Pentamaster Corp. Bhd
+7161.KL,Kerjaya Prospek Group Berhad
+7162.KL,Astino Berhad
+7163.KL,PJBUMI
+7164.KL,KNM Group Bhd
+7165.KL,Spring Gallery Berhad
+7167.KL,Johore Tin Bhd
+7168.KL,PRG Holdings Berhad
+7169.KL,DOMINAN
+7170.KL,LFECORP
+7172.KL,PMB Technology Bhd
+7173.KL,Toyo Ink Group Berhad
+7174.KL,CAB Cakaran Corp. Bhd
+7176.KL,TPC Plus Berhad
+7178.KL,Y.S.P. Southeast Asia Holding Berhad
+7179.KL,DBE Gurney Resources Bhd
+7180.KL,Sern Kou Resources Bhd
+7181.KL,Aturmaju Resources Berhad
+7181PA.KL,ARBB-PA
+7183.KL,Ire-Tex Corp. Bhd
+7184.KL,Yen Global Berhad
+7186.KL,SWS Capital Berhad
+7187.KL,Boon Koon Group Berhad
+7188.KL,BTM Resources Berhad
+7191.KL,Adventa Bhd
+7192.KL,Goodway Integrated Industries Bhd
+7195.KL,Comintel Corporation Berhad
+7197.KL,GE-Shen Corporation Berhad
+7198.KL,DPS Resources Bhd
+7199.KL,Kein Hing International Bhd
+7200.KL,Tek Seng Holdings Bhd
+7201.KL,Progressive Impact Corp. Bhd
+7202.KL,Classic Scenic Bhd
+7203.KL,Wang-Zheng Berhad
+7204.KL,D & O Green Technologies Berhad.
+7207.KL,Success Transformer Corporation Berhad
+7208.KL,Euro Holdings Bhd
+7209.KL,Cheetah Holdings Berhad
+7210.KL,Freight Management Holdings Bhd
+7211.KL,TAFI Industries Berhad
+7212.KL,Destini Berhad
+7214.KL,A-Rank Berhad
+7215.KL,NIHSIN
+7215PA.KL,Ni Hsin Group Bhd
+7216.KL,Kawan Food Bhd
+7217.KL,Eonmetall Group Bhd
+7218.KL,Transocean Holdings Bhd.
+7219.KL,Minetech Resources Berhad
+7219PA.KL,Minetech Resources Bhd
+7221.KL,BSL Corp. Bhd
+7222.KL,Imaspro Corporation Berhad
+7223.KL,Jadi Imaging Holdings Bhd
+7225.KL,P.A. Resources Berhad
+7227.KL,UMSNGB
+7228.KL,Tanjung Offshore Bhd
+7229.KL,Favelle Favco Berhad
+7230.KL,Tomei Consolidated Berhad
+7231.KL,WELLCAL
+7232.KL,Resintech Bhd
+7233.KL,Dufu Technology Corp. Berhad
+7234.KL,MESB Bhd
+7235.KL,Superlon Holdings Berhad
+7237.KL,Power Root Berhad
+7239.KL,Scanwolf Corporation Berhad
+7240.KL,Voir Holdings Berhad
+7241.KL,BHS Industries Bhd
+7243.KL,Bio Osmo Berhad
+7245.KL,WZ Satu Berhad
+7245PA.KL,Citaglobal Bhd
+7246.KL,Signature International Berhad
+7247.KL,SCGM Bhd
+7248.KL,SLP Resources Berhad
+7249.KL,EWEIN
+7250.KL,Uzma Berhad
+7251.KL,Barakah Offshore Petroleum Berhad
+7252.KL,Teo Seng Capital Berhad
+7253.KL,Handal Resources Berhad
+7277.KL,Dialog Group Berhad
+7285.KL,Tomypak Holdings Bhd
+7293.KL,Yinson Holdings Berhad
+7315.KL,AHB Holdings Berhad
+7323.KL,Ken Holdings Bhd
+7374.KL,Tien Wah Press Holdings Bhd
+7382.KL,Golden Land Berhad
+7412.KL,SHH Resources Holdings Bhd
+7439.KL,Teck Guan Perdana Bhd
+7471.KL,Eden Inc. Berhad
+7498.KL,RALCO
+7501.KL,Harn Len Corporation Bhd
+7528.KL,DKLS Industries Bhd
+7544.KL,Quality Concrete Holdings Bhd
+7579.KL,AWC Berhad
+7595.KL,ML Global Berhad
+7609.KL,Ajiya Berhad
+7668.KL,Hai-O Enterprise Bhd
+7676.KL,Gunung Capital Bhd
+7692.KL,Widetech Malaysia Bhd
+7757.KL,UPA
+7765.KL,Rapid Synergy Bhd
+7773.KL,EP Manufacturing Bhd
+7803.KL,Rubberex Corp. M Bhd
+7811.KL,Sapura Industrial Bhd
+7854.KL,TIMWELL
+7889.KL,Thriven Global Berhad
+7935.KL,MILUX
+7943.KL,SNC
+7986.KL,CN Asia Corp.Bhd
+8044.KL,CFM
+8052.KL,CGB
+8079.KL,Lee Swee Kiat Group Bhd
+8117.KL,Poly Glass Fibre M Bhd
+8125.KL,Daibochi Plastic & Packaging Industry Bhd
+8133.KL,Boustead Heavy Industries Corporation Bhd
+8141.KL,Majuperak Holdings Bhd
+8176.KL,Denko Industrial Corp. Bhd
+8192.KL,Mercury Industries Bhd
+8206.KL,Eco World Development Group Berhad
+8273.KL,Public Packages Holdings Bhd
+8303.KL,Kuantan Flour Mills Bhd
+8311.KL,Pesona Metro Holdings Berhad
+8338.KL,Dataprep Holdings Bhd
+8346.KL,Perak Corp. Bhd
+8362.KL,KYM
+8397.KL,Tiong Nam Logistics Holdings Bhd
+8419.KL,Pansar Bhd
+8419PA.KL,Pansar Bhd
+8435.KL,CEPCO
+8443.KL,HIL Industries Bhd
+8478.KL,HWA TAI Industries Bhd
+8486.KL,Lion Forest Industries Berhad
+8494.KL,LBI Capital Bhd
+8524.KL,TALIWRK
+8532.KL,Sinotop Holdings Berhad
+8567.KL,Salcon Bhd
+8583.KL,Mah Sing Group Bhd
+8591.KL,Crest Builder Holdings Bhd
+8605.KL,Federal Furniture Holdings M Bhd
+8613.KL,ENRA Group Berhad
+8621.KL,LPI Capital Bhd
+8648.KL,Jasa Kita Bhd
+8664.KL,S P Setia Berhad
+8664PA.KL,SPSETIA-PA
+8664PC.KL,SPSETIA-PC
+8702.KL,Texchem Resources Bhd
+8745.KL,Leweko Resources Bhd
+8834.KL,IREKA
+8869.KL,Press Metal Bhd
+8877.KL,Ekovest Berhad
+8885.KL,Reliance Pacific Bhd
+8893.KL,MKLAND
+8907.KL,EG Industries Berhad
+8923.KL,Jiankun International Berhad
+8966.KL,Prolexus Bhd
+8982.KL,Cepatwawasan Group Bhd
+9008.KL,OMESTI
+9008PB.KL,Omesti Bhd
+9016.KL,Eksons Corporation Berhad
+9059.KL,TSH Resources Berhad
+9075.KL,Theta Edge Berhad
+9083.KL,Kumpulan Jetson Bhd
+9091.KL,Emico Holdings Berhad
+9113.KL,Sanbumi Holdings Berhad
+9121.KL,KPSCB
+9148.KL,Advanced Packaging Technology M Bhd
+9172.KL,Formosa Prosonic Industries Berhad
+9199.KL,Lysaght Galvanized Steel Bhd
+9237.KL,Sarawak Consolidated Industries Berhad
+9261.KL,Gadang Holdings Berhad
+9288.KL,Bonia Corporation Berhad
+9296.KL,RCE Capital Berhad
+9318.KL,Fitters Diversified Berhad
+9326.KL,LB Aluminium Bhd
+9334.KL,KESM Industries Bhd
+9369.KL,Teo Guan Lee Corp. Bhd
+9377.KL,FSBM
+9385.KL,Lay Hong Berhad
+9393.KL,ITRONIC
+9407.KL,Paragon Union Bhd
+9423.KL,Chee Wah Corp. Bhd
+9431.KL,SJC
+9466.KL,KKB Engineering Bhd
+9539.KL,Multi-Usage Holdings Bhd
+9571.KL,Mitrajaya Holdings Bhd
+9598.KL,Pintaras Jaya Bhd
+9601.KL,Ho Wah Genting Bhd
+9628.KL,LEBTECH
+9679.KL,WCT Holdings Berhad
+9687.KL,Ideal United Bintang Berhad
+9695.KL,PLS
+9717.KL,Sycal Ventures Berhad
+9741.KL,ROHAS
+9776.KL,Farm&apos;s Best Bhd
+9792.KL,SEG International Bhd
+9814.KL,Bertam Alliance Bhd
+9822.KL,SAM Engineering & Equipment
+9873.KL,Prestar Resources Bhd
+9881.KL,Leader Steel Holdings Bhd
+9938.KL,Bright Packaging Industry Bhd
+9946.KL,Rex Industry Berhad
+9954.KL,Asia Knight Berhad
+9962.KL,Gromutual Bhd
+9997.KL,Pensonic Holdings Bhd

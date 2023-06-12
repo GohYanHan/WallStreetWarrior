@@ -77,6 +77,24 @@ public class Database {
         return false;
     }
 
+    // Update lot pool (shares) when buying the same stock
+    boolean updateLotPool(Stock stock, int updateShares) {
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "UPDATE lotpool SET share = ? WHERE symbol = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, updateShares);
+            statement.setString(2, stock.getSymbol());
+            int rowsUpdated = statement.executeUpdate();
+            statement.close();
+
+            // Check if any rows were updated
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     // Add holdings of users into database
     boolean addHoldings(int userKey, Stock stock, int share) {
@@ -541,5 +559,25 @@ public class Database {
         return list;
     }
 
+    //get all admin emails for notification. FraudDetection only
+    public List<String> getAllAdminEmails() {
+        List<String> adminEmails = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "SELECT userEmail FROM users WHERE role = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, "admin");
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                adminEmails.add(resultSet.getString("userEmail"));
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return adminEmails;
+    }
 
 }

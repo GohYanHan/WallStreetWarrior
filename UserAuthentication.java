@@ -228,161 +228,107 @@ public class UserAuthentication {
                                     sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                                     if (sellStock != null) {
                                         LocalDateTime timestamp = LocalDateTime.now();
-                                        System.out.print("Add to pending order? [y/n] ");
-                                        String choose = scanner.next();
-                                        char character = choose.charAt(0);
-                                        Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user, timestamp);
-
-                                        if (character == 'y') {
-                                            db.addOrder(user.getKey(), buyOrder);
-                                            System.out.println("Buy order added into pending buy order list.");
-                                            tradingEngine.runAutoMatchingInBackground(db.loadOrders(user.getKey(), Order.Type.BUY), portfolio);
-
-                                        } else {
-                                            tradingEngine.executeOrder(buyOrder, portfolio);
-                                            System.out.println("Sell order executed successfully.");
+                                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, formattedSellingPrice, user, timestamp);
+                                        if (tradingEngine.executeOrder(sellOrder, portfolio)) {
+                                            db.addOrder(user.getKey(), sellOrder);
+                                            System.out.println("Stock added to sell order list.");
                                         }
+
                                     } else {
-                                        System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
+                                        System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
                                     }
-                                } else if (choice == 2) { // Sell order
-                                    // display holdings
-                                    if (!portfolio.isHoldingsEmpty()) {
-                                        portfolio.displayBuyOrders();
-                                        // Place a sell order
-                                        System.out.print("Enter stock symbol for sell order: ");
-                                        String sellStockSymbol = scanner.nextLine();
-                                        // Find the stock by symbol
-                                        Stock sellStock = portfolio.findStockBySymbol(sellStockSymbol);
-                                        while (sellStock == null) {
-                                            System.out.println("Stock with symbol " + sellStockSymbol + " not found. Please enter a new stock symbol: ");
-                                            sellStockSymbol = scanner.nextLine();
-                                            sellStock = portfolio.findStockBySymbol(sellStockSymbol);
-                                        }
+                                } else {
+                                    System.out.println("Holdings is empty. Cannot sell stock.");
+                                }
+                            }
+                        } else {
+                            System.out.println("User is disqualified. Cannot buy or sell orders");
+                        }
+                        break;
 
-                                        System.out.print("Enter quantity for sell order: ");
-                                        int sellQuantity = scanner.nextInt();
-                                        while (sellQuantity < 100) {
-                                            System.out.println("Invalid quantity. Minimum sell order quantity is 100 shares (one lot).");
-                                            System.out.println("Enter quantity for sell order: ");
-                                            sellQuantity = scanner.nextInt();
-                                        }
 
-                                        // Display suggested price for a stock
-                                        tradingEngine.displaySuggestedPrice(sellStockSymbol, sellQuantity);
+                    case 2:
+                        Scanner k = new Scanner(System.in);
+                        System.out.print("Enter name/symbol to search: ");
+                        String searchstring = k.next();
 
-                                        System.out.print("Enter expected selling price: ");
-                                        double sellExpectedPrice = scanner.nextDouble();
+                        search stocksearch = new search();
+                        stocksearch.searchStocks(searchstring);
+                        break;
 
-                                        // Format the user input to two decimal points
-                                        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-                                        double formattedSellingPrice = Double.parseDouble(decimalFormat.format(sellExpectedPrice));
+                    case 3:
+                        portfolio.displayHoldings();
+                        break;
 
-                                        sellStock = portfolio.findStockBySymbol(sellStockSymbol);
-                                        if (sellStock != null) {
-                                            LocalDateTime timestamp = LocalDateTime.now();
-                                            Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, formattedSellingPrice, user, timestamp);
-                                            if (tradingEngine.executeOrder(sellOrder, portfolio)) {
-                                                db.addOrder(user.getKey(), sellOrder);
-                                                System.out.println("Stock added to sell order list.");
-                                            }
+                    case 4:
+                        if (!user.getStatus().equalsIgnoreCase("disqualified")) {
+                            tradingEngine.cancelBuyOrder(db.loadOrders(user.getKey(), Order.Type.BUY));
+                        } else {
+                            System.out.println("User is disqualified. Cannot buy or sell orders");
+                        }
+                        break;
 
-                                        } else {
-                                            System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
-                                        }
-                                    } else {
-                                        System.out.println("Holdings is empty. Cannot sell stock.");
-                                    }
+                    case 5:
+                        UserDashboard dashboard = new UserDashboard(user);
+                        dashboard.displayAccountBalance();
+                        dashboard.displayCurrentPoints();
+                        dashboard.displayOpenPositions();
+                        dashboard.displayTradeHistory();
+                        dashboard.chooseSort();
+                        break;
+
+                    case 6:
+                        leaderboard.printLeaderboard();
+                    case 7:
+                        report.generateReport();
+//                            notification.sendNotification(5, stocks.get(2));
+                        break;
+
+                    case 8:
+                        System.out.println("Notification\nCurrent notification setting is set to " + ((Notification.notificationSendSetting) ? "ON" : "OFF") + "\n1.turn ON \n2.turn OFF");
+                        System.out.print("Enter your choice: ");
+                        choice = scanner.nextInt();
+                        if (choice == 1) {
+                            notification.setNotificationSendSettingTrue();
+                            Notification.saveNotificationSettings();
+                            break;
+                        } else if (choice == 2) {
+                            notification.setNotificationSendSettingFalse();
+                            Notification.saveNotificationSettings();
+                            break;
+                        } else {
+                            System.out.println("Execution invalid");
+                            break;
+                        }
+                    case 9:
+                        user = db.loadUserByKey(user.getKey());
+                        System.out.print("Current threshold value is set to RM" + (user.getThresholds()) + "\nThreshold range has to be within 10 - 10000\nEnter an amount to set as your threshold: ");
+                        while (true) {
+                            if (scanner.hasNextDouble()) {
+                                double thresholds = scanner.nextDouble();
+                                if (thresholds > 10000 || thresholds < 10) {
+                                    System.out.println("Threshold amount not within range.\nPlease enter a different amount.");
+                                } else {
+                                    db.updateUserThresholds(user.getKey(), thresholds);
+                                    System.out.println("Threshold set successfully!");
+                                    break;
                                 }
                             } else {
-                                System.out.println("User is disqualified. Cannot buy or sell orders");
+                                System.out.println("Threshold has to be a number. Please enter a valid amount.");
+                                scanner.next();
                             }
-                            break;
-
-
-                            case 2:
-                                Scanner k = new Scanner(System.in);
-                                System.out.print("Enter name/symbol to search: ");
-                                String searchstring = k.next();
-
-                                search stocksearch = new search();
-                                stocksearch.searchStocks(searchstring);
-                                break;
-
-                            case 3:
-                                portfolio.displayHoldings();
-                                break;
-
-                            case 4:
-                                if (!user.getStatus().equalsIgnoreCase("disqualified")) {
-                                    tradingEngine.cancelBuyOrder(db.loadOrders(user.getKey(), Order.Type.BUY));
-                                } else {
-                                    System.out.println("User is disqualified. Cannot buy or sell orders");
-                                }
-                                break;
-
-                            case 5:
-                                UserDashboard dashboard = new UserDashboard(user);
-                                dashboard.displayAccountBalance();
-                                dashboard.displayCurrentPoints();
-                                dashboard.displayOpenPositions();
-                                dashboard.displayTradeHistory();
-                                dashboard.chooseSort();
-                                break;
-
-                            case 6:
-                                leaderboard.printLeaderboard();
-                            case 7:
-                                report.generateReport();
-//                            notification.sendNotification(5, stocks.get(2));
-                                break;
-
-                            case 8:
-                                System.out.println("Notification\nCurrent notification setting is set to " + ((Notification.notificationSendSetting) ? "ON" : "OFF") + "\n1.turn ON \n2.turn OFF");
-                                System.out.print("Enter your choice: ");
-                                choice = scanner.nextInt();
-                                if (choice == 1) {
-                                    notification.setNotificationSendSettingTrue();
-                                    Notification.saveNotificationSettings();
-                                    break;
-                                } else if (choice == 2) {
-                                    notification.setNotificationSendSettingFalse();
-                                    Notification.saveNotificationSettings();
-                                    break;
-                                } else {
-                                    System.out.println("Execution invalid");
-                                    break;
-                                }
-                            case 9:
-                                user = db.loadUserByKey(user.getKey());
-                                System.out.println("Current threshold value is set to RM" + (user.getThresholds()) + "\nThreshold range has to be within 10 - 10000\nEnter an amount to set as your threshold: ");
-                                while (true) {
-                                    if (scanner.hasNextDouble()) {
-                                        double thresholds = scanner.nextDouble();
-                                        if (thresholds > 10000 || thresholds < 10) {
-                                            System.out.println("Threshold amount not within range.\nPlease enter a different amount.");
-                                        } else {
-                                            db.updateUserThresholds(user.getKey(), thresholds);
-                                            System.out.println("Threshold set successfully!");
-                                            break;
-                                        }
-                                    } else {
-                                        System.out.println("Threshold has to be a number. Please enter a valid amount.");
-                                        scanner.next();
-                                    }
-                                }
-                                break;
-                            case 10:
-                                System.out.println("Logged out successfully!");
-                                return;
-                            default:
-                                System.out.println("Invalid choice. Please enter a number from 1 to 9.");
-                                break;
                         }
-                } catch(InputMismatchException e){
-                    System.out.println("Invalid input. Please enter a number.");
-                    scanner.nextLine(); // Consume the invalid input
+                        break;
+                    case 10:
+                        System.out.println("Logged out successfully!");
+                        return;
+                    default:
+                        System.out.println("Invalid choice. Please enter a number from 1 to 9.");
+                        break;
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); // Consume the invalid input
             }
         }
     }
