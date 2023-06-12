@@ -20,7 +20,6 @@ public class UserDashboard {
         List<Order> tradeHistory = db.loadTransactionHistory(user.getKey());
 
         double totalProfitAndLoss = 0.0;
-
         // Create a map to keep track of the remaining shares for each stock
         Map<String, Integer> remainingShares = new HashMap<>();
 
@@ -33,30 +32,24 @@ public class UserDashboard {
                 remainingShares.put(order.getStock().getSymbol(), order.getShares());
             }
         }
-
         for (Order order : tradeHistory) {
             if (order.getType() == Order.Type.SELL) {
                 // Get the remaining shares for the stock being sold
                 int remainingQuantity = remainingShares.getOrDefault(order.getStock().getSymbol(), 0);
-
                 // Check if the remaining quantity is greater than or equal to the sell order quantity
                 while (remainingQuantity >= order.getShares()) {
                     // Calculate profit or loss based on the sell order
                     double profitOrLoss = (order.getExpectedSellingPrice() - order.getExpectedBuyingPrice());
                     totalProfitAndLoss += profitOrLoss;
-
                     // Update the remaining shares for the stock being sold
                     remainingShares.put(order.getStock().getSymbol(), remainingQuantity - order.getShares());
 
                     // Remove the sell order from the remaining orders list
                     remainingOrders.remove(order);
-
                     // Check if the remaining quantity is less than 100, remove the stock from the searching list
                     if (remainingQuantity - order.getShares() < 100) {
                         remainingShares.remove(order.getStock().getSymbol());
-                    }
-
-                    // Find the next matching sell order, if any
+                    }// Find the next matching sell order, if any
                     Order nextSellOrder = findMatchingSellOrder(order, remainingOrders);
                     if (nextSellOrder != null) {
                         order = nextSellOrder;
@@ -67,7 +60,6 @@ public class UserDashboard {
                 }
             }
         }
-
         double startingBalance = 50000.0; // Assuming a fixed starting balance
         Map<Integer, Double> plPoints = db.loadPLpoint();
         Double points = plPoints.get(user.getKey());
@@ -89,7 +81,6 @@ public class UserDashboard {
         System.out.println("Current Points: " + db.loadPLpoint());
     }
 
-
     public void displayOpenPositions() {
         user.getPortfolio().displayHoldings();
     }
@@ -106,14 +97,13 @@ public class UserDashboard {
 
             //tradeHistory list will be sorted in ascending order first by expectedBuyingPrice, and if there are elements with the same expectedBuyingPrice, those will be further sorted by timestamp.
 
+
             System.out.println("===========================================================================================");
             System.out.println("|                                Trade History                                            |");
             System.out.println("===========================================================================================");
-
-
             int tradeHistorySize = tradeHistory.size(); // Get the size of the tradeHistory list
 
-// Iterate through the tradeHistory list and print each order
+            // Iterate through the tradeHistory list and print each order
             for (int i = 0; i < tradeHistorySize; i++) {
                 Order order = tradeHistory.get(i);
 
@@ -128,22 +118,21 @@ public class UserDashboard {
                     System.out.println("| Price     : RM " + padRight(String.valueOf(order.getExpectedSellingPrice()), 72) + " |");
 
                 System.out.println("| Timestamp : " + padRight(order.getTimestamp().toString(), 75) + " |");
-
                 if (i == tradeHistorySize - 1) {
                 } else {
                     System.out.println("|-----------------------------------------------------------------------------------------|");
                 }
             }
-
-// Print the closing line
+            // Print the closing line
             System.out.println("===========================================================================================");
         }
     }
 
-
     private static String padRight(String s, int length) {
         return String.format("%-" + length + "s", s);
+
     }
+
 
     //lowest price to highest price
     public void sortTradeHistoryByPrice() {

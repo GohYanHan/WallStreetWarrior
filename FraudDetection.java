@@ -1,10 +1,9 @@
 import java.util.List;
 
 public class FraudDetection {
+    private Notification notification;
     private Database database;
     private User user;
-
-    private Notification notification;
 
     public FraudDetection(Database database) {
         this.database = database;
@@ -14,14 +13,14 @@ public class FraudDetection {
 
     List<User> users = database.getUsersList();
 
+
     public void displaySuspiciousUsers() {
+
         System.out.println("Questionable Users:");
         for (User user : users) {
             if (isSuspiciousUser(user)) {
                 List<Order> transactions = database.loadTransactionHistory(user.getKey());
-
-
-                // Send notifications to admin users
+// Send notifications to admin users
                 List<String> adminEmails = database.getAllAdminEmails();
                 for (String adminEmail : adminEmails) {
                     notification.sendNotificationToAdmin(adminEmail, transactions, user);
@@ -35,7 +34,7 @@ public class FraudDetection {
     }
 
     public boolean isSuspiciousUser(User user) {
-        return isShortSelling(user.getKey());
+        return isShortSelling(user.getKey()) || checkTradeOnMargin(user);
     }
 
     public boolean isShortSelling(int userKey) {

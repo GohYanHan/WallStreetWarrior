@@ -6,10 +6,10 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.prefs.Preferences;
@@ -23,6 +23,8 @@ class Notification {
     //static Stock stock = new Stock(order.getSymbol());
     private final Database db = new Database();
     private final User user = db.getUser();
+    Report report = new Report();
+    static API api = new API();
     ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
     //on button click do set true or set false, default true, assuming there are 2 buttons(enable/disable)
@@ -69,7 +71,7 @@ class Notification {
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.starttls.enable", "true");
             props.put("mail.smtp.ssl.protocols", "TLSv1.2");
-
+            User user = db.getUser();
             Authenticator auth = new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication("sornphert03@gmail.com", "hhftdeernmxqlnaq");
@@ -84,7 +86,7 @@ class Notification {
                 recipients[0] = new InternetAddress(userEmail);
 
                 message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(userEmail));
+                message.setFrom(new InternetAddress("sornphert03@gmail.com"));
                 message.addRecipients(Message.RecipientType.TO, recipients);
                 message.setSubject("Stock Trading Activities");
 
@@ -106,19 +108,32 @@ class Notification {
                         message.setText("Your have successfully sold " + (order.getStock().getSymbol()) + " at a price of RM" + (order.getExpectedSellingPrice()) + " for " + (order.getShares()) + " shares.");
                         break;
                     case 6:
-                        BodyPart attachment2 = new MimeBodyPart();
-                        File pdfFile = new File(System.getProperty("user.home") + "/Downloads/" + user.getUsername() + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".pdf");
-                        attachment2.setDataHandler(new DataHandler(new FileDataSource(pdfFile)));
-                        attachment2.setFileName("UserReport.pdf"); // Set the desired file name for the attachment
+                        String reportFilePath = report.generateReport(); // Generate the report and retrieve the file path
 
-                        BodyPart emailText = new MimeBodyPart();
-                        emailText.setText(" ");
+                        if (reportFilePath != null) {
+                            try {
+                                BodyPart attachment2 = new MimeBodyPart();
+                                File pdfFile = new File(reportFilePath); // Use the retrieved file path
+                                attachment2.setDataHandler(new DataHandler(new FileDataSource(pdfFile)));
+                                attachment2.setFileName("UserReport.pdf"); // Set the desired file name for the attachment
 
-                        Multipart multipartContent = new MimeMultipart();
-                        multipartContent.addBodyPart(attachment2);
-                        multipartContent.addBodyPart(emailText);
+                                BodyPart emailText = new MimeBodyPart();
+                                emailText.setText(" ");
 
-                        message.setContent(multipartContent);
+                                Multipart multipartContent = new MimeMultipart();
+                                multipartContent.addBodyPart(attachment2);
+                                multipartContent.addBodyPart(emailText);
+
+                                message.setContent(multipartContent); // Set the multipartContent as the message content
+                                System.out.println("User report generated successfully in the Downloads folder.\n");
+                            } catch (MessagingException e) {
+                                System.out.println("An error occurred while sending the email.");
+                                e.printStackTrace();
+                            }
+                        } else {
+                            System.out.println("An error occurred while generating the user report. Unable to send email.");
+                        }
+                        break;
                 }
                 Transport.send(message);
 
@@ -128,6 +143,43 @@ class Notification {
                 e.printStackTrace();
             }
         }
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                List<Order> orders = db.loadOrders(user.getKey(), Order.Type.BUY);
+                thresholds = user.getThresholds();
+                boolean notificationSent = false; // Flag variable to track notification status
+
+                for (Order order : orders) {
+                    if (notificationSent) {
+                        break; // Exit the loop if a notification has been sent
+                    }
+                    double boughtPrice = order.getPrice(); // Bought price
+                    double currentPrice = 0;
+                    if (boughtPrice - currentPrice >= thresholds) {
+                        try {
+                            currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    if (currentPrice >= boughtPrice + thresholds) {
+                        sendNotification(1, user.getEmail(), order);
+                        notificationSent = true; // Set the flag to true
+                    } else if (currentPrice <= boughtPrice - thresholds) {
+                        sendNotification(2, user.getEmail(), order);
+                        notificationSent = true; // Set the flag to true
+                    }
+                }
+
+                if (notificationSent) {
+                    timer.cancel(); // Cancel the current timer
+                    timer.schedule(this, 3600000); // Reschedule the timer after 1 hour (3600000 milliseconds)
+                }
+
+            }
+        }, 0, 1000); // 1000 milliseconds = 1 second
 
     }
 
@@ -191,103 +243,4 @@ class Notification {
         }
     }
 
-
-
-       /* Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                List<Order> order =  database.loadOrders(user.getKey(), Order.Type.BUY);
-                thresholds = user.getThresholds();
-                double boughtPrice = order.price(); // bought price
-
-                double currentPrice = 0;
-                try {
-                    currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-
-                if ( boughtPrice - currentPrice >= thresholds ){
-                    try {
-                        sendNotification(1);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                else if (currentPrice - boughtPrice >= thresholds ){
-                    try {
-                        sendNotification(2);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-
-
-                //get the price of the stock in real time
-                //get the price of the stock bought
-                //compare the two prices
-                //if the differences crosses the threshold then we send an email
-                //
-                System.out.println("Command executed");
-            }
-        }, 0, 1000); // 1000 milliseconds = 1 second
-*/
-
-    }
-
-
-
-    /*
-    public boolean setThresholdPrice(int userKey, double thresholdPrice, String stockName) {
-        //set in db
-
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "INSERT INTO thresholdTable (userKey, thresholdPrice, stockName) VALUES (?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, userKey);
-            statement.setDouble(2, thresholdPrice);
-            statement.setString(3, stockName);
-
-            // Execute the update statement
-            int rowsUpdated = statement.executeUpdate();
-            statement.close();
-            return rowsInserted > 0;
-         catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-    }
-    */
-    /*
-    public void getThresholdPrice(int userKey, String stockName){
-        //get the threshhold price based on stockname and userkey
-        //can be modified if only want based on userkey
-
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "SELECT thresholdPrice FROM lotpool WHERE stockName = ? AND userKey = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, stockName);
-            statement.setInt(2, userKey);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                Stock stock = new Stock(resultSet.getString("symbol"), resultSet.getString("name"));
-                lotpool.put(stock, resultSet.getInt("share"));
-            }
-
-            resultSet.close();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-    */
-// get all stocks that is owned by the user // Userid
-// check for the threshold for any of the stocks owned // i assume this is under some class either(UserAuthetication)
-// Where do we store User stocks
-// send a notification everytime the threshold has been reached // You need to have the stock info from the market
+}

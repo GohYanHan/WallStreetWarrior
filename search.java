@@ -17,10 +17,7 @@ class search {
     private static String fileName = "MyStocks";
     private static final String API_KEY = "UM-1cd15cbc8ba9f613f94373ca35c267a52acf88978d73439e9f3c941b1c49318d";
     private static final String API_ENDPOINT = "https://wall-street-warriors-api-um.vercel.app/price";
-
-
     private static BoyerMoore boyerMoore;
-
     private static API api;
 
 
@@ -29,24 +26,6 @@ class search {
         api = new API();
     }
 
-    public static void main(String[] args) throws IOException {
-        API api = new API();
-        Scanner k = new Scanner(System.in);
-
-
-    }
-
-
-
-    // Call this method to display a list of Malaysia Stock
-    static void displayStocks() {
-        try {
-            String jsonResponse = readJsonFromFile(fileName);
-            displayStocks(jsonResponse);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     // Call this method to read JSON data from a file copied from API end point provided
     private static String readJsonFromFile(String fileName) throws IOException {
@@ -85,7 +64,7 @@ class search {
     }
 
     // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
-    static void searchStocks(String query) {
+    void searchStocks(String query) {
         boolean found = false; // Flag to track if a match is found
         List<Stock> matchingStocks = new ArrayList<>(); // List to store matching stocks
 
@@ -116,10 +95,13 @@ class search {
                     System.out.printf("|%-10s | %-50s | %-30s|\n", stock.getSymbol(), stock.getName(), api.getRealTimePrice(stock.getSymbol()));
                 }
                 System.out.println("==================================================================================================");
+
+
             } else {
                 System.out.println("Stock not found.");
             }
             System.out.println();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -195,9 +177,7 @@ class search {
             }
 
             return true;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
 
