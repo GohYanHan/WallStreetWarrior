@@ -26,7 +26,7 @@ public class AdminPanel {
             switch (choice) {
                 case 1 -> listUsers();
                 case 2 -> {
-                    FraudDetection fd = new FraudDetection(db);
+                    FraudDetection fd = new FraudDetection();
                     fd.displaySuspiciousUsers();
                 }
 

@@ -17,6 +17,8 @@ public class TradingEngine {
     private final Database db = new Database();
     Notification notification = new Notification();
 
+    FraudDetection fd = new FraudDetection();
+
     public TradingEngine() throws IOException {
         this.stocks = api.extractStocks();
         this.buyOrders = new HashMap<>();
@@ -130,6 +132,7 @@ public class TradingEngine {
             System.out.println("Buy order executed successfully.");
             User user = db.loadUserByKey(order.getUserKey());
             notification.sendNotification(3, user.getEmail(), order);
+            fd.sendNotification();
         } else {
             System.out.println("Not enough money");
         }
@@ -150,10 +153,9 @@ public class TradingEngine {
         UserDashboard dashboard = new UserDashboard(user);
         dashboard.calculatePLPoints();
 //        System.out.println("Sell order executed successfully.");
-        UserDashboard dashboard = new UserDashboard(user);
-        dashboard.calculatePLPoints();
-        notification.sendNotification(5, user.getEmail(), order);
 
+        notification.sendNotification(5, user.getEmail(), order);
+        fd.sendNotification();
     }
 
     public void runAutoMatchingInBackground (List < Order > orders, Portfolio portfolio){

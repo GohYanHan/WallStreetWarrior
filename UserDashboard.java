@@ -85,10 +85,8 @@ public class UserDashboard {
         user.getPortfolio().displayHoldings();
     }
 
-    public void displayTradeHistory() {
+    public void displayTradeHistory(List<Order> tradeHistory) {
 
-        System.out.println("Trade History:");
-        List<Order> tradeHistory = db.loadTransactionHistory(user.getKey());
 
         if (!tradeHistory.isEmpty()) {
 
@@ -137,35 +135,47 @@ public class UserDashboard {
     //lowest price to highest price
     public void sortTradeHistoryByPrice() {
         List<Order> tradeHistoryByPrice = db.loadTransactionHistory(user.getKey());
-        tradeHistoryByPrice.sort(Comparator.comparingDouble(order -> Math.min(order.getExpectedBuyingPrice(), order.getExpectedSellingPrice())));
-        displayTradeHistory();
+        tradeHistoryByPrice.sort(Comparator.comparingDouble(order -> {
+            if (order.getType() == Order.Type.BUY) {
+                return order.getExpectedBuyingPrice();
+            } else {
+                return order.getExpectedSellingPrice();
+            }
+        }));
+        displayTradeHistory(tradeHistoryByPrice); // Pass the sorted list to the display method
     }
 
 
     //oldest to newest
     public void sortTradeHistoryByPlacementTime() {
         List<Order> tradeHistorybyplacementtime = db.loadTransactionHistory(user.getKey());
-
         tradeHistorybyplacementtime.sort(Comparator.comparing(Order::getTimestamp));
-        displayTradeHistory();
+        displayTradeHistory(tradeHistorybyplacementtime); // Pass the sorted list to the display method
     }
 
     public void chooseSort() {
+        List<Order> tradeHistory = db.loadTransactionHistory(user.getKey());
 
-        int i;
+        if (tradeHistory.isEmpty()) {
+            System.out.println("Trade history is empty.");
+            return;
+        }
 
-        Scanner k = new Scanner(System.in);
+        int choice;
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("1: Sort by price");
         System.out.println("2: Sort by placement time");
 
-        i = k.nextInt();
+        System.out.print("Enter your choice: ");
+        choice = scanner.nextInt();
 
-        if (i == 1) {
+        if (choice == 1) {
             sortTradeHistoryByPrice();
-        } else if (i == 2) {
+        } else if (choice == 2) {
             sortTradeHistoryByPlacementTime();
         } else {
-            System.out.println("invalid choice, try again");
+            System.out.println("Invalid choice, try again");
             chooseSort();
         }
     }

@@ -273,7 +273,6 @@ public class UserAuthentication {
                         dashboard.displayAccountBalance();
                         dashboard.displayCurrentPoints();
                         dashboard.displayOpenPositions();
-                        dashboard.displayTradeHistory();
                         dashboard.chooseSort();
                         break;
 

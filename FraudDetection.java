@@ -1,26 +1,22 @@
 import java.util.List;
 
 public class FraudDetection {
-    private Notification notification;
-    private Database database;
-    private User user;
+    private final Database database = new Database();
+    private final User user = new User();
 
-    public FraudDetection(Database database) {
-        this.database = database;
-        this.user = new User();
-        this.notification = new Notification();
-    }
-
-    List<User> users = database.getUsersList();
+    private Notification notification = new Notification();
 
 
-    public void displaySuspiciousUsers() {
+    public void sendNotification() {
 
-        System.out.println("Questionable Users:");
+        List<User> users = database.getUsersList();
+
         for (User user : users) {
             if (isSuspiciousUser(user)) {
                 List<Order> transactions = database.loadTransactionHistory(user.getKey());
-// Send notifications to admin users
+
+
+                // Send notifications to admin users
                 List<String> adminEmails = database.getAllAdminEmails();
                 for (String adminEmail : adminEmails) {
                     notification.sendNotificationToAdmin(adminEmail, transactions, user);
@@ -29,15 +25,72 @@ public class FraudDetection {
         }
     }
 
-    public boolean isSuspiciousTransaction(Order transaction, User user) {
-        return isShortSelling(user.getKey()) || checkTradeOnMargin(user);
+
+    public void displaySuspiciousUsers() {
+
+        List<User> users = database.getUsersList();
+
+        System.out.println("Suspicous users: ");
+
+        for (User user : users) {
+            if (isSuspiciousUser(user)) {
+                List<Order> transactions = database.loadTransactionHistory(user.getKey());
+
+                System.out.println("Name: " + user.getUsername());
+                System.out.println("Email: " + user.getEmail());
+
+                if (!transactions.isEmpty()) {
+
+
+                    //   tradeHistory.sort(Comparator.comparing(Order::getExpectedBuyingPrice).thenComparing(Order::getTimestamp));
+
+                    //tradeHistory list will be sorted in ascending order first by expectedBuyingPrice, and if there are elements with the same expectedBuyingPrice, those will be further sorted by timestamp.
+
+                    System.out.println("===========================================================================================");
+                    System.out.println("|                                Trade History                                            |");
+                    System.out.println("===========================================================================================");
+
+
+                    int tradeHistorySize = transactions.size(); // Get the size of the tradeHistory list
+
+// Iterate through the tradeHistory list and print each order
+                    for (int i = 0; i < tradeHistorySize; i++) {
+                        Order order = transactions.get(i);
+
+                        System.out.println("| Stock     : " + padRight(order.getStock().getSymbol(), 75) + " |");
+                        System.out.println("| Name      : " + padRight(order.getStock().getName(), 75) + " |");
+                        System.out.println("| Type      : " + padRight(order.getType().toString(), 75) + " |");
+                        System.out.println("| Shares    : " + padRight(String.valueOf(order.getShares()), 75) + " |");
+
+                        if (order.getType() == Order.Type.BUY)
+                            System.out.println("| Price     : RM " + padRight(String.valueOf(order.getExpectedBuyingPrice()), 72) + " |");
+                        else
+                            System.out.println("| Price     : RM " + padRight(String.valueOf(order.getExpectedSellingPrice()), 72) + " |");
+
+                        System.out.println("| Timestamp : " + padRight(order.getTimestamp().toString(), 75) + " |");
+
+                        if (i == tradeHistorySize - 1) {
+                        } else {
+                            System.out.println("|-----------------------------------------------------------------------------------------|");
+                        }
+                    }
+
+// Print the closing line
+                    System.out.println("===========================================================================================");
+                }
+            }
+        }
+    }
+
+    private static String padRight(String s, int length) {
+        return String.format("%-" + length + "s", s);
     }
 
     public boolean isSuspiciousUser(User user) {
-        return isShortSelling(user.getKey()) || checkTradeOnMargin(user);
+        return isShortSelling() || checkTradeOnMargin(user);
     }
 
-    public boolean isShortSelling(int userKey) {
+    public boolean isShortSelling() {
         List<Order> transactions = database.loadTransactionHistory(user.getKey());
 
         int totalSharesBought = 0;
@@ -58,28 +111,4 @@ public class FraudDetection {
         return user.getPortfolio().getAccBalance() > 50000;
     }
 
-    private void sendNotification(String userEmail, Order order) {
-        // Logic to send a notification to the provided userEmail
-        // You can implement the notification mechanism here
-        // For example:
-        System.out.println("Sending notification to admin: " + userEmail);
-        System.out.println("Order details: " + order.toString());
-        System.out.println("Notification sent.");
-    }
-
-    private void displaySuspiciousTransaction(Order transaction) {
-        System.out.println("=================================================================================");
-        System.out.printf("| Stock     : %-75s |\n", transaction.getStock().getSymbol());
-        System.out.printf("| Name      : %-75s |\n", transaction.getStock().getName());
-        System.out.printf("| Type      : %-75s |\n", transaction.getType());
-        System.out.printf("| Shares    : %-75s |\n", transaction.getShares());
-
-        if (transaction.getType() == Order.Type.BUY)
-            System.out.printf("| Price     : RM %-72s |\n", transaction.getExpectedBuyingPrice());
-        else
-            System.out.printf("| Price     : RM %-72s |\n", transaction.getExpectedSellingPrice());
-
-        System.out.printf("| Timestamp : %-75s |\n", transaction.getTimestamp());
-        System.out.println("=================================================================================");
-    }
 }
