@@ -35,7 +35,7 @@ public class FraudDetection {
     }
 
     public boolean isSuspiciousUser(User user) {
-        return isShortSelling(user.getKey());
+        return isShortSelling(user.getKey()) || checkTradeOnMargin(user);
     }
 
     public boolean isShortSelling(int userKey) {
