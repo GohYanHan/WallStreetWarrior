@@ -14,7 +14,7 @@ import java.util.Map;
 public class Report {
     Database database = new Database();
 
-    public void generateReport() {
+    public String generateReport() {
         User user = database.getUser();
         if (user != null) {
             String username = user.getUsername();
@@ -167,8 +167,9 @@ public class Report {
 
                 document.close();
                 writer.close();
-
                 System.out.println("User report generated successfully in the Downloads folder.\n");
+                return fileName;
+
             } catch (DocumentException | IOException e) {
                 System.out.println("An error occurred while generating the user report.");
                 e.printStackTrace();
@@ -176,5 +177,6 @@ public class Report {
         } else {
             System.out.println("User data not found in the database. Please try again later.\n");
         }
+        return null;
     }
 }

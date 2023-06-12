@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -24,25 +26,6 @@ class search {
         api = new API();
     }
 
-    public static void main(String[] args) throws IOException {
-        API api = new API();
-        Scanner k = new Scanner(System.in);
-
-
-//        api.searchDisplayStocks(readJsonFromFile(fileName),k.nextLine());
-    }
-
-
-
-    // Call this method to display a list of Malaysia Stock
-    static void displayStocks() {
-        try {
-            String jsonResponse = readJsonFromFile(fileName);
-            displayStocks(jsonResponse);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     // Call this method to read JSON data from a file copied from API end point provided
     private static String readJsonFromFile(String fileName) throws IOException {
@@ -86,23 +69,21 @@ class search {
         List<Stock> matchingStocks = new ArrayList<>(); // List to store matching stocks
 
         try {
-            String jsonResponse = readJsonFromFile(fileName);
-            JSONArray jsonArray = new JSONArray(jsonResponse);
+            // Read the txt file
+            List<String> lines = Files.readAllLines(Paths.get(fileName));
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject stockJson = jsonArray.getJSONObject(i);
-                String symbol = stockJson.getString("symbol");
-                String name = stockJson.getString("name");
+            for (String line : lines) {
+                // Split the line into symbol and name
+                String[] parts = line.split(",");
+                if (parts.length >= 2) {
+                    String symbol = parts[0].trim();
+                    String name = parts[1].trim();
 
-                // Search by symbol
-                if (symbol.toLowerCase().contains(query.toLowerCase())) {
-                    matchingStocks.add(new Stock(symbol, name));
-                    found = true; // Match found
-                }
-                // Search by name
-                else if (boyerMoore.search(name.toLowerCase().toCharArray(), query.toLowerCase().toCharArray()) != -1) {
-                    matchingStocks.add(new Stock(symbol, name));
-                    found = true; // Match found
+                    // Search by symbol or name
+                    if (symbol.toLowerCase().contains(query.toLowerCase()) || name.toLowerCase().contains(query.toLowerCase())) {
+                        matchingStocks.add(new Stock(symbol, name));
+                        found = true; // Match found
+                    }
                 }
             }
 
@@ -121,7 +102,7 @@ class search {
             }
             System.out.println();
 
-        } catch (JSONException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -196,9 +177,7 @@ class search {
             }
 
             return true;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
 
