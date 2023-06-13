@@ -230,6 +230,7 @@ public class UserAuthentication {
                                         Order sellOrder = new Order(-1,user,sellStock, sellQuantity,formattedSellingPrice, timestamp, Order.Type.SELL);
                                         if (tradingEngine.executeOrder(sellOrder, portfolio)) {
                                             db.addOrder(user.getKey(), sellOrder);
+                                           // System.out.println("Stock added to sell order list.");
                                         }
                                     } else {
                                         System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
@@ -259,7 +260,13 @@ public class UserAuthentication {
 
                     case 4:
                         if (!user.getStatus().equalsIgnoreCase("disqualified")) {
-                            tradingEngine.cancelBuyOrder(db.loadOrders(user.getKey(), Order.Type.BUY));
+                            System.out.println("1. Cancel buy order \n2. Cancel sell order.");
+                            choice = scanner.nextInt();
+                            if (choice == 1) {
+                                tradingEngine.cancelOrder(db.loadOrders(user.getKey(), Order.Type.BUY), Order.Type.BUY);
+                            } else if (choice == 2) {
+                                tradingEngine.cancelOrder(db.loadOrders(user.getKey(), Order.Type.SELL), Order.Type.SELL);
+                            }
                         } else {
                             System.out.println("User is disqualified. Cannot buy or sell orders");
                         }

@@ -99,8 +99,17 @@ public class TradingEngine {
                     int updatedShares = shares - order.getShares();
                     if (updatedShares >= 0) {
                         tryExecuteBuyOrder(order, portfolio);
-                        db.storeLotPool(order.getStock(), updatedShares);
-                        lotPool.remove(order.getStock(), 50000); // Store in database, remove from lotpool
+
+                        for (Map.Entry<Stock, Integer> entries : db.getLotPool().entrySet()) {
+                            Stock stockDb = entries.getKey();
+                            String stockSymbolDb = stockDb.getSymbol();
+                            if (stockSymbolDb.equalsIgnoreCase(order.getStock().getSymbol())) {
+                                db.updateLotPool(order.getStock(), updatedShares);
+                            } else {
+                                db.storeLotPool(order.getStock(), updatedShares);
+                                lotPool.remove(order.getStock(), 50000); // Store in database, remove from lotpool
+                            }
+                        }
                         return true;
                     }
                 } else if (isWithinInitialTradingPeriod() && stockSymbol.equalsIgnoreCase(order.getStock().getSymbol())) { // First 3 days buy whatever in lotpool
@@ -243,10 +252,10 @@ public class TradingEngine {
         return false;
     }
 
-    public void cancelBuyOrder(List<Order> orders) {
+    public void cancelOrder(List<Order> orders, Order.Type type) {
         Database db = new Database();
         if (!orders.isEmpty()) {
-            displayBuyOrders(orders);
+            displayOrders(orders, type);
             System.out.println("Choose the cancel option: ");
             System.out.println("1. Cancel based on longest time");
             System.out.println("2. Cancel based on highest price");
@@ -260,20 +269,20 @@ public class TradingEngine {
                     Order orderToCancelByTime = getOrderWithLongestTime(orders);
                     db.removeOrder(orderToCancelByTime.getUser().getKey(), orderToCancelByTime);
                     //portfolio.removeStock(orderToCancelByTime, orderToCancelByTime.getShares()); // no need bcs not in holdings
-                    System.out.println("Buy order canceled based on longest time successfully.");
+                    System.out.println("Order canceled based on longest time successfully.");
                     break;
                 case 2:
                     Order orderToCancelByPrice = getOrderWithHighestPrice(orders);
                     db.removeOrder(orderToCancelByPrice.getUser().getKey(), orderToCancelByPrice);
                     //portfolio.removeStock(orderToCancelByPrice, orderToCancelByPrice.getShares());
-                    System.out.println("Buy order canceled based on highest price successfully.");
+                    System.out.println("Order canceled based on highest price successfully.");
                     break;
                 default:
-                    System.out.println("Invalid choice. Buy order cancellation canceled.");
+                    System.out.println("Invalid choice. Order cancellation canceled.");
                     break;
             }
         } else {
-            System.out.println("No buy orders available.");
+            System.out.println("No Orders available.");
         }
     }
 
@@ -405,12 +414,21 @@ public class TradingEngine {
         System.out.println("=".repeat(47));
     }
 
-    private void displayBuyOrders(List<Order> orders) {
-        for (Order order : orders) {
-            System.out.println("Stock: " + order.getStock().getSymbol());
-            System.out.println("Price: " + order.getExpectedBuyingPrice());
-            System.out.println("TimeStamp: " + order.getTimestamp());
-            System.out.println("-".repeat(30));
+    private void displayOrders(List<Order> orders, Order.Type type) {
+        if (type == Order.Type.BUY) {
+            for (Order order : orders) {
+                System.out.println("Stock: " + order.getStock().getSymbol());
+                System.out.println("Price: " + order.getExpectedBuyingPrice());
+                System.out.println("TimeStamp: " + order.getTimestamp());
+                System.out.println("-".repeat(30));
+            }
+        } else if (type == Order.Type.SELL) {
+            for (Order order : orders) {
+                System.out.println("Stock: " + order.getStock().getSymbol());
+                System.out.println("Price: " + order.getExpectedSellingPrice());
+                System.out.println("TimeStamp: " + order.getTimestamp());
+                System.out.println("-".repeat(30));
+            }
         }
     }
 }
