@@ -70,8 +70,8 @@ public class Portfolio {
                     } else {
                         this.holdings.replace(existingOrder, shares, updatedShares);
                         db.updateHolding(order.getUser().getKey(), existingOrder.getStock(), updatedShares);
+                        found = true;
                     }
-                    found = true;
                 } else {
                     System.out.println("Not enough shares to sell.");
                 }
