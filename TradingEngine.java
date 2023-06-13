@@ -272,7 +272,7 @@ public class TradingEngine {
                     System.out.println("Order canceled based on longest time successfully.");
                     break;
                 case 2:
-                    Order orderToCancelByPrice = getOrderWithHighestPrice(orders);
+                    Order orderToCancelByPrice = getOrderWithHighestPrice(orders, type);
                     db.removeOrder(orderToCancelByPrice.getUser().getKey(), orderToCancelByPrice);
                     //portfolio.removeStock(orderToCancelByPrice, orderToCancelByPrice.getShares());
                     System.out.println("Order canceled based on highest price successfully.");
@@ -301,12 +301,17 @@ public class TradingEngine {
         return orderWithLongestTime;
     }
 
-    private Order getOrderWithHighestPrice(List<Order> orders) {
+    private Order getOrderWithHighestPrice(List<Order> orders, Order.Type type) {
         Order orderWithHighestPrice = null;
         double highestPrice = Double.MIN_VALUE;
+        double orderPrice = 0;
 
         for (Order order : orders) {
-            double orderPrice = order.getExpectedBuyingPrice();
+            if (type == Order.Type.BUY) {
+                orderPrice = order.getExpectedSellingPrice();
+            } else if (type == Order.Type.SELL) {
+                orderPrice = order.getExpectedBuyingPrice();
+            }
             if (orderPrice > highestPrice) {
                 highestPrice = orderPrice;
                 orderWithHighestPrice = order;
