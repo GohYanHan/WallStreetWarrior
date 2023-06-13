@@ -260,7 +260,13 @@ public class UserAuthentication {
 
                     case 4:
                         if (!user.getStatus().equalsIgnoreCase("disqualified")) {
-                            tradingEngine.cancelBuyOrder(db.loadOrders(user.getKey(), Order.Type.BUY));
+                            System.out.println("1. Cancel buy order \n2. Cancel sell order.");
+                            choice = scanner.nextInt();
+                            if (choice == 1) {
+                                tradingEngine.cancelOrder(db.loadOrders(user.getKey(), Order.Type.BUY), Order.Type.BUY);
+                            } else if (choice == 2) {
+                                tradingEngine.cancelOrder(db.loadOrders(user.getKey(), Order.Type.SELL), Order.Type.SELL);
+                            }
                         } else {
                             System.out.println("User is disqualified. Cannot buy or sell orders");
                         }
