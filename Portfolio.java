@@ -90,9 +90,9 @@ public class Portfolio {
         } else {
             System.out.println("==============================");
             System.out.println("|          Holdings          |");
-            System.out.println("=============================");
-            System.out.println("|    Stock     |    Shares   |");
             System.out.println("------------------------------");
+            System.out.println("|    Stock     |    Shares   |");
+            System.out.println("=============================");
             for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
                 Order order = entry.getKey();
                 int shares = entry.getValue();
