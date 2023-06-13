@@ -87,7 +87,7 @@ public class Portfolio {
 
     public void removeStock(Order order, int soldShares) {
         boolean found = false;
-        Map<Order,Integer> holdings = db.loadHolding(order.getUserKey());
+        Map<Order, Integer> holdings = db.loadHolding(order.getUserKey());
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order existingOrder = entry.getKey();
             int shares = entry.getValue();
@@ -101,6 +101,7 @@ public class Portfolio {
                     } else {
                         holdings.replace(existingOrder, shares, updatedShares);
                         db.updateHolding(order.getUserKey(), existingOrder.getStock(), updatedShares);
+                        found = true;
                     }
                     found = true;
                 } else {
