@@ -211,7 +211,7 @@ public class Database {
             ResultSet resultSet;
             //load buy orders of current user
             if (type.equals(Order.Type.BUY)) {
-                sql = "SELECT userKey, symbol, name, share, price, time FROM `order` WHERE userKey = ? AND type = ?";
+                sql = "SELECT orderID, userKey, symbol, name, share, price, time FROM `order` WHERE userKey = ? AND type = ?";
                 statement = connection.prepareStatement(sql);
                 statement.setInt(1, userKey);
                 statement.setString(2, type.name());
@@ -219,14 +219,14 @@ public class Database {
 
             } else {
                 //load all sell orders by all users
-                sql = "SELECT userKey, symbol, name, share, price, time FROM `order` WHERE type = ?";
+                sql = "SELECT orderID, userKey, symbol, name, share, price, time FROM `order` WHERE type = ?";
                 statement = connection.prepareStatement(sql);
                 statement.setString(1, type.name());
                 resultSet = statement.executeQuery();
             }
 
             while (resultSet.next()) {
-                list.add(new Order(resultSet.getInt("userKey"),
+                list.add(new Order(resultSet.getInt("orderID"),user,
                         new Stock(resultSet.getString("symbol"), resultSet.getString("name")),
                         resultSet.getInt("share"), resultSet.getDouble("price"),
                         resultSet.getTimestamp("time").toLocalDateTime(), type));
@@ -301,7 +301,7 @@ public class Database {
                 Order.Type type = Order.Type.valueOf(typeStr);
 
 
-                list.add(new Order(resultSet.getInt("userKey"), new Stock(resultSet.getString("symbol"),
+                list.add(new Order(-1,user, new Stock(resultSet.getString("symbol"),
                         resultSet.getString("name")), resultSet.getInt("share"),
                         resultSet.getDouble("price"), resultSet.getTimestamp("time").toLocalDateTime(), type));
             }

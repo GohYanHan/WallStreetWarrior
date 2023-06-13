@@ -155,7 +155,7 @@ class Notification {
                     if (notificationSent) {
                         break; // Exit the loop if a notification has been sent
                     }
-                    double boughtPrice = order.getPrice(); // Bought price
+                    double boughtPrice = order.getExpectedBuyingPrice(); // Bought price
                     double currentPrice = 0;
                     if (boughtPrice - currentPrice >= thresholds) {
                         try {

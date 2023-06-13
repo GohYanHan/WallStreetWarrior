@@ -46,10 +46,11 @@ public class TradingEngine {
 
                 if (stockSymbol.equalsIgnoreCase(order.getStock().getSymbol()) && order.getShares() <= holdingShares) {
                     double currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
-                    double expectedBuyingPrice = order.getExpectedSellingPrice();
+                    double expectedSellingPricePrice = order.getExpectedSellingPrice();
 
-                    if (isPriceWithinRange(expectedBuyingPrice, currentPrice, 1)) {
+                    if (isPriceWithinRange(expectedSellingPricePrice, currentPrice, 1)) {
                         System.out.println("Sell order placed successfully.");
+                        portfolio.removeStock(order, order.getShares()); // remove share num
                         notification.sendNotification(4, order.getUser().getEmail(), order);
 
                     } else {
@@ -74,7 +75,7 @@ public class TradingEngine {
         double currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
 
         // Condition 1: Find order in the sell order list
-        for (Order orderDb : db.loadOrders(order.getUserKey(), Order.Type.SELL)) {
+        for (Order orderDb : db.loadOrders(order.getUser().getKey(), Order.Type.SELL)) {
             String symbolDb = orderDb.getStock().getSymbol();
             int shareDb = orderDb.getShares();
             double priceDb = orderDb.getExpectedSellingPrice();
@@ -82,8 +83,7 @@ public class TradingEngine {
             if (symbolDb.equalsIgnoreCase(order.getStock().getSymbol()) && shareDb == order.getShares() && priceDb == order.getExpectedBuyingPrice()) {
                 tryExecuteBuyOrder(order, portfolio);
                 tryExecuteSellOrder(orderDb);
-                //System.out.println("Sell order executed successfully.");
-                db.removeOrder(orderDb.getUserKey(), orderDb); // Remove from sell order list
+                db.removeOrder(orderDb.getUser().getKey(), orderDb); // Remove from sell order list
                 return true;
             }
         }
@@ -130,7 +130,6 @@ public class TradingEngine {
             temp -= price;
             portfolio.setAccBalance(temp);
             portfolio.addStock(order, shares);
-            portfolio.addValue(order.getExpectedBuyingPrice());
             portfolio.addToTradeHistory(order);
             System.out.println("Buy order executed successfully.");
             notification.sendNotification(3, order.getUser().getEmail(), order);
@@ -142,15 +141,12 @@ public class TradingEngine {
 
     private void tryExecuteSellOrder(Order order) {
         double price = order.getExpectedSellingPrice();
-        int shares = order.getShares();
-        User user = db.loadUserByKey(order.getUserKey());
+        User user = order.getUser();
         Portfolio portfolio = user.getPortfolio();
 
         double temp = portfolio.getAccBalance();
         temp += price;
         db.updateUserBalance(user.getKey(), Math.round(temp * 100.0) / 100.0);
-        portfolio.removeStock(order, shares); // remove share num
-        portfolio.removeValue(price);
         portfolio.addToTradeHistory(order);
         UserDashboard dashboard = new UserDashboard(user);
         dashboard.calculatePLPoints();
@@ -179,7 +175,7 @@ public class TradingEngine {
         while (!allBuyOrdersMatched) { //within trading hours
             for (Order order : orders) {
                 if (findMatch(order, portfolio)) {
-                    db.removeOrder(order.getUserKey(), order); // Remove from buy order list
+                    db.removeOrder(order.getUser().getKey(), order); // Remove from buy order list
                     System.out.println("Buy order removed from buy order list.");
                 }
             }
@@ -271,13 +267,13 @@ public class TradingEngine {
             switch (choice) {
                 case 1:
                     Order orderToCancelByTime = getOrderWithLongestTime(orders);
-                    db.removeOrder(orderToCancelByTime.getUserKey(), orderToCancelByTime);
+                    db.removeOrder(orderToCancelByTime.getUser().getKey(), orderToCancelByTime);
                     //portfolio.removeStock(orderToCancelByTime, orderToCancelByTime.getShares()); // no need bcs not in holdings
                     System.out.println("Order canceled based on longest time successfully.");
                     break;
                 case 2:
                     Order orderToCancelByPrice = getOrderWithHighestPrice(orders);
-                    db.removeOrder(orderToCancelByPrice.getUserKey(), orderToCancelByPrice);
+                    db.removeOrder(orderToCancelByPrice.getUser().getKey(), orderToCancelByPrice);
                     //portfolio.removeStock(orderToCancelByPrice, orderToCancelByPrice.getShares());
                     System.out.println("Order canceled based on highest price successfully.");
                     break;
