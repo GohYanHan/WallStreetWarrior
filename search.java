@@ -7,17 +7,33 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 class search {
     private static String fileName = "MyStocks";
+    private static final String API_KEY = "UM-1cd15cbc8ba9f613f94373ca35c267a52acf88978d73439e9f3c941b1c49318d";
+    private static final String API_ENDPOINT = "https://wall-street-warriors-api-um.vercel.app/price";
+
+
     private static BoyerMoore boyerMoore;
+
     private static API api;
 
-    public search(){
+
+    public search() {
         boyerMoore = new BoyerMoore();
         api = new API();
     }
+
+    public static void main(String[] args) throws IOException {
+        API api = new API();
+        Scanner k = new Scanner(System.in);
+
+
+    }
+
 
     // Call this method to display a list of Malaysia Stock
     static void displayStocks() {
@@ -66,7 +82,7 @@ class search {
     }
 
     // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
-    void searchStocks(String query) {
+    static void searchStocks(String[] queries) {
         boolean found = false; // Flag to track if a match is found
         List<Stock> matchingStocks = new ArrayList<>(); // List to store matching stocks
 
@@ -81,13 +97,22 @@ class search {
                     String symbol = parts[0].trim();
                     String name = parts[1].trim();
 
-                    // Search by symbol or name
-                    if (symbol.toLowerCase().contains(query.toLowerCase()) || name.toLowerCase().contains(query.toLowerCase())) {
+                    // Search by symbol or name for each query
+                    if (symbol.toLowerCase().contains(queries[0].toLowerCase()) || name.toLowerCase().contains(queries[0].toLowerCase())) {
                         matchingStocks.add(new Stock(symbol, name));
                         found = true; // Match found
                     }
+
+                    for (int q = 1; q < queries.length; q++) {
+                        // Search by symbol or name using Boyer-Moore algorithm
+                        if (boyerMoore.search(symbol.toLowerCase().toCharArray(), queries[q].toLowerCase().toCharArray()) != -1 || boyerMoore.search(name.toLowerCase().toCharArray(), queries[q].toLowerCase().toCharArray()) != -1) {
+                            matchingStocks.add(new Stock(symbol, name));
+                            found = true; // Match found
+                        }
+                    }
                 }
             }
+
             if (found) {
                 System.out.println("==================================================================================================");
                 System.out.printf("|%-10s | %-50s | %-30s|\n", "Symbol", "Name", "Current Price per share (RM)");
@@ -100,7 +125,6 @@ class search {
                 System.out.println("Stock not found.");
             }
             System.out.println();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

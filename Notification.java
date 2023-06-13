@@ -185,7 +185,7 @@ class Notification {
     }
 
     //for FraudDetection only
-    public void sendNotificationToAdmin(String userEmail, List<Order> orders, User suspiciousUser) {
+    public void sendNotificationToAdmin(String userEmail, User suspiciousUser) {
         Properties props;
         Session session;
         MimeMessage message;
@@ -222,7 +222,7 @@ class Notification {
             bodyBuilder.append("Transaction History:\n");
 
             // Append each transaction to the body
-            for (Order order : suspiciousUser.getPortfolio().getTradeHistory()) {
+            for (Order order : db.loadTransactionHistory(suspiciousUser.getKey())) {
                 bodyBuilder.append("Stock Symbol: ").append(order.getStock().getSymbol()).append("\n");
                 bodyBuilder.append("Stock Name: ").append(order.getStock().getName()).append("\n");
                 bodyBuilder.append("Type:  ").append(order.getType()).append("\n");

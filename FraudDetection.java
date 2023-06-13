@@ -1,25 +1,30 @@
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FraudDetection {
     private final Database database = new Database();
     private final User user = new User();
-    List<User> users = database.getUsersList();
 
     private Notification notification = new Notification();
 
+
     public void sendNotification() {
+
         List<User> users = database.getUsersList();
+
         for (User user : users) {
             if (isSuspiciousUser(user)) {
-                List<Order> transactions = database.loadTransactionHistory(user.getKey());
+
                 // Send notifications to admin users
                 List<String> adminEmails = database.getAllAdminEmails();
                 for (String adminEmail : adminEmails) {
-                    notification.sendNotificationToAdmin(adminEmail, transactions, user);
+                    notification.sendNotificationToAdmin(adminEmail, user);
                 }
             }
         }
     }
+
 
     public void displaySuspiciousUsers() {
 
@@ -48,7 +53,7 @@ public class FraudDetection {
 
                     int tradeHistorySize = transactions.size(); // Get the size of the tradeHistory list
 
-                    // Iterate through the tradeHistory list and print each order
+// Iterate through the tradeHistory list and print each order
                     for (int i = 0; i < tradeHistorySize; i++) {
                         Order order = transactions.get(i);
 
@@ -87,19 +92,33 @@ public class FraudDetection {
 
     public boolean isShortSelling() {
         List<Order> transactions = database.loadTransactionHistory(user.getKey());
+        Map<String, Integer> stockShares = new HashMap<>();
 
-        int totalSharesBought = 0;
-        int totalSharesSold = 0;
+        // Calculate the total shares for each stock from trade history
+        for (Order order : transactions) {
+            String stockSymbol = order.getStock().getSymbol();
+            int shares = order.getShares();
 
-        for (Order transaction : transactions) {
-            if (transaction.getStock().equals(Order.Type.BUY)) {
-                totalSharesBought += transaction.getShares();
-            } else if (transaction.getStock().equals(Order.Type.SELL)) {
-                totalSharesSold += transaction.getShares();
+            if (order.getType() == Order.Type.BUY) {
+                stockShares.put(stockSymbol, stockShares.getOrDefault(stockSymbol, 0) + shares);
+            } else if (order.getType() == Order.Type.SELL) {
+                stockShares.put(stockSymbol, stockShares.getOrDefault(stockSymbol, 0) - shares);
             }
         }
 
-        return totalSharesSold > totalSharesBought;
+        // Compare the calculated shares with the user's holdings
+        Map<Order, Integer> userHoldings = user.getPortfolio().getHoldings();
+        for (Map.Entry<Order, Integer> entry : userHoldings.entrySet()) {
+            Order order = entry.getKey();
+            int userShares = entry.getValue();
+            int calculatedShares = stockShares.getOrDefault(order.getStock().getSymbol(), 0);
+
+            if (userShares < calculatedShares) {
+                return true; // User is short selling
+            }
+        }
+
+        return false; // User is not short selling
     }
 
     private boolean checkTradeOnMargin(User user) {
