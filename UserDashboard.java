@@ -96,7 +96,6 @@ public class UserDashboard {
 
     public void displayTradeHistory() {
 
-        System.out.println("Trade History:");
         List<Order> tradeHistory = db.loadTransactionHistory(user.getKey());
 
         if (!tradeHistory.isEmpty()) {
@@ -162,6 +161,8 @@ public class UserDashboard {
     }
 
     public void chooseSort() {
+
+        System.out.println("Trade History: ");
 
         int i;
 
