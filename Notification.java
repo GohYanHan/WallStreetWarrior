@@ -155,7 +155,7 @@ class Notification {
                     if (notificationSent) {
                         break; // Exit the loop if a notification has been sent
                     }
-                    double boughtPrice = order.getPrice(); // Bought price
+                    double boughtPrice = order.getExpectedBuyingPrice(); // Bought price
                     double currentPrice = 0;
                     if (boughtPrice - currentPrice >= thresholds) {
                         try {
@@ -184,7 +184,7 @@ class Notification {
     }
 
     //for FraudDetection only
-    public void sendNotificationToAdmin(String userEmail, List<Order> orders, User suspiciousUser) {
+    public void sendNotificationToAdmin(String userEmail, User suspiciousUser) {
         Properties props;
         Session session;
         MimeMessage message;

@@ -85,7 +85,8 @@ public class UserDashboard {
         user.getPortfolio().displayHoldings();
     }
 
-    public void displayTradeHistory(List<Order> tradeHistory) {
+    public void displayTradeHistory() {
+        List<Order> tradeHistory = db.loadTransactionHistory(user.getKey());
         if (!tradeHistory.isEmpty()) {
             //   tradeHistory.sort(Comparator.comparing(Order::getExpectedBuyingPrice).thenComparing(Order::getTimestamp));
             //tradeHistory list will be sorted in ascending order first by expectedBuyingPrice, and if there are elements with the same expectedBuyingPrice, those will be further sorted by timestamp.
@@ -126,14 +127,8 @@ public class UserDashboard {
     //lowest price to highest price
     public void sortTradeHistoryByPrice() {
         List<Order> tradeHistoryByPrice = db.loadTransactionHistory(user.getKey());
-        tradeHistoryByPrice.sort(Comparator.comparingDouble(order -> {
-            if (order.getType() == Order.Type.BUY) {
-                return order.getExpectedBuyingPrice();
-            } else {
-                return order.getExpectedSellingPrice();
-            }
-        }));
-        displayTradeHistory(tradeHistoryByPrice); // Pass the sorted list to the display method
+        tradeHistoryByPrice.sort(Comparator.comparingDouble(order -> Math.min(order.getExpectedBuyingPrice(), order.getExpectedSellingPrice())));
+        displayTradeHistory();
     }
 
 
@@ -142,7 +137,7 @@ public class UserDashboard {
         List<Order> tradeHistorybyplacementtime = db.loadTransactionHistory(user.getKey());
 
         tradeHistorybyplacementtime.sort(Comparator.comparing(Order::getTimestamp));
-        displayTradeHistory(tradeHistorybyplacementtime); // Pass the sorted list to the display method
+        displayTradeHistory();
     }
 
     public void chooseSort() {
