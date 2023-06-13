@@ -131,7 +131,6 @@ public class TradingEngine {
             portfolio.addToTradeHistory(order);
             System.out.println("Buy order executed successfully.");
             User user = db.loadUserByKey(order.getUserKey());
-            notification.sendNotification(3, user.getEmail(), order);
             fd.sendNotification();
         } else {
             System.out.println("Not enough money");
@@ -154,7 +153,6 @@ public class TradingEngine {
         dashboard.calculatePLPoints();
 //        System.out.println("Sell order executed successfully.");
 
-        notification.sendNotification(5, user.getEmail(), order);
         fd.sendNotification();
     }
 

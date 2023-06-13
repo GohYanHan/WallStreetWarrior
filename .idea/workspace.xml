@@ -5,42 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab552e26-5345-4fb5-8e90-85b990a310ce" name="Changes" comment="commit only">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jBCrypt_0_4_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/javax_mail.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FraudDetection.java" beforeDir="false" afterPath="$PROJECT_DIR$/FraudDetection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Leaderboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/Leaderboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Portfolio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/Report.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TradingEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/TradingEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/activation_jaf1_1_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/jBCrypt_0_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/javax_mail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/javax_mail.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/API.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/API.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/wsw2/.idea/libraries/javax_mail.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/AdminPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Database.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Leaderboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Leaderboard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/MyStocks" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/MyStocks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Notification$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Notification$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Notification.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Order$Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Order$Type.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Order.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Portfolio.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Report.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Report.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/Stock.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/TradingEngine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserAuthentication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/wsw2/UserScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/UserScore.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/search.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/search.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/wsw2/wsw2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/search.java" beforeDir="false" afterPath="$PROJECT_DIR$/search.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wsw2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/wsw2.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,11 +48,11 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Program Files/JetBrains/IntelliJ IDEA Community Edition 2022.2.3/lib/javax.mail-1.6.1.jar&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Administrator/Documents/1002/javax.mail-1.6.1.jar&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
@@ -291,7 +268,35 @@
       <option name="project" value="LOCAL" />
       <updated>1686287139712</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="commit only">
+      <created>1686564430244</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1686564430244</updated>
+    </task>
+    <task id="LOCAL-00022" summary="commit only">
+      <created>1686566656420</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1686566656420</updated>
+    </task>
+    <task id="LOCAL-00023" summary="commit only">
+      <created>1686580910844</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1686580910844</updated>
+    </task>
+    <task id="LOCAL-00024" summary="commit only">
+      <created>1686582690343</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1686582690343</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
