@@ -20,13 +20,13 @@ public class AdminPanel {
             System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
-            System.out.println("-".repeat(90));
+            System.out.println("-".repeat(120));
             scanner.nextLine(); // Consume the newline character after reading the choice
 
             switch (choice) {
                 case 1 -> listUsers();
                 case 2 -> {
-                    FraudDetection fd = new FraudDetection(db);
+                    FraudDetection fd = new FraudDetection();
                     fd.displaySuspiciousUsers();
                 }
 

@@ -7,6 +7,9 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class UserAuthentication {
     private final Database db = new Database();
@@ -105,18 +108,18 @@ public class UserAuthentication {
 
     public void loopTrade(List<Stock> stocks, Portfolio portfolio, User user, TradingEngine tradingEngine, Report report) throws IOException {
         while (true) {
-//            ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-//            executor.schedule(() -> {
-            // Display menu and prompt for choice
-            System.out.println();
-            System.out.println("=".repeat(40));
-            System.out.printf("%-15s%-24s%s%n", "|", "Main Menu", "|");
-            System.out.println("=".repeat(40));
-            System.out.printf("%-39s%s%n", "| 1. Buy or sell stock", "|");
-            System.out.printf("%-39s%s%n", "| 2. Search stock", "|");
-            System.out.printf("%-39s%s%n", "| 3. Show current stock owned", "|");
-            System.out.printf("%-39s%s%n", "| 4. Cancel pending orders", "|");
-            System.out.printf("%-39s%s%n", "| 5. Display dashboard", "|");
+            ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+            executor.schedule(() -> {
+                // Display menu and prompt for choice
+                System.out.println();
+                System.out.println("=".repeat(40));
+                System.out.printf("%-15s%-24s%s%n", "|", "Main Menu", "|");
+                System.out.println("=".repeat(40));
+                System.out.printf("%-39s%s%n", "| 1. Buy or sell stock", "|");
+                System.out.printf("%-39s%s%n", "| 2. Search stock", "|");
+                System.out.printf("%-39s%s%n", "| 3. Show current stock owned", "|");
+                System.out.printf("%-39s%s%n", "| 4. Cancel pending orders", "|");
+                System.out.printf("%-39s%s%n", "| 5. Display dashboard", "|");
                 System.out.printf("%-39s%s%n", "| 6. Display Leaderboard", "|");
                 System.out.printf("%-39s%s%n", "| 7. Generate Report", "|");
                 System.out.printf("%-39s%s%n", "| 8. Notification Settings", "|");
@@ -124,7 +127,7 @@ public class UserAuthentication {
                 System.out.printf("%-39s%s%n", "| 10. Log Out", "|");
                 System.out.println("=".repeat(40));
                 System.out.print("Enter your choice: ");
-//            }, 3, TimeUnit.SECONDS);
+            }, 3, TimeUnit.SECONDS);
             try {
                 int choice = scanner.nextInt();
                 scanner.nextLine();
@@ -227,9 +230,8 @@ public class UserAuthentication {
                                         Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, formattedSellingPrice, user, timestamp);
                                         if (tradingEngine.executeOrder(sellOrder, portfolio)) {
                                             db.addOrder(user.getKey(), sellOrder);
-                                            System.out.println("Stock added to sell order list.");
+                                           // System.out.println("Stock added to sell order list.");
                                         }
-
                                     } else {
                                         System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
                                     }
@@ -269,7 +271,6 @@ public class UserAuthentication {
                         dashboard.displayAccountBalance();
                         dashboard.displayCurrentPoints();
                         dashboard.displayOpenPositions();
-                        dashboard.displayTradeHistory();
                         dashboard.chooseSort();
                         break;
 

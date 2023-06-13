@@ -16,6 +16,7 @@ public class TradingEngine {
 
     private final Database db = new Database();
     Notification notification = new Notification();
+    FraudDetection fd = new FraudDetection();
 
     public TradingEngine() throws IOException {
         this.stocks = api.extractStocks();
@@ -80,8 +81,8 @@ public class TradingEngine {
 
             if (symbolDb.equalsIgnoreCase(order.getStock().getSymbol()) && shareDb == order.getShares() && priceDb == order.getExpectedBuyingPrice()) {
                 tryExecuteBuyOrder(order, portfolio);
-                tryExecuteSellOrder(order, portfolio);
-                System.out.println("Sell order executed successfully.");
+                tryExecuteSellOrder(orderDb);
+                //System.out.println("Sell order executed successfully.");
                 db.removeOrder(orderDb.getUserKey(), orderDb); // Remove from sell order list
                 return true;
             }
@@ -119,8 +120,7 @@ public class TradingEngine {
         return false; // No match found
     }
 
-
-    private void tryExecuteBuyOrder(Order order, Portfolio portfolio) { // enough money then buy
+    private void tryExecuteBuyOrder(Order order, Portfolio portfolio) { // enough money jiu buy
         double price = order.getExpectedBuyingPrice();
         int shares = order.getShares();
 
@@ -128,31 +128,33 @@ public class TradingEngine {
             double temp = portfolio.getAccBalance();
             temp -= price;
             portfolio.setAccBalance(temp);
-            portfolio.addStock(order, shares, portfolio.getHoldings());
+            portfolio.addStock(order, shares);
             portfolio.addValue(order.getExpectedBuyingPrice());
             portfolio.addToTradeHistory(order);
             System.out.println("Buy order executed successfully.");
             notification.sendNotification(3, order.getUser().getEmail(), order);
+            fd.sendNotification();
         } else {
             System.out.println("Not enough money");
         }
     }
 
-    private void tryExecuteSellOrder(Order order, Portfolio portfolio) {
+    private void tryExecuteSellOrder(Order order) {
         double price = order.getExpectedSellingPrice();
         int shares = order.getShares();
+        User user = db.loadUserByKey(order.getUserKey());
+        Portfolio portfolio = user.getPortfolio();
 
         double temp = portfolio.getAccBalance();
         temp += price;
-        db.updateUserBalance(portfolio.getUserKey(), Math.round(temp * 100.0) / 100.0);
-        portfolio.removeStock(order, shares, portfolio.getHoldings()); // remove share num
+        db.updateUserBalance(user.getKey(), Math.round(temp * 100.0) / 100.0);
+        portfolio.removeStock(order, shares); // remove share num
         portfolio.removeValue(price);
         portfolio.addToTradeHistory(order);
-        User user = db.loadUserByKey(order.getUserKey());
-//        System.out.println("Sell order executed successfully.");
         UserDashboard dashboard = new UserDashboard(user);
         dashboard.calculatePLPoints();
         notification.sendNotification(5, user.getEmail(), order);
+        fd.sendNotification();
 
     }
 
@@ -183,6 +185,7 @@ public class TradingEngine {
 
             // Check if all buy orders are matched
             allBuyOrdersMatched = true;
+
             if (orders.isEmpty()) {
                 allBuyOrdersMatched = false;
                 break;
