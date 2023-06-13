@@ -178,7 +178,7 @@ public class UserAuthentication {
                                     System.out.print("Add to pending order? [y/n] ");
                                     String choose = scanner.next();
                                     char character = choose.charAt(0);
-                                    Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user, timestamp);
+                                    Order buyOrder = new Order(-1,user,buyStock, buyQuantity, formattedBuyExpectedPrice,timestamp, Order.Type.BUY);
 
                                     if (character == 'y') {
                                         db.addOrder(user.getKey(), buyOrder);
@@ -227,7 +227,7 @@ public class UserAuthentication {
                                     sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                                     if (sellStock != null) {
                                         LocalDateTime timestamp = LocalDateTime.now();
-                                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, formattedSellingPrice, user, timestamp);
+                                        Order sellOrder = new Order(-1,user,sellStock, sellQuantity,formattedSellingPrice, timestamp, Order.Type.SELL);
                                         if (tradingEngine.executeOrder(sellOrder, portfolio)) {
                                             db.addOrder(user.getKey(), sellOrder);
                                         }
