@@ -247,11 +247,11 @@ public class UserAuthentication {
 
                     case 2:
                         Scanner k = new Scanner(System.in);
-                        System.out.print("Enter name/symbol to search: ");
-                        String searchstring = k.next();
-
+                        System.out.print("Enter name/symbol to search, seperated by spaces: ");
+                        String searchstring = k.nextLine();
+                        String[] queries = searchstring.split(" ");
                         search stocksearch = new search();
-                        stocksearch.searchStocks(searchstring);
+                        stocksearch.searchStocks(queries);
                         break;
 
                     case 3:

@@ -184,7 +184,7 @@ class Notification {
     }
 
     //for FraudDetection only
-    public void sendNotificationToAdmin(String userEmail, List<Order> orders, User suspiciousUser) {
+    public void sendNotificationToAdmin(String userEmail, User suspiciousUser) {
         Properties props;
         Session session;
         MimeMessage message;
