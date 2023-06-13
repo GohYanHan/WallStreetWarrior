@@ -275,6 +275,7 @@ public class UserAuthentication {
 
                     case 6:
                         leaderboard.printLeaderboard();
+                        break;
                     case 7:
                         report.generateReport();
 //                            notification.sendNotification(5, stocks.get(2));

@@ -3,7 +3,16 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtils;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.PieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.ui.RectangleInsets;
+import org.jfree.data.general.DefaultPieDataset;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -22,6 +31,40 @@ public class Report {
             String fileName = System.getProperty("user.home") + "/Downloads/" + username + "_" + currentTime + ".pdf";
 
             Document document = new Document();
+
+            // Create portfolio allocation pie chart
+            DefaultPieDataset dataset = new DefaultPieDataset();
+            Map<Order, Integer> holdings = database.loadHolding(user.getKey());
+
+            for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
+                Order order = entry.getKey();
+                int shares = entry.getValue();
+                String stockSymbol = order.getStock().getSymbol();
+                dataset.setValue(stockSymbol, shares);
+            }
+
+            // Create a custom label generator that includes the percentage and shares information
+            PieSectionLabelGenerator labelGenerator = new StandardPieSectionLabelGenerator("{0}: {1} ({2} shares)");
+
+
+            JFreeChart chart = ChartFactory.createPieChart("Portfolio Allocation", dataset, true, true, false);
+            PiePlot plot = (PiePlot) chart.getPlot();
+            plot.setCircular(true);
+            plot.setLabelGenerator(labelGenerator);
+            plot.setBackgroundPaint(null);
+
+            chart.setBackgroundPaint(null);  // Remove background color
+            chart.setBorderVisible(false);   // Remove border
+            chart.setPadding(new RectangleInsets(0, 0, 0, 0)); // Remove padding
+            // Save chart to a temporary image file
+            String chartImagePath = System.getProperty("user.home") + "/Downloads/chart.png";
+            try {
+                ChartUtils.saveChartAsPNG(new File(chartImagePath), chart, 600, 400);
+            } catch (IOException e) {
+                System.out.println("An error occurred while saving the chart image.");
+                e.printStackTrace();
+            }
+
             try {
                 PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fileName));
                 document.open();
@@ -63,7 +106,7 @@ public class Report {
                 document.add(new Paragraph("\n"));
 
                 // Create holdings section as a table
-                Map<Order, Integer> holdings = database.loadHolding(user.getKey());
+                holdings = database.loadHolding(user.getKey());
                 PdfPTable holdingsTable = new PdfPTable(2);
                 holdingsTable.setWidthPercentage(100);
                 holdingsTable.setWidths(new float[]{2, 2});
@@ -122,7 +165,7 @@ public class Report {
                 tradeHistoryHeaderCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
                 tradeHistoryTable.addCell(tradeHistoryHeaderCell);
 
-// Set cell alignment for table content
+                // Set cell alignment for table content
                 tradeHistoryTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
                 if (!tradeHistory.isEmpty()) {
@@ -164,9 +207,18 @@ public class Report {
 
                 document.add(tradeHistoryTable);
 
+                // Add chart image to the PDF report
+                try {
+                    Image chartImage = Image.getInstance(chartImagePath);
+                    chartImage.setAlignment(Image.ALIGN_CENTER);
+                    chartImage.scalePercent(75f);
+                    document.add(chartImage);
+                } catch (IOException | BadElementException e) {
+                    System.out.println("An error occurred while adding the chart image to the PDF report.");
+                    e.printStackTrace();
+                }
 
                 document.close();
-                writer.close();
                 System.out.println("User report generated successfully in the Downloads folder.\n");
                 return fileName;
 
