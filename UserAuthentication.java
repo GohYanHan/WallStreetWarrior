@@ -127,7 +127,7 @@ public class UserAuthentication {
                 System.out.printf("%-39s%s%n", "| 10. Log Out", "|");
                 System.out.println("=".repeat(40));
                 System.out.print("Enter your choice: ");
-            }, 5, TimeUnit.SECONDS);
+            }, 3, TimeUnit.SECONDS);
             try {
                 int choice = scanner.nextInt();
                 scanner.nextLine();
@@ -178,7 +178,7 @@ public class UserAuthentication {
                                     System.out.print("Add to pending order? [y/n] ");
                                     String choose = scanner.next();
                                     char character = choose.charAt(0);
-                                    Order buyOrder = new Order(buyStock, Order.Type.BUY, buyQuantity, formattedBuyExpectedPrice, 0.0, user, timestamp);
+                                    Order buyOrder = new Order(-1,user,buyStock, buyQuantity, formattedBuyExpectedPrice,timestamp, Order.Type.BUY);
 
                                     if (character == 'y') {
                                         db.addOrder(user.getKey(), buyOrder);
@@ -187,7 +187,6 @@ public class UserAuthentication {
 
                                     } else {
                                         tradingEngine.executeOrder(buyOrder, portfolio);
-                                        System.out.println("Sell order executed successfully.");
                                     }
                                 } else {
                                     System.out.println("Stock with symbol " + buyStockSymbol + " not found.");
@@ -228,12 +227,11 @@ public class UserAuthentication {
                                     sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                                     if (sellStock != null) {
                                         LocalDateTime timestamp = LocalDateTime.now();
-                                        Order sellOrder = new Order(sellStock, Order.Type.SELL, sellQuantity, 0.0, formattedSellingPrice, user, timestamp);
+                                        Order sellOrder = new Order(-1,user,sellStock, sellQuantity,formattedSellingPrice, timestamp, Order.Type.SELL);
                                         if (tradingEngine.executeOrder(sellOrder, portfolio)) {
                                             db.addOrder(user.getKey(), sellOrder);
-                                            System.out.println("Stock added to sell order list.");
+                                           // System.out.println("Stock added to sell order list.");
                                         }
-
                                     } else {
                                         System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
                                     }
@@ -263,7 +261,13 @@ public class UserAuthentication {
 
                     case 4:
                         if (!user.getStatus().equalsIgnoreCase("disqualified")) {
-                            tradingEngine.cancelBuyOrder(db.loadOrders(user.getKey(), Order.Type.BUY));
+                            System.out.println("1. Cancel buy order \n2. Cancel sell order.");
+                            choice = scanner.nextInt();
+                            if (choice == 1) {
+                                tradingEngine.cancelOrder(db.loadOrders(user.getKey(), Order.Type.BUY), Order.Type.BUY);
+                            } else if (choice == 2) {
+                                tradingEngine.cancelOrder(db.loadOrders(user.getKey(), Order.Type.SELL), Order.Type.SELL);
+                            }
                         } else {
                             System.out.println("User is disqualified. Cannot buy or sell orders");
                         }

@@ -10,33 +10,20 @@ public class Order {
     private int shares;
     private LocalDateTime timestamp;
     private User user;
-
-    private double price;
+    private int orderID;
     private double expectedBuyingPrice;
     private double expectedSellingPrice;
     private int userKey;
-    public Order() {
-    }
-
     //add time
     public Order(int userKey, Stock stock) {
         this.userKey = userKey;
         this.stock = stock;
     }
 
-    public Order(Stock stock, Type type, int shares, double expectedBuyingPrice, double expectedSellingPrice, User user, LocalDateTime timestamp) {
+    public Order(int orderID, User user, Stock stock, int shares, double price, LocalDateTime timestamp, Type type) {
+        this.orderID = orderID;
         this.stock = stock;
-        this.type = type;
-        this.shares = shares;
-        this.expectedBuyingPrice = expectedBuyingPrice;
-        this.expectedSellingPrice = expectedSellingPrice;
         this.user = user;
-        this.timestamp = timestamp;
-    }
-
-    public Order(int userKey, Stock stock, int shares, double price, LocalDateTime timestamp, Type type) {
-        this.stock = stock;
-        this.userKey = userKey;
         this.shares = shares;
         this.timestamp = timestamp;
         this.type = type;
@@ -57,10 +44,6 @@ public class Order {
         return shares;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
     public double getExpectedBuyingPrice() {
         return expectedBuyingPrice;
     }
@@ -79,9 +62,5 @@ public class Order {
 
     public User getUser() {
         return user;
-    }
-
-    public int getUserKey() {
-        return userKey;
     }
 }
