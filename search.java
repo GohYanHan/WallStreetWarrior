@@ -66,7 +66,7 @@ class search {
     }
 
     // Search for stocks by name or ticker symbol using Boyer-Moore algorithm
-    void searchStocks(String query) {
+    void searchStocks(String[] queries) {
         boolean found = false; // Flag to track if a match is found
         List<Stock> matchingStocks = new ArrayList<>(); // List to store matching stocks
 
@@ -80,11 +80,17 @@ class search {
                 if (parts.length >= 2) {
                     String symbol = parts[0].trim();
                     String name = parts[1].trim();
-
-                    // Search by symbol or name
-                    if (symbol.toLowerCase().contains(query.toLowerCase()) || name.toLowerCase().contains(query.toLowerCase())) {
+                    // Search by symbol or name for each query
+                    if (symbol.toLowerCase().contains(queries[0].toLowerCase()) || name.toLowerCase().contains(queries[0].toLowerCase())) {
                         matchingStocks.add(new Stock(symbol, name));
                         found = true; // Match found
+                    }
+                    for (int q = 1; q < queries.length; q++) {
+                        // Search by symbol or name using Boyer-Moore algorithm
+                        if (boyerMoore.search(symbol.toLowerCase().toCharArray(), queries[q].toLowerCase().toCharArray()) != -1 || boyerMoore.search(name.toLowerCase().toCharArray(), queries[q].toLowerCase().toCharArray()) != -1) {
+                            matchingStocks.add(new Stock(symbol, name));
+                            found = true; // Match found
+                        }
                     }
                 }
             }
