@@ -100,15 +100,20 @@ public class TradingEngine {
                     if (updatedShares >= 0) {
                         tryExecuteBuyOrder(order, portfolio);
 
+                        boolean foundStockInLotPool = false;
                         for (Map.Entry<Stock, Integer> entries : db.getLotPool().entrySet()) {
                             Stock stockDb = entries.getKey();
                             String stockSymbolDb = stockDb.getSymbol();
                             if (stockSymbolDb.equalsIgnoreCase(order.getStock().getSymbol())) {
                                 db.updateLotPool(order.getStock(), updatedShares);
-                            } else {
-                                db.storeLotPool(order.getStock(), updatedShares);
-                                lotPool.remove(order.getStock(), 50000); // Store in database, remove from lotpool
+                                foundStockInLotPool = true;
+                                break;
                             }
+                        }
+
+                        if (!foundStockInLotPool) {
+                            db.storeLotPool(order.getStock(), updatedShares);
+                            lotPool.remove(order.getStock(), 50000); // Store in database, remove from lotpool
                         }
                         return true;
                     }
@@ -272,7 +277,7 @@ public class TradingEngine {
                     System.out.println("Order canceled based on longest time successfully.");
                     break;
                 case 2:
-                    Order orderToCancelByPrice = getOrderWithHighestPrice(orders);
+                    Order orderToCancelByPrice = getOrderWithHighestPrice(orders, type);
                     db.removeOrder(orderToCancelByPrice.getUser().getKey(), orderToCancelByPrice);
                     //portfolio.removeStock(orderToCancelByPrice, orderToCancelByPrice.getShares());
                     System.out.println("Order canceled based on highest price successfully.");
@@ -301,12 +306,17 @@ public class TradingEngine {
         return orderWithLongestTime;
     }
 
-    private Order getOrderWithHighestPrice(List<Order> orders) {
+    private Order getOrderWithHighestPrice(List<Order> orders, Order.Type type) {
         Order orderWithHighestPrice = null;
         double highestPrice = Double.MIN_VALUE;
+        double orderPrice = 0;
 
         for (Order order : orders) {
-            double orderPrice = order.getExpectedBuyingPrice();
+            if (type == Order.Type.BUY) {
+                orderPrice = order.getExpectedSellingPrice();
+            } else if (type == Order.Type.SELL) {
+                orderPrice = order.getExpectedBuyingPrice();
+            }
             if (orderPrice > highestPrice) {
                 highestPrice = orderPrice;
                 orderWithHighestPrice = order;
