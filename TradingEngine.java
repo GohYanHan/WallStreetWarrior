@@ -100,15 +100,20 @@ public class TradingEngine {
                     if (updatedShares >= 0) {
                         tryExecuteBuyOrder(order, portfolio);
 
+                        boolean foundStockInLotPool = false;
                         for (Map.Entry<Stock, Integer> entries : db.getLotPool().entrySet()) {
                             Stock stockDb = entries.getKey();
                             String stockSymbolDb = stockDb.getSymbol();
                             if (stockSymbolDb.equalsIgnoreCase(order.getStock().getSymbol())) {
                                 db.updateLotPool(order.getStock(), updatedShares);
-                            } else {
-                                db.storeLotPool(order.getStock(), updatedShares);
-                                lotPool.remove(order.getStock(), 50000); // Store in database, remove from lotpool
+                                foundStockInLotPool = true;
+                                break;
                             }
+                        }
+
+                        if (!foundStockInLotPool) {
+                            db.storeLotPool(order.getStock(), updatedShares);
+                            lotPool.remove(order.getStock(), 50000); // Store in database, remove from lotpool
                         }
                         return true;
                     }
