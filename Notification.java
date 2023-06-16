@@ -7,7 +7,10 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.prefs.Preferences;
 
 class Notification {
@@ -206,8 +209,10 @@ class Notification {
             bodyBuilder.append("Email: ").append(suspiciousUser.getEmail()).append("\n\n");
             bodyBuilder.append("Transaction History:\n");
 
+            List<Order> transactions = db.loadTransactionHistory(suspiciousUser.getKey());
+
             // Append each transaction to the body
-            for (Order order : db.loadTransactionHistory(suspiciousUser.getKey())) {
+            for (Order order : transactions) {
                 bodyBuilder.append("Stock Symbol: ").append(order.getStock().getSymbol()).append("\n");
                 bodyBuilder.append("Stock Name: ").append(order.getStock().getName()).append("\n");
                 bodyBuilder.append("Type:  ").append(order.getType()).append("\n");

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,26 +8,33 @@ public class FraudDetection {
     private final User user = new User();
     private Notification notification = new Notification();
 
+    private List<User> notifiedUsers = new ArrayList<>();
+
+    private boolean sentAlready;
+
     public void sendNotification() {
         List<User> users = database.getUsersList();
+
         for (User user : users) {
-            if (isSuspiciousUser(user)) {
-//                List<Order> transactions = database.loadTransactionHistory(user.getKey());
-                // Send notifications to admin users
+
+            sentAlready = database.getUserFDNotificationStatus(user.getKey());
+
+            if (isSuspiciousUser(user) && sentAlready == false) {
                 List<String> adminEmails = database.getAllAdminEmails();
                 for (String adminEmail : adminEmails) {
                     notification.sendNotificationToAdmin(adminEmail, user);
-//                    notification.sendNotificationToAdmin(adminEmail,transactions, user);
+                    database.setUserFDNotificationStatus(user.getKey());
                 }
             }
         }
     }
 
+
     public void displaySuspiciousUsers() {
 
         List<User> users = database.getUsersList();
 
-        System.out.println("Suspicous users: ");
+        System.out.println("Suspicious users: ");
 
         for (User user : users) {
             if (isSuspiciousUser(user)) {
