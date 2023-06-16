@@ -71,7 +71,7 @@ public class FraudDetection {
                         }
                     }
 
-// Print the closing line
+                    // Print the closing line
                     System.out.println("===========================================================================================");
                 }
             }
