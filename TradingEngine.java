@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 
 public class TradingEngine {
     private List<Stock> stocks;
-    private Map<Stock, List<Order>> buyOrders; // api de stock
+    private Map<Stock, List<Order>> buyOrders;
     private Map<Stock, List<Order>> sellOrders;
     private Map<Stock, Integer> lotPool;
     API api = new API();
@@ -49,10 +49,7 @@ public class TradingEngine {
                     double expectedSellingPricePrice = order.getExpectedSellingPrice();
 
                     if (isPriceWithinRange(expectedSellingPricePrice, currentPrice, 1)) {
-                        System.out.println("Sell order placed successfully.");
                         portfolio.removeStock(order, order.getShares()); // remove share num
-                        notification.sendNotification(4, order.getUser().getEmail(), order);
-
                     } else {
                         System.out.println("The expected selling price is not within the acceptable range.\nOrder not placed.");
                         return false;
@@ -83,7 +80,7 @@ public class TradingEngine {
             if (symbolDb.equalsIgnoreCase(order.getStock().getSymbol()) && shareDb == order.getShares() && priceDb == order.getExpectedBuyingPrice()) {
                 tryExecuteBuyOrder(order, portfolio);
                 tryExecuteSellOrder(orderDb);
-                db.removeOrder(orderDb.getUser().getKey(), orderDb); // Remove from sell order list
+                db.removeOrder(orderDb.getOrderID()); // Remove from sell order list
                 return true;
             }
         }
@@ -100,15 +97,20 @@ public class TradingEngine {
                     if (updatedShares >= 0) {
                         tryExecuteBuyOrder(order, portfolio);
 
+                        boolean foundStockInLotPool = false;
                         for (Map.Entry<Stock, Integer> entries : db.getLotPool().entrySet()) {
                             Stock stockDb = entries.getKey();
                             String stockSymbolDb = stockDb.getSymbol();
                             if (stockSymbolDb.equalsIgnoreCase(order.getStock().getSymbol())) {
                                 db.updateLotPool(order.getStock(), updatedShares);
-                            } else {
-                                db.storeLotPool(order.getStock(), updatedShares);
-                                lotPool.remove(order.getStock(), 50000); // Store in database, remove from lotpool
+                                foundStockInLotPool = true;
+                                break;
                             }
+                        }
+
+                        if (!foundStockInLotPool) {
+                            db.storeLotPool(order.getStock(), updatedShares);
+                            lotPool.remove(order.getStock(), 50000); // Store in database, remove from lotpool
                         }
                         return true;
                     }
@@ -121,7 +123,7 @@ public class TradingEngine {
         return false; // No match found
     }
 
-    private void tryExecuteBuyOrder(Order order, Portfolio portfolio) { // enough money jiu buy
+    private void tryExecuteBuyOrder(Order order, Portfolio portfolio) {
         double price = order.getExpectedBuyingPrice();
         int shares = order.getShares();
 
@@ -175,7 +177,7 @@ public class TradingEngine {
         while (!allBuyOrdersMatched) { //within trading hours
             for (Order order : orders) {
                 if (findMatch(order, portfolio)) {
-                    db.removeOrder(order.getUser().getKey(), order); // Remove from buy order list
+                    db.removeOrder(order.getOrderID()); // Remove from buy order list
                     System.out.println("Buy order removed from buy order list.");
                 }
             }
@@ -196,15 +198,14 @@ public class TradingEngine {
     public boolean isWithinInitialTradingPeriod() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.of(currentTime.getYear(), currentTime.getMonth(), currentTime.getDayOfMonth(), 0, 0)
-//                .plusDays(3); // Add 3 days to the current date
-                .plusMinutes(1);
+                .plusDays(3); // Add 3 days to the current date
         return currentTime.isBefore(endTime);
     }
 
     public void replenishLotPoolDaily() {
         // Check if it's the start of a new trading day
         if (isStartOfTradingDay()) {
-            // Reset the lotpool shares to 500 for each stock
+            // Reset the lotpool shares to 50000 for each stock
             lotPool.clear();
             db.refreshLotPool();
             for (Stock stock : stocks) {
@@ -215,7 +216,7 @@ public class TradingEngine {
     }
 
     public boolean isStartOfTradingDay() {
-        LocalTime marketOpenTime = LocalTime.of(9, 0); // Adjust the market open time according to your needs
+        LocalTime marketOpenTime = LocalTime.of(9, 0);
         LocalTime currentTime = LocalTime.now();
         return currentTime.equals(marketOpenTime);
     }
@@ -253,7 +254,6 @@ public class TradingEngine {
     }
 
     public void cancelOrder(List<Order> orders, Order.Type type) {
-        Database db = new Database();
         if (!orders.isEmpty()) {
             displayOrders(orders, type);
             System.out.println("Choose the cancel option: ");
@@ -267,15 +267,21 @@ public class TradingEngine {
             switch (choice) {
                 case 1:
                     Order orderToCancelByTime = getOrderWithLongestTime(orders);
-                    db.removeOrder(orderToCancelByTime.getUser().getKey(), orderToCancelByTime);
-                    //portfolio.removeStock(orderToCancelByTime, orderToCancelByTime.getShares()); // no need bcs not in holdings
+                    db.removeOrder(orderToCancelByTime.getOrderID());
+                    if (type == Order.Type.SELL){
+                        Portfolio portfolio = orderToCancelByTime.getUser().getPortfolio();
+                        portfolio.addStock(orderToCancelByTime, orderToCancelByTime.getShares());
+                    }
                     System.out.println("Order canceled based on longest time successfully.");
                     break;
                 case 2:
-                    Order orderToCancelByPrice = getOrderWithHighestPrice(orders);
-                    db.removeOrder(orderToCancelByPrice.getUser().getKey(), orderToCancelByPrice);
-                    //portfolio.removeStock(orderToCancelByPrice, orderToCancelByPrice.getShares());
-                    System.out.println("Order canceled based on highest price successfully.");
+                    Order orderToCancelByPrice = getOrderWithHighestPrice(orders, type);
+                    db.removeOrder(orderToCancelByPrice.getOrderID());
+                    if (type == Order.Type.SELL){
+                        Portfolio portfolio = orderToCancelByPrice.getUser().getPortfolio();
+                        portfolio.addStock(orderToCancelByPrice, orderToCancelByPrice.getShares());
+                    }
+                        System.out.println("Order canceled based on highest price successfully.");
                     break;
                 default:
                     System.out.println("Invalid choice. Order cancellation canceled.");
@@ -286,7 +292,7 @@ public class TradingEngine {
         }
     }
 
-    private Order getOrderWithLongestTime(List<Order> orders) { // no return longest time
+    private Order getOrderWithLongestTime(List<Order> orders) {
         Order orderWithLongestTime = null;
         LocalDateTime longestTime = LocalDateTime.MAX;
 
@@ -301,12 +307,17 @@ public class TradingEngine {
         return orderWithLongestTime;
     }
 
-    private Order getOrderWithHighestPrice(List<Order> orders) {
+    private Order getOrderWithHighestPrice(List<Order> orders, Order.Type type) {
         Order orderWithHighestPrice = null;
         double highestPrice = Double.MIN_VALUE;
+        double orderPrice = 0;
 
         for (Order order : orders) {
-            double orderPrice = order.getExpectedBuyingPrice();
+            if (type == Order.Type.BUY) {
+                orderPrice = order.getExpectedSellingPrice();
+            } else if (type == Order.Type.SELL) {
+                orderPrice = order.getExpectedBuyingPrice();
+            }
             if (orderPrice > highestPrice) {
                 highestPrice = orderPrice;
                 orderWithHighestPrice = order;
@@ -317,7 +328,7 @@ public class TradingEngine {
     }
 
 
-    public void closeMarket(User user) { // argument = portfolio.getAccBalance()
+    public void closeMarket(User user) {
         if (user.getBalance() >= 25000) {
             db.disqualifyUser(user.getEmail());
             System.out.println("You have been disqualified. Your account balance is exceed 50% of initial balance.");
@@ -325,7 +336,6 @@ public class TradingEngine {
         // Check if the account balance is non-negative
         if (user.getBalance() >= 0) {
             // Perform any necessary actions to finalize the market closing
-
             // Reset the buy and sell orders values in api
             buyOrders.clear();
             sellOrders.clear();

@@ -70,8 +70,8 @@ public class Portfolio {
                     } else {
                         this.holdings.replace(existingOrder, shares, updatedShares);
                         db.updateHolding(order.getUser().getKey(), existingOrder.getStock(), updatedShares);
-                        found = true;
                     }
+                        found = true;
                 } else {
                     System.out.println("Not enough shares to sell.");
                 }
@@ -90,9 +90,9 @@ public class Portfolio {
         } else {
             System.out.println("==============================");
             System.out.println("|          Holdings          |");
-            System.out.println("=============================");
-            System.out.println("|    Stock     |    Shares   |");
             System.out.println("------------------------------");
+            System.out.println("|    Stock     |    Shares   |");
+            System.out.println("=============================");
             for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
                 Order order = entry.getKey();
                 int shares = entry.getValue();
@@ -111,7 +111,8 @@ public class Portfolio {
 //            System.out.println("Shares: " + order.getShares());
 //            System.out.println("-".repeat(30));
 //        }
-        for (Map.Entry<Order, Integer> entry : this.holdings.entrySet()) {
+        holdings = db.loadHolding(userKey);
+        for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order order = entry.getKey();
             int shares = entry.getValue();
 

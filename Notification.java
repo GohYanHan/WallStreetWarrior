@@ -7,26 +7,13 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Properties;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.*;
 import java.util.prefs.Preferences;
 
-
 class Notification {
-    double updatedStockPrice;
     static boolean notificationSendSetting = true; //default true
     private double thresholds = 0; //default null
-
-    //static Stock stock = new Stock(order.getSymbol());
     private final Database db = new Database();
-    private final User user = db.getUser();
-    Report report = new Report();
-    static API api = new API();
-    ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
     //on button click do set true or set false, default true, assuming there are 2 buttons(enable/disable)
     public boolean setNotificationSendSettingTrue() {
@@ -72,17 +59,14 @@ class Notification {
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.starttls.enable", "true");
             props.put("mail.smtp.ssl.protocols", "TLSv1.2");
-            User user = db.getUser();
             Authenticator auth = new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication("sornphert03@gmail.com", "hhftdeernmxqlnaq");
                 }
             };
-
             session = Session.getInstance(props, auth);
 
             try {
-
                 InternetAddress[] recipients = new InternetAddress[1];
                 recipients[0] = new InternetAddress(userEmail);
 
@@ -109,6 +93,7 @@ class Notification {
                         message.setText("Your have successfully sold " + (order.getStock().getSymbol()) + " at a price of RM" + (order.getExpectedSellingPrice()) + " for " + (order.getShares()) + " shares.");
                         break;
                     case 6:
+                        Report report = new Report();
                         String reportFilePath = report.generateReport(); // Generate the report and retrieve the file path
 
                         if (reportFilePath != null) {
@@ -148,8 +133,8 @@ class Notification {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                List<Order> orders = db.loadOrders(user.getKey(), Order.Type.BUY);
-                thresholds = user.getThresholds();
+                List<Order> orders = db.loadOrders(order.getUser().getKey(), Order.Type.BUY);
+                thresholds = order.getUser().getThresholds();
                 boolean notificationSent = false; // Flag variable to track notification status
 
                 for (Order order : orders) {
@@ -160,16 +145,17 @@ class Notification {
                     double currentPrice = 0;
                     if (boughtPrice - currentPrice >= thresholds) {
                         try {
+                            API api = new API();
                             currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     }
                     if (currentPrice >= boughtPrice + thresholds) {
-                        sendNotification(1, user.getEmail(), order);
+                        sendNotification(1, userEmail, order);
                         notificationSent = true; // Set the flag to true
                     } else if (currentPrice <= boughtPrice - thresholds) {
-                        sendNotification(2, user.getEmail(), order);
+                        sendNotification(2, userEmail, order);
                         notificationSent = true; // Set the flag to true
                     }
                 }
@@ -178,7 +164,6 @@ class Notification {
                     timer.cancel(); // Cancel the current timer
                     timer.schedule(this, 3600000); // Reschedule the timer after 1 hour (3600000 milliseconds)
                 }
-
             }
         }, 0, 1000); // 1000 milliseconds = 1 second
 

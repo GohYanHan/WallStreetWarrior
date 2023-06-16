@@ -175,15 +175,15 @@ public class UserAuthentication {
 
                                 if (buyStock != null) {
                                     LocalDateTime timestamp = LocalDateTime.now();
-                                    System.out.print("Add to pending order? [y/n] ");
+                                    System.out.print("Add to pending order? [y/n]: ");
                                     String choose = scanner.next();
                                     char character = choose.charAt(0);
-                                    Order buyOrder = new Order(-1,user,buyStock, buyQuantity, formattedBuyExpectedPrice,timestamp, Order.Type.BUY);
+                                    Order buyOrder = new Order(-1, user, buyStock, buyQuantity, formattedBuyExpectedPrice, timestamp, Order.Type.BUY);
 
                                     if (character == 'y') {
                                         db.addOrder(user.getKey(), buyOrder);
                                         System.out.println("Buy order added into pending buy order list.");
-                                        tradingEngine.runAutoMatchingInBackground(db.loadOrders(user.getKey(), Order.Type.BUY), portfolio);  // how to make it keep check
+                                        tradingEngine.runAutoMatchingInBackground(db.loadOrders(user.getKey(), Order.Type.BUY), portfolio);  // make it keep check
 
                                     } else {
                                         tradingEngine.executeOrder(buyOrder, portfolio);
@@ -227,10 +227,11 @@ public class UserAuthentication {
                                     sellStock = portfolio.findStockBySymbol(sellStockSymbol);
                                     if (sellStock != null) {
                                         LocalDateTime timestamp = LocalDateTime.now();
-                                        Order sellOrder = new Order(-1,user,sellStock, sellQuantity,formattedSellingPrice, timestamp, Order.Type.SELL);
+                                        Order sellOrder = new Order(-1, user, sellStock, sellQuantity, formattedSellingPrice, timestamp, Order.Type.SELL);
                                         if (tradingEngine.executeOrder(sellOrder, portfolio)) {
                                             db.addOrder(user.getKey(), sellOrder);
-                                           // System.out.println("Stock added to sell order list.");
+                                            System.out.println("Sell order placed successfully.");
+                                            notification.sendNotification(4, user.getEmail(), sellOrder);
                                         }
                                     } else {
                                         System.out.println("Stock with symbol " + sellStockSymbol + " not found.");
@@ -247,10 +248,9 @@ public class UserAuthentication {
 
                     case 2:
                         Scanner k = new Scanner(System.in);
-                        System.out.print("Enter name/symbol to search, seperated by spaces : ");
+                        System.out.print("Enter name/symbol to search, seperated by spaces: ");
                         String searchstring = k.nextLine();
                         String[] queries = searchstring.split(" ");
-
                         search stocksearch = new search();
                         stocksearch.searchStocks(queries);
                         break;
@@ -261,7 +261,8 @@ public class UserAuthentication {
 
                     case 4:
                         if (!user.getStatus().equalsIgnoreCase("disqualified")) {
-                            System.out.println("1. Cancel buy order \n2. Cancel sell order.");
+                            System.out.println("1. Cancel buy order \n2. Cancel sell order");
+                            System.out.print("Enter your choice: ");
                             choice = scanner.nextInt();
                             if (choice == 1) {
                                 tradingEngine.cancelOrder(db.loadOrders(user.getKey(), Order.Type.BUY), Order.Type.BUY);
@@ -283,9 +284,9 @@ public class UserAuthentication {
 
                     case 6:
                         leaderboard.printLeaderboard();
+                        break;
                     case 7:
                         report.generateReport();
-//                            notification.sendNotification(5, stocks.get(2));
                         break;
 
                     case 8:
