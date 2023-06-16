@@ -240,14 +240,11 @@ public class Database {
     }
 
     // Cancel users order from database (Type is BUY or SELL)
-    boolean removeOrder(int userKey, Order order) {
+    boolean removeOrder(int orderID) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "DELETE FROM `order` WHERE userKey = ? AND symbol = ? AND share = ? AND type = ?";
+            String sql = "DELETE FROM `order` WHERE orderID = ? ";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, userKey);
-            statement.setString(2, order.getStock().getSymbol());
-            statement.setInt(3, order.getShares());
-            statement.setString(4, order.getType().name());
+            statement.setInt(1, orderID);
 
             int rowsAffected = statement.executeUpdate();
             statement.close();

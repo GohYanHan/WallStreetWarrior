@@ -63,4 +63,8 @@ public class Order {
     public User getUser() {
         return user;
     }
+
+    public int getOrderID() {
+        return orderID;
+    }
 }

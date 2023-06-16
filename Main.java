@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class Main {
@@ -14,13 +15,13 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         // Competition loop with trading hours check
-        LocalDateTime startDate = LocalDateTime.now();
+        LocalDateTime startDate = LocalDateTime.of(2023,6,16,9,0);
         LocalDateTime endDate = startDate.plusWeeks(6);
 
-        while (LocalDateTime.now().isBefore(endDate)) {
-            if (tradingEngine.isWithinTradingHours()) {
-                System.out.println("Welcome to the Application!");
-                while (true) {
+        System.out.println("Welcome to the Application!");
+        while (true) {
+            if (LocalDateTime.now().isBefore(endDate)) {
+                if (tradingEngine.isWithinTradingHours()) {
                     System.out.println("-".repeat(120));
                     System.out.println("1. Register");
                     System.out.println("2. Login");
@@ -49,7 +50,7 @@ public class Main {
                                     admin.adminPanel();
                                 } else {
                                     // Create a list of stocks
-//                                  tradingEngine.runAutoMatchingInBackground(db.loadOrders(user.getKey(), Order.Type.BUY), user.getPortfolio());
+                                    tradingEngine.runAutoMatchingInBackground(db.loadOrders(user.getKey(), Order.Type.BUY), user.getPortfolio());
                                     userAuth.loopTrade(api.extractStocks(), user.getPortfolio(), user, tradingEngine, report);
                                 }
                             }
@@ -62,15 +63,17 @@ public class Main {
                         }
                         default -> System.out.println("Invalid choice. Please try again.");
                     }
+                } else if (LocalDateTime.now().toLocalTime().equals(LocalTime.of(17, 0))) {
+                    tradingEngine.closeMarket(db.getUser());
+                    System.out.println("Trading is closed.");
+                    return;
+                } else {
+                    System.out.println("Trading is closed.");
+                    return;
                 }
             } else {
-                tradingEngine.closeMarket(db.getUser());
-                System.out.println("Trading is closed.");
-            }
-            try {
-                Thread.sleep(1000); // Sleep for 1 second (adjust as needed)
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("Competition has ended. ");
+                return;
             }
         }
     }
