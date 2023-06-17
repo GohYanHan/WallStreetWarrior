@@ -268,7 +268,7 @@ class Notification {
             bodyBuilder.append("A suspicious user has been detected for trading on margin and is trying to buy or sell.\n\n");
             bodyBuilder.append("Name: ").append(suspiciousUser.getUsername()).append("\n");
             bodyBuilder.append("Email: ").append(suspiciousUser.getEmail()).append("\n\n");
-            bodyBuilder.append("Account balance: ").append(suspiciousUser.getPortfolio().getAccBalance()).append("\n");
+            bodyBuilder.append("Account balance: RM ").append(suspiciousUser.getPortfolio().getAccBalance()).append("\n");
 
             message.setText(bodyBuilder.toString());
 
