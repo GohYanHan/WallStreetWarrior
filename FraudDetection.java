@@ -27,7 +27,6 @@ public class FraudDetection {
 
         for (User suspiciousUser : suspiciousUsers) {
             if (suspiciousUser.getKey() == userKey) {
-                System.out.println(suspiciousUser.getKey());
                 return true;
             }
         }
