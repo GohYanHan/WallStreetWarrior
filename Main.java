@@ -21,7 +21,7 @@ public class Main {
         System.out.println("Welcome to the Application!");
         while (true) {
             if (LocalDateTime.now().isBefore(endDate)) {
-                if (tradingEngine.isWithinTradingHours()) {
+//                if (tradingEngine.isWithinTradingHours()) {
                     System.out.println("-".repeat(120));
                     System.out.println("1. Register");
                     System.out.println("2. Login");
@@ -63,14 +63,14 @@ public class Main {
                         }
                         default -> System.out.println("Invalid choice. Please try again.");
                     }
-                } else if (LocalDateTime.now().toLocalTime().equals(LocalTime.of(17, 0))) {
-                    tradingEngine.closeMarket(db.getUser());
-                    System.out.println("Trading is closed.");
-                    return;
-                } else {
-                    System.out.println("Trading is closed.");
-                    return;
-                }
+//                } else if (LocalDateTime.now().toLocalTime().equals(LocalTime.of(17, 0))) {
+//                    tradingEngine.closeMarket(db.getUser());
+//                    System.out.println("Trading is closed.");
+//                    return;
+//                } else {
+//                    System.out.println("Trading is closed.");
+//                    return;
+//                }
             } else {
                 System.out.println("Competition has ended. ");
                 return;
