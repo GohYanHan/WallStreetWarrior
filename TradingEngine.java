@@ -125,6 +125,7 @@ public class TradingEngine {
 
     private void tryExecuteBuyOrder(Order order, Portfolio portfolio) {
         double price = order.getExpectedBuyingPrice();
+        User user = order.getUser();
         int shares = order.getShares();
 
         if (portfolio.getAccBalance() >= price) {
@@ -135,7 +136,11 @@ public class TradingEngine {
             portfolio.addToTradeHistory(order);
             System.out.println("Buy order executed successfully.");
             notification.sendNotification(3, order.getUser().getEmail(), order);
-            fd.sendNotification();
+
+            fd.setUserSuspicious(user);
+            if (fd.suspiciousUserIsPerformingAction(user.getKey())) {
+                fd.sendNotification(user);
+            }
         } else {
             System.out.println("Not enough money");
         }
@@ -153,7 +158,10 @@ public class TradingEngine {
         UserDashboard dashboard = new UserDashboard(user);
         dashboard.calculatePLPoints();
         notification.sendNotification(5, user.getEmail(), order);
-        fd.sendNotification();
+        fd.setUserSuspicious(user);
+        if (fd.suspiciousUserIsPerformingAction(user.getKey())) {
+            fd.sendNotification(user);
+        }
 
     }
 

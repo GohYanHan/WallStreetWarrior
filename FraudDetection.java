@@ -38,12 +38,18 @@ public class FraudDetection {
     public void sendNotification(User user) {
 
         if (isShortSelling(user)) {
-            notification.sendNotificationToAdminIsShortSelling("woojung038@gmail.com", user);
+            List<String> adminEmails = database.getAllAdminEmails();
+            for (String adminEmail : adminEmails) {
+                notification.sendNotificationToAdminIsShortSelling(adminEmail, user);
+            }
 
         }
 
         if (checkTradeMargin(user)) {
-            notification.sendNotificationToAdminTradeOnMargin("woojung0338@gmail.com", user);
+            List<String> adminEmails = database.getAllAdminEmails();
+            for (String adminEmail : adminEmails) {
+                notification.sendNotificationToAdminTradeOnMargin(adminEmail, user);
+            }
 
         }
     }

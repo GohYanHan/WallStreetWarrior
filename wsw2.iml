@@ -77,5 +77,6 @@
     <orderEntry type="library" name="wsw" level="project" />
     <orderEntry type="library" name="jBCrypt-0.4.3" level="project" />
     <orderEntry type="library" name="activation-1.1" level="project" />
+    <orderEntry type="library" name="jfreechart-1.5.3" level="project" />
   </component>
 </module>

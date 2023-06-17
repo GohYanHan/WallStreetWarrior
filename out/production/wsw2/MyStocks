@@ -40,7 +40,6 @@
 0058.KL,JCBNEXT
 0059.KL,ECOHLDS
 0060.KL,VC
-0060PA.KL,VC-PA
 0064.KL,EFFICEN
 0065.KL,EFORCE
 0066.KL,VSOLAR
@@ -122,7 +121,6 @@
 0162.KL,WIDAD
 0163.KL,CAREPLS
 0165.KL,XOX
-0165PA.KL,XOX Bhd
 0166.KL,INARI
 0167.KL,MCLEAN
 0168.KL,BOILERM
@@ -230,24 +228,17 @@
 0279.KL,SYNERGY
 03016.KL,CRG
 03021.KL,EquitiesTracker Holdings Bhd
-03023.KL,SMILE
-03029.KL,GPP Resources Berhad
-03046.KL,Dynafront Holdings Bhd
 03050.KL,Sunmow Holding Bhd
-03053.KL,CC International Bhd
 0800EA.KL,ABF Malaysia Bond Index
 0820EA.KL,FTSE Bursa Malaysia KLCI ETF
-0821EA.KL,MYETF DJ Islamic Malaysia Titans 25
 0822EA.KL,Principal FTSE ASEAN 40 Malaysia
 0823EA.KL,Principal FTSE China 50 ETF
-0824EA.KL,MyETF MSCI Malaysia Islamic Dividend
 0825EA.KL,MyETF MSCI SEA Islamic Dividend
 0827EA.KL,MyETF Dow Jones U.S. Titans 50
 0828EA.KL,TradePlus Shariah Gold ETF
 0829EA.KL,TradePlus S&P New China Tracker ETF
 0834EA.KL,Kenanga KLCI Daily 2x Leveraged ETF
 0835EA.KL,Kenanga KLCI Daily
-0836EA.KL,TradePlus DWA Malaysia Momentum Tracker ETF
 0837EA.KL,TradePlus MSCI Asia ex Japan REITs Tracker ETF
 0838EA.KL,VP-DJ Shariah China A-Shares 100 ETF
 1015.KL,AMMB Holdings Berhad
@@ -297,7 +288,7 @@
 2445.KL,Kuala Lumpur Kepong Berhad
 2453.KL,KLUANG
 2488.KL,Alliance Financial Group Berhad.
-2542.KL,Riverview Rubber Estates, Berhad
+2542.KL,Riverview Rubber Estates
 2569.KL,Sungei Bagan Rubber Co. Malaya Bhd
 2593.KL,UMCCA
 2607.KL,Inch Kenneth Kajang Rubber Public Limited Company
@@ -394,7 +385,6 @@
 5008.KL,Harrisons Holdings
 5009.KL,White Horse Bhd
 5010.KL,Tong Herr Resources Bhd
-5011.KL,Mesiniaga Bhd
 5012.KL,TA Ann Holdings Bhd
 5014.KL,Malaysia Airports Holdings Bhd
 5015.KL,APM Automotive Holdings Berhad
@@ -416,9 +406,7 @@
 5040.KL,Meda Inc. Bhd
 5041.KL,PBA Holdings Bhd
 5042.KL,TSR Capital Berhad
-5047.KL,NPC
 5048.KL,Yi-Lai Bhd
-5049.KL,Country View Bhd
 5053.KL,OSK Holdings Berhad
 5054.KL,TRC Synergy Bhd
 5056.KL,Engtex Group Bhd
@@ -451,7 +439,6 @@
 5102.KL,Guan Chong Bhd.
 5104.KL,CNI
 5105.KL,Can-One Berhad
-
 5106.KL,Axis Real Estate Investment Trust
 5107.KL,IQ Group Holdings Berhad
 5108.KL,iCapital.biz Berhad
@@ -536,7 +523,6 @@
 5213.KL,Sentoria Group Berhad
 5216.KL,DSONIC
 5218.KL,SapuraKencana Petroleum Berhad
-5218PA.KL,SAPNRG-PA
 5219.KL,Pestech International Berhad
 5220.KL,Globaltec Formation Berhad
 5222.KL,Felda Global Ventures Holdings Berhad
@@ -651,7 +637,6 @@
 6084.KL,Star Media Group Berhad
 6114.KL,MKH Berhad
 6139.KL,Syarikat Takaful Malaysia Bhd
-6149.KL,Metrod Holdings Berhad
 6173.KL,BDB
 6181.KL,Malton Bhd
 6203.KL,Khee San Berhad
@@ -696,7 +681,6 @@
 7014.KL,YLI Holdings Bhd
 7016.KL,Chuan Huat Resources Bhd
 7017.KL,Komarkcorp Bhd
-7017OR.KL,KOMARK-OR
 7018.KL,CME Group Bhd
 7020.KL,YKGI Holdings Berhad
 7022.KL,Globetronics Technology Bhd
@@ -718,7 +702,6 @@
 7060.KL,New Hoong Fatt Holdings Bhd
 7062.KL,Khind Holdings Bhd
 7066.KL,Yong Tai Berhad
-7066PA.KL,YONGTAI-PA
 7070.KL,VIZIONE
 7071.KL,O&C Resources Berhad
 7073.KL,Seacera Group Berhad
@@ -730,7 +713,6 @@
 7080PA.KL,PERMAJU-PA
 7081.KL,Pharmaniaga Bhd
 7082.KL,SYF Resources Bhd
-7082OR.KL,SYF-OR
 7083.KL,Analabs Resources Berhad
 7084.KL,QL Resources Berhad
 7085.KL,LTKM Bhd
@@ -751,7 +733,6 @@
 7106.KL,Supermax Corporation Berhad
 7107.KL,Oriental Food Industries Holdings Bhd
 7108.KL,PERDANA
-7108PA.KL,PERDANA-PA
 7113.KL,Top Glove Corporation Berhad
 7114.KL,D Nonce Technology Bhd
 7115.KL,SKB Shutters Corp. Bhd
@@ -810,7 +791,6 @@
 7200.KL,Tek Seng Holdings Bhd
 7201.KL,Progressive Impact Corp. Bhd
 7202.KL,Classic Scenic Bhd
-7203.KL,Wang-Zheng Berhad
 7204.KL,D & O Green Technologies Berhad.
 7207.KL,Success Transformer Corporation Berhad
 7208.KL,Euro Holdings Bhd
@@ -845,7 +825,6 @@
 7241.KL,BHS Industries Bhd
 7243.KL,Bio Osmo Berhad
 7245.KL,WZ Satu Berhad
-7245PA.KL,Citaglobal Bhd
 7246.KL,Signature International Berhad
 7247.KL,SCGM Bhd
 7248.KL,SLP Resources Berhad
@@ -878,7 +857,6 @@
 7765.KL,Rapid Synergy Bhd
 7773.KL,EP Manufacturing Bhd
 7803.KL,Rubberex Corp. M Bhd
-7811.KL,Sapura Industrial Bhd
 7854.KL,TIMWELL
 7889.KL,Thriven Global Berhad
 7935.KL,MILUX
@@ -890,7 +868,6 @@
 8117.KL,Poly Glass Fibre M Bhd
 8125.KL,Daibochi Plastic & Packaging Industry Bhd
 8133.KL,Boustead Heavy Industries Corporation Bhd
-8141.KL,Majuperak Holdings Bhd
 8176.KL,Denko Industrial Corp. Bhd
 8192.KL,Mercury Industries Bhd
 8206.KL,Eco World Development Group Berhad
@@ -950,7 +927,6 @@
 9318.KL,Fitters Diversified Berhad
 9326.KL,LB Aluminium Bhd
 9334.KL,KESM Industries Bhd
-9369.KL,Teo Guan Lee Corp. Bhd
 9377.KL,FSBM
 9385.KL,Lay Hong Berhad
 9393.KL,ITRONIC
@@ -962,7 +938,6 @@
 9571.KL,Mitrajaya Holdings Bhd
 9598.KL,Pintaras Jaya Bhd
 9601.KL,Ho Wah Genting Bhd
-9628.KL,LEBTECH
 9679.KL,WCT Holdings Berhad
 9687.KL,Ideal United Bintang Berhad
 9695.KL,PLS
@@ -970,7 +945,6 @@
 9741.KL,ROHAS
 9776.KL,Farm&apos;s Best Bhd
 9792.KL,SEG International Bhd
-9814.KL,Bertam Alliance Bhd
 9822.KL,SAM Engineering & Equipment
 9873.KL,Prestar Resources Bhd
 9881.KL,Leader Steel Holdings Bhd
