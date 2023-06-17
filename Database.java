@@ -343,7 +343,7 @@ public class Database {
             if (resultSet.next()) {
                 user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
-                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds")));
+                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds"), resultSet.getBoolean("isNotified")));
                 return user;
             }
 
@@ -368,7 +368,7 @@ public class Database {
             if (resultSet.next()) {
                 user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
-                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds")));
+                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds"), resultSet.getBoolean("isNotified")));
                 return user;
             }
 
@@ -545,7 +545,7 @@ public class Database {
                         resultSet.getString("userName"), resultSet.getString("userPassword"),
                         resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
                         resultSet.getDouble("PL_Points"), resultSet.getString("role"),
-                        resultSet.getDouble("thresholds")));
+                        resultSet.getDouble("thresholds"), resultSet.getBoolean("isNotified")));
             }
             resultSet.close();
             statement.close();
@@ -575,6 +575,47 @@ public class Database {
             e.printStackTrace();
         }
         return adminEmails;
+    }
+
+    //for FraudDetection, to ensure no duplication of notifications of same suspicious user
+    public boolean getUserFDNotificationStatus(int userKey) {
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "SELECT isNotified FROM users WHERE userKey = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, userKey);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                boolean isNotified = resultSet.getBoolean("isNotified");
+                resultSet.close();
+                statement.close();
+                return isNotified;
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Return default value if user is not found or an error occurs
+    }
+
+    public boolean setUserFDNotificationStatus(int userKey) {
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
+            String sql = "UPDATE users SET isNotified = ? WHERE userKey = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setBoolean(1, true);
+            statement.setInt(2, userKey);
+
+            int rowsUpdated = statement.executeUpdate();
+            statement.close();
+
+            // Check if any rows were updated
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }
