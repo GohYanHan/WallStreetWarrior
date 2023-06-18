@@ -198,8 +198,7 @@ public class TradingEngine {
     public boolean isWithinInitialTradingPeriod() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.of(currentTime.getYear(), currentTime.getMonth(), currentTime.getDayOfMonth(), 0, 0)
-//                .plusDays(3); // Add 3 days to the current date
-                .plusSeconds(3); // Add 3 days to the current date
+                .plusDays(3); // Add 3 days to the current date
         return currentTime.isBefore(endTime);
     }
 
