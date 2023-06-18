@@ -6,6 +6,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.prefs.Preferences;
 import org.quartz.*;
@@ -90,10 +91,10 @@ class Notification {
 
                 switch (caseSymbol) {
                     case 1:
-                        message.setText("Your stock " + order.getStock().getSymbol() + " has made a profit of RM " + thresholds);
+                        message.setText("Your stock " + order.getStock().getSymbol() + " is able to make a profit more than or equal to RM " + thresholds);
                         break;
                     case 2:
-                        message.setText("Your stock " + order.getStock().getSymbol() + " has incurred a loss of RM " + thresholds);
+                        message.setText("Your stock " + order.getStock().getSymbol() + " is possible to have a loss more than or equal to RM " + thresholds);
                         break;
                     case 3: //when successfully execute buy order
                         message.setText("Your have successfully purchased " + (order.getStock().getSymbol()) + " at a price of RM" + (order.getExpectedBuyingPrice()) + " for " + (order.getShares()) + " shares.");
@@ -283,6 +284,10 @@ class Notification {
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
+    }
+    String getCurrentTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        return dateFormat.format(new Date());
     }
         /*public void scheduleNotificationJob(String stockSymbol) {
         try {

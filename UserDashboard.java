@@ -16,7 +16,7 @@ public class UserDashboard {
     }
 
 
-    public void calculatePLPoints() {
+    public void calculatePLPoints(User user) {
         List<Order> tradeHistory = db.loadTransactionHistory(user.getKey());
 
         double totalProfitAndLoss = 0.0;
@@ -95,23 +95,15 @@ public class UserDashboard {
     }
 
     public void displayTradeHistory(List<Order> tradeHistory) {
-
-
         if (!tradeHistory.isEmpty()) {
-
-
             //   tradeHistory.sort(Comparator.comparing(Order::getExpectedBuyingPrice).thenComparing(Order::getTimestamp));
-
             //tradeHistory list will be sorted in ascending order first by expectedBuyingPrice, and if there are elements with the same expectedBuyingPrice, those will be further sorted by timestamp.
-
             System.out.println("===========================================================================================");
             System.out.println("|                                Trade History                                            |");
             System.out.println("===========================================================================================");
-
-
             int tradeHistorySize = tradeHistory.size(); // Get the size of the tradeHistory list
 
-// Iterate through the tradeHistory list and print each order
+            // Iterate through the tradeHistory list and print each order
             for (int i = 0; i < tradeHistorySize; i++) {
                 Order order = tradeHistory.get(i);
 
@@ -127,17 +119,14 @@ public class UserDashboard {
 
                 System.out.println("| Timestamp : " + padRight(order.getTimestamp().toString(), 75) + " |");
 
-                if (i == tradeHistorySize - 1) {
-                } else {
+                if (i != tradeHistorySize - 1)
                     System.out.println("|-----------------------------------------------------------------------------------------|");
-                }
             }
-
-// Print the closing line
+            // Print the closing line
             System.out.println("===========================================================================================");
         }
+        else System.out.println("No trade history");
     }
-
 
     private static String padRight(String s, int length) {
         return String.format("%-" + length + "s", s);
@@ -159,17 +148,14 @@ public class UserDashboard {
 
     //oldest to newest
     public void sortTradeHistoryByPlacementTime() {
-        List<Order> tradeHistorybyplacementtime = db.loadTransactionHistory(user.getKey());
-        tradeHistorybyplacementtime.sort(Comparator.comparing(Order::getTimestamp));
-        displayTradeHistory(tradeHistorybyplacementtime); // Pass the sorted list to the display method
+        List<Order> tradeHistoryByPlacementTime = db.loadTransactionHistory(user.getKey());
+        tradeHistoryByPlacementTime.sort(Comparator.comparing(Order::getTimestamp));
+        displayTradeHistory(tradeHistoryByPlacementTime); // Pass the sorted list to the display method
     }
 
     public void chooseSort() {
-
         System.out.println("Trade History: ");
-
         int i;
-
         Scanner k = new Scanner(System.in);
         System.out.println("1: Sort by price");
         System.out.println("2: Sort by placement time");

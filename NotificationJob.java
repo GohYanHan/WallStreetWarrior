@@ -1,6 +1,6 @@
 import org.quartz.*;
-
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +16,7 @@ public class NotificationJob implements StatefulJob {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         //System.out.println("Timer is running...");
         double thresholds = user.getThresholds();
-
+        //System.out.println(thresholds);
         if (thresholds == 0) {
             return;
         }
@@ -28,16 +28,16 @@ public class NotificationJob implements StatefulJob {
         double currentPrice;
 
         if (!getNotificationSent()) {
-            //System.out.println("Bought Price: " + boughtPrice);
+//            System.out.println("Bought Price: " + boughtPrice);
             try {
                 currentPrice = api.getRealTimePrice(currentOrder.getStock().getSymbol()) * currentOrder.getShares();
             } catch (IOException e) {
                 throw new JobExecutionException(e);
             }
 
-            //DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-            //String formattedCurrentPrice = decimalFormat.format(currentPrice);
-            //System.out.println("Current Price: " + formattedCurrentPrice);
+//            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+//            String formattedCurrentPrice = decimalFormat.format(currentPrice);
+//            System.out.println("Current Price: " + formattedCurrentPrice);
 
             if (currentPrice >= boughtPrice + thresholds) {
                 notification.sendNotification(1, user.getEmail(), currentOrder);
@@ -49,35 +49,31 @@ public class NotificationJob implements StatefulJob {
         }
 
         if (getNotificationSent()) {
-            System.out.println("Email sent. Scheduler will stop for 1 hour.");
+//            System.out.println("Email sent. Scheduler will stop for 1 hour.");
 
             // Stop the scheduler if a notification has been sent
             try {
-                context.getScheduler().pauseTrigger(context.getTrigger().getKey());
-            } catch (SchedulerException e) {
-                throw new RuntimeException(e);
-            }
+                Scheduler scheduler = context.getScheduler();
+                scheduler.pauseTrigger(context.getTrigger().getKey());
 
-            // Schedule a new trigger to resume the job after 10minutes
-            Trigger newTrigger = TriggerBuilder.newTrigger()
-                    .withIdentity("notificationTrigger", "group1")
-                    .startAt(Date.from(Instant.now().plusSeconds(600)))
-                    .build();
+                // Schedule a new trigger to resume the job after 1 hour
+                String stockSymbol = context.getJobDetail().getKey().getName().substring("notificationJob.".length());
+                String triggerIdentifier = "notificationTrigger." + stockSymbol + "_" + notification.getCurrentTime();
+                Trigger newTrigger = TriggerBuilder.newTrigger()
+                        .withIdentity(triggerIdentifier, "group1")
+                        .startAt(Date.from(Instant.now().plusSeconds(3600))) // Resume after 1 hour
+                        .build();
 
-            try {
-                context.getScheduler().rescheduleJob(context.getTrigger().getKey(), newTrigger);
+                scheduler.scheduleJob(newTrigger);
             } catch (SchedulerException e) {
                 throw new JobExecutionException(e);
             }
         }
     }
-
     public boolean getNotificationSent() {
         return this.notificationSent;
     }
-
     public void setNotificationSent(boolean notificationSent) {
         this.notificationSent = notificationSent;
     }
 }
-
