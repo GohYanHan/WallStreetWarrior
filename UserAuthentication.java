@@ -3,10 +3,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -231,6 +228,11 @@ public class UserAuthentication {
                                         if (tradingEngine.executeOrder(sellOrder, portfolio)) {
                                             db.addOrder(user.getKey(), sellOrder);
                                             System.out.println("Sell order placed successfully.");
+                                            FraudDetection fd = new FraudDetection();
+                                            fd.setUserSuspicious(user);
+                                            if (fd.suspiciousUserIsPerformingAction(user.getKey())) {
+                                                fd.sendNotification(user);
+                                            }
                                             notification.sendNotification(4, user.getEmail(), sellOrder);
                                         }
                                     } else {
@@ -265,9 +267,27 @@ public class UserAuthentication {
                             System.out.print("Enter your choice: ");
                             choice = scanner.nextInt();
                             if (choice == 1) {
-                                tradingEngine.cancelOrder(db.loadOrders(user.getKey(), Order.Type.BUY), Order.Type.BUY);
+                                List<Order> buyOrders = db.loadOrders(user.getKey(), Order.Type.BUY);
+                                if (buyOrders.isEmpty()) System.out.println("No orders available.");
+                                else tradingEngine.cancelOrder(buyOrders, Order.Type.BUY);
+
                             } else if (choice == 2) {
-                                tradingEngine.cancelOrder(db.loadOrders(user.getKey(), Order.Type.SELL), Order.Type.SELL);
+                                List<Order> sellOrders = db.loadOrders(user.getKey(), Order.Type.SELL);
+                                List<Order> userSellOrders = new ArrayList<>();
+                                if (!sellOrders.isEmpty()) {
+                                    for (Order sellOrder : sellOrders) {
+                                        if (sellOrder.getUser().getKey() == user.getKey())
+                                            userSellOrders.add(sellOrder);
+                                    }
+                                } else {
+                                    System.out.println("No orders available.");
+                                    break;
+                                }
+                                if (!userSellOrders.isEmpty())
+                                    tradingEngine.cancelOrder(userSellOrders, Order.Type.SELL);
+                                else
+                                    System.out.println("No orders available.");
+
                             }
                         } else {
                             System.out.println("User is disqualified. Cannot buy or sell orders");

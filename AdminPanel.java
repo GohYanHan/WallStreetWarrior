@@ -27,22 +27,23 @@ public class AdminPanel {
                 case 1 -> listUsers();
                 case 2 -> {
                     FraudDetection fd = new FraudDetection();
-                    fd.displaySuspiciousUsers();
+                    if(fd.displaySuspiciousUsers()){
                     System.out.print("Do you want to unflag suspicious user? [y/n]: ");
                     char sc = scanner.next().charAt(0);
                     scanner.nextLine();
                     boolean unflag = true;
                     while (unflag) {
-                        if (sc == 'y') {
-                            System.out.print("Which user do you want to unflag?\nEnter the email of the user: ");
-                            String email = scanner.nextLine();
-                            if (db.setUserSuspiciousStatus(false, db.loadUserByEmail(email).getKey()))
-                                System.out.println("Suspicious status of user (" + email + ") has been unflagged.");
-                        } else break;
-                        System.out.print("Do you want to unflag next suspicious user? [y/n]: ");
-                        sc = scanner.next().charAt(0);
-                        scanner.nextLine();
-                        if (sc == 'n') unflag = false;
+                            if (sc == 'y') {
+                                System.out.print("Which user do you want to unflag?\nEnter the email of the user: ");
+                                String email = scanner.nextLine();
+                                if (db.setUserSuspiciousStatus(false, db.loadUserByEmail(email).getKey()))
+                                    System.out.println("Suspicious status of user (" + email + ") has been unflagged.");
+                            } else break;
+                            System.out.print("Do you want to unflag next suspicious user? [y/n]: ");
+                            sc = scanner.next().charAt(0);
+                            scanner.nextLine();
+                            if (sc == 'n') unflag = false;
+                        }
                     }
                 }
 
@@ -92,7 +93,6 @@ public class AdminPanel {
         List<User> users = db.getUsersList();
         System.out.printf("%-6s%-30s%-20s%-15s%-15s%-12s%s%n", "ID", "Email", "Username", "Status", "Balance", "PL Points", "Thresholds");
         for (User user : users) {
-            if (user.getRole().equals("User"))
                 System.out.printf("%-6d%-30s%-20s%-15s%-15.2f%-12.3f%.3f%n", user.getKey(), user.getEmail(), user.getUsername(), user.getStatus(), user.getBalance(), user.getPL_Points(), user.getThresholds());
         }
     }

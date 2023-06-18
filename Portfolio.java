@@ -35,7 +35,6 @@ public class Portfolio {
 
     public void addStock(Order order, int buyShares) {
         boolean found = false;
-        Map<Order,Integer> holdings = db.loadHolding(order.getUser().getKey());
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order existingOrder = entry.getKey();
             int shares = entry.getValue();
@@ -56,7 +55,6 @@ public class Portfolio {
 
     public void removeStock(Order order, int soldShares) {
         boolean found = false;
-        Map<Order,Integer> holdings = db.loadHolding(order.getUser().getKey());
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order existingOrder = entry.getKey();
             int shares = entry.getValue();
@@ -84,7 +82,6 @@ public class Portfolio {
     }
 
     void displayHoldings() {
-        Map<Order,Integer> holdings = db.loadHolding(userKey);
         if (holdings.isEmpty()) {
             System.out.println("No holdings");
         } else {
@@ -105,13 +102,6 @@ public class Portfolio {
 
     void displayBuyOrders() {
         System.out.println("Orders to sell: ");
-//        List<Order> orders = db.loadOrder(userKey, Order.Type.BUY);
-//        for(Order order: orders){
-//            System.out.println("Stock: " + order.getSymbol());
-//            System.out.println("Shares: " + order.getShares());
-//            System.out.println("-".repeat(30));
-//        }
-        holdings = db.loadHolding(userKey);
         for (Map.Entry<Order, Integer> entry : holdings.entrySet()) {
             Order order = entry.getKey();
             int shares = entry.getValue();

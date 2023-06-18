@@ -10,10 +10,6 @@ public class Database {
     private static final String PASSWORD = "abc123";
     private static User user;
 
-    public Database() {
-
-    }
-
     public User getUser() {
         return user;
     }
@@ -343,7 +339,8 @@ public class Database {
             if (resultSet.next()) {
                 user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
-                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds"), resultSet.getBoolean("isSuspicious")));
+                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds"),
+                        resultSet.getBoolean("isSuspicious")));
                 return user;
             }
 
@@ -368,7 +365,8 @@ public class Database {
             if (resultSet.next()) {
                 user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
-                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds"), resultSet.getBoolean("isSuspicious")));
+                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds"),
+                        resultSet.getBoolean("isSuspicious")));
                 return user;
             }
 
@@ -537,8 +535,9 @@ public class Database {
     public List<User> getUsersList() {
         List<User> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "SELECT * FROM users";
+            String sql = "SELECT * FROM users WHERE role = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, "User");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 list.add(new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"),
@@ -556,13 +555,13 @@ public class Database {
         return list;
     }
 
-    //get all admin emails for notification. FraudDetection only
+    // For FraudDetection, get all admin emails for notification only
     public List<String> getAllAdminEmails() {
         List<String> adminEmails = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "SELECT userEmail FROM users WHERE role = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, "admin");
+            statement.setString(1, "Admin");
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -577,13 +576,14 @@ public class Database {
         return adminEmails;
     }
 
-    //for FraudDetection, to ensure no duplication of notifications of same suspicious user
+    // For FraudDetection, to ensure no duplication of notifications of same suspicious user
     public List<User> getSuspiciousUsersList() {
         List<User> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "SELECT * FROM users WHERE isSuspicious = ?";
+            String sql = "SELECT * FROM users WHERE isSuspicious = ? AND role = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setBoolean(1, true); // Set the value for isSuspicious parameter
+            statement.setString(2,"User");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 list.add(new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"),

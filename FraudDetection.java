@@ -14,7 +14,6 @@ public class FraudDetection {
     public void setUserSuspicious(User user) {
         if (isSuspiciousUser(user))
             database.setUserSuspiciousStatus(true, user.getKey());
-
     }
 
 
@@ -31,13 +30,11 @@ public class FraudDetection {
     }
 
     public void sendNotification(User user) {
-
         if (isShortSelling(user)) {
             List<String> adminEmails = database.getAllAdminEmails();
             for (String adminEmail : adminEmails) {
                 notification.sendNotificationToAdminIsShortSelling(adminEmail, user);
             }
-
         }
 
         if (checkTradeMargin(user)) {
@@ -50,51 +47,57 @@ public class FraudDetection {
     }
 
 
-    public void displaySuspiciousUsers() {
+    public boolean displaySuspiciousUsers() {
         System.out.println("Suspicious users: ");
         List<User> suspiciousUsers = database.getSuspiciousUsersList();
-        for (User user : suspiciousUsers) {
-            List<Order> transactions = database.loadTransactionHistory(user.getKey());
+        if (!suspiciousUsers.isEmpty()) {
+            for (User user : suspiciousUsers) {
+                List<Order> transactions = database.loadTransactionHistory(user.getKey());
 
-            System.out.println("Name: " + user.getUsername());
-            System.out.println("Email: " + user.getEmail());
+                System.out.println("Name: " + user.getUsername());
+                System.out.println("Email: " + user.getEmail());
 
-            if (!transactions.isEmpty()) {
-                //   tradeHistory.sort(Comparator.comparing(Order::getExpectedBuyingPrice).thenComparing(Order::getTimestamp));
+                if (!transactions.isEmpty()) {
+                    //   tradeHistory.sort(Comparator.comparing(Order::getExpectedBuyingPrice).thenComparing(Order::getTimestamp));
 
-                //tradeHistory list will be sorted in ascending order first by expectedBuyingPrice, and if there are elements with the same expectedBuyingPrice, those will be further sorted by timestamp.
+                    //tradeHistory list will be sorted in ascending order first by expectedBuyingPrice, and if there are elements with the same expectedBuyingPrice, those will be further sorted by timestamp.
 
-                System.out.println("===========================================================================================");
-                System.out.println("|                                Trade History                                            |");
-                System.out.println("===========================================================================================");
+                    System.out.println("===========================================================================================");
+                    System.out.println("|                                Trade History                                            |");
+                    System.out.println("===========================================================================================");
 
 
-                int tradeHistorySize = transactions.size(); // Get the size of the tradeHistory list
+                    int tradeHistorySize = transactions.size(); // Get the size of the tradeHistory list
 
-                // Iterate through the tradeHistory list and print each order
-                for (int i = 0; i < tradeHistorySize; i++) {
-                    Order order = transactions.get(i);
+                    // Iterate through the tradeHistory list and print each order
+                    for (int i = 0; i < tradeHistorySize; i++) {
+                        Order order = transactions.get(i);
 
-                    System.out.println("| Stock     : " + padRight(order.getStock().getSymbol(), 75) + " |");
-                    System.out.println("| Name      : " + padRight(order.getStock().getName(), 75) + " |");
-                    System.out.println("| Type      : " + padRight(order.getType().toString(), 75) + " |");
-                    System.out.println("| Shares    : " + padRight(String.valueOf(order.getShares()), 75) + " |");
+                        System.out.println("| Stock     : " + padRight(order.getStock().getSymbol(), 75) + " |");
+                        System.out.println("| Name      : " + padRight(order.getStock().getName(), 75) + " |");
+                        System.out.println("| Type      : " + padRight(order.getType().toString(), 75) + " |");
+                        System.out.println("| Shares    : " + padRight(String.valueOf(order.getShares()), 75) + " |");
 
-                    if (order.getType() == Order.Type.BUY)
-                        System.out.println("| Price     : RM " + padRight(String.valueOf(order.getExpectedBuyingPrice()), 72) + " |");
-                    else
-                        System.out.println("| Price     : RM " + padRight(String.valueOf(order.getExpectedSellingPrice()), 72) + " |");
+                        if (order.getType() == Order.Type.BUY)
+                            System.out.println("| Price     : RM " + padRight(String.valueOf(order.getExpectedBuyingPrice()), 72) + " |");
+                        else
+                            System.out.println("| Price     : RM " + padRight(String.valueOf(order.getExpectedSellingPrice()), 72) + " |");
 
-                    System.out.println("| Timestamp : " + padRight(order.getTimestamp().toString(), 75) + " |");
+                        System.out.println("| Timestamp : " + padRight(order.getTimestamp().toString(), 75) + " |");
 
-                    if (i != tradeHistorySize - 1) {
-                        System.out.println("|-----------------------------------------------------------------------------------------|");
+                        if (i != tradeHistorySize - 1) {
+                            System.out.println("|-----------------------------------------------------------------------------------------|");
+                        }
                     }
-                }
 
-                // Print the closing line
-                System.out.println("===========================================================================================");
-            } else System.out.println("No trade history.");
+                    // Print the closing line
+                    System.out.println("===========================================================================================\n");
+                }else System.out.println("No trade history.\n");
+            }
+            return true;
+        } else {
+            System.out.println("No suspicious user.");
+            return false;
         }
     }
 
