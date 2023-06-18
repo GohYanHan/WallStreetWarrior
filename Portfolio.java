@@ -83,7 +83,7 @@ public class Portfolio {
 
     void displayHoldings() {
         if (holdings.isEmpty()) {
-            System.out.println("No holdings");
+            System.out.println("No holdings.");
         } else {
             System.out.println("==============================");
             System.out.println("|          Holdings          |");

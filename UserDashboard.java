@@ -12,7 +12,7 @@ public class UserDashboard {
 
     public void displayAccountBalance() {
         double accountBalance = user.getPortfolio().getAccBalance();
-        System.out.println("Account Balance: $" + accountBalance);
+        System.out.println("Account Balance: RM" + accountBalance);
     }
 
 
