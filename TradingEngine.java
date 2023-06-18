@@ -36,6 +36,7 @@ public class TradingEngine {
         replenishLotPoolDaily();
         if (order.getType() == Order.Type.BUY) {
             if (!findMatch(order, portfolio)) System.out.println("Buy unsuccessful");
+            else System.out.println("Buy order executed successfully.");
         } else { // order type is sell
             boolean found = false;
 
@@ -134,15 +135,12 @@ public class TradingEngine {
             portfolio.setAccBalance(temp);
             portfolio.addStock(order, shares);
             portfolio.addToTradeHistory(order);
-            System.out.println("Buy order executed successfully.");
             notification.sendNotification(3, order.getUser().getEmail(), order);
 
             fd.setUserSuspicious(user);
             if (fd.suspiciousUserIsPerformingAction(user.getKey())) {
                 fd.sendNotification(user);
             }
-        } else {
-            System.out.println("Not enough money");
         }
     }
 
@@ -186,7 +184,6 @@ public class TradingEngine {
             for (Order order : orders) {
                 if (findMatch(order, portfolio)) {
                     db.removeOrder(order.getOrderID()); // Remove from buy order list
-                    System.out.println("Buy order removed from buy order list.");
                 }
             }
 

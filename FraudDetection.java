@@ -97,8 +97,7 @@ public class FraudDetection {
 
                         System.out.println("| Timestamp : " + padRight(order.getTimestamp().toString(), 75) + " |");
 
-                        if (i == tradeHistorySize - 1) {
-                        } else {
+                        if (i != tradeHistorySize - 1) {
                             System.out.println("|-----------------------------------------------------------------------------------------|");
                         }
                     }
@@ -131,6 +130,12 @@ public class FraudDetection {
             } else if (order.getType() == Order.Type.SELL) {
                 stockShares.put(stockSymbol, stockShares.getOrDefault(stockSymbol, 0) - shares);
             }
+        }
+        //Add users sell order holding ( not yet executed )
+        for (Order order : database.loadOrders(user.getKey(), Order.Type.SELL)) {
+            String stockSymbol = order.getStock().getSymbol();
+            int shares = order.getShares();
+            stockShares.put(stockSymbol, stockShares.getOrDefault(stockSymbol, 0) - shares);
         }
 
         Map<Order, Integer> userHoldings = user.getPortfolio().getHoldings();
