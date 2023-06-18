@@ -10,13 +10,13 @@ public class User {
     private double thresholds;
     private Portfolio portfolio;
 
-    private boolean isNotified;
+    private boolean isSuspicious;
 
     public User() {
         this.portfolio = new Portfolio(key, balance);
     }
 
-    public User(int key, String email, String username, String password, String status, double balance, double PL_Points, String role, double thresholds, boolean isNotified) {
+    public User(int key, String email, String username, String password, String status, double balance, double PL_Points, String role, double thresholds, boolean isSuspicious) {
         this.key = key;
         this.email = email;
         this.username = username;
@@ -27,7 +27,7 @@ public class User {
         this.role = role;
         this.thresholds = thresholds;
         this.portfolio = new Portfolio(key, balance);
-        this.isNotified = isNotified;
+        this.isSuspicious = isSuspicious;
     }
 
     public double getThresholds() {
@@ -67,7 +67,8 @@ public class User {
         return role;
     }
 
-    public boolean getIsNotified() {
-        return isNotified;
+    public boolean getIsSuspicious() {
+        return isSuspicious;
     }
 }
+

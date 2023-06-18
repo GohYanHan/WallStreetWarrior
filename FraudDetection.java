@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -6,26 +5,51 @@ import java.util.Map;
 public class FraudDetection {
     private final Database database = new Database();
     private final User user = new User();
-    private Notification notification = new Notification();
+    private Notification notification;
 
-    private List<User> notifiedUsers = new ArrayList<>();
 
-    private boolean sentAlready;
+    public FraudDetection() {
+        notification = new Notification();
+    }
 
-    public void sendNotification() {
-        List<User> users = database.getUsersList();
+    public void setUserSuspicious(User user) {
 
-        for (User user : users) {
+        if (isSuspiciousUser(user)) {
+            database.setUserSuspiciousStatus(user.getKey());
+        }
 
-            sentAlready = database.getUserFDNotificationStatus(user.getKey());
 
-            if (isSuspiciousUser(user) && sentAlready == false) {
-                List<String> adminEmails = database.getAllAdminEmails();
-                for (String adminEmail : adminEmails) {
-                    notification.sendNotificationToAdmin(adminEmail, user);
-                    database.setUserFDNotificationStatus(user.getKey());
-                }
+    }
+
+
+    public boolean suspiciousUserIsPerformingAction(int userKey) {
+        List<User> suspiciousUsers = database.getSuspiciousUsersList();
+
+        for (User suspiciousUser : suspiciousUsers) {
+            if (suspiciousUser.getKey() == userKey) {
+                return true;
             }
+        }
+
+        return false;
+    }
+
+    public void sendNotification(User user) {
+
+        if (isShortSelling(user)) {
+            List<String> adminEmails = database.getAllAdminEmails();
+            for (String adminEmail : adminEmails) {
+                notification.sendNotificationToAdminIsShortSelling(adminEmail, user);
+            }
+
+        }
+
+        if (checkTradeMargin(user)) {
+            List<String> adminEmails = database.getAllAdminEmails();
+            for (String adminEmail : adminEmails) {
+                notification.sendNotificationToAdminTradeOnMargin(adminEmail, user);
+            }
+
         }
     }
 
@@ -91,14 +115,13 @@ public class FraudDetection {
     }
 
     public boolean isSuspiciousUser(User user) {
-        return isShortSelling() || checkTradeOnMargin(user);
+        return isShortSelling(user) || checkTradeMargin(user);
     }
 
-    public boolean isShortSelling() {
+    private boolean isShortSelling(User user) {
         List<Order> transactions = database.loadTransactionHistory(user.getKey());
         Map<String, Integer> stockShares = new HashMap<>();
 
-        // Calculate the total shares for each stock from trade history
         for (Order order : transactions) {
             String stockSymbol = order.getStock().getSymbol();
             int shares = order.getShares();
@@ -109,8 +132,9 @@ public class FraudDetection {
                 stockShares.put(stockSymbol, stockShares.getOrDefault(stockSymbol, 0) - shares);
             }
         }
-        // Compare the calculated shares with the user's holdings
+
         Map<Order, Integer> userHoldings = user.getPortfolio().getHoldings();
+
         for (Map.Entry<Order, Integer> entry : userHoldings.entrySet()) {
             Order order = entry.getKey();
             int userShares = entry.getValue();
@@ -120,10 +144,11 @@ public class FraudDetection {
             }
         }
         return false; // User is not short selling
+
     }
 
-    private boolean checkTradeOnMargin(User user) {
+    private boolean checkTradeMargin(User user) {
         return user.getPortfolio().getAccBalance() > 50000;
     }
-
 }
+

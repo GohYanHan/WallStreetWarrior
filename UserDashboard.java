@@ -86,7 +86,7 @@ public class UserDashboard {
     }
 
     public void displayCurrentPoints() {
-        System.out.println("Current Points: " + db.loadPLpoint());
+        System.out.println("Current Points: " + db.loadPLpoint().get(user.getKey()));
     }
 
 
