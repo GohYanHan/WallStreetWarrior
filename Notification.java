@@ -9,6 +9,10 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Properties;
 import java.util.prefs.Preferences;
 
@@ -145,7 +149,7 @@ class Notification {
     }
 
     //for FraudDetection only
-    public void sendNotificationToAdmin(String userEmail, User suspiciousUser) {
+    public void sendNotificationToAdminIsShortSelling(String userEmail, User suspiciousUser) {
         Properties props;
         Session session;
         MimeMessage message;
@@ -176,13 +180,15 @@ class Notification {
 
             // Build the body of the message
             StringBuilder bodyBuilder = new StringBuilder();
-            bodyBuilder.append("A suspicious user has been detected.\n\n");
+            bodyBuilder.append("A suspicious user has been detected for short selling and is trying to buy or sell.\n\n");
             bodyBuilder.append("Name: ").append(suspiciousUser.getUsername()).append("\n");
             bodyBuilder.append("Email: ").append(suspiciousUser.getEmail()).append("\n\n");
             bodyBuilder.append("Transaction History:\n");
 
+            List<Order> transactions = db.loadTransactionHistory(suspiciousUser.getKey());
+
             // Append each transaction to the body
-            for (Order order : db.loadTransactionHistory(suspiciousUser.getKey())) {
+            for (Order order : transactions) {
                 bodyBuilder.append("Stock Symbol: ").append(order.getStock().getSymbol()).append("\n");
                 bodyBuilder.append("Stock Name: ").append(order.getStock().getName()).append("\n");
                 bodyBuilder.append("Type:  ").append(order.getType()).append("\n");
@@ -203,6 +209,52 @@ class Notification {
             e.printStackTrace();
         }
     }
+
+
+    public void sendNotificationToAdminTradeOnMargin(String userEmail, User suspiciousUser) {
+        Properties props;
+        Session session;
+        MimeMessage message;
+
+        props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+
+        Authenticator auth = new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("sornphert03@gmail.com", "hhftdeernmxqlnaq");
+            }
+        };
+
+        session = Session.getInstance(props, auth);
+
+        try {
+            InternetAddress[] recipients = new InternetAddress[1];
+            recipients[0] = new InternetAddress(userEmail);
+
+            message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(userEmail));
+            message.addRecipients(Message.RecipientType.TO, recipients);
+            message.setSubject("Suspicious User");
+
+            // Build the body of the message
+            StringBuilder bodyBuilder = new StringBuilder();
+            bodyBuilder.append("A suspicious user has been detected for trading on margin and is trying to buy or sell.\n\n");
+            bodyBuilder.append("Name: ").append(suspiciousUser.getUsername()).append("\n");
+            bodyBuilder.append("Email: ").append(suspiciousUser.getEmail()).append("\n\n");
+            bodyBuilder.append("Account balance: RM ").append(suspiciousUser.getPortfolio().getAccBalance()).append("\n");
+
+            message.setText(bodyBuilder.toString());
+
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void scheduleNotificationJob() {
         try {

@@ -343,7 +343,7 @@ public class Database {
             if (resultSet.next()) {
                 user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
-                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds"), resultSet.getBoolean("isNotified")));
+                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds"), resultSet.getBoolean("isSuspicious")));
                 return user;
             }
 
@@ -545,7 +545,7 @@ public class Database {
                         resultSet.getString("userName"), resultSet.getString("userPassword"),
                         resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
                         resultSet.getDouble("PL_Points"), resultSet.getString("role"),
-                        resultSet.getDouble("thresholds"), resultSet.getBoolean("isNotified")));
+                        resultSet.getDouble("thresholds"), resultSet.getBoolean("isSuspicious")));
             }
             resultSet.close();
             statement.close();
@@ -578,31 +578,32 @@ public class Database {
     }
 
     //for FraudDetection, to ensure no duplication of notifications of same suspicious user
-    public boolean getUserFDNotificationStatus(int userKey) {
+    public List<User> getSuspiciousUsersList() {
+        List<User> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "SELECT isNotified FROM users WHERE userKey = ?";
+            String sql = "SELECT * FROM users WHERE isSuspicious = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, userKey);
+            statement.setBoolean(1, true); // Set the value for isSuspicious parameter
             ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                boolean isNotified = resultSet.getBoolean("isNotified");
-                resultSet.close();
-                statement.close();
-                return isNotified;
+            while (resultSet.next()) {
+                list.add(new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"),
+                        resultSet.getString("userName"), resultSet.getString("userPassword"),
+                        resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
+                        resultSet.getDouble("PL_Points"), resultSet.getString("role"),
+                        resultSet.getDouble("thresholds"), resultSet.getBoolean("isSuspicious")));
             }
-
             resultSet.close();
             statement.close();
-        } catch (SQLException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return false; // Return default value if user is not found or an error occurs
+        return list;
     }
 
-    public boolean setUserFDNotificationStatus(int userKey) {
+    public boolean setUserSuspiciousStatus(int userKey) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-            String sql = "UPDATE users SET isNotified = ? WHERE userKey = ?";
+            String sql = "UPDATE users SET isSuspicious = ? WHERE userKey = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setBoolean(1, true);
             statement.setInt(2, userKey);
