@@ -39,7 +39,6 @@ public class TradingEngine {
             else System.out.println("Buy order executed successfully.");
         } else { // order type is sell
             boolean found = false;
-
             for (Map.Entry<Order, Integer> entry : portfolio.getHoldings().entrySet()) { // sell stock in holdings only
                 Order orders = entry.getKey();
                 String stockSymbol = orders.getStock().getSymbol();
@@ -80,7 +79,7 @@ public class TradingEngine {
 
             if (symbolDb.equalsIgnoreCase(order.getStock().getSymbol()) && shareDb == order.getShares() && priceDb == order.getExpectedBuyingPrice()) {
                 tryExecuteBuyOrder(order, portfolio);
-                tryExecuteSellOrder(orderDb,order.getUser());
+                tryExecuteSellOrder(orderDb);
                 db.removeOrder(orderDb.getOrderID()); // Remove from sell order list
                 return true;
             }
@@ -144,7 +143,7 @@ public class TradingEngine {
         }
     }
 
-    private void tryExecuteSellOrder(Order order,User buyUser) {
+    private void tryExecuteSellOrder(Order order) {
         double price = order.getExpectedSellingPrice();
         User orderUser = order.getUser();
         Portfolio portfolio = orderUser.getPortfolio();
@@ -155,10 +154,7 @@ public class TradingEngine {
         UserDashboard dashboard = new UserDashboard(orderUser);
         dashboard.calculatePLPoints(orderUser);
         notification.sendNotification(5, orderUser.getEmail(), order);
-        fd.setUserSuspicious(buyUser);
-        if (fd.suspiciousUserIsPerformingAction(buyUser.getKey())) {
-            fd.sendNotification(buyUser);
-        }
+
 
     }
 
@@ -202,7 +198,8 @@ public class TradingEngine {
     public boolean isWithinInitialTradingPeriod() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime endTime = LocalDateTime.of(currentTime.getYear(), currentTime.getMonth(), currentTime.getDayOfMonth(), 0, 0)
-                .plusDays(3); // Add 3 days to the current date
+//                .plusDays(3); // Add 3 days to the current date
+                .plusSeconds(3); // Add 3 days to the current date
         return currentTime.isBefore(endTime);
     }
 
@@ -258,41 +255,51 @@ public class TradingEngine {
     }
 
     public void cancelOrder(List<Order> orders, Order.Type type) {
-        if (!orders.isEmpty()) {
-            displayOrders(orders, type);
-            System.out.println("Choose the cancel option: ");
-            System.out.println("1. Cancel based on longest time");
-            System.out.println("2. Cancel based on highest price");
+        boolean cancel = true;
+        while (cancel) {
+            if (!orders.isEmpty()) {
+                displayOrders(orders, type);
+                System.out.println("Choose the cancel option: ");
+                System.out.println("1. Cancel based on longest time");
+                System.out.println("2. Cancel based on highest price");
+                System.out.print("Enter your choice: ");
+                Scanner scanner = new Scanner(System.in);
+                int choice = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
 
-            Scanner scanner = new Scanner(System.in);
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
-
-            switch (choice) {
-                case 1:
-                    Order orderToCancelByTime = getOrderWithLongestTime(orders);
-                    db.removeOrder(orderToCancelByTime.getOrderID());
-                    if (type == Order.Type.SELL){
-                        Portfolio portfolio = orderToCancelByTime.getUser().getPortfolio();
-                        portfolio.addStock(orderToCancelByTime, orderToCancelByTime.getShares());
-                    }
-                    System.out.println("Order canceled based on longest time successfully.");
-                    break;
-                case 2:
-                    Order orderToCancelByPrice = getOrderWithHighestPrice(orders, type);
-                    db.removeOrder(orderToCancelByPrice.getOrderID());
-                    if (type == Order.Type.SELL){
-                        Portfolio portfolio = orderToCancelByPrice.getUser().getPortfolio();
-                        portfolio.addStock(orderToCancelByPrice, orderToCancelByPrice.getShares());
-                    }
+                switch (choice) {
+                    case 1:
+                        Order orderToCancelByTime = getOrderWithLongestTime(orders);
+                        db.removeOrder(orderToCancelByTime.getOrderID());
+                        orders.remove(orderToCancelByTime);
+                        if (type == Order.Type.SELL) {
+                            Portfolio portfolio = orderToCancelByTime.getUser().getPortfolio();
+                            portfolio.addStock(orderToCancelByTime, orderToCancelByTime.getShares());
+                        }
+                        System.out.println("Order canceled based on longest time successfully.");
+                        break;
+                    case 2:
+                        Order orderToCancelByPrice = getOrderWithHighestPrice(orders, type);
+                        db.removeOrder(orderToCancelByPrice.getOrderID());
+                        orders.remove(orderToCancelByPrice);
+                        if (type == Order.Type.SELL) {
+                            Portfolio portfolio = orderToCancelByPrice.getUser().getPortfolio();
+                            portfolio.addStock(orderToCancelByPrice, orderToCancelByPrice.getShares());
+                        }
                         System.out.println("Order canceled based on highest price successfully.");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Order cancellation canceled.");
-                    break;
+
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Order cancellation canceled.");
+                        break;
+                }
+                System.out.print("Do you want to cancel next " + type + " order? [y/n]: ");
+                char sc = scanner.next().charAt(0);
+                if (sc == 'n') cancel = false;
+            } else {
+                System.out.println("No orders available.");
+                cancel = false;
             }
-        } else {
-            System.out.println("No Orders available.");
         }
     }
 
@@ -318,9 +325,9 @@ public class TradingEngine {
 
         for (Order order : orders) {
             if (type == Order.Type.BUY) {
-                orderPrice = order.getExpectedSellingPrice();
-            } else if (type == Order.Type.SELL) {
                 orderPrice = order.getExpectedBuyingPrice();
+            } else if (type == Order.Type.SELL) {
+                orderPrice = order.getExpectedSellingPrice();
             }
             if (orderPrice > highestPrice) {
                 highestPrice = orderPrice;
@@ -394,18 +401,12 @@ public class TradingEngine {
         lotPools.putAll(lotPool);
 
         if (!isWithinInitialTradingPeriod()) {
-            System.out.println("Orders available: ");
-            System.out.printf("%-20s %-10s\n", "Stock", "Shares");
-
             for (Map.Entry<Stock, Integer> entry : lotPools.entrySet()) {
                 Stock stock = entry.getKey();
                 Integer value = entry.getValue();
                 System.out.printf("%-1s %-20s %-1s %-20s %-10s%n", "|", stock.getSymbol(), "|", value, "|");
             }
         } else {
-            System.out.println("Orders available: ");
-            System.out.printf("%-20s %-10s\n", "Stock", "Shares");
-
             for (Map.Entry<Stock, Integer> entry : lotPools.entrySet()) {
                 Stock stock = entry.getKey();
                 Integer value = entry.getValue();
@@ -429,6 +430,7 @@ public class TradingEngine {
     }
 
     private void displayOrders(List<Order> orders, Order.Type type) {
+        System.out.println();
         if (type == Order.Type.BUY) {
             for (Order order : orders) {
                 System.out.println("Stock: " + order.getStock().getSymbol());
