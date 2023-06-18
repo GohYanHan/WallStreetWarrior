@@ -6,9 +6,9 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.prefs.Preferences;
+
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.JobBuilder;
@@ -99,7 +99,7 @@ class Notification {
                     case 3: //when successfully execute buy order
                         message.setText("Your have successfully purchased " + (order.getStock().getSymbol()) + " at a price of RM" + (order.getExpectedBuyingPrice()) + " for " + (order.getShares()) + " shares.");
 
-                        scheduleNotificationJob(order.getStock().getSymbol(),thresholds);
+                        scheduleNotificationJob(order.getStock().getSymbol());
 
                         break;
                     case 4: // when place sell order
@@ -189,6 +189,7 @@ class Notification {
             e.printStackTrace();
         }
     }
+
     //for FraudDetection only
     public void sendNotificationToAdminIsShortSelling(String userEmail, User suspiciousUser) {
         Properties props;
@@ -250,14 +251,18 @@ class Notification {
             e.printStackTrace();
         }
     }
-    public void scheduleNotificationJob(String stockSymbol,double thresholds) {
+
+    private static int counter = 1;
+
+    public void scheduleNotificationJob(String stockSymbol) {
         try {
+            double thresholds = db.getUser().getThresholds();
             // Create a Quartz scheduler
             SchedulerFactory schedulerFactory = new StdSchedulerFactory();
             Scheduler scheduler = schedulerFactory.getScheduler();
 
             // Define the job and tie it to the NotificationJob class
-            String jobIdentifier = "notificationJob." + stockSymbol;
+            String jobIdentifier = "notificationJob." + stockSymbol + "_" + counter++;
             JobDetail job = JobBuilder.newJob(NotificationJob.class)
                     .withIdentity(jobIdentifier, "group1")
                     .build();
@@ -266,7 +271,7 @@ class Notification {
             job.getJobDataMap().put("thresholds", thresholds);
 
             // Create a trigger that fires every second
-            String triggerIdentifier = "notificationTrigger." + stockSymbol;
+            String triggerIdentifier = "notificationTrigger." + stockSymbol + "_" + counter;
             Trigger trigger = TriggerBuilder.newTrigger()
                     .withIdentity(triggerIdentifier, "group1")
                     .startNow()
@@ -280,39 +285,9 @@ class Notification {
 
             // Start the scheduler
             scheduler.start();
-//            System.out.println("Timer started for stock symbol: " + stockSymbol);
+            //System.out.println("Timer started for stock symbol: " + stockSymbol + ", Counter: " + counter);
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
     }
-    String getCurrentTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-        return dateFormat.format(new Date());
-    }
-        /*public void scheduleNotificationJob(String stockSymbol) {
-        try {
-            // Define the job and tie it to the  class
-            JobDetail job = JobBuilder.newJob(NotificationJob.class)
-                    .withIdentity(stockSymbol, "notificationJob") // Use stock symbol as the job name and "notificationJob" as the group
-                    .usingJobData("stockSymbol", stockSymbol) // Pass stock symbol as job data
-                    .build();
-
-            // Create a new trigger with a unique name and group
-            String triggerGroup = stockSymbol + "_triggerGroup"; // Use a unique trigger group based on stock symbol
-            Trigger trigger = TriggerBuilder.newTrigger()
-                    .withIdentity(stockSymbol + "_trigger", triggerGroup) // Use a unique trigger name based on stock symbol and the trigger group
-                    .startNow()
-                    .withSchedule(SimpleScheduleBuilder.simpleSchedule()
-                            .withIntervalInSeconds(1)
-                            .repeatForever())
-                    .build();
-
-            // Schedule the job with the trigger
-            System.out.println("Job scheduled for stock symbol: " + stockSymbol);
-            scheduler.scheduleJob(job, trigger);
-
-        } catch (SchedulerException e) {
-            e.printStackTrace();
-        }
-    }*/
 }

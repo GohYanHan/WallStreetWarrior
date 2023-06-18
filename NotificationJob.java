@@ -1,6 +1,5 @@
 import org.quartz.*;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -28,16 +27,16 @@ public class NotificationJob implements StatefulJob {
         double currentPrice;
 
         if (!getNotificationSent()) {
-//            System.out.println("Bought Price: " + boughtPrice);
+            //System.out.println("Bought Price: " + boughtPrice);
             try {
                 currentPrice = api.getRealTimePrice(currentOrder.getStock().getSymbol()) * currentOrder.getShares();
             } catch (IOException e) {
                 throw new JobExecutionException(e);
             }
 
-//            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-//            String formattedCurrentPrice = decimalFormat.format(currentPrice);
-//            System.out.println("Current Price: " + formattedCurrentPrice);
+            //DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+            //String formattedCurrentPrice = decimalFormat.format(currentPrice);
+            //System.out.println("Current Price: " + formattedCurrentPrice);
 
             if (currentPrice >= boughtPrice + thresholds) {
                 notification.sendNotification(1, user.getEmail(), currentOrder);
@@ -49,7 +48,7 @@ public class NotificationJob implements StatefulJob {
         }
 
         if (getNotificationSent()) {
-//            System.out.println("Email sent. Scheduler will stop for 1 hour.");
+            //System.out.println("Email sent. Scheduler will stop for 1 hour.");
 
             // Stop the scheduler if a notification has been sent
             try {
@@ -58,17 +57,20 @@ public class NotificationJob implements StatefulJob {
 
                 // Schedule a new trigger to resume the job after 1 hour
                 String stockSymbol = context.getJobDetail().getKey().getName().substring("notificationJob.".length());
-                String triggerIdentifier = "notificationTrigger." + stockSymbol + "_" + notification.getCurrentTime();
+                int counter = Integer.parseInt(stockSymbol.substring(stockSymbol.length() - 1));
+                String triggerIdentifier = "notificationTrigger." + stockSymbol + "_" + counter;
                 Trigger newTrigger = TriggerBuilder.newTrigger()
                         .withIdentity(triggerIdentifier, "group1")
                         .startAt(Date.from(Instant.now().plusSeconds(3600))) // Resume after 1 hour
                         .build();
 
                 scheduler.scheduleJob(newTrigger);
+                //System.out.println("Scheduler paused. Resuming in 1 hour.");
             } catch (SchedulerException e) {
                 throw new JobExecutionException(e);
             }
         }
+
     }
     public boolean getNotificationSent() {
         return this.notificationSent;

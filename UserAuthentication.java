@@ -58,7 +58,7 @@ public class UserAuthentication {
                 System.out.println("-".repeat(120));
                 if (!Objects.equals(db.getUser().getRole(), "Admin")) {
                     System.out.println("Displaying news today...");
-//                    financeNewsAPI.getNews();
+                    financeNewsAPI.getNews();
                 }
                 return true;
             }
