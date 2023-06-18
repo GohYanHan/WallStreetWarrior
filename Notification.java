@@ -1,3 +1,6 @@
+import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
+
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.*;
@@ -6,14 +9,14 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import java.util.Properties;
 import java.util.prefs.Preferences;
 
 class Notification {
     static boolean notificationSendSetting = true; //default true
-    private double thresholds = 0; //default null
     private final Database db = new Database();
+    private User user = db.getUser();
+    double thresholds = 0; //default null
 
     //on button click do set true or set false, default true, assuming there are 2 buttons(enable/disable)
     public boolean setNotificationSendSettingTrue() {
@@ -47,7 +50,13 @@ class Notification {
         preferences.putBoolean(NOTIFICATION_PREF_KEY, notificationSendSetting);
     }
 
+    public double getThresholds(User user) {
+        return user.getThresholds();
+    }
+
     public void sendNotification(int caseSymbol, String userEmail, Order order) {
+        double thresholds = getThresholds(order.getUser());
+
         if (notificationSendSetting) {
             Properties props;
             Session session;
@@ -77,16 +86,20 @@ class Notification {
 
                 switch (caseSymbol) {
                     case 1:
-                        message.setText("Your stock has made a profit of RM " + thresholds);
+                        message.setText("Your stock " + order.getStock().getSymbol() + " has made a profit of RM " + thresholds);
                         break;
                     case 2:
-                        message.setText("Your stock has reached a loss of RM " + thresholds);
+                        message.setText("Your stock " + order.getStock().getSymbol() + " has incurred a loss of RM " + thresholds);
                         break;
                     case 3: //when successfully execute buy order
                         message.setText("Your have successfully purchased " + (order.getStock().getSymbol()) + " at a price of RM" + (order.getExpectedBuyingPrice()) + " for " + (order.getShares()) + " shares.");
+
+                        scheduleNotificationJob();
+
                         break;
                     case 4: // when place sell order
                         message.setText("Your have successfully placed sell order of " + (order.getStock().getSymbol()) + " at a price of RM" + (order.getExpectedSellingPrice()) + " for " + (order.getShares()) + " shares.");
+
                         break;
 
                     case 5: //when sell order bought by others
@@ -129,44 +142,6 @@ class Notification {
                 e.printStackTrace();
             }
         }
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                List<Order> orders = db.loadOrders(order.getUser().getKey(), Order.Type.BUY);
-                thresholds = order.getUser().getThresholds();
-                boolean notificationSent = false; // Flag variable to track notification status
-
-                for (Order order : orders) {
-                    if (notificationSent) {
-                        break; // Exit the loop if a notification has been sent
-                    }
-                    double boughtPrice = order.getExpectedBuyingPrice(); // Bought price
-                    double currentPrice = 0;
-                    if (boughtPrice - currentPrice >= thresholds) {
-                        try {
-                            API api = new API();
-                            currentPrice = api.getRealTimePrice(order.getStock().getSymbol()) * order.getShares();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    if (currentPrice >= boughtPrice + thresholds) {
-                        sendNotification(1, userEmail, order);
-                        notificationSent = true; // Set the flag to true
-                    } else if (currentPrice <= boughtPrice - thresholds) {
-                        sendNotification(2, userEmail, order);
-                        notificationSent = true; // Set the flag to true
-                    }
-                }
-
-                if (notificationSent) {
-                    timer.cancel(); // Cancel the current timer
-                    timer.schedule(this, 3600000); // Reschedule the timer after 1 hour (3600000 milliseconds)
-                }
-            }
-        }, 0, 1000); // 1000 milliseconds = 1 second
-
     }
 
     //for FraudDetection only
@@ -229,4 +204,63 @@ class Notification {
         }
     }
 
+    public void scheduleNotificationJob() {
+        try {
+            // Create a Quartz scheduler
+            SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+            Scheduler scheduler = schedulerFactory.getScheduler();
+
+            // Define the job and tie it to the NotificationJob class
+            JobDetail job = JobBuilder.newJob(NotificationJob.class)
+                    .withIdentity("notificationJob", "group1")
+                    .build();
+
+            // Pass the thresholds value through the job's JobDataMap
+            job.getJobDataMap().put("thresholds", thresholds);
+
+            // Create a trigger that fires every second
+            Trigger trigger = TriggerBuilder.newTrigger()
+                    .withIdentity("notificationTrigger", "group1")
+                    .startNow()
+                    .withSchedule(SimpleScheduleBuilder.simpleSchedule()
+                            .withIntervalInSeconds(1)
+                            .repeatForever())
+                    .build();
+
+            // Schedule the job with the trigger
+            scheduler.scheduleJob(job, trigger);
+
+            // Start the scheduler
+            scheduler.start();
+
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+        /*public void scheduleNotificationJob(String stockSymbol) {
+        try {
+            // Define the job and tie it to the  class
+            JobDetail job = JobBuilder.newJob(NotificationJob.class)
+                    .withIdentity(stockSymbol, "notificationJob") // Use stock symbol as the job name and "notificationJob" as the group
+                    .usingJobData("stockSymbol", stockSymbol) // Pass stock symbol as job data
+                    .build();
+
+            // Create a new trigger with a unique name and group
+            String triggerGroup = stockSymbol + "_triggerGroup"; // Use a unique trigger group based on stock symbol
+            Trigger trigger = TriggerBuilder.newTrigger()
+                    .withIdentity(stockSymbol + "_trigger", triggerGroup) // Use a unique trigger name based on stock symbol and the trigger group
+                    .startNow()
+                    .withSchedule(SimpleScheduleBuilder.simpleSchedule()
+                            .withIntervalInSeconds(1)
+                            .repeatForever())
+                    .build();
+
+            // Schedule the job with the trigger
+            System.out.println("Job scheduled for stock symbol: " + stockSymbol);
+            scheduler.scheduleJob(job, trigger);
+
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }*/
 }
