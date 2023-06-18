@@ -1,6 +1,3 @@
-import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
-
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.*;
@@ -9,18 +6,21 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Properties;
+import java.util.*;
 import java.util.prefs.Preferences;
+import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.SchedulerFactory;
 
 class Notification {
     static boolean notificationSendSetting = true; //default true
     private final Database db = new Database();
-    private User user = db.getUser();
-    double thresholds = 0; //default null
 
     //on button click do set true or set false, default true, assuming there are 2 buttons(enable/disable)
     public boolean setNotificationSendSettingTrue() {
@@ -98,7 +98,7 @@ class Notification {
                     case 3: //when successfully execute buy order
                         message.setText("Your have successfully purchased " + (order.getStock().getSymbol()) + " at a price of RM" + (order.getExpectedBuyingPrice()) + " for " + (order.getShares()) + " shares.");
 
-                        scheduleNotificationJob();
+                        scheduleNotificationJob(order.getStock().getSymbol(),thresholds);
 
                         break;
                     case 4: // when place sell order
@@ -139,15 +139,55 @@ class Notification {
                         break;
                 }
                 Transport.send(message);
-
-                if (caseSymbol != 5)
-                    System.out.println("Email sent successfully. ");
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    public void sendNotificationToAdminTradeOnMargin(String userEmail, User suspiciousUser) {
+        Properties props;
+        Session session;
+        MimeMessage message;
+
+        props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+
+        Authenticator auth = new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("sornphert03@gmail.com", "hhftdeernmxqlnaq");
+            }
+        };
+
+        session = Session.getInstance(props, auth);
+
+        try {
+            InternetAddress[] recipients = new InternetAddress[1];
+            recipients[0] = new InternetAddress(userEmail);
+
+            message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(userEmail));
+            message.addRecipients(Message.RecipientType.TO, recipients);
+            message.setSubject("Suspicious User");
+
+            // Build the body of the message
+            StringBuilder bodyBuilder = new StringBuilder();
+            bodyBuilder.append("A suspicious user has been detected for trading on margin and is trying to buy or sell.\n\n");
+            bodyBuilder.append("Name: ").append(suspiciousUser.getUsername()).append("\n");
+            bodyBuilder.append("Email: ").append(suspiciousUser.getEmail()).append("\n\n");
+            bodyBuilder.append("Account balance: RM ").append(suspiciousUser.getPortfolio().getAccBalance()).append("\n");
+
+            message.setText(bodyBuilder.toString());
+
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
     //for FraudDetection only
     public void sendNotificationToAdminIsShortSelling(String userEmail, User suspiciousUser) {
         Properties props;
@@ -209,70 +249,25 @@ class Notification {
             e.printStackTrace();
         }
     }
-
-
-    public void sendNotificationToAdminTradeOnMargin(String userEmail, User suspiciousUser) {
-        Properties props;
-        Session session;
-        MimeMessage message;
-
-        props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
-
-        Authenticator auth = new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("sornphert03@gmail.com", "hhftdeernmxqlnaq");
-            }
-        };
-
-        session = Session.getInstance(props, auth);
-
-        try {
-            InternetAddress[] recipients = new InternetAddress[1];
-            recipients[0] = new InternetAddress(userEmail);
-
-            message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(userEmail));
-            message.addRecipients(Message.RecipientType.TO, recipients);
-            message.setSubject("Suspicious User");
-
-            // Build the body of the message
-            StringBuilder bodyBuilder = new StringBuilder();
-            bodyBuilder.append("A suspicious user has been detected for trading on margin and is trying to buy or sell.\n\n");
-            bodyBuilder.append("Name: ").append(suspiciousUser.getUsername()).append("\n");
-            bodyBuilder.append("Email: ").append(suspiciousUser.getEmail()).append("\n\n");
-            bodyBuilder.append("Account balance: RM ").append(suspiciousUser.getPortfolio().getAccBalance()).append("\n");
-
-            message.setText(bodyBuilder.toString());
-
-            Transport.send(message);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void scheduleNotificationJob() {
+    public void scheduleNotificationJob(String stockSymbol,double thresholds) {
         try {
             // Create a Quartz scheduler
             SchedulerFactory schedulerFactory = new StdSchedulerFactory();
             Scheduler scheduler = schedulerFactory.getScheduler();
 
             // Define the job and tie it to the NotificationJob class
+            String jobIdentifier = "notificationJob." + stockSymbol;
             JobDetail job = JobBuilder.newJob(NotificationJob.class)
-                    .withIdentity("notificationJob", "group1")
+                    .withIdentity(jobIdentifier, "group1")
                     .build();
 
             // Pass the thresholds value through the job's JobDataMap
             job.getJobDataMap().put("thresholds", thresholds);
 
             // Create a trigger that fires every second
+            String triggerIdentifier = "notificationTrigger." + stockSymbol;
             Trigger trigger = TriggerBuilder.newTrigger()
-                    .withIdentity("notificationTrigger", "group1")
+                    .withIdentity(triggerIdentifier, "group1")
                     .startNow()
                     .withSchedule(SimpleScheduleBuilder.simpleSchedule()
                             .withIntervalInSeconds(1)
@@ -284,7 +279,7 @@ class Notification {
 
             // Start the scheduler
             scheduler.start();
-
+//            System.out.println("Timer started for stock symbol: " + stockSymbol);
         } catch (SchedulerException e) {
             e.printStackTrace();
         }

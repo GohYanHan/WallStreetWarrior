@@ -78,7 +78,6 @@ public class AdminPanel {
         for (User user : users) {
             if (user.getRole().equals("User"))
                 System.out.printf("%-6d%-30s%-20s%-15s%-15.2f%-12.3f%.3f%n", user.getKey(), user.getEmail(), user.getUsername(), user.getStatus(), user.getBalance(), user.getPL_Points(), user.getThresholds());
-            else continue;
         }
     }
 
