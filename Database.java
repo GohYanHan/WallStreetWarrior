@@ -226,7 +226,7 @@ public class Database {
             }
 
             while (resultSet.next()) {
-                list.add(new Order(resultSet.getInt("orderID"),user,
+                list.add(new Order(resultSet.getInt("orderID"),loadUserByKey(resultSet.getInt("userKey")),
                         new Stock(resultSet.getString("symbol"), resultSet.getString("name")),
                         resultSet.getInt("share"), resultSet.getDouble("price"),
                         resultSet.getTimestamp("time").toLocalDateTime(), type));
@@ -368,7 +368,7 @@ public class Database {
             if (resultSet.next()) {
                 user = (new User(resultSet.getInt("userKey"), resultSet.getString("userEmail"), resultSet.getString("userName"),
                         resultSet.getString("userPassword"), resultSet.getString("userStatus"), resultSet.getDouble("userBalance"),
-                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds"), resultSet.getBoolean("isNotified")));
+                        resultSet.getDouble("PL_Points"), resultSet.getString("role"), resultSet.getDouble("thresholds"), resultSet.getBoolean("isSuspicious")));
                 return user;
             }
 
@@ -601,11 +601,11 @@ public class Database {
         return list;
     }
 
-    public boolean setUserSuspiciousStatus(int userKey) {
+    public boolean setUserSuspiciousStatus(boolean status,int userKey) {
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
             String sql = "UPDATE users SET isSuspicious = ? WHERE userKey = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setBoolean(1, true);
+            statement.setBoolean(1, status);
             statement.setInt(2, userKey);
 
             int rowsUpdated = statement.executeUpdate();

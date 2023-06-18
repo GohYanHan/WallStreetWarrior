@@ -80,7 +80,7 @@ public class TradingEngine {
 
             if (symbolDb.equalsIgnoreCase(order.getStock().getSymbol()) && shareDb == order.getShares() && priceDb == order.getExpectedBuyingPrice()) {
                 tryExecuteBuyOrder(order, portfolio);
-                tryExecuteSellOrder(orderDb);
+                tryExecuteSellOrder(orderDb,order.getUser());
                 db.removeOrder(orderDb.getOrderID()); // Remove from sell order list
                 return true;
             }
@@ -144,21 +144,20 @@ public class TradingEngine {
         }
     }
 
-    private void tryExecuteSellOrder(Order order) {
+    private void tryExecuteSellOrder(Order order,User buyUser) {
         double price = order.getExpectedSellingPrice();
-        User user = order.getUser();
-        Portfolio portfolio = user.getPortfolio();
-
+        User orderUser = order.getUser();
+        Portfolio portfolio = orderUser.getPortfolio();
         double temp = portfolio.getAccBalance();
         temp += price;
-        db.updateUserBalance(user.getKey(), Math.round(temp * 100.0) / 100.0);
+        db.updateUserBalance(orderUser.getKey(), Math.round(temp * 100.0) / 100.0);
         portfolio.addToTradeHistory(order);
-        UserDashboard dashboard = new UserDashboard(user);
-        dashboard.calculatePLPoints();
-        notification.sendNotification(5, user.getEmail(), order);
-        fd.setUserSuspicious(user);
-        if (fd.suspiciousUserIsPerformingAction(user.getKey())) {
-            fd.sendNotification(user);
+        UserDashboard dashboard = new UserDashboard(orderUser);
+        dashboard.calculatePLPoints(orderUser);
+        notification.sendNotification(5, orderUser.getEmail(), order);
+        fd.setUserSuspicious(buyUser);
+        if (fd.suspiciousUserIsPerformingAction(buyUser.getKey())) {
+            fd.sendNotification(buyUser);
         }
 
     }
